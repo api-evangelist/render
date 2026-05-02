@@ -1,0 +1,76 @@
+extends: spectral:oas
+
+rules:
+
+  render-operation-ids-camel-case:
+    description: Render API operation IDs must use camelCase
+    message: "Operation ID '{{value}}' must be camelCase"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  render-tags-title-case:
+    description: All tags must use Title Case
+    message: "Tag '{{value}}' must use Title Case"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].tags[*]"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z0-9 &()/-]*$"
+
+  render-paths-kebab-case:
+    description: Render API path segments must use kebab-case or camelCase IDs
+    message: "Path '{{value}}' should use kebab-case segments"
+    severity: warn
+    given: "$.paths"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/[a-z][a-z0-9-]*|/[a-z][a-zA-Z0-9]*|/\\{[a-zA-Z][a-zA-Z0-9]*\\})*$"
+
+  render-response-200-exists:
+    description: All operations must define a 200 response
+    message: "Operation must define a 200 response"
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete].responses"
+    then:
+      function: truthy
+      field: "200"
+
+  render-bearer-auth:
+    description: Render API uses BearerAuth authentication scheme
+    message: "API must declare BearerAuth security scheme"
+    severity: error
+    given: "$.components.securitySchemes"
+    then:
+      function: truthy
+      field: BearerAuth
+
+  render-resource-ids-in-path:
+    description: Resource IDs in paths must use camelCase with Id suffix
+    message: "Path parameter for resource ID should use camelCase + Id suffix (e.g., {serviceId}, {postgresId})"
+    severity: hint
+    given: "$.paths"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/[a-z][a-z0-9A-Z-]*|/\\{[a-z][a-zA-Z0-9]*Id\\}|/\\{[a-z][a-zA-Z0-9]*\\})*$"
+
+  render-pagination-cursor:
+    description: List operations should support cursor-based pagination
+    message: "GET list operations should include a cursor or limit parameter"
+    severity: hint
+    given: "$.paths[*].get.parameters[*].name"
+    then:
+      function: enumeration
+      functionOptions:
+        values:
+          - cursor
+          - limit
+          - offset
+          - before
+          - after

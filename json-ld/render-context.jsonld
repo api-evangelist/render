@@ -1,0 +1,73 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "render": "https://api.render.com/vocab#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Service": "render:Service",
+    "Deploy": "render:Deploy",
+    "Project": "render:Project",
+    "Environment": "render:Environment",
+    "Postgres": "render:Postgres",
+    "KeyValue": "render:KeyValue",
+    "Blueprint": "render:Blueprint",
+    "EnvGroup": "render:EnvGroup",
+    "Disk": "render:Disk",
+    "CronJob": "render:CronJob",
+    "Workflow": "render:Workflow",
+
+    "id": "@id",
+    "name": "schema:name",
+    "description": "schema:description",
+    "createdAt": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "updatedAt": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+
+    "type": "render:serviceType",
+    "status": "render:status",
+    "plan": "render:plan",
+    "region": "render:region",
+    "ownerId": "render:ownerId",
+    "environmentId": "render:environmentId",
+    "repo": "schema:codeRepository",
+    "branch": "render:branch",
+    "buildCommand": "render:buildCommand",
+    "startCommand": "render:startCommand",
+    "slug": "schema:identifier",
+    "url": "schema:url",
+    "numInstances": "render:numInstances",
+    "runtime": "render:runtime",
+
+    "autoscaling": "render:autoscaling",
+    "trigger": "render:trigger",
+    "commit": "render:commit",
+
+    "serviceTypes": {
+      "@id": "render:serviceTypes",
+      "@type": "@vocab",
+      "@context": {
+        "web_service": "render:WebService",
+        "static_site": "render:StaticSite",
+        "background_worker": "render:BackgroundWorker",
+        "cron_job": "render:CronJob",
+        "private_service": "render:PrivateService"
+      }
+    },
+
+    "statusValues": {
+      "@id": "render:statusValues",
+      "@type": "@vocab",
+      "@context": {
+        "live": "render:Live",
+        "suspended": "render:Suspended",
+        "deactivated": "render:Deactivated"
+      }
+    }
+  }
+}

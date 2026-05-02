@@ -1,0 +1,90 @@
+{
+  "title": "Render Service Structure",
+  "description": "Structural documentation for the Render Service resource",
+  "type": "object",
+  "structure": {
+    "id": {
+      "type": "string",
+      "description": "Unique service identifier",
+      "example": "srv-abc123"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable service name",
+      "example": "my-web-app"
+    },
+    "type": {
+      "type": "string",
+      "description": "Service type: web_service, static_site, background_worker, cron_job, private_service",
+      "example": "web_service"
+    },
+    "ownerId": {
+      "type": "string",
+      "description": "Owner user or team ID",
+      "example": "usr-xyz789"
+    },
+    "plan": {
+      "type": "string",
+      "description": "Service plan tier determining compute and pricing",
+      "example": "standard"
+    },
+    "region": {
+      "type": "string",
+      "description": "Deployment region",
+      "example": "oregon"
+    },
+    "status": {
+      "type": "string",
+      "description": "Current lifecycle status of the service",
+      "example": "live"
+    },
+    "repo": {
+      "type": "string",
+      "description": "Git repository URL for auto-deploy",
+      "example": "https://github.com/org/repo"
+    },
+    "branch": {
+      "type": "string",
+      "description": "Git branch to deploy",
+      "example": "main"
+    },
+    "buildCommand": {
+      "type": "string",
+      "description": "Shell command to build the service",
+      "example": "npm install && npm run build"
+    },
+    "startCommand": {
+      "type": "string",
+      "description": "Shell command to start the service",
+      "example": "node server.js"
+    },
+    "serviceDetails": {
+      "type": "object",
+      "description": "Type-specific service configuration",
+      "properties": {
+        "url": { "type": "string", "description": "Public HTTPS URL" },
+        "numInstances": { "type": "integer", "description": "Running instance count" },
+        "runtime": { "type": "string", "description": "Runtime environment" }
+      }
+    },
+    "autoscaling": {
+      "type": "object",
+      "description": "Autoscaling policy with CPU/memory thresholds and min/max bounds",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "min": { "type": "integer" },
+        "max": { "type": "integer" }
+      }
+    },
+    "createdAt": {
+      "type": "string",
+      "description": "ISO 8601 creation timestamp",
+      "example": "2024-01-15T10:30:00Z"
+    },
+    "updatedAt": {
+      "type": "string",
+      "description": "ISO 8601 last-updated timestamp",
+      "example": "2024-01-15T10:30:00Z"
+    }
+  }
+}

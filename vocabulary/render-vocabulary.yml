@@ -1,0 +1,197 @@
+vocabulary:
+  name: Render Vocabulary
+  description: >-
+    Vocabulary and taxonomy for the Render cloud platform, covering service
+    lifecycle management, deployment orchestration, infrastructure configuration,
+    and observability concepts.
+  version: "1.0"
+  created: "2026-05-02"
+  modified: "2026-05-02"
+  tags:
+    - Cloud
+    - Platform
+    - Deployment
+    - Infrastructure
+
+terms:
+
+  # Service Types
+  - term: Web Service
+    definition: >-
+      A long-running HTTP server process that Render keeps running continuously.
+      Supports auto-deploy from Git, custom domains, and horizontal scaling.
+    category: Service Type
+    tags: [Deployment, Web]
+
+  - term: Static Site
+    definition: >-
+      A collection of static files (HTML, CSS, JS) served via a global CDN.
+      Built from a Git repo and served without a running server process.
+    category: Service Type
+    tags: [Deployment, Web]
+
+  - term: Background Worker
+    definition: >-
+      A long-running process without an HTTP endpoint, used for queues,
+      data pipelines, or scheduled processing tasks.
+    category: Service Type
+    tags: [Deployment, Workers]
+
+  - term: Cron Job
+    definition: >-
+      A scheduled task that runs on a defined CRON schedule. Executes
+      a command and terminates after completion.
+    category: Service Type
+    tags: [Deployment, Scheduling]
+
+  - term: Private Service
+    definition: >-
+      An internal service accessible only within the Render private network,
+      not exposed to the public internet.
+    category: Service Type
+    tags: [Deployment, Network]
+
+  # Deployment Concepts
+  - term: Deploy
+    definition: >-
+      A single build-and-release event for a Render service. Each code push
+      or manual trigger creates a new deploy. Render keeps deploy history
+      for rollback purposes.
+    category: Deployment
+    tags: [Deployment, Lifecycle]
+
+  - term: Rollback
+    definition: >-
+      Revert a service to a previously successful deploy. Render creates
+      a new deploy with the previous build's artifact.
+    category: Deployment
+    tags: [Deployment, Reliability]
+
+  - term: Auto-Deploy
+    definition: >-
+      Automatic deployment triggered by a Git push to the configured branch.
+      Enabled by default for services connected to a Git repository.
+    category: Deployment
+    tags: [Deployment, Automation]
+
+  - term: Blueprint
+    definition: >-
+      An Infrastructure-as-Code definition using a render.yaml file that
+      describes all services, databases, and environment configuration.
+      Enables version-controlled infrastructure management.
+    category: Infrastructure
+    tags: [Infrastructure, IaC]
+
+  # Scaling
+  - term: Autoscaling
+    definition: >-
+      Automatic horizontal scaling based on CPU or memory utilization targets.
+      Render adds or removes service instances dynamically within defined
+      min/max bounds.
+    category: Scaling
+    tags: [Scaling, Performance]
+
+  - term: Instance
+    definition: >-
+      A single running process replica of a web service. Scaling increases
+      or decreases the number of instances to handle load.
+    category: Scaling
+    tags: [Scaling, Infrastructure]
+
+  # Data Services
+  - term: Postgres
+    definition: >-
+      Managed PostgreSQL database service on Render. Supports automated
+      backups, point-in-time recovery, read replicas, and connection pooling.
+    category: Database
+    tags: [Database, PostgreSQL]
+
+  - term: Key Value
+    definition: >-
+      Redis-compatible managed key-value store on Render. Supports caching,
+      session storage, pub/sub, and real-time data patterns.
+    category: Database
+    tags: [Database, Cache, Redis]
+
+  - term: Disk
+    definition: >-
+      Persistent SSD storage volume attached to a service. Data persists
+      across deploys and service restarts.
+    category: Storage
+    tags: [Storage, Infrastructure]
+
+  # Configuration
+  - term: Environment Group
+    definition: >-
+      A named collection of environment variables and secret files that
+      can be shared across multiple services, eliminating duplication.
+    category: Configuration
+    tags: [Configuration, Security]
+
+  - term: Secret File
+    definition: >-
+      A file containing sensitive data (e.g., certificates, private keys)
+      mounted into a service at runtime without appearing in environment variables.
+    category: Configuration
+    tags: [Configuration, Security]
+
+  - term: Registry Credential
+    definition: >-
+      Credentials for authenticating with a private container registry
+      (Docker Hub, GCR, ECR) to pull private Docker images.
+    category: Configuration
+    tags: [Configuration, Docker]
+
+  # Observability
+  - term: Metrics
+    definition: >-
+      Time-series performance data for services including CPU usage, memory
+      usage, HTTP request rates, latency, bandwidth, and instance counts.
+    category: Observability
+    tags: [Monitoring, Performance]
+
+  - term: Logs
+    definition: >-
+      Structured output from service processes, build steps, and deploy events.
+      Render streams logs in real time and supports log forwarding to external services.
+    category: Observability
+    tags: [Monitoring, Logging]
+
+  - term: Audit Log
+    definition: >-
+      An immutable record of administrative actions taken on workspace resources,
+      useful for compliance, security reviews, and incident investigation.
+    category: Observability
+    tags: [Security, Compliance]
+
+  # Workflow
+  - term: Workflow
+    definition: >-
+      A multi-step orchestration definition that chains tasks across services
+      in a configurable execution graph. Used for CI/CD pipelines and
+      complex deployment scenarios.
+    category: Workflow
+    tags: [Automation, Orchestration]
+
+  # Plans
+  - term: Service Plan
+    definition: >-
+      A compute tier that determines CPU, RAM, and pricing for a Render service.
+      Plans range from Free through Starter, Standard, Pro, and Pro Ultra.
+    category: Pricing
+    tags: [Pricing, Infrastructure]
+
+  # Networking
+  - term: Custom Domain
+    definition: >-
+      A user-owned domain name associated with a Render service. Render
+      provisions TLS certificates automatically via Let's Encrypt.
+    category: Networking
+    tags: [Networking, TLS]
+
+  - term: Webhook
+    definition: >-
+      An HTTP callback that Render sends to an external URL when specified
+      events occur (deploys, failures, scale events, etc.).
+    category: Integration
+    tags: [Integration, Events]

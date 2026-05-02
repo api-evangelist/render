@@ -1,0 +1,30 @@
+{
+  "example": "Trigger Render Deployment",
+  "description": "Trigger a new deployment for an existing Render service",
+  "request": {
+    "method": "POST",
+    "url": "https://api.render.com/v1/services/srv-def456/deploys",
+    "headers": {
+      "Authorization": "Bearer rnd_XXXXXXXXXXXXXXXXXXXX",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "clearCache": "do_not_clear"
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "id": "dep-ghi789",
+      "status": "build_in_progress",
+      "trigger": "api",
+      "commit": {
+        "id": "a1b2c3d4e5f6",
+        "message": "Add new feature endpoint",
+        "createdAt": "2026-05-02T00:00:00Z"
+      },
+      "createdAt": "2026-05-02T00:01:00Z",
+      "updatedAt": "2026-05-02T00:01:00Z"
+    }
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api.render.com/schemas/service",
+  "title": "Render Service",
+  "description": "A Render cloud service (web service, static site, background worker, cron job, or private service)",
+  "type": "object",
+  "required": ["id", "name", "type", "ownerId"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the service"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name of the service"
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of Render service",
+      "enum": [
+        "web_service",
+        "static_site",
+        "background_worker",
+        "cron_job",
+        "private_service"
+      ]
+    },
+    "ownerId": {
+      "type": "string",
+      "description": "ID of the user or team that owns the service"
+    },
+    "environmentId": {
+      "type": "string",
+      "description": "ID of the environment the service belongs to"
+    },
+    "repo": {
+      "type": "string",
+      "description": "Git repository URL"
+    },
+    "branch": {
+      "type": "string",
+      "description": "Git branch to deploy from"
+    },
+    "rootDir": {
+      "type": "string",
+      "description": "Root directory for the service build"
+    },
+    "buildCommand": {
+      "type": "string",
+      "description": "Command to build the service"
+    },
+    "startCommand": {
+      "type": "string",
+      "description": "Command to start the service"
+    },
+    "plan": {
+      "type": "string",
+      "description": "Service plan tier",
+      "enum": ["starter", "standard", "pro", "pro_plus", "pro_max", "pro_ultra", "free"]
+    },
+    "region": {
+      "type": "string",
+      "description": "Deployment region",
+      "enum": ["oregon", "ohio", "virginia", "frankfurt", "singapore"]
+    },
+    "status": {
+      "type": "string",
+      "description": "Current service status",
+      "enum": ["live", "not_live", "suspended", "deactivated"]
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-friendly slug for the service"
+    },
+    "serviceDetails": {
+      "type": "object",
+      "description": "Service-type-specific configuration details",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "Public URL of the service"
+        },
+        "numInstances": {
+          "type": "integer",
+          "description": "Number of running instances"
+        },
+        "runtime": {
+          "type": "string",
+          "description": "Runtime environment (node, python, ruby, go, etc.)"
+        },
+        "envVars": {
+          "type": "array",
+          "description": "Environment variables",
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": { "type": "string" },
+              "value": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "autoscaling": {
+      "type": "object",
+      "description": "Autoscaling configuration",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether autoscaling is enabled"
+        },
+        "min": {
+          "type": "integer",
+          "description": "Minimum number of instances"
+        },
+        "max": {
+          "type": "integer",
+          "description": "Maximum number of instances"
+        },
+        "criteria": {
+          "type": "object",
+          "properties": {
+            "cpu": {
+              "type": "object",
+              "properties": {
+                "enabled": { "type": "boolean" },
+                "percentage": { "type": "integer" }
+              }
+            },
+            "memory": {
+              "type": "object",
+              "properties": {
+                "enabled": { "type": "boolean" },
+                "percentage": { "type": "integer" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the service was created"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the service was last updated"
+    }
+  }
+}

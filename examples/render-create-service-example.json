@@ -1,0 +1,50 @@
+{
+  "example": "Create Render Web Service",
+  "description": "Create a new Node.js web service on Render connected to a GitHub repository",
+  "request": {
+    "method": "POST",
+    "url": "https://api.render.com/v1/services",
+    "headers": {
+      "Authorization": "Bearer rnd_XXXXXXXXXXXXXXXXXXXX",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "web_service",
+      "name": "my-node-api",
+      "ownerId": "usr-abc123",
+      "repo": "https://github.com/myorg/my-node-api",
+      "branch": "main",
+      "buildCommand": "npm install",
+      "startCommand": "node index.js",
+      "plan": "standard",
+      "region": "oregon",
+      "serviceDetails": {
+        "runtime": "node",
+        "envVars": [
+          { "key": "NODE_ENV", "value": "production" },
+          { "key": "PORT", "value": "3000" }
+        ]
+      }
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "id": "srv-def456",
+      "name": "my-node-api",
+      "type": "web_service",
+      "ownerId": "usr-abc123",
+      "status": "not_live",
+      "plan": "standard",
+      "region": "oregon",
+      "slug": "my-node-api",
+      "serviceDetails": {
+        "url": "https://my-node-api.onrender.com",
+        "runtime": "node",
+        "numInstances": 1
+      },
+      "createdAt": "2026-05-02T00:00:00Z",
+      "updatedAt": "2026-05-02T00:00:00Z"
+    }
+  }
+}

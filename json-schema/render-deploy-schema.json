@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api.render.com/schemas/deploy",
+  "title": "Render Deploy",
+  "description": "A deployment of a Render service, representing a specific build and release cycle",
+  "type": "object",
+  "required": ["id", "status"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the deploy"
+    },
+    "commit": {
+      "type": "object",
+      "description": "Git commit information for the deploy",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Git commit SHA"
+        },
+        "message": {
+          "type": "string",
+          "description": "Git commit message"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Commit timestamp"
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "description": "Current deploy status",
+      "enum": [
+        "created",
+        "build_in_progress",
+        "update_in_progress",
+        "live",
+        "deactivated",
+        "build_failed",
+        "update_failed",
+        "canceled",
+        "pre_deploy_in_progress",
+        "pre_deploy_failed"
+      ]
+    },
+    "trigger": {
+      "type": "string",
+      "description": "What triggered the deploy",
+      "enum": ["api", "manual", "github", "gitlab", "bitbucket", "auto_rollback"]
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the deploy was initiated"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the deploy status last changed"
+    },
+    "finishedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the deploy completed"
+    }
+  }
+}

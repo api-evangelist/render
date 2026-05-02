@@ -1,0 +1,543 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Render Service Deployment"
+  description: >-
+    Unified workflow for managing the full lifecycle of Render services: deploying
+    web services and background workers, managing PostgreSQL and Key-Value databases,
+    configuring environments and blueprints, monitoring logs and metrics, and
+    scaling infrastructure. Used by platform engineers and DevOps teams automating
+    cloud deployments on Render.
+  tags:
+    - Cloud
+    - Deployment
+    - DevOps
+    - Infrastructure
+    - Platform
+  created: "2026-05-02"
+  modified: "2026-05-02"
+
+binds:
+  - namespace: env
+    keys:
+      RENDER_API_KEY: RENDER_API_KEY
+
+capability:
+  consumes:
+    - import: render
+      location: ./shared/render-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: render-deployment-api
+      description: "Unified REST API for Render service deployment and management."
+      resources:
+        - path: /v1/services
+          name: services
+          description: "Manage Render web services, background workers, and private services"
+          operations:
+            - method: GET
+              name: list-services
+              description: "List all services"
+              call: "render.list-services"
+              with:
+                cursor: "rest.cursor"
+                limit: "rest.limit"
+              outputParameters:
+                - type: array
+                  mapping: "$."
+            - method: POST
+              name: create-service
+              description: "Create a new Render service"
+              call: "render.create-service"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/services/{serviceId}
+          name: service
+          description: "Get, update, or delete a specific service"
+          operations:
+            - method: GET
+              name: get-service
+              description: "Get service details"
+              call: "render.get-service"
+              with:
+                serviceId: "rest.serviceId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PATCH
+              name: update-service
+              description: "Update a service configuration"
+              call: "render.update-service"
+              with:
+                serviceId: "rest.serviceId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: delete-service
+              description: "Delete a service"
+              call: "render.delete-service"
+              with:
+                serviceId: "rest.serviceId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/services/{serviceId}/deploys
+          name: deploys
+          description: "Manage deploys for a service"
+          operations:
+            - method: GET
+              name: list-deploys
+              description: "List deploy history for a service"
+              call: "render.list-deploys"
+              with:
+                serviceId: "rest.serviceId"
+              outputParameters:
+                - type: array
+                  mapping: "$."
+            - method: POST
+              name: trigger-deploy
+              description: "Trigger a new deploy"
+              call: "render.trigger-deploy"
+              with:
+                serviceId: "rest.serviceId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/services/{serviceId}/suspend
+          name: service-suspend
+          description: "Suspend a service"
+          operations:
+            - method: POST
+              name: suspend-service
+              description: "Suspend a running service"
+              call: "render.suspend-service"
+              with:
+                serviceId: "rest.serviceId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/services/{serviceId}/resume
+          name: service-resume
+          description: "Resume a suspended service"
+          operations:
+            - method: POST
+              name: resume-service
+              description: "Resume a suspended service"
+              call: "render.resume-service"
+              with:
+                serviceId: "rest.serviceId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/services/{serviceId}/restart
+          name: service-restart
+          description: "Restart a service"
+          operations:
+            - method: POST
+              name: restart-service
+              description: "Restart a running service"
+              call: "render.restart-service"
+              with:
+                serviceId: "rest.serviceId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/services/{serviceId}/scale
+          name: service-scale
+          description: "Scale a service"
+          operations:
+            - method: POST
+              name: scale-service
+              description: "Scale a service to a specified number of instances"
+              call: "render.scale-service"
+              with:
+                serviceId: "rest.serviceId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/postgres
+          name: postgres
+          description: "Managed PostgreSQL databases"
+          operations:
+            - method: GET
+              name: list-postgres
+              description: "List PostgreSQL instances"
+              call: "render.list-postgres"
+              outputParameters:
+                - type: array
+                  mapping: "$."
+            - method: POST
+              name: create-postgres
+              description: "Create a PostgreSQL instance"
+              call: "render.create-postgres"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/key-value
+          name: key-value
+          description: "Managed Key-Value (Redis-compatible) stores"
+          operations:
+            - method: GET
+              name: list-key-value
+              description: "List Key-Value store instances"
+              call: "render.list-key-value"
+              outputParameters:
+                - type: array
+                  mapping: "$."
+            - method: POST
+              name: create-key-value
+              description: "Create a Key-Value store instance"
+              call: "render.create-key-value"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/blueprints
+          name: blueprints
+          description: "Infrastructure-as-code blueprints"
+          operations:
+            - method: GET
+              name: list-blueprints
+              description: "List all blueprints"
+              call: "render.list-blueprints"
+              outputParameters:
+                - type: array
+                  mapping: "$."
+
+        - path: /v1/env-groups
+          name: env-groups
+          description: "Shared environment variable groups"
+          operations:
+            - method: GET
+              name: list-env-groups
+              description: "List environment groups"
+              call: "render.list-env-groups"
+              outputParameters:
+                - type: array
+                  mapping: "$."
+            - method: POST
+              name: create-env-group
+              description: "Create an environment group"
+              call: "render.create-env-group"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/logs
+          name: logs
+          description: "Service and resource logs"
+          operations:
+            - method: GET
+              name: get-logs
+              description: "Retrieve logs for services"
+              call: "render.get-logs"
+              with:
+                serviceId: "rest.serviceId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/metrics/cpu
+          name: metrics-cpu
+          description: "CPU performance metrics"
+          operations:
+            - method: GET
+              name: get-cpu-metrics
+              description: "Get CPU usage metrics"
+              call: "render.get-cpu-metrics"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/projects
+          name: projects
+          description: "Projects and environments"
+          operations:
+            - method: GET
+              name: list-projects
+              description: "List all projects"
+              call: "render.list-projects"
+              outputParameters:
+                - type: array
+                  mapping: "$."
+            - method: POST
+              name: create-project
+              description: "Create a new project"
+              call: "render.create-project"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9080
+      namespace: render-deployment-mcp
+      transport: http
+      description: "MCP server for AI-assisted Render service management and deployment automation."
+      tools:
+        - name: list-services
+          description: "List all services on the Render account"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "render.list-services"
+          with:
+            limit: "tools.limit"
+          outputParameters:
+            - type: array
+              mapping: "$."
+        - name: get-service
+          description: "Get details for a specific Render service"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "render.get-service"
+          with:
+            serviceId: "tools.serviceId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-service
+          description: "Create a new Render service (web service, background worker, etc.)"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "render.create-service"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-service
+          description: "Update configuration of a Render service"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "render.update-service"
+          with:
+            serviceId: "tools.serviceId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: delete-service
+          description: "Delete a Render service"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "render.delete-service"
+          with:
+            serviceId: "tools.serviceId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: trigger-deploy
+          description: "Trigger a new deployment for a Render service"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "render.trigger-deploy"
+          with:
+            serviceId: "tools.serviceId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: rollback-service
+          description: "Roll back a Render service to a previous deployment"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "render.rollback-service"
+          with:
+            serviceId: "tools.serviceId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-deploys
+          description: "List deploy history for a Render service"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "render.list-deploys"
+          with:
+            serviceId: "tools.serviceId"
+          outputParameters:
+            - type: array
+              mapping: "$."
+        - name: suspend-service
+          description: "Suspend a running Render service to stop billing"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "render.suspend-service"
+          with:
+            serviceId: "tools.serviceId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: resume-service
+          description: "Resume a suspended Render service"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "render.resume-service"
+          with:
+            serviceId: "tools.serviceId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: restart-service
+          description: "Restart a running Render service"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "render.restart-service"
+          with:
+            serviceId: "tools.serviceId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: scale-service
+          description: "Scale a Render service to a specific number of instances"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "render.scale-service"
+          with:
+            serviceId: "tools.serviceId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-logs
+          description: "Retrieve logs for Render services and resources"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "render.get-logs"
+          with:
+            serviceId: "tools.serviceId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-cpu-metrics
+          description: "Get CPU usage metrics for Render services"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "render.get-cpu-metrics"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-memory-metrics
+          description: "Get memory usage metrics for Render services"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "render.get-memory-metrics"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-postgres
+          description: "List PostgreSQL database instances on Render"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "render.list-postgres"
+          outputParameters:
+            - type: array
+              mapping: "$."
+        - name: create-postgres
+          description: "Create a new managed PostgreSQL database on Render"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "render.create-postgres"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: restart-postgres
+          description: "Restart a PostgreSQL database instance"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "render.restart-postgres"
+          with:
+            postgresId: "tools.postgresId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-key-value
+          description: "List Key-Value store instances on Render"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "render.list-key-value"
+          outputParameters:
+            - type: array
+              mapping: "$."
+        - name: create-key-value
+          description: "Create a new Key-Value (Redis-compatible) store on Render"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "render.create-key-value"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-blueprints
+          description: "List infrastructure-as-code blueprints on Render"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "render.list-blueprints"
+          outputParameters:
+            - type: array
+              mapping: "$."
+        - name: list-env-groups
+          description: "List shared environment variable groups"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "render.list-env-groups"
+          outputParameters:
+            - type: array
+              mapping: "$."
+        - name: list-projects
+          description: "List all Render projects"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "render.list-projects"
+          outputParameters:
+            - type: array
+              mapping: "$."
+        - name: create-project
+          description: "Create a new Render project"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "render.create-project"
+          outputParameters:
+            - type: object
+              mapping: "$."

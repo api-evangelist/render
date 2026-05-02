@@ -1,0 +1,503 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Render API"
+  description: >-
+    The Render Public API provides full programmatic control over services,
+    databases, deployments, environment configuration, logs, metrics, and
+    workflow orchestration on the Render cloud platform.
+  tags:
+    - Cloud
+    - Platform
+    - Deployment
+    - Infrastructure
+    - DevOps
+  created: "2026-05-02"
+  modified: "2026-05-02"
+
+binds:
+  - namespace: env
+    keys:
+      RENDER_API_KEY: RENDER_API_KEY
+
+capability:
+  consumes:
+    - type: http
+      namespace: render
+      baseUri: https://api.render.com/v1
+      description: "Render Public API for managing cloud services and infrastructure"
+      authentication:
+        type: bearer
+        token: "{{RENDER_API_KEY}}"
+      resources:
+        - name: services
+          path: /services
+          description: "Web services, static sites, background workers, and private services"
+          operations:
+            - name: list-services
+              method: GET
+              description: "List all services in the account"
+              inputParameters:
+                - name: cursor
+                  in: query
+                  type: string
+                  required: false
+                  description: Cursor for pagination
+                - name: limit
+                  in: query
+                  type: integer
+                  required: false
+                  description: Number of results to return
+                - name: type
+                  in: query
+                  type: string
+                  required: false
+                  description: Filter by service type
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: array
+                  value: "$."
+            - name: create-service
+              method: POST
+              description: "Create a new service"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  type: "{{tools.type}}"
+                  name: "{{tools.name}}"
+                  ownerId: "{{tools.ownerId}}"
+            - name: get-service
+              method: GET
+              description: "Get details of a specific service"
+              inputParameters:
+                - name: serviceId
+                  in: path
+                  type: string
+                  required: true
+                  description: The service ID
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: update-service
+              method: PATCH
+              description: "Update a service configuration"
+              inputParameters:
+                - name: serviceId
+                  in: path
+                  type: string
+                  required: true
+                  description: The service ID
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+            - name: delete-service
+              method: DELETE
+              description: "Delete a service"
+              inputParameters:
+                - name: serviceId
+                  in: path
+                  type: string
+                  required: true
+                  description: The service ID
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: suspend-service
+              method: POST
+              description: "Suspend a running service"
+              inputParameters:
+                - name: serviceId
+                  in: path
+                  type: string
+                  required: true
+                  description: The service ID
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: resume-service
+              method: POST
+              description: "Resume a suspended service"
+              inputParameters:
+                - name: serviceId
+                  in: path
+                  type: string
+                  required: true
+                  description: The service ID
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: restart-service
+              method: POST
+              description: "Restart a running service"
+              inputParameters:
+                - name: serviceId
+                  in: path
+                  type: string
+                  required: true
+                  description: The service ID
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: scale-service
+              method: POST
+              description: "Scale a service to a specific number of instances"
+              inputParameters:
+                - name: serviceId
+                  in: path
+                  type: string
+                  required: true
+                  description: The service ID
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  numInstances: "{{tools.numInstances}}"
+
+        - name: deploys
+          path: /services/{serviceId}/deploys
+          description: "Service deployments and rollbacks"
+          operations:
+            - name: list-deploys
+              method: GET
+              description: "List deploys for a service"
+              inputParameters:
+                - name: serviceId
+                  in: path
+                  type: string
+                  required: true
+                  description: The service ID
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: array
+                  value: "$."
+            - name: trigger-deploy
+              method: POST
+              description: "Trigger a new deploy for a service"
+              inputParameters:
+                - name: serviceId
+                  in: path
+                  type: string
+                  required: true
+                  description: The service ID
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  clearCache: "{{tools.clearCache}}"
+            - name: rollback-service
+              method: POST
+              description: "Rollback a service to a previous deploy"
+              inputParameters:
+                - name: serviceId
+                  in: path
+                  type: string
+                  required: true
+                  description: The service ID
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: postgres
+          path: /postgres
+          description: "PostgreSQL managed database instances"
+          operations:
+            - name: list-postgres
+              method: GET
+              description: "List PostgreSQL database instances"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: array
+                  value: "$."
+            - name: create-postgres
+              method: POST
+              description: "Create a new PostgreSQL instance"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+                  ownerId: "{{tools.ownerId}}"
+                  plan: "{{tools.plan}}"
+            - name: get-postgres
+              method: GET
+              description: "Get details of a PostgreSQL instance"
+              inputParameters:
+                - name: postgresId
+                  in: path
+                  type: string
+                  required: true
+                  description: The PostgreSQL instance ID
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: restart-postgres
+              method: POST
+              description: "Restart a PostgreSQL instance"
+              inputParameters:
+                - name: postgresId
+                  in: path
+                  type: string
+                  required: true
+                  description: The PostgreSQL instance ID
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: key-value
+          path: /key-value
+          description: "Redis-compatible Key-Value store instances"
+          operations:
+            - name: list-key-value
+              method: GET
+              description: "List Key-Value store instances"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: array
+                  value: "$."
+            - name: create-key-value
+              method: POST
+              description: "Create a new Key-Value store instance"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+                  ownerId: "{{tools.ownerId}}"
+                  plan: "{{tools.plan}}"
+
+        - name: blueprints
+          path: /blueprints
+          description: "Infrastructure-as-code blueprints via render.yaml"
+          operations:
+            - name: list-blueprints
+              method: GET
+              description: "List all blueprints"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: array
+                  value: "$."
+            - name: sync-blueprint
+              method: GET
+              description: "Get blueprint sync history"
+              inputParameters:
+                - name: blueprintId
+                  in: path
+                  type: string
+                  required: true
+                  description: The blueprint ID
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: array
+                  value: "$."
+
+        - name: env-groups
+          path: /env-groups
+          description: "Shared environment variable groups"
+          operations:
+            - name: list-env-groups
+              method: GET
+              description: "List environment variable groups"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: array
+                  value: "$."
+            - name: create-env-group
+              method: POST
+              description: "Create an environment variable group"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+                  ownerId: "{{tools.ownerId}}"
+
+        - name: logs
+          path: /logs
+          description: "Service and resource logs"
+          operations:
+            - name: get-logs
+              method: GET
+              description: "Retrieve logs for services and resources"
+              inputParameters:
+                - name: serviceId
+                  in: query
+                  type: string
+                  required: false
+                  description: Filter logs by service ID
+                - name: startTime
+                  in: query
+                  type: string
+                  required: false
+                  description: Start time for log range
+                - name: endTime
+                  in: query
+                  type: string
+                  required: false
+                  description: End time for log range
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: metrics
+          path: /metrics/cpu
+          description: "Service performance metrics"
+          operations:
+            - name: get-cpu-metrics
+              method: GET
+              description: "Get CPU usage metrics"
+              inputParameters:
+                - name: serviceId
+                  in: query
+                  type: string
+                  required: false
+                  description: Filter by service ID
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-memory-metrics
+              method: GET
+              description: "Get memory usage metrics"
+              inputParameters:
+                - name: serviceId
+                  in: query
+                  type: string
+                  required: false
+                  description: Filter by service ID
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: projects
+          path: /projects
+          description: "Project and environment organization"
+          operations:
+            - name: list-projects
+              method: GET
+              description: "List all projects"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: array
+                  value: "$."
+            - name: create-project
+              method: POST
+              description: "Create a new project"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+                  ownerId: "{{tools.ownerId}}"
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: render-api-rest
+      resources:
+        - path: /v1/services
+          name: services
+          description: "Manage Render services"
+          operations:
+            - method: GET
+              name: list-services
+              description: "List all services"
+              call: "render.list-services"
+              outputParameters:
+                - type: array
+                  mapping: "$."
+            - method: POST
+              name: create-service
+              description: "Create a new service"
+              call: "render.create-service"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: render-api-mcp
+      transport: http
+      tools:
+        - name: list-services
+          description: "List all services in the Render account"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "render.list-services"
+          outputParameters:
+            - type: array
+              mapping: "$."
+        - name: create-service
+          description: "Create a new Render service"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "render.create-service"
+          outputParameters:
+            - type: object
+              mapping: "$."
