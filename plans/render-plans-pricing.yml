@@ -1,0 +1,158 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Render
+providerId: render
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - Hosting
+  - PaaS
+description: 'Render compute plans: per-instance hosting + workspace plan ($19/user/mo Professional).'
+sources:
+  - https://render.com/pricing
+plans:
+  - id: render-free-instance
+    name: Free Instance
+    type: freemium
+    description: Free; 512 MB RAM, 0.1 vCPU.
+    entries:
+      - label: Per instance
+        name: instance
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: 512 MB RAM
+      - name: 0.1 vCPU
+      - name: Auto-sleep when idle
+  - id: render-starter
+    name: Starter Instance
+    type: paid
+    description: $7/month per instance.
+    entries:
+      - label: Per instance
+        name: instance
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '7.00'
+        userMultiplied: false
+    elements:
+      - name: 512 MB RAM, 0.5 vCPU
+      - name: Always-on
+      - name: Custom domains
+  - id: render-standard
+    name: Standard Instance
+    type: paid
+    description: $25/month per instance.
+    entries:
+      - label: Per instance
+        name: instance
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '25.00'
+        userMultiplied: false
+    elements:
+      - name: 2 GB RAM, 1 vCPU
+      - name: Horizontal scaling
+  - id: render-pro
+    name: Pro Instance
+    type: paid
+    description: $85/month per instance.
+    entries:
+      - label: Per instance
+        name: instance
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '85.00'
+        userMultiplied: false
+    elements:
+      - name: 4 GB RAM, 2 vCPU
+  - id: render-pro-plus
+    name: Pro Plus Instance
+    type: paid
+    description: $175/month per instance.
+    entries:
+      - label: Per instance
+        name: instance
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '175.00'
+        userMultiplied: false
+    elements:
+      - name: 8 GB RAM, 4 vCPU
+  - id: render-pro-max
+    name: Pro Max Instance
+    type: paid
+    description: $225/month per instance.
+    entries:
+      - label: Per instance
+        name: instance
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '225.00'
+        userMultiplied: false
+    elements:
+      - name: 16 GB RAM, 4 vCPU
+  - id: render-pro-ultra
+    name: Pro Ultra Instance
+    type: paid
+    description: $450/month per instance.
+    entries:
+      - label: Per instance
+        name: instance
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '450.00'
+        userMultiplied: false
+    elements:
+      - name: 32 GB RAM, 8 vCPU
+  - id: render-workspace-pro
+    name: Professional Workspace
+    type: subscription
+    description: $19/user/month workspace.
+    entries:
+      - label: Per workspace member
+        name: seat
+        type: subscription
+        metric: user
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '19.00'
+        userMultiplied: true
+    elements:
+      - name: Team collaboration
+      - name: Workspace controls
+      - name: Audit logs

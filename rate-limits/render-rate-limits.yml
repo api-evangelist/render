@@ -1,0 +1,35 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Render
+providerId: render
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - Rate Limiting
+  - Hosting
+description: Render REST API rate limits per token.
+sources:
+  - https://render.com/pricing
+  - https://api-docs.render.com/reference/rate-limiting
+headers:
+  limit: Ratelimit-Limit
+  remaining: Ratelimit-Remaining
+  reset: Ratelimit-Reset
+responseCodes:
+  throttled: 429
+limits:
+  - name: REST API (default)
+    scope: token
+    metric: requests_per_minute
+    limit: 400
+    timeFrame: minute
+  - name: Deploys
+    scope: service
+    metric: concurrent
+    limit: 1
+  - name: Build concurrency
+    scope: workspace
+    metric: concurrent
+    limit: scales with plan
