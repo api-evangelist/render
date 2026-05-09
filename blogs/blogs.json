@@ -3,11 +3,11 @@
   "feeds": [
     {
       "source": "https://render.com/blog",
-      "feed_url": "https://render.com/blog/feed.rss",
-      "saved": 10,
-      "title": "Render"
+      "feed_url": "https://render.com/blog/feed.xml",
+      "title": "Render",
+      "saved": 0
     }
   ],
   "post_count": 10,
-  "fetched": "2026-05-03T23:34:42Z"
+  "fetched": "2026-05-09T20:17:51Z"
 }
