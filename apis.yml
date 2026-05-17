@@ -91,7 +91,7 @@ common:
     description: Pricing plans for Render services
   - url: https://status.render.com
     name: Render Status
-    type: Status
+    type: StatusPage
     description: Real-time status page for Render services
   - url: https://github.com/renderinc
     name: Render GitHub
