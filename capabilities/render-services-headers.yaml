@@ -1,0 +1,193 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Render Public API — Services - Headers
+  description: 'Render Public API — Services - Headers. 4 operations. Lead operation: List header rules. Self-contained Naftiko
+    capability covering one Render business surface.'
+  tags:
+  - Render
+  - Services - Headers
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RENDER_API_KEY: RENDER_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: render-services-headers
+    baseUri: https://api.render.com/v1
+    description: Render Public API — Services - Headers business capability. Self-contained, no shared references.
+    resources:
+    - name: services-serviceId-headers
+      path: /services/{serviceId}/headers
+      operations:
+      - name: listheaders
+        method: GET
+        description: List header rules
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: path
+          in: query
+          type: array
+          description: Filter for specific paths that headers apply to
+        - name: name
+          in: query
+          type: array
+          description: Filter for header names
+        - name: value
+          in: query
+          type: array
+          description: Filter for header values
+      - name: addheaders
+        method: POST
+        description: Add header rule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updateheaders
+        method: PUT
+        description: Replace header rules
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: services-serviceId-headers-headerId
+      path: /services/{serviceId}/headers/{headerId}
+      operations:
+      - name: deleteheader
+        method: DELETE
+        description: Delete header rule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.RENDER_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: render-services-headers-rest
+    port: 8080
+    description: REST adapter for Render Public API — Services - Headers. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/services/{serviceid}/headers
+      name: services-serviceid-headers
+      description: REST surface for services-serviceId-headers.
+      operations:
+      - method: GET
+        name: listheaders
+        description: List header rules
+        call: render-services-headers.listheaders
+        with:
+          path: rest.path
+          name: rest.name
+          value: rest.value
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: addheaders
+        description: Add header rule
+        call: render-services-headers.addheaders
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateheaders
+        description: Replace header rules
+        call: render-services-headers.updateheaders
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/{serviceid}/headers/{headerid}
+      name: services-serviceid-headers-headerid
+      description: REST surface for services-serviceId-headers-headerId.
+      operations:
+      - method: DELETE
+        name: deleteheader
+        description: Delete header rule
+        call: render-services-headers.deleteheader
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: render-services-headers-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Render Public API — Services - Headers. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-header-rules
+      description: List header rules
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-services-headers.listheaders
+      with:
+        path: tools.path
+        name: tools.name
+        value: tools.value
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-header-rule
+      description: Add header rule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: render-services-headers.addheaders
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: replace-header-rules
+      description: Replace header rules
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: render-services-headers.updateheaders
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-header-rule
+      description: Delete header rule
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: render-services-headers.deleteheader
+      outputParameters:
+      - type: object
+        mapping: $.

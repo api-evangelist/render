@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Render Public API — Users
+  description: 'Render Public API — Users. 1 operations. Lead operation: Get the authenticated user. Self-contained Naftiko
+    capability covering one Render business surface.'
+  tags:
+  - Render
+  - Users
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RENDER_API_KEY: RENDER_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: render-users
+    baseUri: https://api.render.com/v1
+    description: Render Public API — Users business capability. Self-contained, no shared references.
+    resources:
+    - name: users
+      path: /users
+      operations:
+      - name: getuser
+        method: GET
+        description: Get the authenticated user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.RENDER_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: render-users-rest
+    port: 8080
+    description: REST adapter for Render Public API — Users. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/users
+      name: users
+      description: REST surface for users.
+      operations:
+      - method: GET
+        name: getuser
+        description: Get the authenticated user
+        call: render-users.getuser
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: render-users-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Render Public API — Users. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-authenticated-user
+      description: Get the authenticated user
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-users.getuser
+      outputParameters:
+      - type: object
+        mapping: $.

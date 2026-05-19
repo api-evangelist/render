@@ -1,0 +1,492 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Render Public API — Projects & Environments
+  description: 'Render Public API — Projects & Environments. 12 operations. Lead operation: Create environment. Self-contained
+    Naftiko capability covering one Render business surface.'
+  tags:
+  - Render
+  - Projects & Environments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RENDER_API_KEY: RENDER_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: render-projects-environments
+    baseUri: https://api.render.com/v1
+    description: Render Public API — Projects & Environments business capability. Self-contained, no shared references.
+    resources:
+    - name: environments
+      path: /environments
+      operations:
+      - name: createenvironment
+        method: POST
+        description: Create environment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: listenvironments
+        method: GET
+        description: List environments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: environments-environmentId
+      path: /environments/{environmentId}
+      operations:
+      - name: retrieveenvironment
+        method: GET
+        description: Retrieve environment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: environmentId
+          in: path
+          type: string
+          required: true
+      - name: updateenvironment
+        method: PATCH
+        description: Update environment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: environmentId
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteenvironment
+        method: DELETE
+        description: Delete environment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: environmentId
+          in: path
+          type: string
+          required: true
+    - name: environments-environmentId-resources
+      path: /environments/{environmentId}/resources
+      operations:
+      - name: addresourcestoenvironment
+        method: POST
+        description: Add resources to environment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: environmentId
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: removeresourcesfromenvironment
+        method: DELETE
+        description: Remove resources from environment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: environmentId
+          in: path
+          type: string
+          required: true
+        - name: resourceIds
+          in: query
+          type: array
+          required: true
+    - name: projects
+      path: /projects
+      operations:
+      - name: listprojects
+        method: GET
+        description: List projects
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createproject
+        method: POST
+        description: Create project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: projects-projectId
+      path: /projects/{projectId}
+      operations:
+      - name: retrieveproject
+        method: GET
+        description: Retrieve Project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: projectId
+          in: path
+          type: string
+          required: true
+      - name: updateproject
+        method: PATCH
+        description: Update project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: projectId
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteproject
+        method: DELETE
+        description: Delete project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: projectId
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.RENDER_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: render-projects-environments-rest
+    port: 8080
+    description: REST adapter for Render Public API — Projects & Environments. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/environments
+      name: environments
+      description: REST surface for environments.
+      operations:
+      - method: POST
+        name: createenvironment
+        description: Create environment
+        call: render-projects-environments.createenvironment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listenvironments
+        description: List environments
+        call: render-projects-environments.listenvironments
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/environments/{environmentid}
+      name: environments-environmentid
+      description: REST surface for environments-environmentId.
+      operations:
+      - method: GET
+        name: retrieveenvironment
+        description: Retrieve environment
+        call: render-projects-environments.retrieveenvironment
+        with:
+          environmentId: rest.environmentId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateenvironment
+        description: Update environment
+        call: render-projects-environments.updateenvironment
+        with:
+          environmentId: rest.environmentId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteenvironment
+        description: Delete environment
+        call: render-projects-environments.deleteenvironment
+        with:
+          environmentId: rest.environmentId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/environments/{environmentid}/resources
+      name: environments-environmentid-resources
+      description: REST surface for environments-environmentId-resources.
+      operations:
+      - method: POST
+        name: addresourcestoenvironment
+        description: Add resources to environment
+        call: render-projects-environments.addresourcestoenvironment
+        with:
+          environmentId: rest.environmentId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: removeresourcesfromenvironment
+        description: Remove resources from environment
+        call: render-projects-environments.removeresourcesfromenvironment
+        with:
+          environmentId: rest.environmentId
+          resourceIds: rest.resourceIds
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects
+      name: projects
+      description: REST surface for projects.
+      operations:
+      - method: GET
+        name: listprojects
+        description: List projects
+        call: render-projects-environments.listprojects
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createproject
+        description: Create project
+        call: render-projects-environments.createproject
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{projectid}
+      name: projects-projectid
+      description: REST surface for projects-projectId.
+      operations:
+      - method: GET
+        name: retrieveproject
+        description: Retrieve Project
+        call: render-projects-environments.retrieveproject
+        with:
+          projectId: rest.projectId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateproject
+        description: Update project
+        call: render-projects-environments.updateproject
+        with:
+          projectId: rest.projectId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteproject
+        description: Delete project
+        call: render-projects-environments.deleteproject
+        with:
+          projectId: rest.projectId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: render-projects-environments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Render Public API — Projects & Environments. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: create-environment
+      description: Create environment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: render-projects-environments.createenvironment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-environments
+      description: List environments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-projects-environments.listenvironments
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-environment
+      description: Retrieve environment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-projects-environments.retrieveenvironment
+      with:
+        environmentId: tools.environmentId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-environment
+      description: Update environment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: render-projects-environments.updateenvironment
+      with:
+        environmentId: tools.environmentId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-environment
+      description: Delete environment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: render-projects-environments.deleteenvironment
+      with:
+        environmentId: tools.environmentId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-resources-environment
+      description: Add resources to environment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: render-projects-environments.addresourcestoenvironment
+      with:
+        environmentId: tools.environmentId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-resources-environment
+      description: Remove resources from environment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: render-projects-environments.removeresourcesfromenvironment
+      with:
+        environmentId: tools.environmentId
+        resourceIds: tools.resourceIds
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-projects
+      description: List projects
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-projects-environments.listprojects
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-project
+      description: Create project
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: render-projects-environments.createproject
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-project
+      description: Retrieve Project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-projects-environments.retrieveproject
+      with:
+        projectId: tools.projectId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-project
+      description: Update project
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: render-projects-environments.updateproject
+      with:
+        projectId: tools.projectId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-project
+      description: Delete project
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: render-projects-environments.deleteproject
+      with:
+        projectId: tools.projectId
+      outputParameters:
+      - type: object
+        mapping: $.

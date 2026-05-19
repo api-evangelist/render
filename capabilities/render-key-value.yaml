@@ -1,0 +1,326 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Render Public API — Key Value
+  description: 'Render Public API — Key Value. 8 operations. Lead operation: List Key Value instances. Self-contained Naftiko
+    capability covering one Render business surface.'
+  tags:
+  - Render
+  - Key Value
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RENDER_API_KEY: RENDER_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: render-key-value
+    baseUri: https://api.render.com/v1
+    description: Render Public API — Key Value business capability. Self-contained, no shared references.
+    resources:
+    - name: key-value
+      path: /key-value
+      operations:
+      - name: listkeyvalue
+        method: GET
+        description: List Key Value instances
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createkeyvalue
+        method: POST
+        description: Create Key Value instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: key-value-keyValueId
+      path: /key-value/{keyValueId}
+      operations:
+      - name: retrievekeyvalue
+        method: GET
+        description: Retrieve Key Value instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: keyValueId
+          in: path
+          type: string
+          required: true
+      - name: updatekeyvalue
+        method: PATCH
+        description: Update Key Value instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: keyValueId
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletekeyvalue
+        method: DELETE
+        description: Delete Key Value instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: keyValueId
+          in: path
+          type: string
+          required: true
+    - name: key-value-keyValueId-connection-info
+      path: /key-value/{keyValueId}/connection-info
+      operations:
+      - name: retrievekeyvalueconnectioninfo
+        method: GET
+        description: Retrieve Key Value connection info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: keyValueId
+          in: path
+          type: string
+          required: true
+    - name: key-value-keyValueId-resume
+      path: /key-value/{keyValueId}/resume
+      operations:
+      - name: resumekeyvalue
+        method: POST
+        description: Resume Key Value instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: key-value-keyValueId-suspend
+      path: /key-value/{keyValueId}/suspend
+      operations:
+      - name: suspendkeyvalue
+        method: POST
+        description: Suspend Key Value instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.RENDER_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: render-key-value-rest
+    port: 8080
+    description: REST adapter for Render Public API — Key Value. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/key-value
+      name: key-value
+      description: REST surface for key-value.
+      operations:
+      - method: GET
+        name: listkeyvalue
+        description: List Key Value instances
+        call: render-key-value.listkeyvalue
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createkeyvalue
+        description: Create Key Value instance
+        call: render-key-value.createkeyvalue
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/key-value/{keyvalueid}
+      name: key-value-keyvalueid
+      description: REST surface for key-value-keyValueId.
+      operations:
+      - method: GET
+        name: retrievekeyvalue
+        description: Retrieve Key Value instance
+        call: render-key-value.retrievekeyvalue
+        with:
+          keyValueId: rest.keyValueId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatekeyvalue
+        description: Update Key Value instance
+        call: render-key-value.updatekeyvalue
+        with:
+          keyValueId: rest.keyValueId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletekeyvalue
+        description: Delete Key Value instance
+        call: render-key-value.deletekeyvalue
+        with:
+          keyValueId: rest.keyValueId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/key-value/{keyvalueid}/connection-info
+      name: key-value-keyvalueid-connection-info
+      description: REST surface for key-value-keyValueId-connection-info.
+      operations:
+      - method: GET
+        name: retrievekeyvalueconnectioninfo
+        description: Retrieve Key Value connection info
+        call: render-key-value.retrievekeyvalueconnectioninfo
+        with:
+          keyValueId: rest.keyValueId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/key-value/{keyvalueid}/resume
+      name: key-value-keyvalueid-resume
+      description: REST surface for key-value-keyValueId-resume.
+      operations:
+      - method: POST
+        name: resumekeyvalue
+        description: Resume Key Value instance
+        call: render-key-value.resumekeyvalue
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/key-value/{keyvalueid}/suspend
+      name: key-value-keyvalueid-suspend
+      description: REST surface for key-value-keyValueId-suspend.
+      operations:
+      - method: POST
+        name: suspendkeyvalue
+        description: Suspend Key Value instance
+        call: render-key-value.suspendkeyvalue
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: render-key-value-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Render Public API — Key Value. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-key-value-instances
+      description: List Key Value instances
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-key-value.listkeyvalue
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-key-value-instance
+      description: Create Key Value instance
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: render-key-value.createkeyvalue
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-key-value-instance
+      description: Retrieve Key Value instance
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-key-value.retrievekeyvalue
+      with:
+        keyValueId: tools.keyValueId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-key-value-instance
+      description: Update Key Value instance
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: render-key-value.updatekeyvalue
+      with:
+        keyValueId: tools.keyValueId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-key-value-instance
+      description: Delete Key Value instance
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: render-key-value.deletekeyvalue
+      with:
+        keyValueId: tools.keyValueId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-key-value-connection-info
+      description: Retrieve Key Value connection info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-key-value.retrievekeyvalueconnectioninfo
+      with:
+        keyValueId: tools.keyValueId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: resume-key-value-instance
+      description: Resume Key Value instance
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: render-key-value.resumekeyvalue
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: suspend-key-value-instance
+      description: Suspend Key Value instance
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: render-key-value.suspendkeyvalue
+      outputParameters:
+      - type: object
+        mapping: $.

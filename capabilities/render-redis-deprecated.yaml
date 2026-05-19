@@ -1,0 +1,262 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Render Public API — Redis (Deprecated)
+  description: 'Render Public API — Redis (Deprecated). 6 operations. Lead operation: List Redis instances. Self-contained
+    Naftiko capability covering one Render business surface.'
+  tags:
+  - Render
+  - Redis (Deprecated)
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RENDER_API_KEY: RENDER_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: render-redis-deprecated
+    baseUri: https://api.render.com/v1
+    description: Render Public API — Redis (Deprecated) business capability. Self-contained, no shared references.
+    resources:
+    - name: redis
+      path: /redis
+      operations:
+      - name: listredis
+        method: GET
+        description: List Redis instances
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createredis
+        method: POST
+        description: Create Redis instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: redis-redisId
+      path: /redis/{redisId}
+      operations:
+      - name: retrieveredis
+        method: GET
+        description: Retrieve Redis instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: redisId
+          in: path
+          type: string
+          required: true
+      - name: updateredis
+        method: PATCH
+        description: Update Redis instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: redisId
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteredis
+        method: DELETE
+        description: Delete Redis instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: redisId
+          in: path
+          type: string
+          required: true
+    - name: redis-redisId-connection-info
+      path: /redis/{redisId}/connection-info
+      operations:
+      - name: retrieveredisconnectioninfo
+        method: GET
+        description: Retrieve Redis connection info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: redisId
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.RENDER_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: render-redis-deprecated-rest
+    port: 8080
+    description: REST adapter for Render Public API — Redis (Deprecated). One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/redis
+      name: redis
+      description: REST surface for redis.
+      operations:
+      - method: GET
+        name: listredis
+        description: List Redis instances
+        call: render-redis-deprecated.listredis
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createredis
+        description: Create Redis instance
+        call: render-redis-deprecated.createredis
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/redis/{redisid}
+      name: redis-redisid
+      description: REST surface for redis-redisId.
+      operations:
+      - method: GET
+        name: retrieveredis
+        description: Retrieve Redis instance
+        call: render-redis-deprecated.retrieveredis
+        with:
+          redisId: rest.redisId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateredis
+        description: Update Redis instance
+        call: render-redis-deprecated.updateredis
+        with:
+          redisId: rest.redisId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteredis
+        description: Delete Redis instance
+        call: render-redis-deprecated.deleteredis
+        with:
+          redisId: rest.redisId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/redis/{redisid}/connection-info
+      name: redis-redisid-connection-info
+      description: REST surface for redis-redisId-connection-info.
+      operations:
+      - method: GET
+        name: retrieveredisconnectioninfo
+        description: Retrieve Redis connection info
+        call: render-redis-deprecated.retrieveredisconnectioninfo
+        with:
+          redisId: rest.redisId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: render-redis-deprecated-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Render Public API — Redis (Deprecated). One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-redis-instances
+      description: List Redis instances
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-redis-deprecated.listredis
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-redis-instance
+      description: Create Redis instance
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: render-redis-deprecated.createredis
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-redis-instance
+      description: Retrieve Redis instance
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-redis-deprecated.retrieveredis
+      with:
+        redisId: tools.redisId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-redis-instance
+      description: Update Redis instance
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: render-redis-deprecated.updateredis
+      with:
+        redisId: tools.redisId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-redis-instance
+      description: Delete Redis instance
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: render-redis-deprecated.deleteredis
+      with:
+        redisId: tools.redisId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-redis-connection-info
+      description: Retrieve Redis connection info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-redis-deprecated.retrieveredisconnectioninfo
+      with:
+        redisId: tools.redisId
+      outputParameters:
+      - type: object
+        mapping: $.

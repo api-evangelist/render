@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Render Public API — Events
+  description: 'Render Public API — Events. 1 operations. Lead operation: Retrieve event. Self-contained Naftiko capability
+    covering one Render business surface.'
+  tags:
+  - Render
+  - Events
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RENDER_API_KEY: RENDER_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: render-events
+    baseUri: https://api.render.com/v1
+    description: Render Public API — Events business capability. Self-contained, no shared references.
+    resources:
+    - name: events-eventId
+      path: /events/{eventId}
+      operations:
+      - name: retrieveevent
+        method: GET
+        description: Retrieve event
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.RENDER_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: render-events-rest
+    port: 8080
+    description: REST adapter for Render Public API — Events. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/events/{eventid}
+      name: events-eventid
+      description: REST surface for events-eventId.
+      operations:
+      - method: GET
+        name: retrieveevent
+        description: Retrieve event
+        call: render-events.retrieveevent
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: render-events-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Render Public API — Events. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: retrieve-event
+      description: Retrieve event
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-events.retrieveevent
+      outputParameters:
+      - type: object
+        mapping: $.

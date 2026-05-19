@@ -1,0 +1,227 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Render Public API — Custom Domains
+  description: 'Render Public API — Custom Domains. 5 operations. Lead operation: List custom domains. Self-contained Naftiko
+    capability covering one Render business surface.'
+  tags:
+  - Render
+  - Custom Domains
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RENDER_API_KEY: RENDER_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: render-custom-domains
+    baseUri: https://api.render.com/v1
+    description: Render Public API — Custom Domains business capability. Self-contained, no shared references.
+    resources:
+    - name: services-serviceId-custom-domains
+      path: /services/{serviceId}/custom-domains
+      operations:
+      - name: listcustomdomains
+        method: GET
+        description: List custom domains
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: query
+          type: array
+          description: Filter for the names of custom domain
+        - name: domainType
+          in: query
+          type: string
+          description: Filter for domain type
+        - name: verificationStatus
+          in: query
+          type: string
+          description: Filter for domain verification status (`verified` or `unverified`)
+        - name: createdBefore
+          in: query
+          type: string
+          description: Filter for custom domains created before a certain time (specified as an ISO 8601 timestamp)
+        - name: createdAfter
+          in: query
+          type: string
+          description: Filter for custom domains created after a certain time (specified as an ISO 8601 timestamp)
+      - name: createcustomdomain
+        method: POST
+        description: Add custom domain
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: services-serviceId-custom-domains-customDomainIdOrName
+      path: /services/{serviceId}/custom-domains/{customDomainIdOrName}
+      operations:
+      - name: retrievecustomdomain
+        method: GET
+        description: Retrieve custom domain
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletecustomdomain
+        method: DELETE
+        description: Delete custom domain
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-serviceId-custom-domains-customDomainIdOrName-verify
+      path: /services/{serviceId}/custom-domains/{customDomainIdOrName}/verify
+      operations:
+      - name: refreshcustomdomain
+        method: POST
+        description: Verify DNS configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.RENDER_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: render-custom-domains-rest
+    port: 8080
+    description: REST adapter for Render Public API — Custom Domains. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/services/{serviceid}/custom-domains
+      name: services-serviceid-custom-domains
+      description: REST surface for services-serviceId-custom-domains.
+      operations:
+      - method: GET
+        name: listcustomdomains
+        description: List custom domains
+        call: render-custom-domains.listcustomdomains
+        with:
+          name: rest.name
+          domainType: rest.domainType
+          verificationStatus: rest.verificationStatus
+          createdBefore: rest.createdBefore
+          createdAfter: rest.createdAfter
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcustomdomain
+        description: Add custom domain
+        call: render-custom-domains.createcustomdomain
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/{serviceid}/custom-domains/{customdomainidorname}
+      name: services-serviceid-custom-domains-customdomainidorname
+      description: REST surface for services-serviceId-custom-domains-customDomainIdOrName.
+      operations:
+      - method: GET
+        name: retrievecustomdomain
+        description: Retrieve custom domain
+        call: render-custom-domains.retrievecustomdomain
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletecustomdomain
+        description: Delete custom domain
+        call: render-custom-domains.deletecustomdomain
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/{serviceid}/custom-domains/{customdomainidorname}/verify
+      name: services-serviceid-custom-domains-customdomainidorname-verify
+      description: REST surface for services-serviceId-custom-domains-customDomainIdOrName-verify.
+      operations:
+      - method: POST
+        name: refreshcustomdomain
+        description: Verify DNS configuration
+        call: render-custom-domains.refreshcustomdomain
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: render-custom-domains-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Render Public API — Custom Domains. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-custom-domains
+      description: List custom domains
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-custom-domains.listcustomdomains
+      with:
+        name: tools.name
+        domainType: tools.domainType
+        verificationStatus: tools.verificationStatus
+        createdBefore: tools.createdBefore
+        createdAfter: tools.createdAfter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-custom-domain
+      description: Add custom domain
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: render-custom-domains.createcustomdomain
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-custom-domain
+      description: Retrieve custom domain
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-custom-domains.retrievecustomdomain
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-custom-domain
+      description: Delete custom domain
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: render-custom-domains.deletecustomdomain
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: verify-dns-configuration
+      description: Verify DNS configuration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: render-custom-domains.refreshcustomdomain
+      outputParameters:
+      - type: object
+        mapping: $.

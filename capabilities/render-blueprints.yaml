@@ -1,0 +1,236 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Render Public API — Blueprints
+  description: 'Render Public API — Blueprints. 6 operations. Lead operation: List Blueprints. Self-contained Naftiko capability
+    covering one Render business surface.'
+  tags:
+  - Render
+  - Blueprints
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RENDER_API_KEY: RENDER_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: render-blueprints
+    baseUri: https://api.render.com/v1
+    description: Render Public API — Blueprints business capability. Self-contained, no shared references.
+    resources:
+    - name: blueprints
+      path: /blueprints
+      operations:
+      - name: listblueprints
+        method: GET
+        description: List Blueprints
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: blueprints-validate
+      path: /blueprints/validate
+      operations:
+      - name: validateblueprint
+        method: POST
+        description: Validate Blueprint
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: blueprints-blueprintId
+      path: /blueprints/{blueprintId}
+      operations:
+      - name: retrieveblueprint
+        method: GET
+        description: Retrieve Blueprint
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateblueprint
+        method: PATCH
+        description: Update Blueprint
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: disconnectblueprint
+        method: DELETE
+        description: Disconnect Blueprint
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: blueprints-blueprintId-syncs
+      path: /blueprints/{blueprintId}/syncs
+      operations:
+      - name: listblueprintsyncs
+        method: GET
+        description: List Blueprint syncs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.RENDER_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: render-blueprints-rest
+    port: 8080
+    description: REST adapter for Render Public API — Blueprints. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/blueprints
+      name: blueprints
+      description: REST surface for blueprints.
+      operations:
+      - method: GET
+        name: listblueprints
+        description: List Blueprints
+        call: render-blueprints.listblueprints
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/blueprints/validate
+      name: blueprints-validate
+      description: REST surface for blueprints-validate.
+      operations:
+      - method: POST
+        name: validateblueprint
+        description: Validate Blueprint
+        call: render-blueprints.validateblueprint
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/blueprints/{blueprintid}
+      name: blueprints-blueprintid
+      description: REST surface for blueprints-blueprintId.
+      operations:
+      - method: GET
+        name: retrieveblueprint
+        description: Retrieve Blueprint
+        call: render-blueprints.retrieveblueprint
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateblueprint
+        description: Update Blueprint
+        call: render-blueprints.updateblueprint
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: disconnectblueprint
+        description: Disconnect Blueprint
+        call: render-blueprints.disconnectblueprint
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/blueprints/{blueprintid}/syncs
+      name: blueprints-blueprintid-syncs
+      description: REST surface for blueprints-blueprintId-syncs.
+      operations:
+      - method: GET
+        name: listblueprintsyncs
+        description: List Blueprint syncs
+        call: render-blueprints.listblueprintsyncs
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: render-blueprints-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Render Public API — Blueprints. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-blueprints
+      description: List Blueprints
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-blueprints.listblueprints
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: validate-blueprint
+      description: Validate Blueprint
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: render-blueprints.validateblueprint
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-blueprint
+      description: Retrieve Blueprint
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-blueprints.retrieveblueprint
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-blueprint
+      description: Update Blueprint
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: render-blueprints.updateblueprint
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: disconnect-blueprint
+      description: Disconnect Blueprint
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: render-blueprints.disconnectblueprint
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-blueprint-syncs
+      description: List Blueprint syncs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-blueprints.listblueprintsyncs
+      outputParameters:
+      - type: object
+        mapping: $.

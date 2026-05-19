@@ -1,0 +1,539 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Render Public API — Logs
+  description: 'Render Public API — Logs. 10 operations. Lead operation: List logs. Self-contained Naftiko capability covering
+    one Render business surface.'
+  tags:
+  - Render
+  - Logs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RENDER_API_KEY: RENDER_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: render-logs
+    baseUri: https://api.render.com/v1
+    description: Render Public API — Logs business capability. Self-contained, no shared references.
+    resources:
+    - name: logs
+      path: /logs
+      operations:
+      - name: listlogs
+        method: GET
+        description: List logs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: ownerId
+          in: query
+          type: string
+          description: The ID of the workspace to return logs for
+          required: true
+        - name: direction
+          in: query
+          type: string
+          description: The direction to query logs for. Backward will return most recent logs first.
+        - name: resource
+          in: query
+          type: array
+          description: Filter logs by their resource. A resource is the id of a server, cronjob, job, postgres, redis, or
+            workflow.
+          required: true
+        - name: instance
+          in: query
+          type: array
+          description: Filter logs by the instance they were emitted from. An instance is the id of a specific running server.
+        - name: host
+          in: query
+          type: array
+          description: Filter request logs by their host. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions)
+            are supported.
+        - name: statusCode
+          in: query
+          type: array
+          description: Filter request logs by their status code. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions)
+            are supported.
+        - name: method
+          in: query
+          type: array
+          description: Filter request logs by their requests method. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions)
+            are supported.
+        - name: task
+          in: query
+          type: array
+          description: Filter logs by their task(s)
+        - name: taskRun
+          in: query
+          type: array
+          description: Filter logs by their task run id(s)
+        - name: level
+          in: query
+          type: array
+          description: Filter logs by their severity level. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions)
+            are supported.
+        - name: type
+          in: query
+          type: array
+          description: 'Filter logs by their type. Types include `app` for application logs, `request` for request logs, and
+            `build` for build logs. You can find the full set of types '
+        - name: text
+          in: query
+          type: array
+          description: Filter by the text of the logs. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions)
+            are supported.
+        - name: path
+          in: query
+          type: array
+          description: Filter request logs by their path. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions)
+            are supported.
+    - name: logs-streams-owner-ownerId
+      path: /logs/streams/owner/{ownerId}
+      operations:
+      - name: getownerlogstream
+        method: GET
+        description: Retrieve log stream
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: ownerId
+          in: path
+          type: string
+          description: The ID of the workspace to return log stream information for
+          required: true
+      - name: updateownerlogstream
+        method: PUT
+        description: Update log stream
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: ownerId
+          in: path
+          type: string
+          description: The ID of the workspace to update log stream information for
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteownerlogstream
+        method: DELETE
+        description: Delete log stream
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: ownerId
+          in: path
+          type: string
+          description: The ID of the workspace to delete the log stream for
+          required: true
+    - name: logs-streams-resource
+      path: /logs/streams/resource
+      operations:
+      - name: listresourcelogstreams
+        method: GET
+        description: List log stream overrides
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: logStreamId
+          in: query
+          type: array
+          description: Filter log streams by their id.
+        - name: setting
+          in: query
+          type: array
+          description: Filter log streams by their setting.
+    - name: logs-streams-resource-resourceId
+      path: /logs/streams/resource/{resourceId}
+      operations:
+      - name: getresourcelogstream
+        method: GET
+        description: Retrieve log stream override
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: resourceId
+          in: path
+          type: string
+          description: The ID of the resource (server, cron job, postgres, or redis) to return log stream override information
+            for
+          required: true
+      - name: updateresourcelogstream
+        method: PUT
+        description: Update log stream override
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: resourceId
+          in: path
+          type: string
+          description: The ID of the resource (server, cron job, postgres, or redis) to update log stream override information
+            for
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteresourcelogstream
+        method: DELETE
+        description: Delete log stream override
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: resourceId
+          in: path
+          type: string
+          description: The ID of the resource (server, cron job, postgres, or redis) whose log streams should be returned
+          required: true
+    - name: logs-subscribe
+      path: /logs/subscribe
+      operations:
+      - name: subscribelogs
+        method: GET
+        description: Subscribe to new logs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: ownerId
+          in: query
+          type: string
+          description: The ID of the workspace to return logs for
+          required: true
+    - name: logs-values
+      path: /logs/values
+      operations:
+      - name: listlogsvalues
+        method: GET
+        description: List log label values
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: ownerId
+          in: query
+          type: string
+          description: The ID of the workspace to return log label values for
+          required: true
+        - name: label
+          in: query
+          type: string
+          description: The label to query logs for
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.RENDER_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: render-logs-rest
+    port: 8080
+    description: REST adapter for Render Public API — Logs. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/logs
+      name: logs
+      description: REST surface for logs.
+      operations:
+      - method: GET
+        name: listlogs
+        description: List logs
+        call: render-logs.listlogs
+        with:
+          ownerId: rest.ownerId
+          direction: rest.direction
+          resource: rest.resource
+          instance: rest.instance
+          host: rest.host
+          statusCode: rest.statusCode
+          method: rest.method
+          task: rest.task
+          taskRun: rest.taskRun
+          level: rest.level
+          type: rest.type
+          text: rest.text
+          path: rest.path
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/logs/streams/owner/{ownerid}
+      name: logs-streams-owner-ownerid
+      description: REST surface for logs-streams-owner-ownerId.
+      operations:
+      - method: GET
+        name: getownerlogstream
+        description: Retrieve log stream
+        call: render-logs.getownerlogstream
+        with:
+          ownerId: rest.ownerId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateownerlogstream
+        description: Update log stream
+        call: render-logs.updateownerlogstream
+        with:
+          ownerId: rest.ownerId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteownerlogstream
+        description: Delete log stream
+        call: render-logs.deleteownerlogstream
+        with:
+          ownerId: rest.ownerId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/logs/streams/resource
+      name: logs-streams-resource
+      description: REST surface for logs-streams-resource.
+      operations:
+      - method: GET
+        name: listresourcelogstreams
+        description: List log stream overrides
+        call: render-logs.listresourcelogstreams
+        with:
+          logStreamId: rest.logStreamId
+          setting: rest.setting
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/logs/streams/resource/{resourceid}
+      name: logs-streams-resource-resourceid
+      description: REST surface for logs-streams-resource-resourceId.
+      operations:
+      - method: GET
+        name: getresourcelogstream
+        description: Retrieve log stream override
+        call: render-logs.getresourcelogstream
+        with:
+          resourceId: rest.resourceId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateresourcelogstream
+        description: Update log stream override
+        call: render-logs.updateresourcelogstream
+        with:
+          resourceId: rest.resourceId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteresourcelogstream
+        description: Delete log stream override
+        call: render-logs.deleteresourcelogstream
+        with:
+          resourceId: rest.resourceId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/logs/subscribe
+      name: logs-subscribe
+      description: REST surface for logs-subscribe.
+      operations:
+      - method: GET
+        name: subscribelogs
+        description: Subscribe to new logs
+        call: render-logs.subscribelogs
+        with:
+          ownerId: rest.ownerId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/logs/values
+      name: logs-values
+      description: REST surface for logs-values.
+      operations:
+      - method: GET
+        name: listlogsvalues
+        description: List log label values
+        call: render-logs.listlogsvalues
+        with:
+          ownerId: rest.ownerId
+          label: rest.label
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: render-logs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Render Public API — Logs. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-logs
+      description: List logs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-logs.listlogs
+      with:
+        ownerId: tools.ownerId
+        direction: tools.direction
+        resource: tools.resource
+        instance: tools.instance
+        host: tools.host
+        statusCode: tools.statusCode
+        method: tools.method
+        task: tools.task
+        taskRun: tools.taskRun
+        level: tools.level
+        type: tools.type
+        text: tools.text
+        path: tools.path
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-log-stream
+      description: Retrieve log stream
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-logs.getownerlogstream
+      with:
+        ownerId: tools.ownerId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-log-stream
+      description: Update log stream
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: render-logs.updateownerlogstream
+      with:
+        ownerId: tools.ownerId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-log-stream
+      description: Delete log stream
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: render-logs.deleteownerlogstream
+      with:
+        ownerId: tools.ownerId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-log-stream-overrides
+      description: List log stream overrides
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-logs.listresourcelogstreams
+      with:
+        logStreamId: tools.logStreamId
+        setting: tools.setting
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-log-stream-override
+      description: Retrieve log stream override
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-logs.getresourcelogstream
+      with:
+        resourceId: tools.resourceId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-log-stream-override
+      description: Update log stream override
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: render-logs.updateresourcelogstream
+      with:
+        resourceId: tools.resourceId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-log-stream-override
+      description: Delete log stream override
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: render-logs.deleteresourcelogstream
+      with:
+        resourceId: tools.resourceId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: subscribe-new-logs
+      description: Subscribe to new logs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-logs.subscribelogs
+      with:
+        ownerId: tools.ownerId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-log-label-values
+      description: List log label values
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-logs.listlogsvalues
+      with:
+        ownerId: tools.ownerId
+        label: tools.label
+      outputParameters:
+      - type: object
+        mapping: $.

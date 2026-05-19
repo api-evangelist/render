@@ -1,0 +1,256 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Render Public API — Deploys
+  description: 'Render Public API — Deploys. 5 operations. Lead operation: List deploys. Self-contained Naftiko capability
+    covering one Render business surface.'
+  tags:
+  - Render
+  - Deploys
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RENDER_API_KEY: RENDER_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: render-deploys
+    baseUri: https://api.render.com/v1
+    description: Render Public API — Deploys business capability. Self-contained, no shared references.
+    resources:
+    - name: services-serviceId-deploys
+      path: /services/{serviceId}/deploys
+      operations:
+      - name: listdeploys
+        method: GET
+        description: List deploys
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: status
+          in: query
+          type: array
+          description: Filter for deploys with the specified statuses
+        - name: createdBefore
+          in: query
+          type: string
+          description: Filter for deploys created before a certain time (specified as an ISO 8601 timestamp)
+        - name: createdAfter
+          in: query
+          type: string
+          description: Filter for deploys created after a certain time (specified as an ISO 8601 timestamp)
+        - name: updatedBefore
+          in: query
+          type: string
+          description: Filter for deploys updated before a certain time (specified as an ISO 8601 timestamp)
+        - name: updatedAfter
+          in: query
+          type: string
+          description: Filter for deploys updated after a certain time (specified as an ISO 8601 timestamp)
+        - name: finishedBefore
+          in: query
+          type: string
+          description: Filter for deploys finished before a certain time (specified as an ISO 8601 timestamp)
+        - name: finishedAfter
+          in: query
+          type: string
+          description: Filter for deploys finished after a certain time (specified as an ISO 8601 timestamp)
+      - name: createdeploy
+        method: POST
+        description: Trigger deploy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: services-serviceId-deploys-deployId
+      path: /services/{serviceId}/deploys/{deployId}
+      operations:
+      - name: retrievedeploy
+        method: GET
+        description: Retrieve deploy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-serviceId-deploys-deployId-cancel
+      path: /services/{serviceId}/deploys/{deployId}/cancel
+      operations:
+      - name: canceldeploy
+        method: POST
+        description: Cancel deploy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-serviceId-rollback
+      path: /services/{serviceId}/rollback
+      operations:
+      - name: rollbackdeploy
+        method: POST
+        description: Roll back deploy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.RENDER_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: render-deploys-rest
+    port: 8080
+    description: REST adapter for Render Public API — Deploys. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/services/{serviceid}/deploys
+      name: services-serviceid-deploys
+      description: REST surface for services-serviceId-deploys.
+      operations:
+      - method: GET
+        name: listdeploys
+        description: List deploys
+        call: render-deploys.listdeploys
+        with:
+          status: rest.status
+          createdBefore: rest.createdBefore
+          createdAfter: rest.createdAfter
+          updatedBefore: rest.updatedBefore
+          updatedAfter: rest.updatedAfter
+          finishedBefore: rest.finishedBefore
+          finishedAfter: rest.finishedAfter
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createdeploy
+        description: Trigger deploy
+        call: render-deploys.createdeploy
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/{serviceid}/deploys/{deployid}
+      name: services-serviceid-deploys-deployid
+      description: REST surface for services-serviceId-deploys-deployId.
+      operations:
+      - method: GET
+        name: retrievedeploy
+        description: Retrieve deploy
+        call: render-deploys.retrievedeploy
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/{serviceid}/deploys/{deployid}/cancel
+      name: services-serviceid-deploys-deployid-cancel
+      description: REST surface for services-serviceId-deploys-deployId-cancel.
+      operations:
+      - method: POST
+        name: canceldeploy
+        description: Cancel deploy
+        call: render-deploys.canceldeploy
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/{serviceid}/rollback
+      name: services-serviceid-rollback
+      description: REST surface for services-serviceId-rollback.
+      operations:
+      - method: POST
+        name: rollbackdeploy
+        description: Roll back deploy
+        call: render-deploys.rollbackdeploy
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: render-deploys-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Render Public API — Deploys. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-deploys
+      description: List deploys
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-deploys.listdeploys
+      with:
+        status: tools.status
+        createdBefore: tools.createdBefore
+        createdAfter: tools.createdAfter
+        updatedBefore: tools.updatedBefore
+        updatedAfter: tools.updatedAfter
+        finishedBefore: tools.finishedBefore
+        finishedAfter: tools.finishedAfter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: trigger-deploy
+      description: Trigger deploy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: render-deploys.createdeploy
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-deploy
+      description: Retrieve deploy
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: render-deploys.retrievedeploy
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cancel-deploy
+      description: Cancel deploy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: render-deploys.canceldeploy
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: roll-back-deploy
+      description: Roll back deploy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: render-deploys.rollbackdeploy
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
