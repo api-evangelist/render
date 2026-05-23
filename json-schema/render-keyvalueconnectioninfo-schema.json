@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/keyValueConnectionInfo",
+  "title": "keyValueConnectionInfo",
+  "type": "object",
+  "description": "A Key Value instance",
+  "required": [
+    "internalConnectionString",
+    "externalConnectionString",
+    "cliCommand"
+  ],
+  "properties": {
+    "internalConnectionString": {
+      "description": "The connection string to use from within Render",
+      "type": "string"
+    },
+    "externalConnectionString": {
+      "description": "The connection string to use from outside Render",
+      "type": "string",
+      "format": "password"
+    },
+    "cliCommand": {
+      "description": "The CLI (redis-cli or valkey-cli) command to connect to the Key Value instance",
+      "type": "string",
+      "format": "password"
+    }
+  }
+}

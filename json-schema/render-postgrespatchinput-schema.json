@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/postgresPATCHInput",
+  "title": "postgresPATCHInput",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "plan": {
+      "$ref": "#/components/schemas/postgres/properties/plan"
+    },
+    "diskSizeGB": {
+      "type": "integer",
+      "description": "The number of gigabytes of disk space to allocate for the database"
+    },
+    "enableDiskAutoscaling": {
+      "type": "boolean"
+    },
+    "enableHighAvailability": {
+      "type": "boolean"
+    },
+    "datadogAPIKey": {
+      "type": "string",
+      "description": "The Datadog API key for the Datadog agent to monitor the database. Pass empty string to remove. Restarts Postgres on change."
+    },
+    "datadogSite": {
+      "type": "string",
+      "description": "Datadog region to use for monitoring the new database. Defaults to 'US1'.",
+      "example": "US1"
+    },
+    "ipAllowList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/cidrBlockAndDescription"
+      }
+    },
+    "parameterOverrides": {
+      "$ref": "#/components/schemas/postgresParameterOverrides"
+    },
+    "readReplicas": {
+      "$ref": "#/components/schemas/readReplicasInput"
+    }
+  }
+}

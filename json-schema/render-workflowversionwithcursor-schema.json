@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/workflowVersionWithCursor",
+  "title": "workflowVersionWithCursor",
+  "type": "object",
+  "required": [
+    "workflowVersion",
+    "cursor"
+  ],
+  "properties": {
+    "workflowVersion": {
+      "type": "object",
+      "required": [
+        "id",
+        "workflowId",
+        "name",
+        "image",
+        "createdAt",
+        "updatedAt",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "workflowId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "created",
+            "building",
+            "registering",
+            "build_failed",
+            "registration_failed",
+            "ready"
+          ]
+        }
+      }
+    },
+    "cursor": {
+      "$ref": "#/components/schemas/cursor"
+    }
+  }
+}

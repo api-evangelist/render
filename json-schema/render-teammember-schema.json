@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/teamMember",
+  "title": "teamMember",
+  "type": "object",
+  "required": [
+    "userId",
+    "name",
+    "email",
+    "status",
+    "role",
+    "mfaEnabled"
+  ],
+  "properties": {
+    "userId": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive"
+      ]
+    },
+    "role": {
+      "$ref": "#/components/schemas/teamMemberRole"
+    },
+    "mfaEnabled": {
+      "type": "boolean"
+    }
+  }
+}

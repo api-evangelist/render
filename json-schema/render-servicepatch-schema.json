@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/servicePATCH",
+  "title": "servicePATCH",
+  "type": "object",
+  "properties": {
+    "autoDeploy": {
+      "$ref": "#/components/schemas/autoDeploy"
+    },
+    "repo": {
+      "type": "string"
+    },
+    "branch": {
+      "type": "string"
+    },
+    "image": {
+      "$ref": "#/components/schemas/image"
+    },
+    "name": {
+      "type": "string"
+    },
+    "buildFilter": {
+      "$ref": "#/components/schemas/buildFilter"
+    },
+    "rootDir": {
+      "type": "string"
+    },
+    "serviceDetails": {
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/staticSiteDetailsPATCH"
+        },
+        {
+          "$ref": "#/components/schemas/webServiceDetailsPATCH"
+        },
+        {
+          "$ref": "#/components/schemas/privateServiceDetailsPATCH"
+        },
+        {
+          "$ref": "#/components/schemas/backgroundWorkerDetailsPATCH"
+        },
+        {
+          "$ref": "#/components/schemas/cronJobDetailsPATCH"
+        }
+      ]
+    }
+  }
+}

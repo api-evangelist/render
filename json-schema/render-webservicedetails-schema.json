@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/webServiceDetails",
+  "title": "webServiceDetails",
+  "type": "object",
+  "required": [
+    "env",
+    "runtime",
+    "envSpecificDetails",
+    "plan",
+    "region",
+    "numInstances",
+    "buildPlan",
+    "healthCheckPath",
+    "openPorts",
+    "url"
+  ],
+  "properties": {
+    "autoscaling": {
+      "type": "object",
+      "required": [
+        "enabled",
+        "min",
+        "max",
+        "criteria"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "min": {
+          "type": "integer",
+          "description": "The minimum number of instances for the service"
+        },
+        "max": {
+          "type": "integer",
+          "description": "The maximum number of instances for the service"
+        },
+        "criteria": {
+          "type": "object",
+          "required": [
+            "cpu",
+            "memory"
+          ],
+          "properties": {
+            "cpu": {
+              "type": "object",
+              "required": [
+                "enabled",
+                "percentage"
+              ],
+              "properties": {
+                "enabled": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "percentage": {
+                  "type": "integer",
+                  "description": "Determines when your service will be scaled. If the average resource utilization is significantly above/below the target, we will increase/decrease the number of instances.\n"
+                }
+              }
+            },
+            "memory": {
+              "$ref": "#/components/schemas/webServiceDetails/properties/autoscaling/properties/criteria/properties/cpu"
+            }
+          }
+        }
+      }
+    },
+    "cache": {
+      "$ref": "#/components/schemas/cache"
+    },
+    "disk": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "sizeGB",
+        "mountPath"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/paths/~1disks~1%7BdiskId%7D/parameters/0/schema"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sizeGB": {
+          "type": "integer"
+        },
+        "mountPath": {
+          "type": "string"
+        }
+      }
+    },
+    "env": {
+      "$ref": "#/components/schemas/serviceEnv"
+    },
+    "envSpecificDetails": {
+      "$ref": "#/components/schemas/envSpecificDetails"
+    },
+    "healthCheckPath": {
+      "type": "string"
+    },
+    "ipAllowList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/cidrBlockAndDescription"
+      }
+    },
+    "maintenanceMode": {
+      "$ref": "#/components/schemas/maintenanceMode"
+    },
+    "numInstances": {
+      "type": "integer",
+      "description": "For a *manually* scaled service, this is the number of instances the service is scaled to. DOES NOT indicate the number of running instances for an *autoscaled* service."
+    },
+    "openPorts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/serverPort"
+      }
+    },
+    "parentServer": {
+      "$ref": "#/components/schemas/resource"
+    },
+    "plan": {
+      "$ref": "#/components/schemas/plan"
+    },
+    "pullRequestPreviewsEnabled": {
+      "$ref": "#/components/schemas/pullRequestPreviewsEnabled"
+    },
+    "previews": {
+      "$ref": "#/components/schemas/previews"
+    },
+    "region": {
+      "$ref": "#/components/schemas/region"
+    },
+    "runtime": {
+      "$ref": "#/components/schemas/serviceRuntime"
+    },
+    "sshAddress": {
+      "$ref": "#/components/schemas/sshAddress"
+    },
+    "url": {
+      "type": "string"
+    },
+    "buildPlan": {
+      "$ref": "#/components/schemas/buildPlan"
+    },
+    "maxShutdownDelaySeconds": {
+      "$ref": "#/components/schemas/maxShutdownDelaySeconds"
+    },
+    "renderSubdomainPolicy": {
+      "$ref": "#/components/schemas/renderSubdomainPolicy"
+    }
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/workflowWithCursor",
+  "title": "workflowWithCursor",
+  "type": "object",
+  "required": [
+    "workflow",
+    "cursor"
+  ],
+  "properties": {
+    "workflow": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "createdAt",
+        "updatedAt",
+        "ownerId",
+        "region",
+        "runCommand",
+        "buildConfig"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "ownerId": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "buildConfig": {
+          "type": "object",
+          "required": [
+            "buildCommand",
+            "repo",
+            "runtime"
+          ],
+          "properties": {
+            "branch": {
+              "type": "string",
+              "description": "The branch to use for the build, if applicable."
+            },
+            "buildCommand": {
+              "type": "string",
+              "description": "The command to run to build the workflow."
+            },
+            "repo": {
+              "type": "string",
+              "description": "The repository URL to use for the build."
+            },
+            "rootDir": {
+              "type": "string",
+              "description": "The root directory of the repository to use for the build, if applicable."
+            },
+            "runtime": {
+              "type": "string",
+              "enum": [
+                "elixir",
+                "go",
+                "node",
+                "python",
+                "ruby"
+              ],
+              "description": "The runtime environment for the workflow (e.g., node, python, etc.)."
+            }
+          }
+        },
+        "runCommand": {
+          "type": "string",
+          "description": "Command to run the workflow."
+        },
+        "region": {
+          "type": "string",
+          "enum": [
+            "frankfurt",
+            "oregon",
+            "ohio",
+            "singapore",
+            "virginia"
+          ],
+          "default": "oregon",
+          "description": "Defaults to \"oregon\""
+        },
+        "environmentId": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "autoDeployTrigger": {
+          "type": "string",
+          "enum": [
+            "commit",
+            "off",
+            "checksPass"
+          ],
+          "default": "commit",
+          "description": "Controls autodeploy behavior. \"commit\" deploys when a commit is pushed to the branch. \"checksPass\" waits for CI checks to pass before deploying. \"off\" disables autodeploy."
+        }
+      }
+    },
+    "cursor": {
+      "$ref": "#/components/schemas/cursor"
+    }
+  }
+}

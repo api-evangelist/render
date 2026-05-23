@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/privateServiceDetailsPATCH",
+  "title": "privateServiceDetailsPATCH",
+  "type": "object",
+  "properties": {
+    "envSpecificDetails": {
+      "$ref": "#/components/schemas/envSpecificDetailsPATCH"
+    },
+    "plan": {
+      "$ref": "#/components/schemas/paidPlan"
+    },
+    "preDeployCommand": {
+      "type": "string"
+    },
+    "pullRequestPreviewsEnabled": {
+      "$ref": "#/components/schemas/pullRequestPreviewsEnabled"
+    },
+    "previews": {
+      "$ref": "#/components/schemas/previews"
+    },
+    "runtime": {
+      "$ref": "#/components/schemas/serviceRuntime"
+    },
+    "maxShutdownDelaySeconds": {
+      "$ref": "#/components/schemas/maxShutdownDelaySeconds"
+    }
+  }
+}

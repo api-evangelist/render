@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/route",
+  "title": "route",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "source",
+    "destination",
+    "priority"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "type": {
+      "$ref": "#/components/schemas/routeType"
+    },
+    "source": {
+      "type": "string"
+    },
+    "destination": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "integer",
+      "description": "Redirect and Rewrite Rules are applied in priority order starting at 0"
+    }
+  }
+}

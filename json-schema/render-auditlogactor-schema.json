@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/auditLogActor",
+  "title": "auditLogActor",
+  "type": "object",
+  "required": [
+    "type"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "The type of actor that performed the action",
+      "example": "user",
+      "enum": [
+        "user",
+        "rest_api",
+        "system"
+      ]
+    },
+    "email": {
+      "type": "string",
+      "description": "Email address of the actor (if applicable)",
+      "example": "user@example.com"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the actor (if applicable)",
+      "example": "usr-123456789"
+    }
+  }
+}

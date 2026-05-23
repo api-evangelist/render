@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/pullRequestPreviewsEnabled",
+  "title": "pullRequestPreviewsEnabled",
+  "type": "string",
+  "enum": [
+    "yes",
+    "no"
+  ],
+  "default": "no",
+  "deprecated": true,
+  "description": "This field has been deprecated. previews.generation should be used in its place."
+}

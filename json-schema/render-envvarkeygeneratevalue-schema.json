@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/envVarKeyGenerateValue",
+  "title": "envVarKeyGenerateValue",
+  "type": "object",
+  "required": [
+    "key",
+    "generateValue"
+  ],
+  "properties": {
+    "key": {
+      "type": "string"
+    },
+    "generateValue": {
+      "type": "boolean"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/envGroupPOSTInput",
+  "title": "envGroupPOSTInput",
+  "type": "object",
+  "required": [
+    "name",
+    "ownerId",
+    "envVars"
+  ],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "ownerId": {
+      "type": "string"
+    },
+    "envVars": {
+      "$ref": "#/components/schemas/envVarInputArray"
+    },
+    "secretFiles": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/secretFileInput"
+      }
+    },
+    "serviceIds": {
+      "type": "array",
+      "items": {
+        "description": "List of serviceIds to link the envGroup to",
+        "type": "string"
+      }
+    },
+    "environmentId": {
+      "type": "string"
+    }
+  }
+}

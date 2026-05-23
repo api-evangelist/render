@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DeployMode",
+  "title": "DeployMode",
+  "type": "string",
+  "enum": [
+    "deploy_only",
+    "build_and_deploy"
+  ],
+  "description": "Controls deployment behavior when triggering a deploy.\n\n- `deploy_only`: Deploy the last successful build without rebuilding (minimizes downtime)\n- `build_and_deploy`: Build new code and deploy it (default behavior when not specified)\n\n**Note:** `deploy_only` cannot be combined with `commitId`, `imageUrl` or `clearCache` parameters,\nas those are build related fields.\n",
+  "default": "build_and_deploy"
+}

@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/environment",
+  "title": "environment",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "projectId",
+    "databasesIds",
+    "redisIds",
+    "serviceIds",
+    "envGroupIds",
+    "protectedStatus",
+    "networkIsolationEnabled"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "projectId": {
+      "type": "string"
+    },
+    "databasesIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ipAllowList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/cidrBlockAndDescription"
+      }
+    },
+    "redisIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "serviceIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "envGroupIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "protectedStatus": {
+      "$ref": "#/components/schemas/protectedStatus"
+    },
+    "networkIsolationEnabled": {
+      "$ref": "#/components/schemas/networkIsolationEnabled"
+    }
+  }
+}

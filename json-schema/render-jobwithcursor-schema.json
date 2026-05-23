@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/jobWithCursor",
+  "title": "jobWithCursor",
+  "type": "object",
+  "required": [
+    "job",
+    "cursor"
+  ],
+  "properties": {
+    "job": {
+      "type": "object",
+      "required": [
+        "id",
+        "serviceId",
+        "startCommand",
+        "planId",
+        "createdAt"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/paths/~1services~1%7BserviceId%7D~1jobs~1%7BjobId%7D/parameters/1/schema"
+        },
+        "serviceId": {
+          "type": "string",
+          "example": "srv-xxxxx"
+        },
+        "startCommand": {
+          "type": "string",
+          "example": "echo 'hello world'"
+        },
+        "planId": {
+          "type": "string",
+          "example": "plan-srv-004"
+        },
+        "status": {
+          "$ref": "#/paths/~1services~1%7BserviceId%7D~1jobs/get/parameters/2/schema/items"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2021-07-15T07:20:05.777035-07:00"
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2021-07-15T07:20:05.777035-07:00"
+        },
+        "finishedAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2021-07-15T07:20:05.777035-07:00"
+        }
+      }
+    },
+    "cursor": {
+      "$ref": "#/components/schemas/cursor"
+    }
+  }
+}

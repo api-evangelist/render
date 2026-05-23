@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/blueprintWithCursor",
+  "title": "blueprintWithCursor",
+  "type": "object",
+  "description": "A Blueprint with a cursor",
+  "required": [
+    "blueprint",
+    "cursor"
+  ],
+  "properties": {
+    "blueprint": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "status",
+        "autoSync",
+        "repo",
+        "branch",
+        "path"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/paths/~1blueprints~1%7BblueprintId%7D/parameters/0/schema"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "created",
+            "paused",
+            "in_sync",
+            "syncing",
+            "error"
+          ]
+        },
+        "autoSync": {
+          "type": "boolean",
+          "description": "Automatically sync changes to render.yaml"
+        },
+        "repo": {
+          "type": "string"
+        },
+        "branch": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string",
+          "description": "Path to the Blueprint file in the repository",
+          "example": "render.yaml"
+        },
+        "lastSync": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "cursor": {
+      "$ref": "#/components/schemas/cursor"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/postgresWithCursor",
+  "title": "postgresWithCursor",
+  "type": "object",
+  "required": [
+    "postgres",
+    "cursor"
+  ],
+  "properties": {
+    "postgres": {
+      "$ref": "#/components/schemas/postgres"
+    },
+    "cursor": {
+      "$ref": "#/components/schemas/cursor"
+    }
+  }
+}

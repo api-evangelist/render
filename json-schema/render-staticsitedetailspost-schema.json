@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/staticSiteDetailsPOST",
+  "title": "staticSiteDetailsPOST",
+  "type": "object",
+  "properties": {
+    "buildCommand": {
+      "type": "string"
+    },
+    "headers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/headerInput"
+      }
+    },
+    "publishPath": {
+      "type": "string",
+      "description": "Defaults to \"public\""
+    },
+    "pullRequestPreviewsEnabled": {
+      "$ref": "#/components/schemas/pullRequestPreviewsEnabled"
+    },
+    "previews": {
+      "$ref": "#/components/schemas/previews"
+    },
+    "routes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/routePost"
+      }
+    },
+    "renderSubdomainPolicy": {
+      "$ref": "#/components/schemas/renderSubdomainPolicy"
+    },
+    "ipAllowList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/cidrBlockAndDescription"
+      }
+    }
+  }
+}

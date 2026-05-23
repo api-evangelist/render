@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/plan",
+  "title": "plan",
+  "type": "string",
+  "enum": [
+    "starter",
+    "starter_plus",
+    "standard",
+    "standard_plus",
+    "pro",
+    "pro_plus",
+    "pro_max",
+    "pro_ultra",
+    "free",
+    "custom"
+  ],
+  "example": "starter",
+  "description": "The instance type to use. Note that base services on any paid instance type can't create preview instances with the `free` instance type."
+}

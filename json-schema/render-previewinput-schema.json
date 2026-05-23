@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/previewInput",
+  "title": "previewInput",
+  "type": "object",
+  "required": [
+    "imagePath"
+  ],
+  "properties": {
+    "imagePath": {
+      "type": "string",
+      "example": "docker.io/library/nginx:latest",
+      "description": "Must be either a full URL or the relative path to an image. If a relative path, Render uses the base service's image URL as its root. For example, if the base service's image URL is `docker.io/library/nginx:latest`, then valid values are: `docker.io/library/nginx:<any tag or SHA>`, `library/nginx:<any tag or SHA>`, or `nginx:<any tag or SHA>`. Note that the path must match (only the tag or SHA can vary)."
+    },
+    "name": {
+      "type": "string",
+      "example": "preview",
+      "description": "A name for the service preview instance. If not specified, Render generates the name using the base service's name and the specified tag or SHA."
+    },
+    "plan": {
+      "$ref": "#/components/schemas/plan"
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/privateServiceDetailsPOST",
+  "title": "privateServiceDetailsPOST",
+  "type": "object",
+  "required": [
+    "runtime"
+  ],
+  "properties": {
+    "autoscaling": {
+      "$ref": "#/components/schemas/webServiceDetails/properties/autoscaling"
+    },
+    "disk": {
+      "$ref": "#/components/schemas/serviceDisk"
+    },
+    "env": {
+      "$ref": "#/components/schemas/serviceEnv"
+    },
+    "runtime": {
+      "$ref": "#/components/schemas/serviceRuntime"
+    },
+    "envSpecificDetails": {
+      "$ref": "#/components/schemas/envSpecificDetailsPOST"
+    },
+    "numInstances": {
+      "type": "integer",
+      "minimum": 1,
+      "default": 1,
+      "description": "Defaults to 1"
+    },
+    "plan": {
+      "$ref": "#/components/schemas/paidPlan"
+    },
+    "preDeployCommand": {
+      "type": "string"
+    },
+    "pullRequestPreviewsEnabled": {
+      "$ref": "#/components/schemas/pullRequestPreviewsEnabled"
+    },
+    "previews": {
+      "$ref": "#/components/schemas/previews"
+    },
+    "region": {
+      "$ref": "#/components/schemas/region"
+    },
+    "maxShutdownDelaySeconds": {
+      "$ref": "#/components/schemas/maxShutdownDelaySeconds"
+    }
+  }
+}

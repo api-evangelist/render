@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/maxmemoryPolicy",
+  "title": "maxmemoryPolicy",
+  "type": "string",
+  "description": "The eviction policy for the Key Value instance",
+  "enum": [
+    "noeviction",
+    "allkeys_lfu",
+    "allkeys_lru",
+    "allkeys_random",
+    "volatile_lfu",
+    "volatile_lru",
+    "volatile_random",
+    "volatile_ttl"
+  ]
+}

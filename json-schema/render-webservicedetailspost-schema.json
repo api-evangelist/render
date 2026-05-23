@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/webServiceDetailsPOST",
+  "title": "webServiceDetailsPOST",
+  "type": "object",
+  "required": [
+    "runtime"
+  ],
+  "properties": {
+    "autoscaling": {
+      "$ref": "#/components/schemas/webServiceDetails/properties/autoscaling"
+    },
+    "disk": {
+      "$ref": "#/components/schemas/serviceDisk"
+    },
+    "env": {
+      "$ref": "#/components/schemas/serviceEnv"
+    },
+    "runtime": {
+      "$ref": "#/components/schemas/serviceRuntime"
+    },
+    "envSpecificDetails": {
+      "$ref": "#/components/schemas/envSpecificDetailsPOST"
+    },
+    "healthCheckPath": {
+      "type": "string"
+    },
+    "maintenanceMode": {
+      "$ref": "#/components/schemas/maintenanceMode"
+    },
+    "numInstances": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Defaults to 1"
+    },
+    "plan": {
+      "$ref": "#/components/schemas/plan",
+      "default": "starter",
+      "description": "The instance type to use. If omitted, defaults to `starter` when creating a new service."
+    },
+    "preDeployCommand": {
+      "type": "string"
+    },
+    "pullRequestPreviewsEnabled": {
+      "$ref": "#/components/schemas/pullRequestPreviewsEnabled"
+    },
+    "previews": {
+      "$ref": "#/components/schemas/previews"
+    },
+    "region": {
+      "$ref": "#/components/schemas/region"
+    },
+    "maxShutdownDelaySeconds": {
+      "$ref": "#/components/schemas/maxShutdownDelaySeconds"
+    },
+    "renderSubdomainPolicy": {
+      "$ref": "#/components/schemas/renderSubdomainPolicy"
+    },
+    "ipAllowList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/cidrBlockAndDescription"
+      }
+    }
+  }
+}

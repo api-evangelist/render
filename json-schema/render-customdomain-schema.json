@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/customDomain",
+  "title": "customDomain",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "domainType",
+    "publicSuffix",
+    "verificationStatus",
+    "createdAt",
+    "redirectForName"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "domainType": {
+      "type": "string",
+      "enum": [
+        "apex",
+        "subdomain"
+      ]
+    },
+    "publicSuffix": {
+      "type": "string"
+    },
+    "redirectForName": {
+      "type": "string"
+    },
+    "verificationStatus": {
+      "type": "string",
+      "enum": [
+        "verified",
+        "unverified"
+      ]
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "server": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

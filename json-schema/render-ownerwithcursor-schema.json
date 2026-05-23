@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ownerWithCursor",
+  "title": "ownerWithCursor",
+  "type": "object",
+  "properties": {
+    "owner": {
+      "$ref": "#/components/schemas/owner"
+    },
+    "cursor": {
+      "$ref": "#/components/schemas/cursor"
+    }
+  }
+}

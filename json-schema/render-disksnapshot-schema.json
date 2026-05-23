@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/diskSnapshot",
+  "title": "diskSnapshot",
+  "type": "object",
+  "properties": {
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "snapshotKey": {
+      "type": "string"
+    },
+    "instanceId": {
+      "$ref": "#/components/schemas/instanceId"
+    }
+  }
+}

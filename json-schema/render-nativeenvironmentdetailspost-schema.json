@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/nativeEnvironmentDetailsPOST",
+  "title": "nativeEnvironmentDetailsPOST",
+  "type": "object",
+  "required": [
+    "buildCommand",
+    "startCommand"
+  ],
+  "properties": {
+    "buildCommand": {
+      "type": "string"
+    },
+    "startCommand": {
+      "type": "string"
+    }
+  },
+  "description": "Fields for native environment (runtime) services"
+}

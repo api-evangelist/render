@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/postgres",
+  "title": "postgres",
+  "type": "object",
+  "required": [
+    "id",
+    "ipAllowList",
+    "createdAt",
+    "updatedAt",
+    "databaseName",
+    "databaseUser",
+    "highAvailabilityEnabled",
+    "name",
+    "owner",
+    "plan",
+    "region",
+    "readReplicas",
+    "role",
+    "status",
+    "version",
+    "suspended",
+    "suspenders",
+    "dashboardUrl",
+    "diskAutoscalingEnabled"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "ipAllowList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/cidrBlockAndDescription"
+      }
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expiresAt": {
+      "description": "The time at which the database will be expire. Applies to free tier databases only.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "databaseName": {
+      "type": "string"
+    },
+    "databaseUser": {
+      "type": "string"
+    },
+    "environmentId": {
+      "type": "string"
+    },
+    "highAvailabilityEnabled": {
+      "type": "boolean"
+    },
+    "name": {
+      "type": "string"
+    },
+    "owner": {
+      "$ref": "#/components/schemas/owner"
+    },
+    "plan": {
+      "type": "string",
+      "enum": [
+        "free",
+        "starter",
+        "standard",
+        "pro",
+        "pro_plus",
+        "custom",
+        "basic_256mb",
+        "basic_1gb",
+        "basic_4gb",
+        "pro_4gb",
+        "pro_8gb",
+        "pro_16gb",
+        "pro_32gb",
+        "pro_64gb",
+        "pro_128gb",
+        "pro_192gb",
+        "pro_256gb",
+        "pro_384gb",
+        "pro_512gb",
+        "accelerated_16gb",
+        "accelerated_32gb",
+        "accelerated_64gb",
+        "accelerated_128gb",
+        "accelerated_256gb",
+        "accelerated_384gb",
+        "accelerated_512gb",
+        "accelerated_768gb",
+        "accelerated_1024gb"
+      ]
+    },
+    "diskSizeGB": {
+      "type": "integer"
+    },
+    "primaryPostgresID": {
+      "type": "string"
+    },
+    "region": {
+      "$ref": "#/components/schemas/region"
+    },
+    "readReplicas": {
+      "$ref": "#/components/schemas/readReplicas"
+    },
+    "role": {
+      "$ref": "#/components/schemas/databaseRole"
+    },
+    "status": {
+      "$ref": "#/components/schemas/databaseStatus"
+    },
+    "version": {
+      "$ref": "#/components/schemas/postgresVersion"
+    },
+    "suspended": {
+      "type": "string",
+      "enum": [
+        "suspended",
+        "not_suspended"
+      ]
+    },
+    "suspenders": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/suspenderType"
+      }
+    },
+    "dashboardUrl": {
+      "type": "string",
+      "description": "The URL to view the Postgres instance in the Render Dashboard"
+    },
+    "diskAutoscalingEnabled": {
+      "type": "boolean"
+    }
+  }
+}

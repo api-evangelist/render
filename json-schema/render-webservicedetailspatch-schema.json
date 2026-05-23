@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/webServiceDetailsPATCH",
+  "title": "webServiceDetailsPATCH",
+  "type": "object",
+  "properties": {
+    "envSpecificDetails": {
+      "$ref": "#/components/schemas/envSpecificDetailsPATCH"
+    },
+    "healthCheckPath": {
+      "type": "string"
+    },
+    "maintenanceMode": {
+      "$ref": "#/components/schemas/maintenanceMode"
+    },
+    "plan": {
+      "$ref": "#/components/schemas/plan"
+    },
+    "preDeployCommand": {
+      "type": "string"
+    },
+    "pullRequestPreviewsEnabled": {
+      "$ref": "#/components/schemas/pullRequestPreviewsEnabled"
+    },
+    "previews": {
+      "$ref": "#/components/schemas/previews"
+    },
+    "runtime": {
+      "$ref": "#/components/schemas/serviceRuntime"
+    },
+    "maxShutdownDelaySeconds": {
+      "$ref": "#/components/schemas/maxShutdownDelaySeconds"
+    },
+    "renderSubdomainPolicy": {
+      "$ref": "#/components/schemas/renderSubdomainPolicy"
+    },
+    "ipAllowList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/cidrBlockAndDescription"
+      }
+    },
+    "cache": {
+      "$ref": "#/components/schemas/cache"
+    }
+  }
+}

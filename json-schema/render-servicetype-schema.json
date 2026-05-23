@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/serviceType",
+  "title": "serviceType",
+  "type": "string",
+  "enum": [
+    "static_site",
+    "web_service",
+    "private_service",
+    "background_worker",
+    "cron_job"
+  ]
+}

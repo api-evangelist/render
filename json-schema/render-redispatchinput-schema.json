@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/redisPATCHInput",
+  "title": "redisPATCHInput",
+  "type": "object",
+  "description": "Input type for updating a Redis instance",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the Redis instance"
+    },
+    "plan": {
+      "$ref": "#/components/schemas/redisPlan"
+    },
+    "maxmemoryPolicy": {
+      "$ref": "#/components/schemas/maxmemoryPolicy"
+    },
+    "ipAllowList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/cidrBlockAndDescription"
+      }
+    }
+  }
+}

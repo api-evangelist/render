@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/cidrBlockAndDescription",
+  "title": "cidrBlockAndDescription",
+  "type": "object",
+  "required": [
+    "cidrBlock",
+    "description"
+  ],
+  "properties": {
+    "cidrBlock": {
+      "type": "string"
+    },
+    "description": {
+      "description": "User-provided description of the CIDR block",
+      "type": "string"
+    }
+  }
+}

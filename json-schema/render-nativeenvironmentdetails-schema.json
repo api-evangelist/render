@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/nativeEnvironmentDetails",
+  "title": "nativeEnvironmentDetails",
+  "type": "object",
+  "required": [
+    "buildCommand",
+    "startCommand"
+  ],
+  "properties": {
+    "buildCommand": {
+      "type": "string"
+    },
+    "startCommand": {
+      "type": "string"
+    },
+    "preDeployCommand": {
+      "type": "string"
+    }
+  }
+}

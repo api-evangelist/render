@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/taskWithCursor",
+  "title": "taskWithCursor",
+  "type": "object",
+  "required": [
+    "task",
+    "cursor"
+  ],
+  "properties": {
+    "task": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "createdAt"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "workflowId": {
+          "type": "string"
+        },
+        "workflowVersionId": {
+          "type": "string"
+        }
+      }
+    },
+    "cursor": {
+      "$ref": "#/components/schemas/cursor"
+    }
+  }
+}

@@ -1,0 +1,790 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/serviceEventWithCursor",
+  "title": "serviceEventWithCursor",
+  "type": "object",
+  "description": "A service event with a cursor",
+  "required": [
+    "event",
+    "cursor"
+  ],
+  "properties": {
+    "event": {
+      "type": "object",
+      "required": [
+        "id",
+        "timestamp",
+        "serviceId",
+        "type",
+        "details"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/paths/~1events~1%7BeventId%7D/parameters/0/schema"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "serviceId": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/components/parameters/eventTypeParam/schema/anyOf/0"
+        },
+        "details": {
+          "title": "Service Event Details",
+          "oneOf": [
+            {
+              "title": "Autoscaling Config Changed",
+              "type": "object",
+              "required": [
+                "toConfig"
+              ],
+              "properties": {
+                "fromConfig": {
+                  "$ref": "#/components/schemas/webServiceDetails/properties/autoscaling"
+                },
+                "toConfig": {
+                  "$ref": "#/components/schemas/webServiceDetails/properties/autoscaling"
+                }
+              }
+            },
+            {
+              "title": "Autoscaling Ended",
+              "type": "object",
+              "required": [
+                "fromInstances",
+                "toInstances"
+              ],
+              "properties": {
+                "fromInstances": {
+                  "type": "integer"
+                },
+                "toInstances": {
+                  "type": "integer"
+                }
+              }
+            },
+            {
+              "title": "Autoscaling Started",
+              "type": "object",
+              "required": [
+                "fromInstances",
+                "toInstances"
+              ],
+              "properties": {
+                "fromInstances": {
+                  "type": "integer"
+                },
+                "toInstances": {
+                  "type": "integer"
+                },
+                "currentCPU": {
+                  "type": "integer",
+                  "x-go-type": "int64"
+                },
+                "targetCPU": {
+                  "type": "integer",
+                  "x-go-type": "int64"
+                },
+                "currentMemory": {
+                  "type": "integer",
+                  "x-go-type": "int64"
+                },
+                "targetMemory": {
+                  "type": "integer",
+                  "x-go-type": "int64"
+                }
+              }
+            },
+            {
+              "title": "Branch Deleted",
+              "type": "object",
+              "required": [
+                "deletedBranch",
+                "newBranch"
+              ],
+              "properties": {
+                "deletedBranch": {
+                  "type": "string"
+                },
+                "newBranch": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "title": "Build Ended",
+              "type": "object",
+              "required": [
+                "buildId",
+                "status",
+                "reason",
+                "buildStatus"
+              ],
+              "properties": {
+                "buildId": {
+                  "type": "string"
+                },
+                "buildStatus": {
+                  "type": "string",
+                  "enum": [
+                    "succeeded",
+                    "failed",
+                    "canceled"
+                  ]
+                },
+                "reason": {
+                  "type": "object",
+                  "properties": {
+                    "buildFailed": {
+                      "$ref": "#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/4/properties/reason/properties/newBuild"
+                    },
+                    "newBuild": {
+                      "type": "object",
+                      "required": [
+                        "id"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "newDeploy": {
+                      "$ref": "#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/4/properties/reason/properties/newBuild"
+                    },
+                    "failure": {
+                      "$ref": "#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/7/properties/reason"
+                    }
+                  }
+                },
+                "status": {
+                  "deprecated": true,
+                  "type": "integer"
+                }
+              }
+            },
+            {
+              "title": "Build Started",
+              "type": "object",
+              "required": [
+                "buildId",
+                "trigger"
+              ],
+              "properties": {
+                "buildId": {
+                  "type": "string"
+                },
+                "trigger": {
+                  "type": "object",
+                  "required": [
+                    "firstBuild",
+                    "envUpdated",
+                    "manual",
+                    "deployedByRender",
+                    "clearCache",
+                    "rollback"
+                  ],
+                  "properties": {
+                    "firstBuild": {
+                      "description": "Deploy was triggered by service creation",
+                      "type": "boolean"
+                    },
+                    "envUpdated": {
+                      "description": "Deploy was triggered by an environment update",
+                      "type": "boolean"
+                    },
+                    "manual": {
+                      "description": "Deploy was triggered manually from the dashboard",
+                      "type": "boolean"
+                    },
+                    "user": {
+                      "$ref": "#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/7/properties/user"
+                    },
+                    "updatedProperty": {
+                      "description": "Updated property that triggered the deploy",
+                      "type": "string"
+                    },
+                    "newCommit": {
+                      "description": "Commit that triggered the deploy",
+                      "type": "string"
+                    },
+                    "deployedByRender": {
+                      "description": "Deploy was triggered by Render",
+                      "type": "boolean"
+                    },
+                    "clearCache": {
+                      "description": "Whether the cache was cleared for the deploy",
+                      "type": "boolean"
+                    },
+                    "rollback": {
+                      "description": "Whether the deploy was triggered by a rollback",
+                      "type": "boolean"
+                    },
+                    "rollbackTargetDeployId": {
+                      "description": "Deploy ID that was rolled back to",
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "title": "Commit Ignored",
+              "type": "object",
+              "required": [
+                "id",
+                "url"
+              ],
+              "properties": {
+                "id": {
+                  "description": "the commit id",
+                  "type": "string"
+                },
+                "url": {
+                  "description": "the commit url",
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "title": "Cron Job Run Ended",
+              "type": "object",
+              "required": [
+                "cronJobRunId",
+                "status"
+              ],
+              "properties": {
+                "cronJobRunId": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "canceled",
+                    "pending",
+                    "successful",
+                    "unsuccessful"
+                  ]
+                },
+                "reason": {
+                  "type": "object",
+                  "required": [
+                    "evicted"
+                  ],
+                  "properties": {
+                    "evicted": {
+                      "type": "boolean"
+                    },
+                    "nonZeroExit": {
+                      "type": "integer",
+                      "description": "If present, the application exited with the specified non-zero status."
+                    },
+                    "earlyExit": {
+                      "type": "boolean",
+                      "description": "If true, the application exited early. Services besides cron jobs should not exit unless receiving a `SIGTERM` signal from Render."
+                    },
+                    "oomKilled": {
+                      "type": "object",
+                      "required": [
+                        "memoryLimit"
+                      ],
+                      "properties": {
+                        "memoryLimit": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "timedOutSeconds": {
+                      "type": "integer",
+                      "format": "int64"
+                    },
+                    "unhealthy": {
+                      "type": "string"
+                    },
+                    "timedOutReason": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "user": {
+                  "type": "object",
+                  "description": "User who triggered the action",
+                  "required": [
+                    "id",
+                    "email"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "title": "Cron Job Run Started",
+              "type": "object",
+              "required": [
+                "cronJobRunId"
+              ],
+              "properties": {
+                "cronJobRunId": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "title": "Deploy Ended",
+              "type": "object",
+              "required": [
+                "deployId",
+                "reason",
+                "status",
+                "deployStatus"
+              ],
+              "properties": {
+                "deployId": {
+                  "type": "string"
+                },
+                "reason": {
+                  "$ref": "#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/4/properties/reason"
+                },
+                "deployStatus": {
+                  "$ref": "#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/4/properties/buildStatus"
+                },
+                "status": {
+                  "deprecated": true,
+                  "type": "integer"
+                }
+              }
+            },
+            {
+              "title": "Deploy Started",
+              "type": "object",
+              "required": [
+                "deployId",
+                "trigger"
+              ],
+              "properties": {
+                "deployId": {
+                  "type": "string"
+                },
+                "trigger": {
+                  "$ref": "#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/5/properties/trigger"
+                }
+              }
+            },
+            {
+              "title": "Disk Created",
+              "type": "object",
+              "required": [
+                "diskId",
+                "sizeGB"
+              ],
+              "properties": {
+                "diskId": {
+                  "$ref": "#/paths/~1disks~1%7BdiskId%7D/parameters/0/schema"
+                },
+                "sizeGB": {
+                  "type": "integer"
+                }
+              }
+            },
+            {
+              "title": "Disk Updated",
+              "type": "object",
+              "required": [
+                "diskId",
+                "fromSizeGB",
+                "toSizeGB"
+              ],
+              "properties": {
+                "diskId": {
+                  "$ref": "#/paths/~1disks~1%7BdiskId%7D/parameters/0/schema"
+                },
+                "fromSizeGB": {
+                  "type": "integer"
+                },
+                "toSizeGB": {
+                  "type": "integer"
+                }
+              }
+            },
+            {
+              "title": "Disk Deleted",
+              "type": "object",
+              "required": [
+                "diskId"
+              ],
+              "properties": {
+                "diskId": {
+                  "$ref": "#/paths/~1disks~1%7BdiskId%7D/parameters/0/schema"
+                }
+              }
+            },
+            {
+              "title": "Image Pull Failed",
+              "type": "object",
+              "required": [
+                "message",
+                "imageURL"
+              ],
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "imageURL": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "title": "Initial Deploy Hook Started",
+              "type": "object",
+              "required": [
+                "deployId"
+              ],
+              "properties": {
+                "deployId": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "title": "Initial Deploy Hook Ended",
+              "type": "object",
+              "required": [
+                "deployId"
+              ],
+              "properties": {
+                "deployId": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "title": "Instance Count Changed",
+              "type": "object",
+              "required": [
+                "fromInstances",
+                "toInstances"
+              ],
+              "properties": {
+                "fromInstances": {
+                  "type": "integer"
+                },
+                "toInstances": {
+                  "type": "integer"
+                }
+              }
+            },
+            {
+              "title": "Job Run Ended",
+              "type": "object",
+              "required": [
+                "jobId",
+                "status"
+              ],
+              "properties": {
+                "jobId": {
+                  "$ref": "#/paths/~1services~1%7BserviceId%7D~1jobs~1%7BjobId%7D/parameters/1/schema"
+                },
+                "status": {
+                  "$ref": "#/paths/~1services~1%7BserviceId%7D~1jobs/get/parameters/2/schema/items"
+                },
+                "reason": {
+                  "$ref": "#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/7/properties/reason"
+                }
+              }
+            },
+            {
+              "title": "Maintenance Mode Enabled",
+              "type": "object",
+              "required": [
+                "enabled"
+              ],
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                }
+              }
+            },
+            {
+              "title": "Maintenance Mode URI Updated",
+              "type": "object",
+              "required": [
+                "fromURI",
+                "toURI"
+              ],
+              "properties": {
+                "fromURI": {
+                  "type": "string"
+                },
+                "toURI": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "title": "Maintenance Ended",
+              "type": "object"
+            },
+            {
+              "title": "Maintenance Started",
+              "type": "object",
+              "required": [
+                "trigger"
+              ],
+              "properties": {
+                "trigger": {
+                  "type": "object",
+                  "required": [
+                    "manual",
+                    "startedByRender"
+                  ],
+                  "properties": {
+                    "user": {
+                      "$ref": "#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/7/properties/user"
+                    },
+                    "manual": {
+                      "description": "Maintenance was triggered manually",
+                      "type": "boolean"
+                    },
+                    "startedByRender": {
+                      "description": "Maintenance was triggered by Render",
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "title": "Pipeline Minutes Exhausted",
+              "type": "object",
+              "required": [
+                "buildId",
+                "trigger"
+              ],
+              "properties": {
+                "buildId": {
+                  "type": "string"
+                },
+                "trigger": {
+                  "$ref": "#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/5/properties/trigger"
+                }
+              }
+            },
+            {
+              "title": "Instance Type Changed",
+              "type": "object",
+              "required": [
+                "from",
+                "to"
+              ],
+              "properties": {
+                "from": {
+                  "type": "string"
+                },
+                "to": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "title": "Pre Deploy Ended",
+              "type": "object",
+              "required": [
+                "deployCommandExecutionId",
+                "deployId",
+                "status",
+                "preDeployStatus",
+                "reason"
+              ],
+              "properties": {
+                "deployCommandExecutionId": {
+                  "type": "string"
+                },
+                "deployId": {
+                  "type": "string"
+                },
+                "preDeployStatus": {
+                  "$ref": "#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/4/properties/buildStatus"
+                },
+                "reason": {
+                  "$ref": "#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/4/properties/reason"
+                },
+                "status": {
+                  "deprecated": true,
+                  "type": "integer"
+                }
+              }
+            },
+            {
+              "title": "Pre Deploy Started",
+              "type": "object",
+              "required": [
+                "deployCommandExecutionId",
+                "deployId"
+              ],
+              "properties": {
+                "deployCommandExecutionId": {
+                  "type": "string"
+                },
+                "deployId": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "title": "Server Available",
+              "type": "object"
+            },
+            {
+              "title": "Server Failed",
+              "type": "object",
+              "properties": {
+                "instanceID": {
+                  "type": "string",
+                  "pattern": "^srv-[0-9a-z]{20}-[0-9a-z]{5}$",
+                  "example": "srv-d0cjkelq67qs70c2pugg-sbpkm"
+                },
+                "reason": {
+                  "$ref": "#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/7/properties/reason"
+                }
+              }
+            },
+            {
+              "title": "Server Hardware Failure",
+              "type": "object"
+            },
+            {
+              "title": "Server Restarted",
+              "type": "object",
+              "required": [
+                "triggeredByUser"
+              ],
+              "properties": {
+                "triggeredByUser": {
+                  "type": "string",
+                  "nullable": true
+                }
+              }
+            },
+            {
+              "title": "Service Resumed",
+              "type": "object"
+            },
+            {
+              "title": "Service Suspended",
+              "type": "object"
+            },
+            {
+              "title": "Suspender Added",
+              "type": "object",
+              "required": [
+                "actor"
+              ],
+              "properties": {
+                "actor": {
+                  "type": "string"
+                },
+                "suspendedByUser": {
+                  "$ref": "#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/7/properties/user"
+                }
+              }
+            },
+            {
+              "title": "Suspender Removed",
+              "type": "object",
+              "required": [
+                "actor"
+              ],
+              "properties": {
+                "actor": {
+                  "type": "string"
+                },
+                "resumedByUser": {
+                  "$ref": "#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/7/properties/user"
+                }
+              }
+            },
+            {
+              "title": "Zero Downtime Redeploy Ended",
+              "type": "object"
+            },
+            {
+              "title": "Zero Downtime Redeploy Started",
+              "type": "object",
+              "required": [
+                "trigger"
+              ],
+              "properties": {
+                "trigger": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "title": "Edge Cache Disabled",
+              "type": "object",
+              "required": [
+                "trigger"
+              ],
+              "properties": {
+                "trigger": {
+                  "type": "object",
+                  "required": [
+                    "manual",
+                    "system"
+                  ],
+                  "properties": {
+                    "manual": {
+                      "description": "Edge Cache change was triggered manually from the dashboard",
+                      "type": "boolean"
+                    },
+                    "user": {
+                      "$ref": "#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/7/properties/user"
+                    },
+                    "system": {
+                      "description": "Edge Cache Change was triggered by Render",
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "title": "Edge Cache Enabled",
+              "type": "object",
+              "required": [
+                "trigger"
+              ],
+              "properties": {
+                "trigger": {
+                  "$ref": "#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/37/properties/trigger"
+                }
+              }
+            },
+            {
+              "title": "Edge Cache Purged",
+              "required": [
+                "trigger"
+              ],
+              "properties": {
+                "trigger": {
+                  "$ref": "#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/37/properties/trigger"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

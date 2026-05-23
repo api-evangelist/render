@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/dockerDetails",
+  "title": "dockerDetails",
+  "type": "object",
+  "required": [
+    "dockerCommand",
+    "dockerContext",
+    "dockerfilePath"
+  ],
+  "properties": {
+    "dockerCommand": {
+      "type": "string"
+    },
+    "dockerContext": {
+      "type": "string"
+    },
+    "dockerfilePath": {
+      "type": "string"
+    },
+    "preDeployCommand": {
+      "type": "string"
+    },
+    "registryCredential": {
+      "$ref": "#/components/schemas/registryCredential"
+    }
+  }
+}

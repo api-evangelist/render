@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/projectPOSTInput",
+  "title": "projectPOSTInput",
+  "type": "object",
+  "required": [
+    "name",
+    "ownerId",
+    "environments"
+  ],
+  "properties": {
+    "name": {
+      "description": "The name of the project",
+      "type": "string"
+    },
+    "ownerId": {
+      "description": "The ID of the owner that the project belongs to",
+      "type": "string"
+    },
+    "environments": {
+      "description": "The environments to create when creating the project",
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/projectPOSTEnvironmentInput"
+      }
+    }
+  }
+}

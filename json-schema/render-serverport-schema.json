@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/serverPort",
+  "title": "serverPort",
+  "type": "object",
+  "required": [
+    "port",
+    "protocol"
+  ],
+  "properties": {
+    "port": {
+      "type": "integer",
+      "example": 10000
+    },
+    "protocol": {
+      "type": "string",
+      "enum": [
+        "TCP",
+        "UDP"
+      ]
+    }
+  }
+}

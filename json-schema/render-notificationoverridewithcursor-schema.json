@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/notificationOverrideWithCursor",
+  "title": "notificationOverrideWithCursor",
+  "required": [
+    "override",
+    "cursor"
+  ],
+  "type": "object",
+  "properties": {
+    "override": {
+      "type": "object",
+      "required": [
+        "type",
+        "serviceId",
+        "previewNotificationsEnabled",
+        "notificationsToSend"
+      ],
+      "properties": {
+        "serviceId": {
+          "type": "string"
+        },
+        "previewNotificationsEnabled": {
+          "type": "string",
+          "enum": [
+            "default",
+            "false",
+            "true"
+          ]
+        },
+        "notificationsToSend": {
+          "type": "string",
+          "enum": [
+            "default",
+            "none",
+            "failure",
+            "all"
+          ]
+        }
+      }
+    },
+    "cursor": {
+      "$ref": "#/components/schemas/cursor"
+    }
+  }
+}

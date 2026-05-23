@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/dockerDetailsPOST",
+  "title": "dockerDetailsPOST",
+  "type": "object",
+  "properties": {
+    "dockerCommand": {
+      "type": "string"
+    },
+    "dockerContext": {
+      "type": "string"
+    },
+    "dockerfilePath": {
+      "type": "string",
+      "description": "Defaults to \"./Dockerfile\""
+    },
+    "registryCredentialId": {
+      "type": "string"
+    }
+  }
+}

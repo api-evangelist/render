@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/staticSiteDetails",
+  "title": "staticSiteDetails",
+  "type": "object",
+  "required": [
+    "buildCommand",
+    "publishPath",
+    "url",
+    "buildPlan"
+  ],
+  "properties": {
+    "buildCommand": {
+      "type": "string"
+    },
+    "ipAllowList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/cidrBlockAndDescription"
+      }
+    },
+    "parentServer": {
+      "$ref": "#/components/schemas/resource"
+    },
+    "publishPath": {
+      "type": "string"
+    },
+    "pullRequestPreviewsEnabled": {
+      "$ref": "#/components/schemas/pullRequestPreviewsEnabled"
+    },
+    "previews": {
+      "$ref": "#/components/schemas/previews"
+    },
+    "url": {
+      "type": "string"
+    },
+    "buildPlan": {
+      "$ref": "#/components/schemas/buildPlan"
+    },
+    "renderSubdomainPolicy": {
+      "$ref": "#/components/schemas/renderSubdomainPolicy"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/envGroup",
+  "title": "envGroup",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/envGroupMeta"
+    },
+    {
+      "type": "object",
+      "required": [
+        "envVars",
+        "secretFiles"
+      ],
+      "properties": {
+        "envVars": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/envVar"
+          }
+        },
+        "secretFiles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/secretFile"
+          }
+        }
+      }
+    }
+  ]
+}

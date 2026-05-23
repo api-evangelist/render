@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/redisPOSTInput",
+  "title": "redisPOSTInput",
+  "type": "object",
+  "description": "Input type for creating a Redis instance",
+  "required": [
+    "name",
+    "ownerId",
+    "plan"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the Redis instance"
+    },
+    "ownerId": {
+      "type": "string",
+      "description": "The ID of the owner of the Redis instance"
+    },
+    "plan": {
+      "$ref": "#/components/schemas/redisPlan"
+    },
+    "region": {
+      "type": "string",
+      "description": "The region where the Redis instance is located"
+    },
+    "environmentId": {
+      "type": "string"
+    },
+    "maxmemoryPolicy": {
+      "$ref": "#/components/schemas/maxmemoryPolicy"
+    },
+    "ipAllowList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/cidrBlockAndDescription"
+      }
+    }
+  }
+}

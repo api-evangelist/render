@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/databaseStatus",
+  "title": "databaseStatus",
+  "type": "string",
+  "enum": [
+    "creating",
+    "available",
+    "unavailable",
+    "config_restart",
+    "suspended",
+    "maintenance_scheduled",
+    "maintenance_in_progress",
+    "recovery_failed",
+    "recovery_in_progress",
+    "unknown",
+    "updating_instance"
+  ]
+}

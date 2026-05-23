@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/customDomainWithCursor",
+  "title": "customDomainWithCursor",
+  "required": [
+    "customDomain",
+    "cursor"
+  ],
+  "type": "object",
+  "properties": {
+    "customDomain": {
+      "$ref": "#/components/schemas/customDomain"
+    },
+    "cursor": {
+      "$ref": "#/components/schemas/cursor"
+    }
+  }
+}

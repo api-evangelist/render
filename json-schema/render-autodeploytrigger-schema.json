@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/autoDeployTrigger",
+  "title": "autoDeployTrigger",
+  "type": "string",
+  "enum": [
+    "commit",
+    "off",
+    "checksPass"
+  ],
+  "description": "Controls autodeploy behavior. commit deploys when a commit is pushed to a branch. checksPass waits for the branch to be green."
+}

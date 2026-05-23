@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/keyValuePATCHInput",
+  "title": "keyValuePATCHInput",
+  "type": "object",
+  "description": "Input type for updating a Key Value instance",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the Key Value instance"
+    },
+    "plan": {
+      "$ref": "#/components/schemas/keyValuePlan"
+    },
+    "maxmemoryPolicy": {
+      "$ref": "#/components/schemas/maxmemoryPolicy"
+    },
+    "ipAllowList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/cidrBlockAndDescription"
+      }
+    }
+  }
+}

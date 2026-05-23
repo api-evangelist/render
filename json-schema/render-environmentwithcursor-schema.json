@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/environmentWithCursor",
+  "title": "environmentWithCursor",
+  "type": "object",
+  "description": "An environment with a cursor",
+  "required": [
+    "environment",
+    "cursor"
+  ],
+  "properties": {
+    "environment": {
+      "$ref": "#/components/schemas/environment"
+    },
+    "cursor": {
+      "$ref": "#/components/schemas/cursor"
+    }
+  }
+}

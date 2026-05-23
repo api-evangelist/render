@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/networkIsolationEnabled",
+  "title": "networkIsolationEnabled",
+  "type": "boolean",
+  "description": "Indicates whether network connections across environments are allowed."
+}

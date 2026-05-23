@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/cache",
+  "title": "cache",
+  "type": "object",
+  "required": [
+    "profile"
+  ],
+  "properties": {
+    "profile": {
+      "type": "string",
+      "enum": [
+        "no-cache",
+        "origin-controlled",
+        "origin-controlled-all"
+      ],
+      "default": "no-cache"
+    }
+  }
+}

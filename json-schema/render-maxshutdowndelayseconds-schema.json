@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/maxShutdownDelaySeconds",
+  "title": "maxShutdownDelaySeconds",
+  "type": "integer",
+  "description": "The maximum amount of time (in seconds) that Render waits for your application process to exit gracefully after sending it a SIGTERM signal.",
+  "minimum": 1,
+  "maximum": 300,
+  "default": 30
+}

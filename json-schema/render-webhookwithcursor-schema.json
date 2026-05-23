@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/webhookWithCursor",
+  "title": "webhookWithCursor",
+  "type": "object",
+  "required": [
+    "webhook",
+    "cursor"
+  ],
+  "properties": {
+    "webhook": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "url",
+        "secret",
+        "enabled",
+        "eventFilter"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/paths/~1webhooks~1%7BwebhookId%7D/parameters/0/schema"
+        },
+        "url": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "secret": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "eventFilter": {
+          "type": "array",
+          "description": "The event types that will trigger the webhook. An empty list means all event types will trigger the webhook.",
+          "items": {
+            "$ref": "#/components/schemas/webhookEventWithCursor/properties/webhookEvent/properties/eventType"
+          }
+        }
+      }
+    },
+    "cursor": {
+      "$ref": "#/components/schemas/cursor"
+    }
+  }
+}

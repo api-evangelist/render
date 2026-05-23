@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/postgresDetail",
+  "title": "postgresDetail",
+  "type": "object",
+  "required": [
+    "id",
+    "ipAllowList",
+    "createdAt",
+    "updatedAt",
+    "dashboardUrl",
+    "databaseName",
+    "databaseUser",
+    "highAvailabilityEnabled",
+    "name",
+    "owner",
+    "project",
+    "plan",
+    "region",
+    "readReplicas",
+    "role",
+    "status",
+    "version",
+    "suspended",
+    "suspenders",
+    "diskAutoscalingEnabled"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "ipAllowList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/cidrBlockAndDescription"
+      }
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expiresAt": {
+      "description": "The time at which the database will be expire. Applies to free tier databases only.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "dashboardUrl": {
+      "type": "string",
+      "description": "The URL to view the Postgres instance in the Render Dashboard"
+    },
+    "databaseName": {
+      "type": "string"
+    },
+    "databaseUser": {
+      "type": "string"
+    },
+    "environmentId": {
+      "type": "string"
+    },
+    "highAvailabilityEnabled": {
+      "type": "boolean"
+    },
+    "maintenance": {
+      "$ref": "#/components/schemas/redisDetail/properties/maintenance"
+    },
+    "name": {
+      "type": "string"
+    },
+    "owner": {
+      "$ref": "#/components/schemas/owner"
+    },
+    "plan": {
+      "$ref": "#/components/schemas/postgres/properties/plan"
+    },
+    "diskSizeGB": {
+      "type": "integer"
+    },
+    "parameterOverrides": {
+      "$ref": "#/components/schemas/postgresParameterOverrides"
+    },
+    "primaryPostgresID": {
+      "type": "string"
+    },
+    "region": {
+      "$ref": "#/components/schemas/region"
+    },
+    "readReplicas": {
+      "$ref": "#/components/schemas/readReplicas"
+    },
+    "role": {
+      "$ref": "#/components/schemas/databaseRole"
+    },
+    "status": {
+      "$ref": "#/components/schemas/databaseStatus"
+    },
+    "version": {
+      "$ref": "#/components/schemas/postgresVersion"
+    },
+    "suspended": {
+      "type": "string",
+      "enum": [
+        "suspended",
+        "not_suspended"
+      ]
+    },
+    "suspenders": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/suspenderType"
+      }
+    },
+    "diskAutoscalingEnabled": {
+      "type": "boolean"
+    }
+  }
+}

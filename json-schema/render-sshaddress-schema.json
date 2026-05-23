@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/sshAddress",
+  "title": "sshAddress",
+  "type": "string",
+  "description": "The SSH address for the service. Only present for services that have SSH enabled."
+}

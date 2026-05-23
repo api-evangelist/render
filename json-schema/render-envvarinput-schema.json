@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/envVarInput",
+  "title": "envVarInput",
+  "type": "object",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/envVarKeyValue"
+    },
+    {
+      "$ref": "#/components/schemas/envVarKeyGenerateValue"
+    }
+  ]
+}

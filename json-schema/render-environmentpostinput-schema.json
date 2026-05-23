@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/environmentPOSTInput",
+  "title": "environmentPOSTInput",
+  "type": "object",
+  "required": [
+    "name",
+    "projectId"
+  ],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "projectId": {
+      "type": "string"
+    },
+    "protectedStatus": {
+      "$ref": "#/components/schemas/protectedStatus"
+    },
+    "networkIsolationEnabled": {
+      "$ref": "#/components/schemas/networkIsolationEnabled"
+    },
+    "ipAllowList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/cidrBlockAndDescription"
+      }
+    }
+  }
+}

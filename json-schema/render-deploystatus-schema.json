@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/deployStatus",
+  "title": "deployStatus",
+  "type": "string",
+  "enum": [
+    "created",
+    "queued",
+    "build_in_progress",
+    "update_in_progress",
+    "live",
+    "deactivated",
+    "build_failed",
+    "update_failed",
+    "canceled",
+    "pre_deploy_in_progress",
+    "pre_deploy_failed"
+  ]
+}

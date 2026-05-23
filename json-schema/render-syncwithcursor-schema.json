@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/syncWithCursor",
+  "title": "syncWithCursor",
+  "type": "object",
+  "description": "A Blueprint sync with a cursor",
+  "required": [
+    "sync",
+    "cursor"
+  ],
+  "properties": {
+    "sync": {
+      "type": "object",
+      "required": [
+        "id",
+        "commit",
+        "state"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^exe-[0-9a-z]{20}$",
+          "example": "exe-cph1rs3idesc73a2b2mg"
+        },
+        "commit": {
+          "type": "object",
+          "required": [
+            "id"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          }
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "completedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "created",
+            "pending",
+            "running",
+            "error",
+            "success"
+          ]
+        }
+      }
+    },
+    "cursor": {
+      "$ref": "#/components/schemas/cursor"
+    }
+  }
+}

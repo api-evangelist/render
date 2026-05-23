@@ -1,0 +1,3193 @@
+{
+  "provider": "Render",
+  "providerId": "render",
+  "kind": "json-structure",
+  "description": "Structural overview of the Render API surface; extracted from openapi/.",
+  "schemaCount": 163,
+  "operationCount": 196,
+  "schemas": [
+    {
+      "name": "cursor",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "auditLogWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "cursor",
+        "auditLog"
+      ]
+    },
+    {
+      "name": "auditLog",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "id",
+        "timestamp",
+        "event",
+        "status",
+        "actor",
+        "metadata"
+      ]
+    },
+    {
+      "name": "auditLogActor",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "type"
+      ]
+    },
+    {
+      "name": "service",
+      "type": "object",
+      "propertyCount": 20,
+      "required": [
+        "id",
+        "name",
+        "ownerId",
+        "type",
+        "createdAt",
+        "dashboardUrl",
+        "updatedAt",
+        "suspended",
+        "suspenders",
+        "autoDeploy",
+        "notifyOnFail",
+        "slug",
+        "serviceDetails",
+        "rootDir"
+      ]
+    },
+    {
+      "name": "deployList",
+      "type": "array",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "workflowVersionWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "workflowVersion",
+        "cursor"
+      ]
+    },
+    {
+      "name": "workflowWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "workflow",
+        "cursor"
+      ]
+    },
+    {
+      "name": "taskWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "task",
+        "cursor"
+      ]
+    },
+    {
+      "name": "deployWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "serviceAndDeploy",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "autoDeploy",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "autoDeployTrigger",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "buildFilter",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "paths",
+        "ignoredPaths"
+      ]
+    },
+    {
+      "name": "registryCredentialSummary",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    {
+      "name": "registryCredentialRegistry",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "registryCredential",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "id",
+        "name",
+        "username",
+        "registry",
+        "updatedAt"
+      ]
+    },
+    {
+      "name": "image",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "imagePath",
+        "ownerId"
+      ]
+    },
+    {
+      "name": "dockerDetails",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "dockerCommand",
+        "dockerContext",
+        "dockerfilePath"
+      ]
+    },
+    {
+      "name": "nativeEnvironmentDetails",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "buildCommand",
+        "startCommand"
+      ]
+    },
+    {
+      "name": "staticSiteDetails",
+      "type": "object",
+      "propertyCount": 9,
+      "required": [
+        "buildCommand",
+        "publishPath",
+        "url",
+        "buildPlan"
+      ]
+    },
+    {
+      "name": "maintenanceMode",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "enabled",
+        "uri"
+      ]
+    },
+    {
+      "name": "maxShutdownDelaySeconds",
+      "type": "integer",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "webServiceDetails",
+      "type": "object",
+      "propertyCount": 21,
+      "required": [
+        "env",
+        "runtime",
+        "envSpecificDetails",
+        "plan",
+        "region",
+        "numInstances",
+        "buildPlan",
+        "healthCheckPath",
+        "openPorts",
+        "url"
+      ]
+    },
+    {
+      "name": "envSpecificDetails",
+      "type": null,
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "envSpecificDetailsPATCH",
+      "type": null,
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "envSpecificDetailsPOST",
+      "type": null,
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "resource",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    {
+      "name": "privateServiceDetails",
+      "type": "object",
+      "propertyCount": 16,
+      "required": [
+        "env",
+        "runtime",
+        "envSpecificDetails",
+        "plan",
+        "region",
+        "numInstances",
+        "buildPlan",
+        "openPorts",
+        "url"
+      ]
+    },
+    {
+      "name": "serviceDisk",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "name",
+        "mountPath"
+      ]
+    },
+    {
+      "name": "cache",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "profile"
+      ]
+    },
+    {
+      "name": "diskWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "disk",
+        "cursor"
+      ]
+    },
+    {
+      "name": "instanceId",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "diskSnapshot",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "snapshotRestorePOST",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "snapshotKey"
+      ]
+    },
+    {
+      "name": "backgroundWorkerDetails",
+      "type": "object",
+      "propertyCount": 14,
+      "required": [
+        "env",
+        "runtime",
+        "envSpecificDetails",
+        "plan",
+        "region",
+        "numInstances",
+        "buildPlan"
+      ]
+    },
+    {
+      "name": "cronJobDetails",
+      "type": "object",
+      "propertyCount": 8,
+      "required": [
+        "env",
+        "runtime",
+        "envSpecificDetails",
+        "plan",
+        "region",
+        "schedule",
+        "buildPlan"
+      ]
+    },
+    {
+      "name": "serviceList",
+      "type": "array",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "serviceWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "service",
+        "cursor"
+      ]
+    },
+    {
+      "name": "servicePOST",
+      "type": "object",
+      "propertyCount": 13,
+      "required": [
+        "type",
+        "name",
+        "ownerId"
+      ]
+    },
+    {
+      "name": "dockerDetailsPOST",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "nativeEnvironmentDetailsPOST",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "buildCommand",
+        "startCommand"
+      ]
+    },
+    {
+      "name": "staticSiteDetailsPOST",
+      "type": "object",
+      "propertyCount": 8,
+      "required": []
+    },
+    {
+      "name": "webServiceDetailsPOST",
+      "type": "object",
+      "propertyCount": 16,
+      "required": [
+        "runtime"
+      ]
+    },
+    {
+      "name": "privateServiceDetailsPOST",
+      "type": "object",
+      "propertyCount": 12,
+      "required": [
+        "runtime"
+      ]
+    },
+    {
+      "name": "backgroundWorkerDetailsPOST",
+      "type": "object",
+      "propertyCount": 12,
+      "required": [
+        "runtime"
+      ]
+    },
+    {
+      "name": "cronJobDetailsPOST",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "runtime",
+        "schedule"
+      ]
+    },
+    {
+      "name": "servicePATCH",
+      "type": "object",
+      "propertyCount": 8,
+      "required": []
+    },
+    {
+      "name": "dockerDetailsPATCH",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "nativeEnvironmentDetailsPATCH",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "staticSiteDetailsPATCH",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "webServiceDetailsPATCH",
+      "type": "object",
+      "propertyCount": 12,
+      "required": []
+    },
+    {
+      "name": "privateServiceDetailsPATCH",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "backgroundWorkerDetailsPATCH",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "cronJobDetailsPATCH",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "envVarInputArray",
+      "type": "array",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "envVarInput",
+      "type": "object",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "envVarKeyValue",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "key",
+        "value"
+      ]
+    },
+    {
+      "name": "envVarValue",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "value"
+      ]
+    },
+    {
+      "name": "envVarKeyGenerateValue",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "key",
+        "generateValue"
+      ]
+    },
+    {
+      "name": "envVarGenerateValue",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "generateValue"
+      ]
+    },
+    {
+      "name": "addUpdateEnvVarInput",
+      "type": "object",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "previewInput",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "imagePath"
+      ]
+    },
+    {
+      "name": "plan",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "header",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "id",
+        "path",
+        "name",
+        "value"
+      ]
+    },
+    {
+      "name": "headerInput",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "path",
+        "name",
+        "value"
+      ]
+    },
+    {
+      "name": "notificationOverrideWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "override",
+        "cursor"
+      ]
+    },
+    {
+      "name": "owner",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "id",
+        "name",
+        "email",
+        "type"
+      ]
+    },
+    {
+      "name": "teamMember",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "userId",
+        "name",
+        "email",
+        "status",
+        "role",
+        "mfaEnabled"
+      ]
+    },
+    {
+      "name": "teamMembers",
+      "type": "array",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "teamMemberRole",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "ownerWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "route",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "id",
+        "type",
+        "source",
+        "destination",
+        "priority"
+      ]
+    },
+    {
+      "name": "headerWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "header",
+        "cursor"
+      ]
+    },
+    {
+      "name": "routeWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "route",
+        "cursor"
+      ]
+    },
+    {
+      "name": "routePost",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "type",
+        "source",
+        "destination"
+      ]
+    },
+    {
+      "name": "routePatch",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "priority"
+      ]
+    },
+    {
+      "name": "routePut",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "type",
+        "source",
+        "destination"
+      ]
+    },
+    {
+      "name": "routeType",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "serviceType",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "serviceTypeShort",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "serviceRuntime",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "serviceEnv",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "sshAddress",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "region",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "notifySetting",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "suspenderType",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "deployStatus",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "deploy",
+      "type": "object",
+      "propertyCount": 9,
+      "required": [
+        "id"
+      ]
+    },
+    {
+      "name": "envVar",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "key",
+        "value"
+      ]
+    },
+    {
+      "name": "envVarWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "envVar",
+        "cursor"
+      ]
+    },
+    {
+      "name": "customDomainWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "customDomain",
+        "cursor"
+      ]
+    },
+    {
+      "name": "customDomain",
+      "type": "object",
+      "propertyCount": 8,
+      "required": [
+        "id",
+        "name",
+        "domainType",
+        "publicSuffix",
+        "verificationStatus",
+        "createdAt",
+        "redirectForName"
+      ]
+    },
+    {
+      "name": "serverPort",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "port",
+        "protocol"
+      ]
+    },
+    {
+      "name": "error",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "pullRequestPreviewsEnabled",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "previews",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "buildPlan",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "renderSubdomainPolicy",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "keyValuePOSTInput",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "name",
+        "ownerId",
+        "plan"
+      ]
+    },
+    {
+      "name": "keyValuePATCHInput",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "maxmemoryPolicy",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "keyValue",
+      "type": "object",
+      "propertyCount": 13,
+      "required": [
+        "id",
+        "createdAt",
+        "updatedAt",
+        "status",
+        "region",
+        "plan",
+        "name",
+        "owner",
+        "options",
+        "ipAllowList",
+        "version",
+        "dashboardUrl"
+      ]
+    },
+    {
+      "name": "keyValueWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "keyValue",
+        "cursor"
+      ]
+    },
+    {
+      "name": "keyValueDetail",
+      "type": "object",
+      "propertyCount": 13,
+      "required": [
+        "id",
+        "createdAt",
+        "updatedAt",
+        "status",
+        "region",
+        "plan",
+        "name",
+        "owner",
+        "options",
+        "ipAllowList",
+        "version"
+      ]
+    },
+    {
+      "name": "keyValueConnectionInfo",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "internalConnectionString",
+        "externalConnectionString",
+        "cliCommand"
+      ]
+    },
+    {
+      "name": "keyValueOptions",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "cidrBlockAndDescription",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "cidrBlock",
+        "description"
+      ]
+    },
+    {
+      "name": "keyValuePlan",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "redisPOSTInput",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "name",
+        "ownerId",
+        "plan"
+      ]
+    },
+    {
+      "name": "redisPATCHInput",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "redis",
+      "type": "object",
+      "propertyCount": 13,
+      "required": [
+        "id",
+        "createdAt",
+        "updatedAt",
+        "status",
+        "region",
+        "plan",
+        "name",
+        "owner",
+        "options",
+        "ipAllowList",
+        "version",
+        "dashboardUrl"
+      ]
+    },
+    {
+      "name": "redisWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "redis",
+        "cursor"
+      ]
+    },
+    {
+      "name": "redisDetail",
+      "type": "object",
+      "propertyCount": 13,
+      "required": [
+        "id",
+        "createdAt",
+        "updatedAt",
+        "status",
+        "region",
+        "plan",
+        "name",
+        "owner",
+        "options",
+        "ipAllowList",
+        "version"
+      ]
+    },
+    {
+      "name": "redisConnectionInfo",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "internalConnectionString",
+        "externalConnectionString",
+        "redisCLICommand"
+      ]
+    },
+    {
+      "name": "redisOptions",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "redisPlan",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "databaseStatus",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "DeployMode",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "projectWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "project",
+        "cursor"
+      ]
+    },
+    {
+      "name": "project",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "id",
+        "createdAt",
+        "updatedAt",
+        "name",
+        "owner",
+        "environmentIds"
+      ]
+    },
+    {
+      "name": "projectPOSTInput",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "name",
+        "ownerId",
+        "environments"
+      ]
+    },
+    {
+      "name": "projectPATCHInput",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "projectPOSTEnvironmentInput",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "environmentPOSTInput",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "name",
+        "projectId"
+      ]
+    },
+    {
+      "name": "environmentResourcesPOSTInput",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "resourceIds"
+      ]
+    },
+    {
+      "name": "environmentPATCHInput",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "environment",
+      "type": "object",
+      "propertyCount": 10,
+      "required": [
+        "id",
+        "name",
+        "projectId",
+        "databasesIds",
+        "redisIds",
+        "serviceIds",
+        "envGroupIds",
+        "protectedStatus",
+        "networkIsolationEnabled"
+      ]
+    },
+    {
+      "name": "environmentWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "environment",
+        "cursor"
+      ]
+    },
+    {
+      "name": "protectedStatus",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "networkIsolationEnabled",
+      "type": "boolean",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "envGroupPOSTInput",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "name",
+        "ownerId",
+        "envVars"
+      ]
+    },
+    {
+      "name": "envGroupPATCHInput",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "secretFileInput",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "name",
+        "content"
+      ]
+    },
+    {
+      "name": "envGroup",
+      "type": null,
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "envGroupMeta",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "id",
+        "name",
+        "ownerId",
+        "createdAt",
+        "updatedAt",
+        "serviceLinks"
+      ]
+    },
+    {
+      "name": "secretFile",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "name",
+        "content"
+      ]
+    },
+    {
+      "name": "secretFileWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "secretFile",
+        "cursor"
+      ]
+    },
+    {
+      "name": "envGroupLink",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "id",
+        "name",
+        "type"
+      ]
+    },
+    {
+      "name": "postgresPOSTInput",
+      "type": "object",
+      "propertyCount": 16,
+      "required": [
+        "name",
+        "plan",
+        "ownerId",
+        "version"
+      ]
+    },
+    {
+      "name": "postgresPATCHInput",
+      "type": "object",
+      "propertyCount": 10,
+      "required": []
+    },
+    {
+      "name": "readReplicas",
+      "type": "array",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "readReplica",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    {
+      "name": "readReplicasInput",
+      "type": "array",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "readReplicaInput",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "postgresParameterOverrides",
+      "type": "object",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "postgresConnectionInfo",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "password",
+        "internalConnectionString",
+        "externalConnectionString",
+        "psqlCommand"
+      ]
+    },
+    {
+      "name": "postgresWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "postgres",
+        "cursor"
+      ]
+    },
+    {
+      "name": "postgres",
+      "type": "object",
+      "propertyCount": 23,
+      "required": [
+        "id",
+        "ipAllowList",
+        "createdAt",
+        "updatedAt",
+        "databaseName",
+        "databaseUser",
+        "highAvailabilityEnabled",
+        "name",
+        "owner",
+        "plan",
+        "region",
+        "readReplicas",
+        "role",
+        "status",
+        "version",
+        "suspended",
+        "suspenders",
+        "dashboardUrl",
+        "diskAutoscalingEnabled"
+      ]
+    },
+    {
+      "name": "postgresDetail",
+      "type": "object",
+      "propertyCount": 25,
+      "required": [
+        "id",
+        "ipAllowList",
+        "createdAt",
+        "updatedAt",
+        "dashboardUrl",
+        "databaseName",
+        "databaseUser",
+        "highAvailabilityEnabled",
+        "name",
+        "owner",
+        "project",
+        "plan",
+        "region",
+        "readReplicas",
+        "role",
+        "status",
+        "version",
+        "suspended",
+        "suspenders",
+        "diskAutoscalingEnabled"
+      ]
+    },
+    {
+      "name": "postgresVersion",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "databaseRole",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "paidPlan",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "cronJobRun",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "id",
+        "status"
+      ]
+    },
+    {
+      "name": "blueprintWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "blueprint",
+        "cursor"
+      ]
+    },
+    {
+      "name": "syncWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "sync",
+        "cursor"
+      ]
+    },
+    {
+      "name": "serviceEventWithCursor",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "event",
+        "cursor"
+      ]
+    },
+    {
+      "name": "jobWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "job",
+        "cursor"
+      ]
+    },
+    {
+      "name": "user",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "email",
+        "name"
+      ]
+    },
+    {
+      "name": "webhookWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "webhook",
+        "cursor"
+      ]
+    },
+    {
+      "name": "webhookEventWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "webhookEvent",
+        "cursor"
+      ]
+    },
+    {
+      "name": "serviceInstance",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "id",
+        "createdAt"
+      ]
+    },
+    {
+      "name": "taskRunWithCursor",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "taskRun",
+        "cursor"
+      ]
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/blueprints",
+      "operationId": "list-blueprints",
+      "summary": "List Blueprints",
+      "tags": [
+        "Blueprints"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/blueprints/validate",
+      "operationId": "validate-blueprint",
+      "summary": "Validate Blueprint",
+      "tags": [
+        "Blueprints"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/owners/{ownerId}/members/{userId}",
+      "operationId": "remove-workspace-member",
+      "summary": "Remove workspace member",
+      "tags": [
+        "Workspaces"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/owners/{ownerId}/members/{userId}",
+      "operationId": "update-workspace-member",
+      "summary": "Update workspace member role",
+      "tags": [
+        "Workspaces"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/blueprints/{blueprintId}",
+      "operationId": "retrieve-blueprint",
+      "summary": "Retrieve Blueprint",
+      "tags": [
+        "Blueprints"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/blueprints/{blueprintId}",
+      "operationId": "disconnect-blueprint",
+      "summary": "Disconnect Blueprint",
+      "tags": [
+        "Blueprints"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/blueprints/{blueprintId}",
+      "operationId": "update-blueprint",
+      "summary": "Update Blueprint",
+      "tags": [
+        "Blueprints"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/blueprints/{blueprintId}/syncs",
+      "operationId": "list-blueprint-syncs",
+      "summary": "List Blueprint syncs",
+      "tags": [
+        "Blueprints"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/disks",
+      "operationId": "list-disks",
+      "summary": "List disks",
+      "tags": [
+        "Disks"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/disks",
+      "operationId": "add-disk",
+      "summary": "Add disk",
+      "tags": [
+        "Disks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/disks/{diskId}",
+      "operationId": "retrieve-disk",
+      "summary": "Retrieve disk",
+      "tags": [
+        "Disks"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/disks/{diskId}",
+      "operationId": "delete-disk",
+      "summary": "Delete disk",
+      "tags": [
+        "Disks"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/disks/{diskId}",
+      "operationId": "update-disk",
+      "summary": "Update disk",
+      "tags": [
+        "Disks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/disks/{diskId}/snapshots",
+      "operationId": "list-snapshots",
+      "summary": "List snapshots",
+      "tags": [
+        "Disks"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/disks/{diskId}/snapshots/restore",
+      "operationId": "restore-snapshot",
+      "summary": "Restore snapshot",
+      "tags": [
+        "Disks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users",
+      "operationId": "get-user",
+      "summary": "Get the authenticated user",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/owners",
+      "operationId": "list-owners",
+      "summary": "List workspaces",
+      "tags": [
+        "Workspaces"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/owners/{ownerId}",
+      "operationId": "retrieve-owner",
+      "summary": "Retrieve workspace",
+      "tags": [
+        "Workspaces"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/owners/{ownerId}/members",
+      "operationId": "retrieve-owner-members",
+      "summary": "List workspace members",
+      "tags": [
+        "Workspaces"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/owners/{ownerId}/audit-logs",
+      "operationId": "list-owner-audit-logs",
+      "summary": "List workspace audit logs",
+      "tags": [
+        "Audit Logs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{orgId}/audit-logs",
+      "operationId": "list-organization-audit-logs",
+      "summary": "List organization audit logs",
+      "tags": [
+        "Audit Logs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/notification-settings/owners/{ownerId}",
+      "operationId": "retrieve-owner-notification-settings",
+      "summary": "Retrieve notification settings",
+      "tags": [
+        "Notification Settings"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/notification-settings/owners/{ownerId}",
+      "operationId": "patch-owner-notification-settings",
+      "summary": "Update notification settings",
+      "tags": [
+        "Notification Settings"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/notification-settings/overrides",
+      "operationId": "list-notification-overrides",
+      "summary": "List notification overrides",
+      "tags": [
+        "Notification Settings"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/notification-settings/overrides/services/{serviceId}",
+      "operationId": "retrieve-service-notification-overrides",
+      "summary": "Retrieve notification override",
+      "tags": [
+        "Notification Settings"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/notification-settings/overrides/services/{serviceId}",
+      "operationId": "patch-service-notification-overrides",
+      "summary": "Update notification override",
+      "tags": [
+        "Notification Settings"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/registrycredentials",
+      "operationId": "list-registry-credentials",
+      "summary": "List registry credentials",
+      "tags": [
+        "Registry Credentials"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/registrycredentials",
+      "operationId": "create-registry-credential",
+      "summary": "Create registry credential",
+      "tags": [
+        "Registry Credentials"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/registrycredentials/{registryCredentialId}",
+      "operationId": "retrieve-registry-credential",
+      "summary": "Retrieve registry credential",
+      "tags": [
+        "Registry Credentials"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/registrycredentials/{registryCredentialId}",
+      "operationId": "delete-registry-credential",
+      "summary": "Delete registry credential",
+      "tags": [
+        "Registry Credentials"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/registrycredentials/{registryCredentialId}",
+      "operationId": "update-registry-credential",
+      "summary": "Update registry credential",
+      "tags": [
+        "Registry Credentials"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services",
+      "operationId": "list-services",
+      "summary": "List services",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services",
+      "operationId": "create-service",
+      "summary": "Create service",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/{serviceId}",
+      "operationId": "retrieve-service",
+      "summary": "Retrieve service",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/services/{serviceId}",
+      "operationId": "delete-service",
+      "summary": "Delete service",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/services/{serviceId}",
+      "operationId": "update-service",
+      "summary": "Update service",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/{serviceId}/cache/purge",
+      "operationId": "purge-cache",
+      "summary": "Purge Web Service Cache",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/{serviceId}/deploys",
+      "operationId": "list-deploys",
+      "summary": "List deploys",
+      "tags": [
+        "Deploys"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/{serviceId}/deploys",
+      "operationId": "create-deploy",
+      "summary": "Trigger deploy",
+      "tags": [
+        "Deploys"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/{serviceId}/deploys/{deployId}",
+      "operationId": "retrieve-deploy",
+      "summary": "Retrieve deploy",
+      "tags": [
+        "Deploys"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/{serviceId}/deploys/{deployId}/cancel",
+      "operationId": "cancel-deploy",
+      "summary": "Cancel deploy",
+      "tags": [
+        "Deploys"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/{serviceId}/rollback",
+      "operationId": "rollback-deploy",
+      "summary": "Roll back deploy",
+      "tags": [
+        "Deploys"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/{serviceId}/env-vars",
+      "operationId": "get-env-vars-for-service",
+      "summary": "List environment variables",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/services/{serviceId}/env-vars",
+      "operationId": "update-env-vars-for-service",
+      "summary": "Update environment variables",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/{serviceId}/env-vars/{envVarKey}",
+      "operationId": "retrieve-env-var",
+      "summary": "Retrieve environment variable",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/services/{serviceId}/env-vars/{envVarKey}",
+      "operationId": "update-env-var",
+      "summary": "Add or update environment variable",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/services/{serviceId}/env-vars/{envVarKey}",
+      "operationId": "delete-env-var",
+      "summary": "Delete environment variable",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/{serviceId}/secret-files",
+      "operationId": "list-secret-files-for-service",
+      "summary": "List secret files",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/services/{serviceId}/secret-files",
+      "operationId": "update-secret-files-for-service",
+      "summary": "Update secret files",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/{serviceId}/secret-files/{secretFileName}",
+      "operationId": "retrieve-secret-file",
+      "summary": "Retrieve secret file",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/services/{serviceId}/secret-files/{secretFileName}",
+      "operationId": "add-or-update-secret-file",
+      "summary": "Add or update secret file",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/services/{serviceId}/secret-files/{secretFileName}",
+      "operationId": "delete-secret-file",
+      "summary": "Delete secret file",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/{serviceId}/events",
+      "operationId": "list-events",
+      "summary": "List events",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/{serviceId}/headers",
+      "operationId": "list-headers",
+      "summary": "List header rules",
+      "tags": [
+        "Services - Headers"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/{serviceId}/headers",
+      "operationId": "add-headers",
+      "summary": "Add header rule",
+      "tags": [
+        "Services - Headers"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/services/{serviceId}/headers",
+      "operationId": "update-headers",
+      "summary": "Replace header rules",
+      "tags": [
+        "Services - Headers"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/services/{serviceId}/headers/{headerId}",
+      "operationId": "delete-header",
+      "summary": "Delete header rule",
+      "tags": [
+        "Services - Headers"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/{serviceId}/routes",
+      "operationId": "list-routes",
+      "summary": "List redirect/rewrite rules",
+      "tags": [
+        "Services - Routes"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/{serviceId}/routes",
+      "operationId": "add-route",
+      "summary": "Add redirect/rewrite rules",
+      "tags": [
+        "Services - Routes"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/services/{serviceId}/routes",
+      "operationId": "put-routes",
+      "summary": "Update redirect/rewrite rules",
+      "tags": [
+        "Services - Routes"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/services/{serviceId}/routes",
+      "operationId": "patch-route",
+      "summary": "Update redirect/rewrite rule priority",
+      "tags": [
+        "Services - Routes"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/services/{serviceId}/routes/{routeId}",
+      "operationId": "delete-route",
+      "summary": "Delete redirect/rewrite rule",
+      "tags": [
+        "Services - Routes"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/{serviceId}/custom-domains",
+      "operationId": "list-custom-domains",
+      "summary": "List custom domains",
+      "tags": [
+        "Custom Domains"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/{serviceId}/custom-domains",
+      "operationId": "create-custom-domain",
+      "summary": "Add custom domain",
+      "tags": [
+        "Custom Domains"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/{serviceId}/custom-domains/{customDomainIdOrName}",
+      "operationId": "retrieve-custom-domain",
+      "summary": "Retrieve custom domain",
+      "tags": [
+        "Custom Domains"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/services/{serviceId}/custom-domains/{customDomainIdOrName}",
+      "operationId": "delete-custom-domain",
+      "summary": "Delete custom domain",
+      "tags": [
+        "Custom Domains"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/{serviceId}/custom-domains/{customDomainIdOrName}/verify",
+      "operationId": "refresh-custom-domain",
+      "summary": "Verify DNS configuration",
+      "tags": [
+        "Custom Domains"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/{serviceId}/suspend",
+      "operationId": "suspend-service",
+      "summary": "Suspend service",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/{serviceId}/resume",
+      "operationId": "resume-service",
+      "summary": "Resume service",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/{serviceId}/restart",
+      "operationId": "restart-service",
+      "summary": "Restart service",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/{serviceId}/scale",
+      "operationId": "scale-service",
+      "summary": "Scale instance count",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/services/{serviceId}/autoscaling",
+      "operationId": "autoscale-service",
+      "summary": "Update autoscaling config",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/services/{serviceId}/autoscaling",
+      "operationId": "delete-autoscaling-config",
+      "summary": "Delete autoscaling config",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/{serviceId}/preview",
+      "operationId": "preview-service",
+      "summary": "Create service preview (image-backed)",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/{serviceId}/jobs",
+      "operationId": "list-job",
+      "summary": "List jobs",
+      "tags": [
+        "One-Off Jobs"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/{serviceId}/jobs",
+      "operationId": "post-job",
+      "summary": "Create job",
+      "tags": [
+        "One-Off Jobs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/{serviceId}/jobs/{jobId}",
+      "operationId": "retrieve-job",
+      "summary": "Retrieve job",
+      "tags": [
+        "One-Off Jobs"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/{serviceId}/jobs/{jobId}/cancel",
+      "operationId": "cancel-job",
+      "summary": "Cancel running job",
+      "tags": [
+        "One-Off Jobs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/{serviceId}/instances",
+      "operationId": "list-instances",
+      "summary": "List instances",
+      "tags": [
+        "Services"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/cron-jobs/{cronJobId}/runs",
+      "operationId": "run-cron-job",
+      "summary": "Trigger cron job run",
+      "tags": [
+        "Services - Cron Jobs"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/cron-jobs/{cronJobId}/runs",
+      "operationId": "cancel-cron-job-run",
+      "summary": "Cancel running cron job",
+      "tags": [
+        "Services - Cron Jobs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/events/{eventId}",
+      "operationId": "retrieve-event",
+      "summary": "Retrieve event",
+      "tags": [
+        "Events"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/logs",
+      "operationId": "list-logs",
+      "summary": "List logs",
+      "tags": [
+        "Logs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/logs/subscribe",
+      "operationId": "subscribe-logs",
+      "summary": "Subscribe to new logs",
+      "tags": [
+        "Logs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/logs/values",
+      "operationId": "list-logs-values",
+      "summary": "List log label values",
+      "tags": [
+        "Logs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/logs/streams/owner/{ownerId}",
+      "operationId": "get-owner-log-stream",
+      "summary": "Retrieve log stream",
+      "tags": [
+        "Logs"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/logs/streams/owner/{ownerId}",
+      "operationId": "update-owner-log-stream",
+      "summary": "Update log stream",
+      "tags": [
+        "Logs"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/logs/streams/owner/{ownerId}",
+      "operationId": "delete-owner-log-stream",
+      "summary": "Delete log stream",
+      "tags": [
+        "Logs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/logs/streams/resource",
+      "operationId": "list-resource-log-streams",
+      "summary": "List log stream overrides",
+      "tags": [
+        "Logs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/logs/streams/resource/{resourceId}",
+      "operationId": "get-resource-log-stream",
+      "summary": "Retrieve log stream override",
+      "tags": [
+        "Logs"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/logs/streams/resource/{resourceId}",
+      "operationId": "update-resource-log-stream",
+      "summary": "Update log stream override",
+      "tags": [
+        "Logs"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/logs/streams/resource/{resourceId}",
+      "operationId": "delete-resource-log-stream",
+      "summary": "Delete log stream override",
+      "tags": [
+        "Logs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics-stream/{ownerId}",
+      "operationId": "getOwnerMetricsStream",
+      "summary": "Retrieve metrics stream",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/metrics-stream/{ownerId}",
+      "operationId": "upsertOwnerMetricsStream",
+      "summary": "Create or update metrics stream",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/metrics-stream/{ownerId}",
+      "operationId": "deleteOwnerMetricsStream",
+      "summary": "Delete metrics stream",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics/cpu",
+      "operationId": "get-cpu",
+      "summary": "Get CPU usage",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics/cpu-limit",
+      "operationId": "get-cpu-limit",
+      "summary": "Get CPU limit",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics/cpu-target",
+      "operationId": "get-cpu-target",
+      "summary": "Get CPU target",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics/memory",
+      "operationId": "get-memory",
+      "summary": "Get memory usage",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics/memory-limit",
+      "operationId": "get-memory-limit",
+      "summary": "Get memory limit",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics/memory-target",
+      "operationId": "get-memory-target",
+      "summary": "Get memory target",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics/http-requests",
+      "operationId": "get-http-requests",
+      "summary": "Get HTTP request count",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics/http-latency",
+      "operationId": "get-http-latency",
+      "summary": "Get HTTP latency",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics/bandwidth",
+      "operationId": "get-bandwidth",
+      "summary": "Get bandwidth usage",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics/bandwidth-sources",
+      "operationId": "get-bandwidth-sources",
+      "summary": "Get bandwidth usage breakdown by traffic source",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics/disk-usage",
+      "operationId": "get-disk-usage",
+      "summary": "Get disk usage",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics/disk-capacity",
+      "operationId": "get-disk-capacity",
+      "summary": "Get disk capacity",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics/instance-count",
+      "operationId": "get-instance-count",
+      "summary": "Get instance count",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics/active-connections",
+      "operationId": "get-active-connections",
+      "summary": "Get active connection count",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics/replication-lag",
+      "operationId": "get-replication-lag",
+      "summary": "Get replica lag",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics/filters/application",
+      "operationId": "list-application-filter-values",
+      "summary": "List queryable instance values",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics/filters/http",
+      "operationId": "list-http-filter-values",
+      "summary": "List queryable status codes and host values",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics/filters/path",
+      "operationId": "list-path-filter-values",
+      "summary": "List queryable paths",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics/task-runs-queued",
+      "operationId": "get-task-runs-queued",
+      "summary": "Get task runs queued count",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics/task-runs-completed",
+      "operationId": "get-task-runs-completed",
+      "summary": "Get task runs completed count",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/key-value",
+      "operationId": "list-key-value",
+      "summary": "List Key Value instances",
+      "tags": [
+        "Key Value"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/key-value",
+      "operationId": "create-key-value",
+      "summary": "Create Key Value instance",
+      "tags": [
+        "Key Value"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/key-value/{keyValueId}",
+      "operationId": "retrieve-key-value",
+      "summary": "Retrieve Key Value instance",
+      "tags": [
+        "Key Value"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/key-value/{keyValueId}",
+      "operationId": "delete-key-value",
+      "summary": "Delete Key Value instance",
+      "tags": [
+        "Key Value"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/key-value/{keyValueId}",
+      "operationId": "update-key-value",
+      "summary": "Update Key Value instance",
+      "tags": [
+        "Key Value"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/key-value/{keyValueId}/connection-info",
+      "operationId": "retrieve-key-value-connection-info",
+      "summary": "Retrieve Key Value connection info",
+      "tags": [
+        "Key Value"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/key-value/{keyValueId}/suspend",
+      "operationId": "suspend-key-value",
+      "summary": "Suspend Key Value instance",
+      "tags": [
+        "Key Value"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/key-value/{keyValueId}/resume",
+      "operationId": "resume-key-value",
+      "summary": "Resume Key Value instance",
+      "tags": [
+        "Key Value"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/redis",
+      "operationId": "list-redis",
+      "summary": "List Redis instances",
+      "tags": [
+        "Redis (Deprecated)"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/redis",
+      "operationId": "create-redis",
+      "summary": "Create Redis instance",
+      "tags": [
+        "Redis (Deprecated)"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/redis/{redisId}",
+      "operationId": "retrieve-redis",
+      "summary": "Retrieve Redis instance",
+      "tags": [
+        "Redis (Deprecated)"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/redis/{redisId}",
+      "operationId": "delete-redis",
+      "summary": "Delete Redis instance",
+      "tags": [
+        "Redis (Deprecated)"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/redis/{redisId}",
+      "operationId": "update-redis",
+      "summary": "Update Redis instance",
+      "tags": [
+        "Redis (Deprecated)"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/redis/{redisId}/connection-info",
+      "operationId": "retrieve-redis-connection-info",
+      "summary": "Retrieve Redis connection info",
+      "tags": [
+        "Redis (Deprecated)"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/postgres",
+      "operationId": "list-postgres",
+      "summary": "List Postgres instances",
+      "tags": [
+        "Postgres"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/postgres",
+      "operationId": "create-postgres",
+      "summary": "Create Postgres instance",
+      "tags": [
+        "Postgres"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/postgres/{postgresId}",
+      "operationId": "retrieve-postgres",
+      "summary": "Retrieve Postgres instance",
+      "tags": [
+        "Postgres"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/postgres/{postgresId}",
+      "operationId": "delete-postgres",
+      "summary": "Delete Postgres instance",
+      "tags": [
+        "Postgres"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/postgres/{postgresId}",
+      "operationId": "update-postgres",
+      "summary": "Update Postgres instance",
+      "tags": [
+        "Postgres"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/postgres/{postgresId}/connection-info",
+      "operationId": "retrieve-postgres-connection-info",
+      "summary": "Retrieve Postgres connection info",
+      "tags": [
+        "Postgres"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/postgres/{postgresId}/recovery",
+      "operationId": "retrieve-postgres-recovery-info",
+      "summary": "Retrieve point-in-time recovery status",
+      "tags": [
+        "Postgres"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/postgres/{postgresId}/recovery",
+      "operationId": "recover-postgres",
+      "summary": "Trigger point-in-time recovery",
+      "tags": [
+        "Postgres"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/postgres/{postgresId}/suspend",
+      "operationId": "suspend-postgres",
+      "summary": "Suspend Postgres instance",
+      "tags": [
+        "Postgres"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/postgres/{postgresId}/resume",
+      "operationId": "resume-postgres",
+      "summary": "Resume Postgres instance",
+      "tags": [
+        "Postgres"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/postgres/{postgresId}/restart",
+      "operationId": "restart-postgres",
+      "summary": "Restart Postgres instance",
+      "tags": [
+        "Postgres"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/postgres/{postgresId}/failover",
+      "operationId": "failover-postgres",
+      "summary": "Failover Postgres instance",
+      "tags": [
+        "Postgres"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/postgres/{postgresId}/export",
+      "operationId": "list-postgres-export",
+      "summary": "List Postgres exports",
+      "tags": [
+        "Postgres"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/postgres/{postgresId}/export",
+      "operationId": "create-postgres-export",
+      "summary": "Create Postgres export",
+      "tags": [
+        "Postgres"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/postgres/{postgresId}/credentials",
+      "operationId": "list-postgres-users",
+      "summary": "List PostgreSQL Users",
+      "tags": [
+        "Postgres"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/postgres/{postgresId}/credentials",
+      "operationId": "create-postgres-user",
+      "summary": "Create PostgreSQL User",
+      "tags": [
+        "Postgres"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/postgres/{postgresId}/credentials/{username}",
+      "operationId": "delete-postgres-user",
+      "summary": "Delete PostgreSQL User",
+      "tags": [
+        "Postgres"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/projects",
+      "operationId": "list-projects",
+      "summary": "List projects",
+      "tags": [
+        "Projects & Environments"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/projects",
+      "operationId": "create-project",
+      "summary": "Create project",
+      "tags": [
+        "Projects & Environments"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/projects/{projectId}",
+      "operationId": "retrieve-project",
+      "summary": "Retrieve Project",
+      "tags": [
+        "Projects & Environments"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/projects/{projectId}",
+      "operationId": "delete-project",
+      "summary": "Delete project",
+      "tags": [
+        "Projects & Environments"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/projects/{projectId}",
+      "operationId": "update-project",
+      "summary": "Update project",
+      "tags": [
+        "Projects & Environments"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/environments",
+      "operationId": "list-environments",
+      "summary": "List environments",
+      "tags": [
+        "Projects & Environments"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/environments",
+      "operationId": "create-environment",
+      "summary": "Create environment",
+      "tags": [
+        "Projects & Environments"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/environments/{environmentId}",
+      "operationId": "retrieve-environment",
+      "summary": "Retrieve environment",
+      "tags": [
+        "Projects & Environments"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/environments/{environmentId}",
+      "operationId": "delete-environment",
+      "summary": "Delete environment",
+      "tags": [
+        "Projects & Environments"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/environments/{environmentId}",
+      "operationId": "update-environment",
+      "summary": "Update environment",
+      "tags": [
+        "Projects & Environments"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/environments/{environmentId}/resources",
+      "operationId": "add-resources-to-environment",
+      "summary": "Add resources to environment",
+      "tags": [
+        "Projects & Environments"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/environments/{environmentId}/resources",
+      "operationId": "remove-resources-from-environment",
+      "summary": "Remove resources from environment",
+      "tags": [
+        "Projects & Environments"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/env-groups",
+      "operationId": "list-env-groups",
+      "summary": "List environment groups",
+      "tags": [
+        "Environment Groups"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/env-groups",
+      "operationId": "create-env-group",
+      "summary": "Create environment group",
+      "tags": [
+        "Environment Groups"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/env-groups/{envGroupId}",
+      "operationId": "retrieve-env-group",
+      "summary": "Retrieve environment group",
+      "tags": [
+        "Environment Groups"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/env-groups/{envGroupId}",
+      "operationId": "delete-env-group",
+      "summary": "Delete environment group",
+      "tags": [
+        "Environment Groups"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/env-groups/{envGroupId}",
+      "operationId": "update-env-group",
+      "summary": "Update environment group",
+      "tags": [
+        "Environment Groups"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/env-groups/{envGroupId}/services/{serviceId}",
+      "operationId": "link-service-to-env-group",
+      "summary": "Link service",
+      "tags": [
+        "Environment Groups"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/env-groups/{envGroupId}/services/{serviceId}",
+      "operationId": "unlink-service-from-env-group",
+      "summary": "Unlink service",
+      "tags": [
+        "Environment Groups"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/env-groups/{envGroupId}/env-vars/{envVarKey}",
+      "operationId": "retrieve-env-group-env-var",
+      "summary": "Retrieve environment variable",
+      "tags": [
+        "Environment Groups"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/env-groups/{envGroupId}/env-vars/{envVarKey}",
+      "operationId": "update-env-group-env-var",
+      "summary": "Add or update environment variable",
+      "tags": [
+        "Environment Groups"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/env-groups/{envGroupId}/env-vars/{envVarKey}",
+      "operationId": "delete-env-group-env-var",
+      "summary": "Remove environment variable",
+      "tags": [
+        "Environment Groups"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/env-groups/{envGroupId}/secret-files/{secretFileName}",
+      "operationId": "retrieve-env-group-secret-file",
+      "summary": "Retrieve secret file",
+      "tags": [
+        "Environment Groups"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/env-groups/{envGroupId}/secret-files/{secretFileName}",
+      "operationId": "update-env-group-secret-file",
+      "summary": "Add or update secret file",
+      "tags": [
+        "Environment Groups"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/env-groups/{envGroupId}/secret-files/{secretFileName}",
+      "operationId": "delete-env-group-secret-file",
+      "summary": "Remove secret file",
+      "tags": [
+        "Environment Groups"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/maintenance",
+      "operationId": "list-maintenance",
+      "summary": "List maintenance runs",
+      "tags": [
+        "Maintenance"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/maintenance/{maintenanceRunParam}",
+      "operationId": "retrieve-maintenance",
+      "summary": "Retrieve maintenance run",
+      "tags": [
+        "Maintenance"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/maintenance/{maintenanceRunParam}",
+      "operationId": "update-maintenance",
+      "summary": "Update maintenance run",
+      "tags": [
+        "Maintenance"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/maintenance/{maintenanceRunParam}/trigger",
+      "operationId": "trigger-maintenance",
+      "summary": "Trigger maintenance run",
+      "tags": [
+        "Maintenance"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/webhooks",
+      "operationId": "list-webhooks",
+      "summary": "List webhooks",
+      "tags": [
+        "Webhooks"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/webhooks",
+      "operationId": "create-webhook",
+      "summary": "Create a webhook",
+      "tags": [
+        "Webhooks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/webhooks/{webhookId}",
+      "operationId": "retrieve-webhook",
+      "summary": "Retrieve a webhook",
+      "tags": [
+        "Webhooks"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/webhooks/{webhookId}",
+      "operationId": "delete-webhook",
+      "summary": "Delete a webhook",
+      "tags": [
+        "Webhooks"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/webhooks/{webhookId}",
+      "operationId": "update-webhook",
+      "summary": "Update a webhook",
+      "tags": [
+        "Webhooks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/webhooks/{webhookId}/events",
+      "operationId": "list-webhook-events",
+      "summary": "List webhook events",
+      "tags": [
+        "Webhooks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workflows",
+      "operationId": "listWorkflows",
+      "summary": "List workflows",
+      "tags": [
+        "Workflows (Beta)"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/workflows",
+      "operationId": "createWorkflow",
+      "summary": "Create a workflow",
+      "tags": [
+        "Workflows (Beta)"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workflows/{workflowId}",
+      "operationId": "getWorkflow",
+      "summary": "Retrieve workflow",
+      "tags": [
+        "Workflows (Beta)"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/workflows/{workflowId}",
+      "operationId": "deleteWorkflow",
+      "summary": "Delete workflow",
+      "tags": [
+        "Workflows (Beta)"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/workflows/{workflowId}",
+      "operationId": "updateWorkflow",
+      "summary": "Update workflow",
+      "tags": [
+        "Workflows (Beta)"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workflowversions",
+      "operationId": "listWorkflowVersions",
+      "summary": "List workflow versions",
+      "tags": [
+        "Workflows (Beta)"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/workflowversions",
+      "operationId": "createWorkflowVersion",
+      "summary": "Deploy a workflow version",
+      "tags": [
+        "Workflows (Beta)"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workflowversions/{workflowVersionId}",
+      "operationId": "getWorkflowVersion",
+      "summary": "Retrieve workflow version",
+      "tags": [
+        "Workflows (Beta)"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/tasks",
+      "operationId": "listTasks",
+      "summary": "List tasks",
+      "tags": [
+        "Workflow Tasks (Beta)"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/tasks/{taskId}",
+      "operationId": "getTask",
+      "summary": "Retrieve task",
+      "tags": [
+        "Workflow Tasks (Beta)"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/task-runs",
+      "operationId": "listTaskRuns",
+      "summary": "List task runs",
+      "tags": [
+        "Workflow Tasks (Beta)"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/task-runs",
+      "operationId": "createTask",
+      "summary": "Run task",
+      "tags": [
+        "Workflow Tasks (Beta)"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/task-runs/events",
+      "operationId": "streamTaskRunsEvents",
+      "summary": "Stream realtime events (SSE)",
+      "tags": [
+        "Workflow Tasks (Beta)"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/task-runs/{taskRunId}",
+      "operationId": "getTaskRun",
+      "summary": "Retrieve task run",
+      "tags": [
+        "Workflow Tasks (Beta)"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/task-runs/{taskRunId}",
+      "operationId": "cancelTaskRun",
+      "summary": "Cancel task run",
+      "tags": [
+        "Workflow Tasks (Beta)"
+      ]
+    }
+  ]
+}

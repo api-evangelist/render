@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/environmentPATCHInput",
+  "title": "environmentPATCHInput",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "networkIsolationEnabled": {
+      "$ref": "#/components/schemas/networkIsolationEnabled"
+    },
+    "protectedStatus": {
+      "$ref": "#/components/schemas/protectedStatus"
+    },
+    "ipAllowList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/cidrBlockAndDescription"
+      }
+    }
+  }
+}

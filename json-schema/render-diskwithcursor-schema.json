@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/diskWithCursor",
+  "title": "diskWithCursor",
+  "required": [
+    "disk",
+    "cursor"
+  ],
+  "type": "object",
+  "properties": {
+    "disk": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "sizeGB",
+        "mountPath",
+        "createdAt",
+        "updatedAt"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/paths/~1disks~1%7BdiskId%7D/parameters/0/schema"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sizeGB": {
+          "type": "integer"
+        },
+        "mountPath": {
+          "type": "string"
+        },
+        "serviceId": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "cursor": {
+      "$ref": "#/components/schemas/cursor"
+    }
+  }
+}

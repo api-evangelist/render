@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/renderSubdomainPolicy",
+  "title": "renderSubdomainPolicy",
+  "type": "string",
+  "enum": [
+    "enabled",
+    "disabled"
+  ],
+  "description": "Controls whether render.com subdomains are available for the service"
+}

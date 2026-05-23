@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/keyValueDetail",
+  "title": "keyValueDetail",
+  "type": "object",
+  "description": "A Key Value instance",
+  "required": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "status",
+    "region",
+    "plan",
+    "name",
+    "owner",
+    "options",
+    "ipAllowList",
+    "version"
+  ],
+  "properties": {
+    "id": {
+      "description": "The ID of the Key Value instance",
+      "type": "string"
+    },
+    "createdAt": {
+      "description": "The creation time of the Key Value instance",
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "description": "The last updated time of the Key Value instance",
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "$ref": "#/components/schemas/databaseStatus"
+    },
+    "region": {
+      "$ref": "#/components/schemas/region"
+    },
+    "plan": {
+      "$ref": "#/components/schemas/keyValuePlan"
+    },
+    "name": {
+      "description": "The name of the Key Value instance",
+      "type": "string"
+    },
+    "owner": {
+      "$ref": "#/components/schemas/owner"
+    },
+    "options": {
+      "$ref": "#/components/schemas/keyValueOptions"
+    },
+    "ipAllowList": {
+      "description": "The IP allow list for the Key Value instance",
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/cidrBlockAndDescription"
+      }
+    },
+    "environmentId": {
+      "description": "The ID of the environment the Key Value instance is associated with",
+      "type": "string"
+    },
+    "version": {
+      "description": "The version of Key Value",
+      "type": "string"
+    },
+    "maintenance": {
+      "$ref": "#/components/schemas/redisDetail/properties/maintenance"
+    }
+  }
+}

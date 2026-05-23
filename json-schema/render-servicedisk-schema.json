@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/serviceDisk",
+  "title": "serviceDisk",
+  "type": "object",
+  "required": [
+    "name",
+    "mountPath"
+  ],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "mountPath": {
+      "type": "string"
+    },
+    "sizeGB": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Defaults to 1"
+    }
+  }
+}

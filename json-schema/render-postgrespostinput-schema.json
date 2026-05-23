@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/postgresPOSTInput",
+  "title": "postgresPOSTInput",
+  "type": "object",
+  "required": [
+    "name",
+    "plan",
+    "ownerId",
+    "version"
+  ],
+  "properties": {
+    "databaseName": {
+      "type": "string",
+      "default": "randomly generated"
+    },
+    "databaseUser": {
+      "type": "string",
+      "default": "randomly generated"
+    },
+    "datadogAPIKey": {
+      "type": "string",
+      "description": "The Datadog API key for the Datadog agent to monitor the new database."
+    },
+    "datadogSite": {
+      "type": "string",
+      "description": "Datadog region to use for monitoring the new database. Defaults to 'US1'.",
+      "example": "US1"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the database as it will appear in the Render Dashboard"
+    },
+    "enableHighAvailability": {
+      "type": "boolean",
+      "default": false
+    },
+    "environmentId": {
+      "type": "string"
+    },
+    "ownerId": {
+      "type": "string",
+      "description": "The ID of the workspace to create the database for"
+    },
+    "plan": {
+      "$ref": "#/components/schemas/postgres/properties/plan"
+    },
+    "diskSizeGB": {
+      "type": "integer",
+      "description": "The number of gigabytes of disk space to allocate for the database"
+    },
+    "enableDiskAutoscaling": {
+      "type": "boolean",
+      "default": false
+    },
+    "region": {
+      "type": "string"
+    },
+    "ipAllowList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/cidrBlockAndDescription"
+      }
+    },
+    "parameterOverrides": {
+      "$ref": "#/components/schemas/postgresParameterOverrides"
+    },
+    "readReplicas": {
+      "$ref": "#/components/schemas/readReplicasInput"
+    },
+    "version": {
+      "$ref": "#/components/schemas/postgresVersion"
+    }
+  },
+  "description": "Input for creating a database"
+}

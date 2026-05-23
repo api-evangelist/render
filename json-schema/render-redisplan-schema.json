@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/redisPlan",
+  "title": "redisPlan",
+  "type": "string",
+  "enum": [
+    "free",
+    "starter",
+    "standard",
+    "pro",
+    "pro_plus",
+    "custom"
+  ],
+  "x-enum-varnames": [
+    "RedisPlanFree",
+    "RedisPlanStarter",
+    "RedisPlanStandard",
+    "RedisPlanPro",
+    "RedisPlanPro_plus",
+    "RedisPlanCustom"
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/privateServiceDetails",
+  "title": "privateServiceDetails",
+  "type": "object",
+  "required": [
+    "env",
+    "runtime",
+    "envSpecificDetails",
+    "plan",
+    "region",
+    "numInstances",
+    "buildPlan",
+    "openPorts",
+    "url"
+  ],
+  "properties": {
+    "autoscaling": {
+      "$ref": "#/components/schemas/webServiceDetails/properties/autoscaling"
+    },
+    "disk": {
+      "$ref": "#/components/schemas/webServiceDetails/properties/disk"
+    },
+    "env": {
+      "$ref": "#/components/schemas/serviceEnv"
+    },
+    "envSpecificDetails": {
+      "$ref": "#/components/schemas/envSpecificDetails"
+    },
+    "numInstances": {
+      "type": "integer",
+      "description": "For a *manually* scaled service, this is the number of instances the service is scaled to. DOES NOT indicate the number of running instances for an *autoscaled* service."
+    },
+    "openPorts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/serverPort"
+      }
+    },
+    "parentServer": {
+      "$ref": "#/components/schemas/resource"
+    },
+    "plan": {
+      "$ref": "#/components/schemas/plan"
+    },
+    "pullRequestPreviewsEnabled": {
+      "$ref": "#/components/schemas/pullRequestPreviewsEnabled"
+    },
+    "previews": {
+      "$ref": "#/components/schemas/previews"
+    },
+    "region": {
+      "$ref": "#/components/schemas/region"
+    },
+    "runtime": {
+      "$ref": "#/components/schemas/serviceRuntime"
+    },
+    "sshAddress": {
+      "$ref": "#/components/schemas/sshAddress"
+    },
+    "url": {
+      "type": "string"
+    },
+    "buildPlan": {
+      "$ref": "#/components/schemas/buildPlan"
+    },
+    "maxShutdownDelaySeconds": {
+      "$ref": "#/components/schemas/maxShutdownDelaySeconds"
+    }
+  }
+}

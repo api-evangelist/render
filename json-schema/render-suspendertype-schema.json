@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/suspenderType",
+  "title": "suspenderType",
+  "type": "string",
+  "enum": [
+    "admin",
+    "billing",
+    "user",
+    "parent_service",
+    "stuck_crashlooping",
+    "hipaa_enablement",
+    "unknown"
+  ]
+}

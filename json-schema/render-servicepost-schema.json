@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/servicePOST",
+  "title": "servicePOST",
+  "type": "object",
+  "required": [
+    "type",
+    "name",
+    "ownerId"
+  ],
+  "properties": {
+    "type": {
+      "$ref": "#/components/schemas/serviceType"
+    },
+    "name": {
+      "type": "string",
+      "description": "The service's name. Must be unique within the workspace."
+    },
+    "ownerId": {
+      "type": "string",
+      "description": "The ID of the workspace the service belongs to. Obtain your workspace's ID from its Settings page in the Render Dashboard."
+    },
+    "repo": {
+      "type": "string",
+      "example": "https://github.com/render-examples/flask-hello-world",
+      "description": "The service's repository URL. Do not specify a branch in this string (use the `branch` parameter instead)."
+    },
+    "autoDeploy": {
+      "$ref": "#/components/schemas/autoDeploy"
+    },
+    "branch": {
+      "type": "string",
+      "description": "The repo branch to pull, build, and deploy. If omitted, uses the repository's default branch."
+    },
+    "image": {
+      "$ref": "#/components/schemas/image"
+    },
+    "buildFilter": {
+      "$ref": "#/components/schemas/buildFilter"
+    },
+    "rootDir": {
+      "type": "string"
+    },
+    "envVars": {
+      "$ref": "#/components/schemas/envVarInputArray"
+    },
+    "secretFiles": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/secretFileInput"
+      }
+    },
+    "environmentId": {
+      "type": "string",
+      "description": "The ID of the environment the service belongs to, if any. Obtain an environment's ID from its Settings page in the Render Dashboard."
+    },
+    "serviceDetails": {
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/staticSiteDetailsPOST"
+        },
+        {
+          "$ref": "#/components/schemas/webServiceDetailsPOST"
+        },
+        {
+          "$ref": "#/components/schemas/privateServiceDetailsPOST"
+        },
+        {
+          "$ref": "#/components/schemas/backgroundWorkerDetailsPOST"
+        },
+        {
+          "$ref": "#/components/schemas/cronJobDetailsPOST"
+        }
+      ]
+    }
+  }
+}

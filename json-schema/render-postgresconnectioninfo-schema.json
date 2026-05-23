@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/postgresConnectionInfo",
+  "title": "postgresConnectionInfo",
+  "type": "object",
+  "required": [
+    "password",
+    "internalConnectionString",
+    "externalConnectionString",
+    "psqlCommand"
+  ],
+  "properties": {
+    "password": {
+      "type": "string",
+      "format": "password"
+    },
+    "internalConnectionString": {
+      "type": "string",
+      "format": "password"
+    },
+    "externalConnectionString": {
+      "type": "string",
+      "format": "password"
+    },
+    "psqlCommand": {
+      "type": "string",
+      "format": "password"
+    }
+  }
+}

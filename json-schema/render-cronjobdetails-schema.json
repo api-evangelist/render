@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/cronJobDetails",
+  "title": "cronJobDetails",
+  "required": [
+    "env",
+    "runtime",
+    "envSpecificDetails",
+    "plan",
+    "region",
+    "schedule",
+    "buildPlan"
+  ],
+  "type": "object",
+  "properties": {
+    "env": {
+      "$ref": "#/components/schemas/serviceEnv"
+    },
+    "envSpecificDetails": {
+      "$ref": "#/components/schemas/envSpecificDetails"
+    },
+    "lastSuccessfulRunAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "plan": {
+      "$ref": "#/components/schemas/plan"
+    },
+    "region": {
+      "$ref": "#/components/schemas/region"
+    },
+    "runtime": {
+      "$ref": "#/components/schemas/serviceRuntime"
+    },
+    "schedule": {
+      "type": "string"
+    },
+    "buildPlan": {
+      "$ref": "#/components/schemas/buildPlan"
+    }
+  }
+}

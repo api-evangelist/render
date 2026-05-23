@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/protectedStatus",
+  "title": "protectedStatus",
+  "type": "string",
+  "description": "Indicates whether an environment is `unprotected` or `protected`. Only admin users can perform destructive actions in `protected` environments.",
+  "enum": [
+    "unprotected",
+    "protected"
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/taskRunWithCursor",
+  "title": "taskRunWithCursor",
+  "type": "object",
+  "required": [
+    "taskRun",
+    "cursor"
+  ],
+  "properties": {
+    "taskRun": {
+      "type": "object",
+      "required": [
+        "id",
+        "taskId",
+        "status",
+        "parentTaskRunId",
+        "rootTaskRunId",
+        "retries",
+        "attempts"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "taskId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "running",
+            "completed",
+            "succeeded",
+            "failed",
+            "canceled",
+            "paused"
+          ]
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "completedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "parentTaskRunId": {
+          "type": "string"
+        },
+        "rootTaskRunId": {
+          "type": "string"
+        },
+        "retries": {
+          "type": "integer"
+        },
+        "attempts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "status",
+              "startedAt"
+            ],
+            "properties": {
+              "status": {
+                "$ref": "#/components/schemas/taskRunWithCursor/properties/taskRun/properties/status"
+              },
+              "enqueuedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "startedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "completedAt": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      }
+    },
+    "cursor": {
+      "$ref": "#/components/schemas/cursor"
+    }
+  }
+}

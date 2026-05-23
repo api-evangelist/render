@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/cronJobRun",
+  "title": "cronJobRun",
+  "type": "object",
+  "description": "A run of a cron job",
+  "required": [
+    "id",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "description": "The ID of the run",
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "successful",
+        "unsuccessful",
+        "canceled"
+      ]
+    },
+    "startedAt": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2021-07-15T07:20:05.777035-07:00"
+    },
+    "finishedAt": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2021-07-15T07:20:05.777035-07:00"
+    },
+    "triggeredBy": {
+      "type": "string",
+      "description": "user who triggered the cron job run"
+    },
+    "canceledBy": {
+      "type": "string",
+      "description": "user who cancelled the cron job run"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/teamMembers",
+  "title": "teamMembers",
+  "type": "array",
+  "items": {
+    "$ref": "#/components/schemas/teamMember"
+  }
+}

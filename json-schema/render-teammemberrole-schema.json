@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/teamMemberRole",
+  "title": "teamMemberRole",
+  "type": "string",
+  "description": "The member's workspace role. Values are always returned in uppercase.",
+  "enum": [
+    "ADMIN",
+    "DEVELOPER",
+    "WORKSPACE_CONTRIBUTOR",
+    "WORKSPACE_BILLING",
+    "WORKSPACE_VIEWER"
+  ],
+  "example": "DEVELOPER"
+}

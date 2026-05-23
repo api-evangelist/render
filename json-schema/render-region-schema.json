@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/region",
+  "title": "region",
+  "type": "string",
+  "enum": [
+    "frankfurt",
+    "oregon",
+    "ohio",
+    "singapore",
+    "virginia"
+  ],
+  "default": "oregon",
+  "description": "Defaults to \"oregon\""
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/projectWithCursor",
+  "title": "projectWithCursor",
+  "type": "object",
+  "required": [
+    "project",
+    "cursor"
+  ],
+  "properties": {
+    "project": {
+      "$ref": "#/components/schemas/project"
+    },
+    "cursor": {
+      "$ref": "#/components/schemas/cursor"
+    }
+  }
+}

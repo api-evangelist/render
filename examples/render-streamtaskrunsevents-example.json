@@ -1,0 +1,15 @@
+{
+  "operationId": "streamTaskRunsEvents",
+  "method": "GET",
+  "path": "/task-runs/events",
+  "summary": "Stream realtime events (SSE)",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "text/event-stream",
+      "name": "taskCompleted",
+      "example": "event: task.completed\ndata: {\n        \"id\": \"string\",\n        \"taskId\": \"string\",\n        \"status\": \"pending\",\n        \"results\": [\n          \"string\"\n        ],\n        \"error\": \"string\",\n        \"startedAt\": \"2025-09-04T17:25:17.979Z\",\n        \"completedAt\": \"2025-09-04T17:25:17.979Z\"\n      }\n"
+    }
+  ]
+}

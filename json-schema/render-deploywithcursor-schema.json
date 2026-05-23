@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/deployWithCursor",
+  "title": "deployWithCursor",
+  "type": "object",
+  "properties": {
+    "deploy": {
+      "$ref": "#/components/schemas/deploy"
+    },
+    "cursor": {
+      "$ref": "#/components/schemas/cursor"
+    }
+  }
+}

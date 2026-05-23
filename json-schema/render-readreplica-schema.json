@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/readReplica",
+  "title": "readReplica",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The replica instance identifier."
+    },
+    "name": {
+      "type": "string",
+      "description": "The display name of the replica instance."
+    },
+    "parameterOverrides": {
+      "$ref": "#/components/schemas/postgresParameterOverrides"
+    }
+  },
+  "required": [
+    "id",
+    "name"
+  ]
+}

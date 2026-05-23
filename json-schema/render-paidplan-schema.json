@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/paidPlan",
+  "title": "paidPlan",
+  "type": "string",
+  "enum": [
+    "starter",
+    "standard",
+    "pro",
+    "pro_plus",
+    "pro_max",
+    "pro_ultra"
+  ],
+  "default": "starter",
+  "description": "Defaults to `starter` when creating a new database."
+}

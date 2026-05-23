@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/headerInput",
+  "title": "headerInput",
+  "type": "object",
+  "required": [
+    "path",
+    "name",
+    "value"
+  ],
+  "properties": {
+    "path": {
+      "type": "string",
+      "description": "The request path to add the header to. Wildcards will cause headers to be applied to all matching paths.",
+      "example": "/static/*"
+    },
+    "name": {
+      "type": "string",
+      "description": "Header name",
+      "example": "Cache-Control"
+    },
+    "value": {
+      "type": "string",
+      "description": "Header value",
+      "example": "public, max-age=604800"
+    }
+  }
+}

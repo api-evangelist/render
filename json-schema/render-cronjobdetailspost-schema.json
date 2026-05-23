@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/cronJobDetailsPOST",
+  "title": "cronJobDetailsPOST",
+  "type": "object",
+  "required": [
+    "runtime",
+    "schedule"
+  ],
+  "properties": {
+    "env": {
+      "$ref": "#/components/schemas/serviceEnv"
+    },
+    "runtime": {
+      "$ref": "#/components/schemas/serviceRuntime"
+    },
+    "envSpecificDetails": {
+      "$ref": "#/components/schemas/envSpecificDetails"
+    },
+    "plan": {
+      "$ref": "#/components/schemas/paidPlan"
+    },
+    "region": {
+      "$ref": "#/components/schemas/region"
+    },
+    "schedule": {
+      "type": "string"
+    }
+  }
+}

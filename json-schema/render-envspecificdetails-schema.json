@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/envSpecificDetails",
+  "title": "envSpecificDetails",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/dockerDetails"
+    },
+    {
+      "$ref": "#/components/schemas/nativeEnvironmentDetails"
+    }
+  ]
+}
