@@ -178,6 +178,8 @@ common:
 - name: MCP Server
   url: https://render.com/blog/announcing-render-mcp-server
   type: MCPServer
+- type: LLMsTxt
+  url: https://api-docs.render.com/llms.txt
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
