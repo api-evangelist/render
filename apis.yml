@@ -18,7 +18,7 @@ tags:
 - Hosting
 url: https://raw.githubusercontent.com/api-evangelist/render/refs/heads/main/apis.yml
 created: '2026-03-16'
-modified: '2026-05-19'
+modified: '2026-05-30'
 specificationVersion: '0.19'
 apis:
 - aid: render:render-api
@@ -43,6 +43,8 @@ apis:
     url: openapi/render-openapi.json
   - type: OpenAPISpec
     url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
   - type: ReferenceDocumentation
     url: https://api-docs.render.com
   - type: Rules

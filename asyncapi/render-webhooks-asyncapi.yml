@@ -1,0 +1,1202 @@
+asyncapi: 2.6.0
+info:
+  title: Render Webhooks
+  version: '1.0.0'
+  description: |-
+    AsyncAPI 2.6 description of Render's outbound webhook surface. Render delivers
+    event notifications by issuing HTTP POST requests with a JSON body to a
+    subscriber URL configured in the Render dashboard. Each event carries a
+    `type` discriminator that identifies the event class (deploy lifecycle,
+    service availability, scaling, configuration, cron jobs, Postgres, Key
+    Value, and persistent disks).
+
+    Authenticity is established with a Standard Webhooks style HMAC-SHA256
+    signature delivered in HTTP headers (`webhook-id`, `webhook-timestamp`,
+    `webhook-signature`). Subscribers must respond with a 2xx status code
+    within 15 seconds; failed deliveries are retried with exponential backoff
+    up to eight attempts, with the final attempt occurring approximately 33
+    hours after the first. After three failures Render sends an email
+    notification; after all attempts fail the webhook is disabled.
+
+    Source documentation: https://render.com/docs/webhooks
+  contact:
+    name: Render Support
+    url: https://render.com/docs
+  license:
+    name: Render Terms of Service
+    url: https://render.com/terms
+
+defaultContentType: application/json
+
+servers:
+  subscriber:
+    url: '{webhookUrl}'
+    protocol: https
+    description: |-
+      Customer-hosted HTTPS endpoint that receives webhook POSTs from Render.
+      The full URL (including path) is configured per webhook destination in
+      the Render dashboard. Scale and Enterprise plans support up to 100
+      destination URLs per workspace.
+    variables:
+      webhookUrl:
+        default: https://example.com/render/webhook
+        description: Fully qualified HTTPS URL of the subscriber endpoint.
+    security:
+      - hmacSignature: []
+
+channels:
+  /render/webhook:
+    description: |-
+      Single subscriber endpoint that receives every Render webhook event
+      delivered to the configured destination URL. The `type` field on the
+      JSON body identifies the event class. Render sends one event per HTTP
+      POST and expects a 2xx response within 15 seconds.
+    bindings:
+      http:
+        type: request
+        method: POST
+        bindingVersion: '0.3.0'
+    publish:
+      operationId: receiveRenderWebhook
+      summary: Receive a Render webhook event
+      description: |-
+        Render POSTs a JSON event to the subscriber endpoint. The HTTP
+        request carries `webhook-id`, `webhook-timestamp`, and
+        `webhook-signature` headers. Subscribers should verify the signature
+        before processing and respond with any 2xx status code within 15
+        seconds. Failed deliveries are retried with exponential backoff up
+        to a maximum of eight attempts.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/BuildEnded'
+          - $ref: '#/components/messages/BuildStarted'
+          - $ref: '#/components/messages/DeployEnded'
+          - $ref: '#/components/messages/DeployStarted'
+          - $ref: '#/components/messages/ImagePullFailed'
+          - $ref: '#/components/messages/JobRunEnded'
+          - $ref: '#/components/messages/PreDeployEnded'
+          - $ref: '#/components/messages/PreDeployStarted'
+          - $ref: '#/components/messages/CommitIgnored'
+          - $ref: '#/components/messages/BranchDeleted'
+          - $ref: '#/components/messages/MaintenanceEnded'
+          - $ref: '#/components/messages/MaintenanceModeEnabled'
+          - $ref: '#/components/messages/MaintenanceModeUriUpdated'
+          - $ref: '#/components/messages/MaintenanceStarted'
+          - $ref: '#/components/messages/ServerAvailable'
+          - $ref: '#/components/messages/ServerFailed'
+          - $ref: '#/components/messages/ServerHardwareFailure'
+          - $ref: '#/components/messages/ServerRestarted'
+          - $ref: '#/components/messages/ServiceResumed'
+          - $ref: '#/components/messages/ServiceSuspended'
+          - $ref: '#/components/messages/ZeroDowntimeRedeployEnded'
+          - $ref: '#/components/messages/ZeroDowntimeRedeployStarted'
+          - $ref: '#/components/messages/InstanceCountChanged'
+          - $ref: '#/components/messages/AutoscalingEnded'
+          - $ref: '#/components/messages/AutoscalingStarted'
+          - $ref: '#/components/messages/AutoscalingConfigChanged'
+          - $ref: '#/components/messages/PlanChanged'
+          - $ref: '#/components/messages/CronJobRunEnded'
+          - $ref: '#/components/messages/CronJobRunStarted'
+          - $ref: '#/components/messages/PostgresAvailable'
+          - $ref: '#/components/messages/PostgresBackupCompleted'
+          - $ref: '#/components/messages/PostgresBackupFailed'
+          - $ref: '#/components/messages/PostgresBackupStarted'
+          - $ref: '#/components/messages/PostgresClusterLeaderChanged'
+          - $ref: '#/components/messages/PostgresCreated'
+          - $ref: '#/components/messages/PostgresCredentialsCreated'
+          - $ref: '#/components/messages/PostgresCredentialsDeleted'
+          - $ref: '#/components/messages/PostgresDiskSizeChanged'
+          - $ref: '#/components/messages/PostgresHaStatusChanged'
+          - $ref: '#/components/messages/PostgresPitrCheckpointCompleted'
+          - $ref: '#/components/messages/PostgresPitrCheckpointFailed'
+          - $ref: '#/components/messages/PostgresPitrCheckpointStarted'
+          - $ref: '#/components/messages/PostgresRestarted'
+          - $ref: '#/components/messages/PostgresRestoreFailed'
+          - $ref: '#/components/messages/PostgresRestoreSucceeded'
+          - $ref: '#/components/messages/PostgresUnavailable'
+          - $ref: '#/components/messages/PostgresUpgradeFailed'
+          - $ref: '#/components/messages/PostgresUpgradeStarted'
+          - $ref: '#/components/messages/PostgresUpgradeSucceeded'
+          - $ref: '#/components/messages/PostgresReadReplicaStale'
+          - $ref: '#/components/messages/PostgresReadReplicasChanged'
+          - $ref: '#/components/messages/PostgresWalArchiveFailed'
+          - $ref: '#/components/messages/PostgresDiskAutoscalingEnabledChanged'
+          - $ref: '#/components/messages/KeyValueAvailable'
+          - $ref: '#/components/messages/KeyValueConfigRestart'
+          - $ref: '#/components/messages/KeyValueUnhealthy'
+          - $ref: '#/components/messages/DiskCreated'
+          - $ref: '#/components/messages/DiskUpdated'
+          - $ref: '#/components/messages/DiskDeleted'
+
+components:
+  securitySchemes:
+    hmacSignature:
+      type: httpApiKey
+      in: header
+      name: webhook-signature
+      description: |-
+        Standard Webhooks style HMAC-SHA256 signature. Render builds the
+        signed payload by concatenating the `webhook-id` header, the
+        `webhook-timestamp` header, and the raw request body, separated by
+        periods, then computes an HMAC-SHA256 using the destination's
+        signing secret (visible on the webhook's Settings page in the
+        Render dashboard).
+
+        Signed-payload template (verbatim from Render docs):
+          WEBHOOK_ID.WEBHOOK_TIMESTAMP.REQUEST_BODY.SIGNING_SECRET
+
+        Render recommends using a Standard Webhooks project client library
+        to verify the signature.
+
+  messageTraits:
+    RenderWebhookHeaders:
+      headers:
+        type: object
+        required:
+          - webhook-id
+          - webhook-timestamp
+          - webhook-signature
+        properties:
+          webhook-id:
+            type: string
+            description: |-
+              Unique identifier for the webhook delivery. Matches the
+              event `data.id` (prefixed with `evt-`). Use this value to
+              implement idempotent processing across retries.
+            example: evt-abc123
+          webhook-timestamp:
+            type: string
+            description: |-
+              Seconds since the Unix epoch indicating when Render
+              dispatched the notification request.
+            example: '1748563200'
+          webhook-signature:
+            type: string
+            description: |-
+              HMAC-SHA256 signature over
+              `WEBHOOK_ID.WEBHOOK_TIMESTAMP.REQUEST_BODY` keyed with the
+              destination's signing secret.
+
+  schemas:
+    EventStatus:
+      type: string
+      description: |-
+        Outcome status for terminal lifecycle events. Present only for
+        event types whose semantics include a completion state (for
+        example deploy, build, job run, autoscaling, cron job run, and
+        zero-downtime redeploy "ended" events).
+      enum:
+        - succeeded
+        - failed
+        - canceled
+
+    BaseEventData:
+      type: object
+      required:
+        - id
+        - serviceId
+        - serviceName
+      properties:
+        id:
+          type: string
+          description: Unique event identifier, prefixed with `evt-`.
+          example: evt-abc123
+        serviceId:
+          type: string
+          description: Unique identifier of the Render service or resource the event relates to.
+          example: srv-abc123
+        serviceName:
+          type: string
+          description: Human-readable name of the Render service or resource.
+          example: my-web-service
+        status:
+          $ref: '#/components/schemas/EventStatus'
+
+    BaseEvent:
+      type: object
+      required:
+        - type
+        - timestamp
+        - data
+      properties:
+        type:
+          type: string
+          description: Discriminator identifying the event class.
+        timestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the service event occurred.
+          example: '2026-05-30T12:00:00Z'
+        data:
+          $ref: '#/components/schemas/BaseEventData'
+
+    BuildEndedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [build_ended]
+    BuildStartedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [build_started]
+    DeployEndedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [deploy_ended]
+    DeployStartedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [deploy_started]
+    ImagePullFailedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [image_pull_failed]
+    JobRunEndedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [job_run_ended]
+    PreDeployEndedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [pre_deploy_ended]
+    PreDeployStartedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [pre_deploy_started]
+    CommitIgnoredEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [commit_ignored]
+    BranchDeletedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [branch_deleted]
+
+    MaintenanceEndedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [maintenance_ended]
+    MaintenanceModeEnabledEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [maintenance_mode_enabled]
+    MaintenanceModeUriUpdatedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [maintenance_mode_uri_updated]
+    MaintenanceStartedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [maintenance_started]
+    ServerAvailableEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [server_available]
+    ServerFailedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [server_failed]
+    ServerHardwareFailureEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [server_hardware_failure]
+    ServerRestartedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [server_restarted]
+    ServiceResumedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [service_resumed]
+    ServiceSuspendedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [service_suspended]
+    ZeroDowntimeRedeployEndedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [zero_downtime_redeploy_ended]
+    ZeroDowntimeRedeployStartedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [zero_downtime_redeploy_started]
+
+    InstanceCountChangedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [instance_count_changed]
+    AutoscalingEndedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [autoscaling_ended]
+    AutoscalingStartedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [autoscaling_started]
+    AutoscalingConfigChangedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [autoscaling_config_changed]
+
+    PlanChangedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [plan_changed]
+
+    CronJobRunEndedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [cron_job_run_ended]
+    CronJobRunStartedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [cron_job_run_started]
+
+    PostgresAvailableEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_available]
+    PostgresBackupCompletedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_backup_completed]
+    PostgresBackupFailedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_backup_failed]
+    PostgresBackupStartedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_backup_started]
+    PostgresClusterLeaderChangedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_cluster_leader_changed]
+    PostgresCreatedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_created]
+    PostgresCredentialsCreatedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_credentials_created]
+    PostgresCredentialsDeletedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_credentials_deleted]
+    PostgresDiskSizeChangedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_disk_size_changed]
+    PostgresHaStatusChangedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_ha_status_changed]
+    PostgresPitrCheckpointCompletedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_pitr_checkpoint_completed]
+    PostgresPitrCheckpointFailedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_pitr_checkpoint_failed]
+    PostgresPitrCheckpointStartedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_pitr_checkpoint_started]
+    PostgresRestartedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_restarted]
+    PostgresRestoreFailedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_restore_failed]
+    PostgresRestoreSucceededEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_restore_succeeded]
+    PostgresUnavailableEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_unavailable]
+    PostgresUpgradeFailedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_upgrade_failed]
+    PostgresUpgradeStartedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_upgrade_started]
+    PostgresUpgradeSucceededEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_upgrade_succeeded]
+    PostgresReadReplicaStaleEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_read_replica_stale]
+    PostgresReadReplicasChangedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_read_replicas_changed]
+    PostgresWalArchiveFailedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_wal_archive_failed]
+    PostgresDiskAutoscalingEnabledChangedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [postgres_disk_autoscaling_enabled_changed]
+
+    KeyValueAvailableEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [key_value_available]
+    KeyValueConfigRestartEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [key_value_config_restart]
+    KeyValueUnhealthyEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [key_value_unhealthy]
+
+    DiskCreatedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [disk_created]
+    DiskUpdatedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [disk_updated]
+    DiskDeletedEvent:
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: [disk_deleted]
+
+  messages:
+    BuildEnded:
+      name: build_ended
+      title: Build ended
+      summary: A build for a service has ended.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/BuildEndedEvent'
+    BuildStarted:
+      name: build_started
+      title: Build started
+      summary: A build for a service has started.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/BuildStartedEvent'
+    DeployEnded:
+      name: deploy_ended
+      title: Deploy ended
+      summary: A deploy for a service has ended.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/DeployEndedEvent'
+    DeployStarted:
+      name: deploy_started
+      title: Deploy started
+      summary: A deploy for a service has started.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/DeployStartedEvent'
+    ImagePullFailed:
+      name: image_pull_failed
+      title: Image pull failed
+      summary: Pulling the container image for a deploy failed.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ImagePullFailedEvent'
+    JobRunEnded:
+      name: job_run_ended
+      title: Job run ended
+      summary: A one-off job run has ended.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/JobRunEndedEvent'
+    PreDeployEnded:
+      name: pre_deploy_ended
+      title: Pre-deploy ended
+      summary: A pre-deploy command has ended.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PreDeployEndedEvent'
+    PreDeployStarted:
+      name: pre_deploy_started
+      title: Pre-deploy started
+      summary: A pre-deploy command has started.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PreDeployStartedEvent'
+    CommitIgnored:
+      name: commit_ignored
+      title: Commit ignored
+      summary: An incoming commit was ignored for auto-deploy.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/CommitIgnoredEvent'
+    BranchDeleted:
+      name: branch_deleted
+      title: Branch deleted
+      summary: A tracked source branch was deleted.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/BranchDeletedEvent'
+
+    MaintenanceEnded:
+      name: maintenance_ended
+      title: Maintenance ended
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/MaintenanceEndedEvent'
+    MaintenanceModeEnabled:
+      name: maintenance_mode_enabled
+      title: Maintenance mode enabled
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/MaintenanceModeEnabledEvent'
+    MaintenanceModeUriUpdated:
+      name: maintenance_mode_uri_updated
+      title: Maintenance mode URI updated
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/MaintenanceModeUriUpdatedEvent'
+    MaintenanceStarted:
+      name: maintenance_started
+      title: Maintenance started
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/MaintenanceStartedEvent'
+    ServerAvailable:
+      name: server_available
+      title: Server available
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ServerAvailableEvent'
+    ServerFailed:
+      name: server_failed
+      title: Server failed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ServerFailedEvent'
+    ServerHardwareFailure:
+      name: server_hardware_failure
+      title: Server hardware failure
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ServerHardwareFailureEvent'
+    ServerRestarted:
+      name: server_restarted
+      title: Server restarted
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ServerRestartedEvent'
+    ServiceResumed:
+      name: service_resumed
+      title: Service resumed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ServiceResumedEvent'
+    ServiceSuspended:
+      name: service_suspended
+      title: Service suspended
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ServiceSuspendedEvent'
+    ZeroDowntimeRedeployEnded:
+      name: zero_downtime_redeploy_ended
+      title: Zero-downtime redeploy ended
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ZeroDowntimeRedeployEndedEvent'
+    ZeroDowntimeRedeployStarted:
+      name: zero_downtime_redeploy_started
+      title: Zero-downtime redeploy started
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ZeroDowntimeRedeployStartedEvent'
+
+    InstanceCountChanged:
+      name: instance_count_changed
+      title: Instance count changed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/InstanceCountChangedEvent'
+    AutoscalingEnded:
+      name: autoscaling_ended
+      title: Autoscaling ended
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/AutoscalingEndedEvent'
+    AutoscalingStarted:
+      name: autoscaling_started
+      title: Autoscaling started
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/AutoscalingStartedEvent'
+    AutoscalingConfigChanged:
+      name: autoscaling_config_changed
+      title: Autoscaling configuration changed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/AutoscalingConfigChangedEvent'
+
+    PlanChanged:
+      name: plan_changed
+      title: Plan changed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PlanChangedEvent'
+
+    CronJobRunEnded:
+      name: cron_job_run_ended
+      title: Cron job run ended
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/CronJobRunEndedEvent'
+    CronJobRunStarted:
+      name: cron_job_run_started
+      title: Cron job run started
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/CronJobRunStartedEvent'
+
+    PostgresAvailable:
+      name: postgres_available
+      title: Postgres available
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresAvailableEvent'
+    PostgresBackupCompleted:
+      name: postgres_backup_completed
+      title: Postgres backup completed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresBackupCompletedEvent'
+    PostgresBackupFailed:
+      name: postgres_backup_failed
+      title: Postgres backup failed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresBackupFailedEvent'
+    PostgresBackupStarted:
+      name: postgres_backup_started
+      title: Postgres backup started
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresBackupStartedEvent'
+    PostgresClusterLeaderChanged:
+      name: postgres_cluster_leader_changed
+      title: Postgres cluster leader changed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresClusterLeaderChangedEvent'
+    PostgresCreated:
+      name: postgres_created
+      title: Postgres created
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresCreatedEvent'
+    PostgresCredentialsCreated:
+      name: postgres_credentials_created
+      title: Postgres credentials created
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresCredentialsCreatedEvent'
+    PostgresCredentialsDeleted:
+      name: postgres_credentials_deleted
+      title: Postgres credentials deleted
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresCredentialsDeletedEvent'
+    PostgresDiskSizeChanged:
+      name: postgres_disk_size_changed
+      title: Postgres disk size changed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresDiskSizeChangedEvent'
+    PostgresHaStatusChanged:
+      name: postgres_ha_status_changed
+      title: Postgres HA status changed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresHaStatusChangedEvent'
+    PostgresPitrCheckpointCompleted:
+      name: postgres_pitr_checkpoint_completed
+      title: Postgres PITR checkpoint completed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresPitrCheckpointCompletedEvent'
+    PostgresPitrCheckpointFailed:
+      name: postgres_pitr_checkpoint_failed
+      title: Postgres PITR checkpoint failed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresPitrCheckpointFailedEvent'
+    PostgresPitrCheckpointStarted:
+      name: postgres_pitr_checkpoint_started
+      title: Postgres PITR checkpoint started
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresPitrCheckpointStartedEvent'
+    PostgresRestarted:
+      name: postgres_restarted
+      title: Postgres restarted
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresRestartedEvent'
+    PostgresRestoreFailed:
+      name: postgres_restore_failed
+      title: Postgres restore failed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresRestoreFailedEvent'
+    PostgresRestoreSucceeded:
+      name: postgres_restore_succeeded
+      title: Postgres restore succeeded
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresRestoreSucceededEvent'
+    PostgresUnavailable:
+      name: postgres_unavailable
+      title: Postgres unavailable
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresUnavailableEvent'
+    PostgresUpgradeFailed:
+      name: postgres_upgrade_failed
+      title: Postgres upgrade failed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresUpgradeFailedEvent'
+    PostgresUpgradeStarted:
+      name: postgres_upgrade_started
+      title: Postgres upgrade started
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresUpgradeStartedEvent'
+    PostgresUpgradeSucceeded:
+      name: postgres_upgrade_succeeded
+      title: Postgres upgrade succeeded
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresUpgradeSucceededEvent'
+    PostgresReadReplicaStale:
+      name: postgres_read_replica_stale
+      title: Postgres read replica stale
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresReadReplicaStaleEvent'
+    PostgresReadReplicasChanged:
+      name: postgres_read_replicas_changed
+      title: Postgres read replicas changed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresReadReplicasChangedEvent'
+    PostgresWalArchiveFailed:
+      name: postgres_wal_archive_failed
+      title: Postgres WAL archive failed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresWalArchiveFailedEvent'
+    PostgresDiskAutoscalingEnabledChanged:
+      name: postgres_disk_autoscaling_enabled_changed
+      title: Postgres disk autoscaling enabled changed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/PostgresDiskAutoscalingEnabledChangedEvent'
+
+    KeyValueAvailable:
+      name: key_value_available
+      title: Key Value available
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/KeyValueAvailableEvent'
+    KeyValueConfigRestart:
+      name: key_value_config_restart
+      title: Key Value config restart
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/KeyValueConfigRestartEvent'
+    KeyValueUnhealthy:
+      name: key_value_unhealthy
+      title: Key Value unhealthy
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/KeyValueUnhealthyEvent'
+
+    DiskCreated:
+      name: disk_created
+      title: Disk created
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/DiskCreatedEvent'
+    DiskUpdated:
+      name: disk_updated
+      title: Disk updated
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/DiskUpdatedEvent'
+    DiskDeleted:
+      name: disk_deleted
+      title: Disk deleted
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/RenderWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/DiskDeletedEvent'

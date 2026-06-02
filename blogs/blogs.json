@@ -2,12 +2,20 @@
   "repo": "render",
   "feeds": [
     {
-      "source": "https://render.com/blog",
+      "source": "https://render.com/blog/feed.xml",
       "feed_url": "https://render.com/blog/feed.xml",
-      "title": "Render",
-      "saved": 42
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://render.com/blog",
+      "feed_url": "https://render.com/blog/feed.rss",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
     }
   ],
-  "post_count": 52,
-  "fetched": "2026-05-17T20:20:35Z"
+  "post_count": 54,
+  "fetched": "2026-06-01T23:35:02Z"
 }
