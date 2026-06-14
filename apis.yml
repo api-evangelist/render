@@ -1,10 +1,12 @@
 aid: render
 name: Render
-description: Render is a cloud platform for building and running applications and websites with automatic Git-based deployments.
-  It provides managed infrastructure for web services, static sites, background workers, cron jobs, private services, PostgreSQL
-  databases, Redis/Key-Value stores, and persistent disks. The Render API enables programmatic control of all platform resources
-  including service deployments, scaling, environment configuration, custom domains, blueprints, logging, metrics, and workflow
-  automation.
+description: Render is a cloud platform for building and running applications and
+  websites with automatic Git-based deployments. It provides managed infrastructure
+  for web services, static sites, background workers, cron jobs, private services,
+  PostgreSQL databases, Redis/Key-Value stores, and persistent disks. The Render API
+  enables programmatic control of all platform resources including service deployments,
+  scaling, environment configuration, custom domains, blueprints, logging, metrics,
+  and workflow automation.
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
@@ -23,10 +25,12 @@ specificationVersion: '0.19'
 apis:
 - aid: render:render-api
   name: Render API
-  description: The Render Public API enables full programmatic management of Render services, databases, and infrastructure.
-    It supports deploying web services, static sites, background workers, cron jobs, and private services; managing PostgreSQL
-    and Key-Value databases; configuring environment variables, secret files, custom domains, and blueprints; scaling and
-    autoscaling services; streaming logs and metrics; and orchestrating multi-service workflows. Authentication uses a Bearer
+  description: The Render Public API enables full programmatic management of Render
+    services, databases, and infrastructure. It supports deploying web services, static
+    sites, background workers, cron jobs, and private services; managing PostgreSQL
+    and Key-Value databases; configuring environment variables, secret files, custom
+    domains, and blueprints; scaling and autoscaling services; streaming logs and
+    metrics; and orchestrating multi-service workflows. Authentication uses a Bearer
     API key from the Render Dashboard.
   humanURL: https://render.com/docs/api
   baseURL: https://api.render.com/v1
@@ -65,58 +69,8 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: NaftikoCapability
-    url: capabilities/render-audit-logs.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-blueprints.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-custom-domains.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-deploys.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-disks.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-environment-groups.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-events.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-key-value.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-logs.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-maintenance.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-metrics.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-notification-settings.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-one-off-jobs.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-postgres.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-projects-environments.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-redis-deprecated.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-registry-credentials.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-services.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-services-cron-jobs.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-services-headers.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-services-routes.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-users.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-webhooks.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-workflow-tasks-beta.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-workflows-beta.yaml
-  - type: NaftikoCapability
-    url: capabilities/render-workspaces.yaml
+  - url: graphql/render-graphql.md
+    type: GraphQL
 common:
 - type: LinkedIn
   url: https://www.linkedin.com/company/renderco

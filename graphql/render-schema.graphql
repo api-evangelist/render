@@ -1,0 +1,737 @@
+"""
+Render GraphQL Schema
+Conceptual schema for the Render cloud platform covering services, deployments,
+environments, networking, scaling, git integration, teams, and usage.
+"""
+
+# ─── Scalars ────────────────────────────────────────────────────────────────
+
+scalar DateTime
+scalar JSON
+
+# ─── Enums ──────────────────────────────────────────────────────────────────
+
+enum ServiceType {
+  WEB_SERVICE
+  STATIC_SITE
+  CRON_JOB
+  BACKGROUND_WORKER
+  PRIVATE_SERVICE
+}
+
+enum DeployStatus {
+  CREATED
+  BUILD_IN_PROGRESS
+  UPDATE_IN_PROGRESS
+  LIVE
+  DEACTIVATED
+  BUILD_FAILED
+  UPDATE_FAILED
+  CANCELED
+  PRE_DEPLOY_IN_PROGRESS
+  PRE_DEPLOY_FAILED
+}
+
+enum Region {
+  OREGON
+  FRANKFURT
+  OHIO
+  SINGAPORE
+  VIRGINIA
+}
+
+enum PlanType {
+  FREE
+  STARTER
+  STANDARD
+  PRO
+  PRO_PLUS
+  PRO_MAX
+  PRO_ULTRA
+}
+
+enum GitProvider {
+  GITHUB
+  GITLAB
+  BITBUCKET
+}
+
+enum Role {
+  OWNER
+  ADMIN
+  MEMBER
+  BILLING_ADMIN
+}
+
+enum DomainVerificationStatus {
+  VERIFIED
+  UNVERIFIED
+  PENDING
+}
+
+enum TLSCertStatus {
+  CONFIRMED
+  PENDING
+  NEEDS_ATTENTION
+}
+
+enum LogStreamType {
+  BUILD
+  DEPLOY
+  LIVE
+}
+
+enum AlertType {
+  DEPLOY_FAILED
+  BUILD_FAILED
+  SUSPENDED
+  CREDIT_LIMIT_APPROACHING
+}
+
+enum ScalingMetric {
+  CPU
+  MEMORY
+  REQUESTS_PER_SECOND
+}
+
+enum HeaderOp {
+  SET
+  REMOVE
+}
+
+enum RedirectType {
+  PERMANENT
+  TEMPORARY
+}
+
+enum DiskMountType {
+  DISK
+  NFS
+}
+
+# ─── Service Types ───────────────────────────────────────────────────────────
+
+type Service {
+  id: ID!
+  name: String!
+  type: ServiceType!
+  slug: String!
+  repo: Repo
+  branch: Branch
+  region: Region!
+  plan: Plan!
+  owner: Owner!
+  environment: Environment
+  envVars: [EnvVar!]!
+  secrets: [Secret!]!
+  customDomains: [CustomDomain!]!
+  autoscaling: ScalingPolicy
+  disk: Disk
+  network: Network
+  headers: [Header!]!
+  redirects: [Redirect!]!
+  rewrites: [Rewrite!]!
+  pullRequestPreviews: [PullRequestPreview!]!
+  details: ServiceDetails!
+  deploys(first: Int, after: String): DeployConnection!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  suspended: Boolean!
+  serviceURL: String
+}
+
+type ServiceDetails {
+  id: ID!
+  serviceId: ID!
+  buildCommand: BuildCommand
+  startCommand: String
+  preDeployCommand: String
+  healthCheckPath: String
+  numInstances: Int
+  autoDeploy: Boolean!
+  docker: Docker
+  publishPath: String
+  pullRequestPreviewsEnabled: Boolean!
+  buildFilter: JSON
+  rootDir: String
+}
+
+type WebService {
+  id: ID!
+  service: Service!
+  url: String!
+  numInstances: Int!
+  healthCheckPath: String
+  autoscaling: ScalingPolicy
+}
+
+type StaticSite {
+  id: ID!
+  service: Service!
+  url: String!
+  publishPath: String!
+  pullRequestPreviewsEnabled: Boolean!
+  headers: [Header!]!
+  redirects: [Redirect!]!
+  rewrites: [Rewrite!]!
+}
+
+type CronJob {
+  id: ID!
+  service: Service!
+  schedule: String!
+  lastRunAt: DateTime
+  nextRunAt: DateTime
+}
+
+type BackgroundWorker {
+  id: ID!
+  service: Service!
+  numInstances: Int!
+  autoscaling: ScalingPolicy
+}
+
+type PrivateService {
+  id: ID!
+  service: Service!
+  ports: [NetworkPort!]!
+  numInstances: Int!
+}
+
+# ─── Environment & Config ────────────────────────────────────────────────────
+
+type Environment {
+  id: ID!
+  name: String!
+  services: [Service!]!
+  envGroups: [EnvGroup!]!
+  owner: Owner!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type EnvGroup {
+  id: ID!
+  name: String!
+  envVars: [EnvVar!]!
+  secrets: [Secret!]!
+  serviceLinks: [Service!]!
+  owner: Owner!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type EnvVar {
+  id: ID!
+  key: String!
+  value: String
+  generateValue: Boolean!
+}
+
+type Secret {
+  id: ID!
+  key: String!
+  filePath: String!
+}
+
+# ─── Deployments ─────────────────────────────────────────────────────────────
+
+type Deploy {
+  id: ID!
+  service: Service!
+  status: DeployStatus!
+  trigger: String
+  commit: String
+  commitMessage: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  finishedAt: DateTime
+  logs: [DeployLog!]!
+  build: Build
+}
+
+type DeployLog {
+  id: ID!
+  deployId: ID!
+  timestamp: DateTime!
+  text: String!
+  type: LogStreamType!
+}
+
+type DeployConnection {
+  edges: [DeployEdge!]!
+  pageInfo: PageInfo!
+}
+
+type DeployEdge {
+  node: Deploy!
+  cursor: String!
+}
+
+type Build {
+  id: ID!
+  deploy: Deploy!
+  startedAt: DateTime
+  finishedAt: DateTime
+  status: DeployStatus!
+  durationSeconds: Int
+}
+
+type BuildCommand {
+  command: String!
+  runtimeVersion: String
+}
+
+# ─── Docker ──────────────────────────────────────────────────────────────────
+
+type Docker {
+  dockerfilePath: String
+  dockerContext: String
+  image: DockerBuild
+}
+
+type DockerBuild {
+  imageUrl: String!
+  ownerId: ID
+  credentials: String
+}
+
+# ─── Pipeline & Preview ──────────────────────────────────────────────────────
+
+type Pipeline {
+  id: ID!
+  name: String!
+  steps: [PipelineStep!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type PipelineStep {
+  id: ID!
+  pipeline: Pipeline!
+  service: Service!
+  order: Int!
+}
+
+type PullRequestPreview {
+  id: ID!
+  service: Service!
+  pullRequestId: Int!
+  url: String!
+  status: DeployStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ─── Networking ──────────────────────────────────────────────────────────────
+
+type Network {
+  id: ID!
+  serviceId: ID!
+  ports: [NetworkPort!]!
+}
+
+type NetworkPort {
+  port: Int!
+  protocol: String!
+}
+
+type CustomDomain {
+  id: ID!
+  name: String!
+  serviceId: ID!
+  verificationStatus: DomainVerificationStatus!
+  tlsCert: TLSCert
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type DomainVerification {
+  id: ID!
+  domain: CustomDomain!
+  verificationRecord: String!
+  verifiedAt: DateTime
+}
+
+type TLSCert {
+  id: ID!
+  domain: CustomDomain!
+  status: TLSCertStatus!
+  issuedAt: DateTime
+  expiresAt: DateTime
+}
+
+# ─── Scaling ─────────────────────────────────────────────────────────────────
+
+type ScalingPolicy {
+  id: ID!
+  serviceId: ID!
+  enabled: Boolean!
+  min: MinInstances!
+  max: MaxInstances!
+  criteria: [AutoscaleCriteria!]!
+}
+
+type AutoscaleCriteria {
+  id: ID!
+  metric: ScalingMetric!
+  enabled: Boolean!
+  threshold: Float!
+}
+
+type MinInstances {
+  value: Int!
+}
+
+type MaxInstances {
+  value: Int!
+}
+
+# ─── Storage ─────────────────────────────────────────────────────────────────
+
+type Disk {
+  id: ID!
+  name: String!
+  sizeGB: Int!
+  mountPath: String!
+  mountType: DiskMountType!
+  serviceId: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type DiskMount {
+  disk: Disk!
+  mountPath: String!
+}
+
+# ─── Plan ────────────────────────────────────────────────────────────────────
+
+type Plan {
+  id: ID!
+  name: PlanType!
+  cpuShares: Float!
+  memoryGB: Float!
+  pricePerMonth: Float!
+  bandwidthGB: Int!
+}
+
+# ─── Routing Rules ───────────────────────────────────────────────────────────
+
+type Header {
+  id: ID!
+  path: String!
+  name: String!
+  value: String!
+  op: HeaderOp!
+}
+
+type Rule {
+  id: ID!
+  source: String!
+  destination: String!
+  enabled: Boolean!
+}
+
+type Redirect {
+  id: ID!
+  source: String!
+  destination: String!
+  type: RedirectType!
+}
+
+type Rewrite {
+  id: ID!
+  source: String!
+  destination: String!
+}
+
+# ─── Git ─────────────────────────────────────────────────────────────────────
+
+type Repo {
+  id: ID!
+  name: String!
+  fullName: String!
+  url: String!
+  provider: GitProvider!
+  account: GitAccount!
+  private: Boolean!
+  defaultBranch: String!
+}
+
+type Branch {
+  name: String!
+  repo: Repo!
+  isDefault: Boolean!
+  latestCommit: String
+}
+
+type GitAccount {
+  id: ID!
+  provider: GitProvider!
+  name: String!
+  login: String!
+  owner: Owner!
+}
+
+# ─── Ownership & Teams ───────────────────────────────────────────────────────
+
+type Owner {
+  id: ID!
+  name: String!
+  email: String!
+  type: String!
+  team: Team
+  apiKeys: [APIKey!]!
+  services: [Service!]!
+  environments: [Environment!]!
+}
+
+type Team {
+  id: ID!
+  name: String!
+  members: [Member!]!
+  owner: Owner!
+  createdAt: DateTime!
+}
+
+type Member {
+  id: ID!
+  user: User!
+  team: Team!
+  role: Role!
+  joinedAt: DateTime!
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  createdAt: DateTime!
+}
+
+type APIKey {
+  id: ID!
+  name: String!
+  owner: Owner!
+  createdAt: DateTime!
+  expiresAt: DateTime
+}
+
+# ─── Webhooks ────────────────────────────────────────────────────────────────
+
+type Webhook {
+  id: ID!
+  url: String!
+  events: [String!]!
+  serviceId: ID
+  ownerId: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ─── Usage & Billing ─────────────────────────────────────────────────────────
+
+type BandwidthUsage {
+  ownerId: ID!
+  periodStart: DateTime!
+  periodEnd: DateTime!
+  bytesUsed: Float!
+  includedBytes: Float!
+  overageBytes: Float!
+}
+
+type BuildMinutes {
+  ownerId: ID!
+  periodStart: DateTime!
+  periodEnd: DateTime!
+  minutesUsed: Float!
+  includedMinutes: Float!
+  overageMinutes: Float!
+}
+
+type Usage {
+  owner: Owner!
+  bandwidth: BandwidthUsage!
+  buildMinutes: BuildMinutes!
+  periodStart: DateTime!
+  periodEnd: DateTime!
+}
+
+# ─── Alerts & Logging ────────────────────────────────────────────────────────
+
+type Alert {
+  id: ID!
+  type: AlertType!
+  serviceId: ID
+  ownerId: ID!
+  message: String!
+  resolvedAt: DateTime
+  createdAt: DateTime!
+}
+
+type LogStream {
+  serviceId: ID!
+  type: LogStreamType!
+  lines: [LogLine!]!
+}
+
+type LogLine {
+  timestamp: DateTime!
+  text: String!
+  source: String
+}
+
+# ─── Pagination ──────────────────────────────────────────────────────────────
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type ServiceConnection {
+  edges: [ServiceEdge!]!
+  pageInfo: PageInfo!
+  total: Int!
+}
+
+type ServiceEdge {
+  node: Service!
+  cursor: String!
+}
+
+# ─── Root Operations ─────────────────────────────────────────────────────────
+
+type Query {
+  service(id: ID!): Service
+  services(
+    type: ServiceType
+    region: Region
+    first: Int
+    after: String
+  ): ServiceConnection!
+
+  deploy(id: ID!): Deploy
+  environment(id: ID!): Environment
+  environments(ownerId: ID!): [Environment!]!
+
+  envGroup(id: ID!): EnvGroup
+  envGroups(ownerId: ID!): [EnvGroup!]!
+
+  customDomain(id: ID!): CustomDomain
+  owner(id: ID!): Owner
+  team(id: ID!): Team
+
+  usage(ownerId: ID!, periodStart: DateTime, periodEnd: DateTime): Usage
+  logs(serviceId: ID!, type: LogStreamType, since: DateTime): LogStream
+
+  pipeline(id: ID!): Pipeline
+  webhook(id: ID!): Webhook
+  webhooks(ownerId: ID!): [Webhook!]!
+
+  alerts(ownerId: ID!): [Alert!]!
+}
+
+type Mutation {
+  createService(input: CreateServiceInput!): Service!
+  updateService(id: ID!, input: UpdateServiceInput!): Service!
+  deleteService(id: ID!): Boolean!
+  suspendService(id: ID!): Service!
+  resumeService(id: ID!): Service!
+
+  triggerDeploy(serviceId: ID!, clearCache: Boolean): Deploy!
+  cancelDeploy(deployId: ID!): Deploy!
+
+  createEnvGroup(input: CreateEnvGroupInput!): EnvGroup!
+  updateEnvGroup(id: ID!, input: UpdateEnvGroupInput!): EnvGroup!
+  deleteEnvGroup(id: ID!): Boolean!
+
+  addCustomDomain(serviceId: ID!, domain: String!): CustomDomain!
+  removeCustomDomain(id: ID!): Boolean!
+  verifyCustomDomain(id: ID!): DomainVerification!
+
+  updateScalingPolicy(serviceId: ID!, input: ScalingPolicyInput!): ScalingPolicy!
+
+  createWebhook(input: CreateWebhookInput!): Webhook!
+  deleteWebhook(id: ID!): Boolean!
+
+  createAPIKey(name: String!, ownerId: ID!): APIKey!
+  revokeAPIKey(id: ID!): Boolean!
+
+  inviteMember(teamId: ID!, email: String!, role: Role!): Member!
+  updateMemberRole(memberId: ID!, role: Role!): Member!
+  removeMember(memberId: ID!): Boolean!
+}
+
+type Subscription {
+  deployUpdated(serviceId: ID!): Deploy!
+  serviceStatusChanged(serviceId: ID!): Service!
+  logStream(serviceId: ID!, type: LogStreamType): LogLine!
+}
+
+# ─── Input Types ─────────────────────────────────────────────────────────────
+
+input CreateServiceInput {
+  name: String!
+  type: ServiceType!
+  ownerId: ID!
+  repo: String
+  branch: String
+  region: Region
+  plan: PlanType
+  buildCommand: String
+  startCommand: String
+  envVars: [EnvVarInput!]
+  autoDeploy: Boolean
+  dockerfilePath: String
+}
+
+input UpdateServiceInput {
+  name: String
+  branch: String
+  buildCommand: String
+  startCommand: String
+  plan: PlanType
+  numInstances: Int
+  autoDeploy: Boolean
+  healthCheckPath: String
+}
+
+input EnvVarInput {
+  key: String!
+  value: String
+  generateValue: Boolean
+}
+
+input CreateEnvGroupInput {
+  name: String!
+  ownerId: ID!
+  envVars: [EnvVarInput!]
+}
+
+input UpdateEnvGroupInput {
+  name: String
+  envVars: [EnvVarInput!]
+}
+
+input ScalingPolicyInput {
+  enabled: Boolean!
+  min: Int!
+  max: Int!
+  criteria: [AutoscaleCriteriaInput!]
+}
+
+input AutoscaleCriteriaInput {
+  metric: ScalingMetric!
+  enabled: Boolean!
+  threshold: Float!
+}
+
+input CreateWebhookInput {
+  url: String!
+  events: [String!]!
+  serviceId: ID
+  ownerId: ID!
+}
