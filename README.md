@@ -1,96 +1,82 @@
-# Render
+# Render (render)
 
 Render is a cloud platform for building and running applications and websites with automatic Git-based deployments. It provides managed infrastructure for web services, static sites, background workers, cron jobs, private services, PostgreSQL databases, Redis/Key-Value stores, and persistent disks. The Render API enables programmatic control of all platform resources including service deployments, scaling, environment configuration, custom domains, blueprints, logging, metrics, and workflow automation.
 
-**Human URL:** [https://render.com](https://render.com)
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/render/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/render/refs/heads/main/apis.yml)
 
-**API Reference:** [https://api-docs.render.com](https://api-docs.render.com)
+## Scope
 
----
+- **Type:** Index
+
+## Tags
+
+- Cloud
+- Platform
+- Deployment
+- Infrastructure
+- DevOps
+- Web Services
+- Databases
+- Hosting
+
+## Timestamps
+
+- **Created:** 2026-03-16
+- **Modified:** 2026-05-30
 
 ## APIs
 
 ### Render API
 
-The Render Public API (v1.0.0) provides full programmatic management of all Render cloud resources at `https://api.render.com/v1`. Authentication uses a Bearer API key. The spec covers 122 endpoint paths across 26 feature areas including services, deployments, databases, blueprints, logs, metrics, workflows, and more.
+The Render Public API enables full programmatic management of Render services, databases, and infrastructure. It supports deploying web services, static sites, background workers, cron jobs, and private services; managing PostgreSQL and Key-Value databases; configuring environment variables, secret files, custom domains, and blueprints; scaling and autoscaling services; streaming logs and metrics; and orchestrating multi-service workflows. Authentication uses a Bearer API key from the Render Dashboard.
 
-- **Documentation:** [https://render.com/docs/api](https://render.com/docs/api)
-- **OpenAPI Spec:** [openapi/render-openapi.json](openapi/render-openapi.json)
-- **Rules:** [rules/render-rules.yml](rules/render-rules.yml)
-- **Capabilities:** [capabilities/service-deployment.yaml](capabilities/service-deployment.yaml)
+- **Human URL:** [https://render.com/docs/api](https://render.com/docs/api)
+- **Base URL:** `https://api.render.com/v1`
 
----
+#### Tags
 
-## Artifacts
+- Cloud
+- Platform
+- Deployment
+- Infrastructure
+- DevOps
 
-### OpenAPI
+#### Properties
 
-| File | Description |
-|---|---|
-| [openapi/render-openapi.json](openapi/render-openapi.json) | Render Public API v1.0.0 — 122 paths, 26 tag groups |
-
-### Rules
-
-| File | Description |
-|---|---|
-| [rules/render-rules.yml](rules/render-rules.yml) | Spectral ruleset enforcing Render API naming and authentication conventions |
-
-### Capabilities
-
-| File | Description |
-|---|---|
-| [capabilities/service-deployment.yaml](capabilities/service-deployment.yaml) | Service deployment and infrastructure management workflow — 24 MCP tools |
-| [capabilities/shared/render-api.yaml](capabilities/shared/render-api.yaml) | Shared Render API consumed definition |
-
-### JSON Schema
-
-| File | Description |
-|---|---|
-| [json-schema/render-service-schema.json](json-schema/render-service-schema.json) | JSON Schema for Render Service resource |
-| [json-schema/render-deploy-schema.json](json-schema/render-deploy-schema.json) | JSON Schema for Render Deploy resource |
-
-### JSON Structure
-
-| File | Description |
-|---|---|
-| [json-structure/render-service-structure.json](json-structure/render-service-structure.json) | Structural documentation for Render Service |
-
-### JSON-LD
-
-| File | Description |
-|---|---|
-| [json-ld/render-context.jsonld](json-ld/render-context.jsonld) | JSON-LD context mapping Render resources to schema.org |
-
-### Examples
-
-| File | Description |
-|---|---|
-| [examples/render-create-service-example.json](examples/render-create-service-example.json) | Create a new Node.js web service |
-| [examples/render-trigger-deploy-example.json](examples/render-trigger-deploy-example.json) | Trigger a deployment for a service |
-
-### Vocabulary
-
-| File | Description |
-|---|---|
-| [vocabulary/render-vocabulary.yml](vocabulary/render-vocabulary.yml) | Domain vocabulary for Render cloud platform concepts |
-
----
+- [Documentation](https://render.com/docs/api)
+- [OpenAPI](openapi/render-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/render.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/render.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Open A P I Spec](https://api-docs.render.com/v1.0/openapi/render-public-api-1.json)
+- [AsyncAPI](asyncapi/render-webhooks-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
+- [Reference Documentation](https://api-docs.render.com)
+- [Rules](rules/render-rules.yml)
+- [Capabilities](capabilities/service-deployment.yaml)
+- [JSON Schema](json-schema/render-service-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/render-deploy-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Structure](json-structure/render-service-structure.json)
+- [JSON-LD](json-ld/render-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+- [Example](examples/render-create-service-example.json)
+- [Example](examples/render-trigger-deploy-example.json)
+- [Vocabulary](vocabulary/render-vocabulary.yml)
 
 ## Common Properties
 
-| Property | URL |
-|---|---|
-| Website | [https://render.com](https://render.com) |
-| Documentation | [https://render.com/docs](https://render.com/docs) |
-| API Documentation | [https://render.com/docs/api](https://render.com/docs/api) |
-| Dashboard | [https://dashboard.render.com](https://dashboard.render.com) |
-| Community | [https://community.render.com](https://community.render.com) |
-| GitHub | [https://github.com/renderinc](https://github.com/renderinc) |
-| Status | [https://status.render.com](https://status.render.com) |
-| Blog | [https://render.com/blog](https://render.com/blog) |
+- [LinkedIn](https://www.linkedin.com/company/renderco)
+- [Website](https://render.com)
+- [Documentation](https://render.com/docs)
+- [Documentation](https://render.com/docs/api)
+- [Portal](https://dashboard.render.com)
+- [Forum](https://community.render.com)
+- [Pricing](https://render.com/pricing)
+- [Status Page](https://status.render.com)
+- [GitHub Organization](https://github.com/renderinc)
+- [Blog](https://render.com/blog)
+- [Features](undefined)
+- [M C P Server](https://render.com/blog/announcing-render-mcp-server)
+- [L L Ms Txt](https://api-docs.render.com/llms.txt)
 
 ## Maintainers
 
 **FN:** Kin Lane
-
 **Email:** kin@apievangelist.com
