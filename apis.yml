@@ -8,7 +8,7 @@ description: Render is a cloud platform for building and running applications an
   scaling, environment configuration, custom domains, blueprints, logging, metrics,
   and workflow automation.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Cloud
 - Platform
