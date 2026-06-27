@@ -63,9 +63,9 @@ apis:
     url: json-structure/render-service-structure.json
   - type: JSONLD
     url: json-ld/render-context.jsonld
-  - type: Example
+  - type: Examples
     url: examples/render-create-service-example.json
-  - type: Example
+  - type: Examples
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
@@ -92,7 +92,7 @@ common:
   description: Web dashboard for managing Render services and API keys
 - url: https://community.render.com
   name: Render Community
-  type: Forum
+  type: Forums
   description: Community forum for Render users and developers
 - url: https://render.com/pricing
   name: Render Pricing
@@ -134,7 +134,7 @@ common:
 - name: MCP Server
   url: https://render.com/blog/announcing-render-mcp-server
   type: MCPServer
-- type: LLMsTxt
+- type: LlmsText
   url: https://api-docs.render.com/llms.txt
 maintainers:
 - FN: Kin Lane
