@@ -72,6 +72,14 @@ apis:
   - url: graphql/render-graphql.md
     type: GraphQL
 common:
+- type: TrustCenter
+  url: security/render-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/render-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/render-domain-security.yml
+- type: Authentication
+  url: authentication/render-authentication.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/renderco
 - url: https://render.com
