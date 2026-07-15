@@ -72,6 +72,8 @@ apis:
   - url: graphql/render-graphql.md
     type: GraphQL
 common:
+- type: AgenticAccess
+  url: agentic-access/render-agentic-access.yml
 - type: TrustCenter
   url: security/render-trust-center.yml
 - type: VulnerabilityDisclosure
