@@ -1,0 +1,462 @@
+openapi: 3.0.2
+info:
+  title: Render Public Audit Logs Webhooks API
+  description: Manage everything about your Render services
+  version: 1.0.0
+  contact:
+    name: Render API
+    url: https://community.render.com
+    email: support@render.com
+servers:
+- url: https://api.render.com/v1
+security:
+- BearerAuth: []
+tags:
+- name: Webhooks
+  description: '[Webhooks](https://render.com/docs/webhooks) allows you to manage your Render webhook configuration.
+
+    '
+paths:
+  /webhooks:
+    post:
+      summary: Create a webhook
+      description: 'Create a new webhook.
+
+        '
+      operationId: create-webhook
+      tags:
+      - Webhooks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - ownerId
+              - name
+              - url
+              - enabled
+              - eventFilter
+              properties:
+                ownerId:
+                  type: string
+                  description: The ID of the owner (team or personal user) whose resources should be returned
+                url:
+                  type: string
+                name:
+                  type: string
+                enabled:
+                  type: boolean
+                eventFilter:
+                  $ref: '#/components/schemas/webhookWithCursor/properties/webhook/properties/eventFilter'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/webhookWithCursor/properties/webhook'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    get:
+      summary: List webhooks
+      description: List webhooks
+      operationId: list-webhooks
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/cursorParam'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/ownerIdParam'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/webhookWithCursor'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /webhooks/{webhookId}:
+    parameters:
+    - name: webhookId
+      in: path
+      required: true
+      description: Unique identifier for the webhook
+      schema:
+        type: string
+        pattern: ^whk-[0-9a-z]{20}$
+        example: whk-d04m9b1r0fns73ckp94f
+    get:
+      summary: Retrieve a webhook
+      description: Retrieve the webhook with the provided ID
+      operationId: retrieve-webhook
+      tags:
+      - Webhooks
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/webhookWithCursor/properties/webhook'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    patch:
+      summary: Update a webhook
+      description: 'Update the webhook with the provided ID.
+
+        '
+      operationId: update-webhook
+      tags:
+      - Webhooks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                url:
+                  type: string
+                enabled:
+                  type: boolean
+                eventFilter:
+                  $ref: '#/components/schemas/webhookWithCursor/properties/webhook/properties/eventFilter'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/webhookWithCursor/properties/webhook'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    delete:
+      summary: Delete a webhook
+      description: 'Delete the webhook with the provided ID.
+
+        '
+      operationId: delete-webhook
+      tags:
+      - Webhooks
+      responses:
+        '204':
+          description: Webhook deleted
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /webhooks/{webhookId}/events:
+    parameters:
+    - $ref: '#/paths/~1webhooks~1%7BwebhookId%7D/parameters/0'
+    get:
+      summary: List webhook events
+      description: 'Retrieve a list of events that have been sent to this webhook, with optional filtering by timestamp.
+
+        '
+      operationId: list-webhook-events
+      tags:
+      - Webhooks
+      parameters:
+      - name: sentBefore
+        in: query
+        schema:
+          type: string
+          format: date-time
+        required: false
+        description: Filter events sent before this time (specified as an ISO 8601 timestamp)
+        example: '2021-06-17T08:15:30Z'
+      - name: sentAfter
+        in: query
+        schema:
+          type: string
+          format: date-time
+        required: false
+        description: Filter for resources sent after a certain time (specified as an ISO 8601 timestamp)
+        example: '2021-02-17T08:15:30Z'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/cursorParam'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/webhookEventWithCursor'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+components:
+  parameters:
+    ownerIdParam:
+      name: ownerId
+      in: query
+      description: The ID of the workspaces to return resources for
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+    limitParam:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+        description: Defaults to 20
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
+  responses:
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  schemas:
+    webhookEventWithCursor:
+      type: object
+      required:
+      - webhookEvent
+      - cursor
+      properties:
+        webhookEvent:
+          type: object
+          required:
+          - id
+          - eventId
+          - eventType
+          - sentAt
+          properties:
+            id:
+              type: string
+              description: the id of the webhook event
+            eventId:
+              type: string
+              description: the id of the event that triggered the webhook
+            eventType:
+              type: string
+              enum:
+              - autoscaling_config_changed
+              - autoscaling_ended
+              - autoscaling_started
+              - branch_deleted
+              - build_ended
+              - build_started
+              - commit_ignored
+              - cron_job_run_ended
+              - cron_job_run_started
+              - deploy_ended
+              - deploy_started
+              - disk_created
+              - disk_updated
+              - disk_deleted
+              - image_pull_failed
+              - instance_count_changed
+              - job_run_ended
+              - maintenance_mode_enabled
+              - maintenance_mode_uri_updated
+              - maintenance_ended
+              - maintenance_started
+              - pipeline_minutes_exhausted
+              - plan_changed
+              - pre_deploy_ended
+              - pre_deploy_started
+              - server_available
+              - server_failed
+              - server_hardware_failure
+              - server_restarted
+              - service_resumed
+              - service_suspended
+              - zero_downtime_redeploy_ended
+              - zero_downtime_redeploy_started
+              - edge_cache_enabled
+              - edge_cache_disabled
+              - edge_cache_purged
+              - postgres_available
+              - postgres_backup_completed
+              - postgres_backup_failed
+              - postgres_backup_started
+              - postgres_cluster_leader_changed
+              - postgres_created
+              - postgres_disk_size_changed
+              - postgres_disk_autoscaling_enabled_changed
+              - postgres_ha_status_changed
+              - postgres_restarted
+              - postgres_unavailable
+              - postgres_upgrade_failed
+              - postgres_upgrade_started
+              - postgres_upgrade_succeeded
+              - postgres_restore_failed
+              - postgres_restore_succeeded
+              - postgres_read_replicas_changed
+              - postgres_pitr_checkpoint_started
+              - postgres_pitr_checkpoint_failed
+              - postgres_pitr_checkpoint_completed
+              - postgres_read_replica_stale
+              - postgres_wal_archive_failed
+              - key_value_available
+              - key_value_config_restart
+              - key_value_unhealthy
+            sentAt:
+              type: string
+              format: date-time
+            statusCode:
+              type: integer
+            responseBody:
+              type: string
+            error:
+              type: string
+              description: error is populated when an error occurs without a response such as a timeout
+        cursor:
+          $ref: '#/components/schemas/cursor'
+    webhookWithCursor:
+      type: object
+      required:
+      - webhook
+      - cursor
+      properties:
+        webhook:
+          type: object
+          required:
+          - id
+          - name
+          - url
+          - secret
+          - enabled
+          - eventFilter
+          properties:
+            id:
+              $ref: '#/paths/~1webhooks~1%7BwebhookId%7D/parameters/0/schema'
+            url:
+              type: string
+            name:
+              type: string
+            secret:
+              type: string
+            enabled:
+              type: boolean
+            eventFilter:
+              type: array
+              description: The event types that will trigger the webhook. An empty list means all event types will trigger the webhook.
+              items:
+                $ref: '#/components/schemas/webhookEventWithCursor/properties/webhookEvent/properties/eventType'
+        cursor:
+          $ref: '#/components/schemas/cursor'
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+    cursor:
+      type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+x-readme:
+  metrics-enabled: false

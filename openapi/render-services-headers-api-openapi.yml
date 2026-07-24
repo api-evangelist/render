@@ -1,0 +1,349 @@
+openapi: 3.0.2
+info:
+  title: Render Public Audit Logs Services - Headers API
+  description: Manage everything about your Render services
+  version: 1.0.0
+  contact:
+    name: Render API
+    url: https://community.render.com
+    email: support@render.com
+servers:
+- url: https://api.render.com/v1
+security:
+- BearerAuth: []
+tags:
+- name: Services - Headers
+  description: Use HTTP headers to inject response headers in static site responses. You can also use wildcards like /path/* to add headers to responses for all matching request paths.
+paths:
+  /services/{serviceId}/headers:
+    parameters:
+    - $ref: '#/components/parameters/serviceIdParam'
+    get:
+      summary: List header rules
+      description: 'List a particular service''s response header rules that match the provided filters. If no filters are provided, all rules for the service are returned.
+
+        '
+      operationId: list-headers
+      tags:
+      - Services - Headers
+      parameters:
+      - name: path
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        style: form
+        explode: false
+        required: false
+        description: Filter for specific paths that headers apply to
+      - name: name
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        style: form
+        explode: false
+        required: false
+        description: Filter for header names
+      - name: value
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        style: form
+        explode: false
+        required: false
+        description: Filter for header values
+      - $ref: '#/components/parameters/cursorParam'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/headerWithCursor'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    post:
+      summary: Add header rule
+      description: 'Add a response header rule to the service with the provided ID.
+
+        '
+      operationId: add-headers
+      tags:
+      - Services - Headers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/headerInput'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  headers:
+                    $ref: '#/components/schemas/header'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    put:
+      summary: Replace header rules
+      description: 'Replace all header rules for a particular service with the provided list.
+
+
+        **This deletes all existing header rules for the service that aren''t included in the request.**
+
+        '
+      operationId: update-headers
+      tags:
+      - Services - Headers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/headerInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/header'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /services/{serviceId}/headers/{headerId}:
+    parameters:
+    - $ref: '#/components/parameters/serviceIdParam'
+    - name: headerId
+      in: path
+      required: true
+      description: The id of the header
+      schema:
+        type: string
+    delete:
+      summary: Delete header rule
+      description: 'Delete a particular response header rule for a particular service.
+
+        '
+      operationId: delete-header
+      tags:
+      - Services - Headers
+      responses:
+        '204':
+          description: Header deleted
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+components:
+  responses:
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    410Gone:
+      description: The requested resource is no longer available.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  parameters:
+    serviceIdParam:
+      name: serviceId
+      in: path
+      required: true
+      description: The ID of the service
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+        description: Defaults to 20
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
+  schemas:
+    headerInput:
+      type: object
+      required:
+      - path
+      - name
+      - value
+      properties:
+        path:
+          type: string
+          description: The request path to add the header to. Wildcards will cause headers to be applied to all matching paths.
+          example: /static/*
+        name:
+          type: string
+          description: Header name
+          example: Cache-Control
+        value:
+          type: string
+          description: Header value
+          example: public, max-age=604800
+    headerWithCursor:
+      type: object
+      required:
+      - header
+      - cursor
+      properties:
+        header:
+          $ref: '#/components/schemas/header'
+        cursor:
+          type: string
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+    header:
+      type: object
+      required:
+      - id
+      - path
+      - name
+      - value
+      properties:
+        id:
+          type: string
+        path:
+          type: string
+        name:
+          type: string
+        value:
+          type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+x-readme:
+  metrics-enabled: false

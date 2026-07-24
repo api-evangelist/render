@@ -1,0 +1,419 @@
+openapi: 3.0.2
+info:
+  title: Render Public Audit Logs Custom Domains API
+  description: Manage everything about your Render services
+  version: 1.0.0
+  contact:
+    name: Render API
+    url: https://community.render.com
+    email: support@render.com
+servers:
+- url: https://api.render.com/v1
+security:
+- BearerAuth: []
+tags:
+- name: Custom Domains
+  description: '[Custom Domains](https://render.com/docs/custom-domains) allow you to associate domain names with your Render services.
+
+    '
+paths:
+  /services/{serviceId}/custom-domains:
+    parameters:
+    - $ref: '#/components/parameters/serviceIdParam'
+    get:
+      summary: List custom domains
+      description: 'List a particular service''s custom domains that match the provided filters. If no filters are provided, all custom domains for the service are returned.
+
+        '
+      operationId: list-custom-domains
+      tags:
+      - Custom Domains
+      parameters:
+      - $ref: '#/components/parameters/cursorParam'
+      - $ref: '#/components/parameters/limitParam'
+      - name: name
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        style: form
+        explode: false
+        required: false
+        description: Filter for the names of custom domain
+      - name: domainType
+        in: query
+        schema:
+          type: string
+          enum:
+          - apex
+          - subdomain
+        required: false
+        description: Filter for domain type
+      - name: verificationStatus
+        in: query
+        schema:
+          type: string
+          enum:
+          - verified
+          - unverified
+        required: false
+        description: Filter for domain verification status (`verified` or `unverified`)
+      - name: createdBefore
+        in: query
+        schema:
+          type: string
+          format: date-time
+        required: false
+        description: Filter for custom domains created before a certain time (specified as an ISO 8601 timestamp)
+        example: '2021-06-17T08:15:30Z'
+      - name: createdAfter
+        in: query
+        schema:
+          type: string
+          format: date-time
+        required: false
+        description: Filter for custom domains created after a certain time (specified as an ISO 8601 timestamp)
+        example: '2021-02-17T08:15:30Z'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/customDomainWithCursor'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    post:
+      summary: Add custom domain
+      description: 'Add a custom domain to the service with the provided ID.
+
+        '
+      operationId: create-custom-domain
+      tags:
+      - Custom Domains
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/customDomain'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '402':
+          $ref: '#/components/responses/402PaymentRequired'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '409':
+          $ref: '#/components/responses/409Conflict'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /services/{serviceId}/custom-domains/{customDomainIdOrName}:
+    parameters:
+    - $ref: '#/components/parameters/serviceIdParam'
+    - $ref: '#/components/parameters/customDomainIdOrNameParam'
+    get:
+      summary: Retrieve custom domain
+      description: 'Retrieve a particular custom domain for a particular service.
+
+        '
+      operationId: retrieve-custom-domain
+      tags:
+      - Custom Domains
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/customDomain'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    delete:
+      summary: Delete custom domain
+      description: 'Delete a custom domain for a service given the service id and custom domain id or name.
+
+        '
+      operationId: delete-custom-domain
+      tags:
+      - Custom Domains
+      responses:
+        '204':
+          description: Custom domain deleted
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /services/{serviceId}/custom-domains/{customDomainIdOrName}/verify:
+    parameters:
+    - $ref: '#/components/parameters/serviceIdParam'
+    - $ref: '#/components/parameters/customDomainIdOrNameParam'
+    post:
+      summary: Verify DNS configuration
+      description: 'Verify the DNS configuration for a custom domain.
+
+        '
+      operationId: refresh-custom-domain
+      tags:
+      - Custom Domains
+      responses:
+        '202':
+          description: Custom domain verification triggered
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+components:
+  parameters:
+    customDomainIdOrNameParam:
+      name: customDomainIdOrName
+      in: path
+      required: true
+      description: The ID or name of the custom domain
+      schema:
+        type: string
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+        description: Defaults to 20
+    serviceIdParam:
+      name: serviceId
+      in: path
+      required: true
+      description: The ID of the service
+      schema:
+        type: string
+  responses:
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    409Conflict:
+      description: The current state of the resource conflicts with this request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    402PaymentRequired:
+      description: You must enter payment information to perform this request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    410Gone:
+      description: The requested resource is no longer available.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  schemas:
+    cursor:
+      type: string
+    customDomain:
+      type: object
+      required:
+      - id
+      - name
+      - domainType
+      - publicSuffix
+      - verificationStatus
+      - createdAt
+      - redirectForName
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        domainType:
+          type: string
+          enum:
+          - apex
+          - subdomain
+        publicSuffix:
+          type: string
+        redirectForName:
+          type: string
+        verificationStatus:
+          type: string
+          enum:
+          - verified
+          - unverified
+        createdAt:
+          type: string
+          format: date-time
+        server:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+    customDomainWithCursor:
+      required:
+      - customDomain
+      - cursor
+      type: object
+      properties:
+        customDomain:
+          $ref: '#/components/schemas/customDomain'
+        cursor:
+          $ref: '#/components/schemas/cursor'
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+x-readme:
+  metrics-enabled: false

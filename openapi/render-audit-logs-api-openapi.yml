@@ -1,0 +1,386 @@
+openapi: 3.0.2
+info:
+  title: Render Public Audit Logs API
+  description: Manage everything about your Render services
+  version: 1.0.0
+  contact:
+    name: Render API
+    url: https://community.render.com
+    email: support@render.com
+servers:
+- url: https://api.render.com/v1
+security:
+- BearerAuth: []
+tags:
+- name: Audit Logs
+  description: '[Audit Logs](https://render.com/docs/audit-logs) allow you to retrieve audit logs for workspaces and organizations.
+
+    These logs provide a trail of actions and changes made to your resources.
+
+    '
+paths:
+  /owners/{ownerId}/audit-logs:
+    parameters:
+    - $ref: '#/components/parameters/ownerIdPathParam'
+    get:
+      summary: List workspace audit logs
+      description: 'Retrieve audit logs for a specific workspace with optional filtering and pagination.
+
+        '
+      operationId: list-owner-audit-logs
+      tags:
+      - Audit Logs
+      parameters:
+      - name: startTime
+        in: query
+        required: false
+        description: Start time for filtering audit logs (ISO 8601 format)
+        schema:
+          type: string
+          format: date-time
+          example: '2023-01-01T00:00:00Z'
+      - name: endTime
+        in: query
+        required: false
+        description: End time for filtering audit logs (ISO 8601 format)
+        schema:
+          type: string
+          format: date-time
+          example: '2023-12-31T23:59:59Z'
+      - $ref: '#/paths/~1logs/get/parameters/3'
+      - $ref: '#/components/parameters/cursorParam'
+      - $ref: '#/components/parameters/auditLogLimitParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/auditLogWithCursor'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /organizations/{orgId}/audit-logs:
+    parameters:
+    - name: orgId
+      in: path
+      required: true
+      description: The unique identifier of the organization
+      schema:
+        type: string
+    get:
+      summary: List organization audit logs
+      description: 'Retrieve audit logs for a specific organization with optional filtering and pagination.
+
+        '
+      operationId: list-organization-audit-logs
+      tags:
+      - Audit Logs
+      parameters:
+      - name: startTime
+        in: query
+        required: false
+        description: Start time for filtering audit logs (ISO 8601 format)
+        schema:
+          type: string
+          format: date-time
+          example: '2023-01-01T00:00:00Z'
+      - name: endTime
+        in: query
+        required: false
+        description: End time for filtering audit logs (ISO 8601 format)
+        schema:
+          type: string
+          format: date-time
+          example: '2023-12-31T23:59:59Z'
+      - $ref: '#/paths/~1logs/get/parameters/3'
+      - $ref: '#/components/parameters/cursorParam'
+      - $ref: '#/components/parameters/auditLogLimitParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/auditLogWithCursor'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+components:
+  responses:
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    410Gone:
+      description: The requested resource is no longer available.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  schemas:
+    auditLogActor:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          description: The type of actor that performed the action
+          example: user
+          enum:
+          - user
+          - rest_api
+          - system
+        email:
+          type: string
+          description: Email address of the actor (if applicable)
+          example: user@example.com
+        id:
+          type: string
+          description: Unique identifier of the actor (if applicable)
+          example: usr-123456789
+    auditLogWithCursor:
+      type: object
+      required:
+      - cursor
+      - auditLog
+      properties:
+        cursor:
+          $ref: '#/components/schemas/cursor'
+        auditLog:
+          $ref: '#/components/schemas/auditLog'
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+    auditLog:
+      type: object
+      required:
+      - id
+      - timestamp
+      - event
+      - status
+      - actor
+      - metadata
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the audit log entry
+          example: aud-123456789
+        timestamp:
+          type: string
+          format: date-time
+          description: When the event occurred (ISO 8601 format)
+          example: '2023-10-01T12:00:00Z'
+        event:
+          type: string
+          description: The type of event that occurred
+          example: CreateServerEvent
+          enum:
+          - AcceptOrgInviteEvent
+          - AcceptTeamInviteEvent
+          - AddOrgMemberEvent
+          - ApplyBlueprintEvent
+          - ChangeEnvironmentProtectionEvent
+          - ChangeOrg2FAEnforcementEvent
+          - ChangeOrgAllowedLoginMethodsEvent
+          - ChangeOrgRoleEvent
+          - ChangeTeam2FAEnforcementEvent
+          - ChangeTeamAllowedLoginMethodsEvent
+          - ChangeTeamMemberRoleEvent
+          - ChangeWorkspaceDeployHandlingEvent
+          - ChangeWorkspacePrivacyEvent
+          - CreateCronJobEvent
+          - CreateEnvVarsEvent
+          - CreateEnvironmentEvent
+          - CreateOrgDomainEvent
+          - CreateOtelIntegrationEvent
+          - CreatePostgresEvent
+          - CreatePrivateLinkEvent
+          - CreateProjectEvent
+          - CreateRedisEvent
+          - CreateSSOConnectionEvent
+          - CreateServerDiskEvent
+          - CreateServerEvent
+          - CreateWebhookEvent
+          - CreateWorkspaceEvent
+          - DeleteCronJobEvent
+          - DeleteEnvGroupEvent
+          - DeleteEnvVarsEvent
+          - DeleteEnvironmentEvent
+          - DeleteOrgDomainEvent
+          - DeleteOtelIntegrationEvent
+          - DeletePostgresEvent
+          - DeletePrivateLinkEvent
+          - DeleteProjectEvent
+          - DeleteRedisEvent
+          - DeleteSSOConnectionEvent
+          - DeleteServerDiskEvent
+          - DeleteServerEvent
+          - DeleteWebhookEvent
+          - DeleteWorkspaceEvent
+          - DocumentDownloadEvent
+          - DownloadDatabaseBackupEvent
+          - EnableRedisInternalAuthEvent
+          - InviteToOrgEvent
+          - InviteToTeamEvent
+          - JoinTeamEvent
+          - LoginEvent
+          - LogoutEvent
+          - MaintenanceModeEnabledEvent
+          - MaintenanceModeURIUpdatedEvent
+          - MoveEnvironmentResourceEvent
+          - ProvisionOrganizationSCIMToken
+          - RemoveOrgMemberEvent
+          - RemoveUserFromTeamEvent
+          - RestoreDiskSnapshotEvent
+          - ResumePostgresEvent
+          - ResumeServiceEvent
+          - RevokeOrganizationSCIMToken
+          - SignNDAEvent
+          - EndShellEvent
+          - StartShellEvent
+          - SuspendPostgresEvent
+          - SuspendServiceEvent
+          - UpdateEnvVarsEvent
+          - UpdateIPAllowListEvent
+          - UpdateOtelIntegrationEvent
+          - UpdateSSOConnectionEvent
+          - UpdateServiceNameEvent
+          - UpdateWebhookEvent
+          - VerifyOrgDomainEvent
+          - ViewConnectionInfoEvent
+          - ViewEnvVarValuesEvent
+        status:
+          type: string
+          description: The status of the event
+          example: success
+          enum:
+          - success
+          - error
+        actor:
+          $ref: '#/components/schemas/auditLogActor'
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Additional context information about the event
+          example:
+            service: srv-123456789
+            field: env_vars
+    cursor:
+      type: string
+  parameters:
+    auditLogLimitParam:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of audit log items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 1000
+        description: Defaults to 20
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
+    ownerIdPathParam:
+      name: ownerId
+      in: path
+      description: The ID of the workspace to return resources for
+      schema:
+        type: string
+      required: true
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+x-readme:
+  metrics-enabled: false

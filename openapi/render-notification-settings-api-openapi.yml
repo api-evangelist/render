@@ -1,0 +1,355 @@
+openapi: 3.0.2
+info:
+  title: Render Public Audit Logs Notification Settings API
+  description: Manage everything about your Render services
+  version: 1.0.0
+  contact:
+    name: Render API
+    url: https://community.render.com
+    email: support@render.com
+servers:
+- url: https://api.render.com/v1
+security:
+- BearerAuth: []
+tags:
+- name: Notification Settings
+  description: '[Notification Settings](https://render.com/docs/notifications) allow you to configure which notifications you want to recieve, and
+
+    where you will receive them.
+
+    '
+paths:
+  /notification-settings/owners/{ownerId}:
+    parameters:
+    - $ref: '#/components/parameters/ownerIdPathParam'
+    get:
+      summary: Retrieve notification settings
+      description: 'Retrieve notification settings for the owner with the provided ID.
+
+
+        Note that you provide an owner ID to this endpoint, not the ID for a particular resource.
+
+        '
+      operationId: retrieve-owner-notification-settings
+      tags:
+      - Notification Settings
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - ownerId
+                - slackEnabled
+                - emailEnabled
+                - previewNotificationsEnabled
+                - notificationsToSend
+                properties:
+                  ownerId:
+                    type: string
+                  slackEnabled:
+                    type: boolean
+                  emailEnabled:
+                    type: boolean
+                  previewNotificationsEnabled:
+                    type: boolean
+                  notificationsToSend:
+                    $ref: '#/paths/~1notification-settings~1owners~1%7BownerId%7D/patch/requestBody/content/application~1json/schema/properties/notificationsToSend'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    patch:
+      summary: Update notification settings
+      description: 'Update notification settings for the owner with the provided ID.
+
+        '
+      operationId: patch-owner-notification-settings
+      tags:
+      - Notification Settings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                emailEnabled:
+                  type: boolean
+                previewNotificationsEnabled:
+                  type: boolean
+                notificationsToSend:
+                  type: string
+                  enum:
+                  - none
+                  - failure
+                  - all
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1notification-settings~1owners~1%7BownerId%7D/get/responses/200/content/application~1json/schema'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /notification-settings/overrides:
+    get:
+      parameters:
+      - $ref: '#/components/parameters/ownerIdParam'
+      - $ref: '#/components/parameters/serviceIdsParam'
+      - $ref: '#/components/parameters/cursorParam'
+      - $ref: '#/components/parameters/limitParam'
+      summary: List notification overrides
+      description: 'List notification overrides matching the provided filters. If no filters are provided, returns all notification overrides for all workspaces the user belongs to.
+
+        '
+      operationId: list-notification-overrides
+      tags:
+      - Notification Settings
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/notificationOverrideWithCursor'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /notification-settings/overrides/services/{serviceId}:
+    parameters:
+    - $ref: '#/components/parameters/serviceIdParam'
+    get:
+      summary: Retrieve notification override
+      description: 'Retrieve the notification override for the service with the provided ID.
+
+
+        Note that you provide a service ID to this endpoint, not the ID for a particular override.
+
+        '
+      operationId: retrieve-service-notification-overrides
+      tags:
+      - Notification Settings
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - serviceId
+                - previewNotificationsEnabled
+                - notificationsToSend
+                properties:
+                  serviceId:
+                    type: string
+                  previewNotificationsEnabled:
+                    $ref: '#/components/schemas/notificationOverrideWithCursor/properties/override/properties/previewNotificationsEnabled'
+                  notificationsToSend:
+                    $ref: '#/components/schemas/notificationOverrideWithCursor/properties/override/properties/notificationsToSend'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    patch:
+      summary: Update notification override
+      description: 'Update the notification override for the service with the provided ID.
+
+        '
+      operationId: patch-service-notification-overrides
+      tags:
+      - Notification Settings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                previewNotificationsEnabled:
+                  $ref: '#/components/schemas/notificationOverrideWithCursor/properties/override/properties/previewNotificationsEnabled'
+                notificationsToSend:
+                  $ref: '#/components/schemas/notificationOverrideWithCursor/properties/override/properties/notificationsToSend'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1notification-settings~1overrides~1services~1%7BserviceId%7D/get/responses/200/content/application~1json/schema'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+components:
+  parameters:
+    ownerIdParam:
+      name: ownerId
+      in: query
+      description: The ID of the workspaces to return resources for
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+    serviceIdParam:
+      name: serviceId
+      in: path
+      required: true
+      description: The ID of the service
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+        description: Defaults to 20
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
+    serviceIdsParam:
+      name: serviceId
+      in: query
+      description: Filter for resources by service ID
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      required: false
+    ownerIdPathParam:
+      name: ownerId
+      in: path
+      description: The ID of the workspace to return resources for
+      schema:
+        type: string
+      required: true
+  responses:
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  schemas:
+    notificationOverrideWithCursor:
+      required:
+      - override
+      - cursor
+      type: object
+      properties:
+        override:
+          type: object
+          required:
+          - type
+          - serviceId
+          - previewNotificationsEnabled
+          - notificationsToSend
+          properties:
+            serviceId:
+              type: string
+            previewNotificationsEnabled:
+              type: string
+              enum:
+              - default
+              - 'false'
+              - 'true'
+            notificationsToSend:
+              type: string
+              enum:
+              - default
+              - none
+              - failure
+              - all
+        cursor:
+          $ref: '#/components/schemas/cursor'
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+    cursor:
+      type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+x-readme:
+  metrics-enabled: false

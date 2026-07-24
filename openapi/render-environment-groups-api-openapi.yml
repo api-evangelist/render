@@ -1,0 +1,799 @@
+openapi: 3.0.2
+info:
+  title: Render Public Audit Logs Environment Groups API
+  description: Manage everything about your Render services
+  version: 1.0.0
+  contact:
+    name: Render API
+    url: https://community.render.com
+    email: support@render.com
+servers:
+- url: https://api.render.com/v1
+security:
+- BearerAuth: []
+tags:
+- name: Environment Groups
+  description: Collections of environment variables and secret files that can be shared between multiple services
+paths:
+  /env-groups:
+    get:
+      operationId: list-env-groups
+      tags:
+      - Environment Groups
+      summary: List environment groups
+      description: 'List environment groups matching the provided filters. If no filters are provided, all environment groups are returned.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/nameParam'
+      - $ref: '#/components/parameters/createdBeforeParam'
+      - $ref: '#/components/parameters/createdAfterParam'
+      - $ref: '#/components/parameters/updatedBeforeParam'
+      - $ref: '#/components/parameters/updatedAfterParam'
+      - $ref: '#/components/parameters/ownerIdParam'
+      - $ref: '#/components/parameters/environmentIdParam'
+      - $ref: '#/components/parameters/cursorParam'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/envGroupMeta'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    post:
+      operationId: create-env-group
+      tags:
+      - Environment Groups
+      summary: Create environment group
+      description: 'Create a new environment group.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/envGroupPOSTInput'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/envGroup'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /env-groups/{envGroupId}:
+    get:
+      operationId: retrieve-env-group
+      tags:
+      - Environment Groups
+      summary: Retrieve environment group
+      description: 'Retrieve an environment group by ID.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/envGroupIdParam'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/envGroup'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    patch:
+      operationId: update-env-group
+      tags:
+      - Environment Groups
+      summary: Update environment group
+      description: Update the attributes of an environment group.
+      parameters:
+      - in: path
+        name: envGroupId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/envGroupPATCHInput'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/envGroup'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    delete:
+      operationId: delete-env-group
+      tags:
+      - Environment Groups
+      summary: Delete environment group
+      description: Delete the environment group with the provided ID, including all environment variables and secret files it contains.
+      parameters:
+      - in: path
+        name: envGroupId
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: environment group deleted
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /env-groups/{envGroupId}/services/{serviceId}:
+    post:
+      operationId: link-service-to-env-group
+      tags:
+      - Environment Groups
+      summary: Link service
+      description: 'Link a particular service to a particular environment group.
+
+
+        The linked service will have access to the environment variables and secret files in the group.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/envGroupIdParam'
+      - $ref: '#/components/parameters/serviceIdParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/envGroup'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    delete:
+      operationId: unlink-service-from-env-group
+      tags:
+      - Environment Groups
+      summary: Unlink service
+      description: 'Unlink a particular service from a particular environment group.
+
+
+        The service will lose access to the environment variables and secret files in the group.
+
+        '
+      parameters:
+      - in: path
+        name: envGroupId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: serviceId
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: service unlinked from environment group
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /env-groups/{envGroupId}/env-vars/{envVarKey}:
+    get:
+      operationId: retrieve-env-group-env-var
+      tags:
+      - Environment Groups
+      summary: Retrieve environment variable
+      description: 'Retrieve a particular environment variable in a particular environment group.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/envGroupIdParam'
+      - $ref: '#/components/parameters/envVarKeyParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/envVar'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    put:
+      operationId: update-env-group-env-var
+      tags:
+      - Environment Groups
+      summary: Add or update environment variable
+      description: 'Add or update a particular environment variable in a particular environment group.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/envGroupIdParam'
+      - $ref: '#/components/parameters/envVarKeyParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addUpdateEnvVarInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/envGroup'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    delete:
+      operationId: delete-env-group-env-var
+      tags:
+      - Environment Groups
+      summary: Remove environment variable
+      description: 'Remove a particular environment variable from a particular environment group.
+
+        '
+      parameters:
+      - in: path
+        name: envGroupId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/envVarKeyParam'
+      responses:
+        '204':
+          description: environment variable removed from environment group
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /env-groups/{envGroupId}/secret-files/{secretFileName}:
+    get:
+      operationId: retrieve-env-group-secret-file
+      tags:
+      - Environment Groups
+      summary: Retrieve secret file
+      description: 'Retrieve a particular secret file in a particular environment group.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/envGroupIdParam'
+      - $ref: '#/components/parameters/secretFileNameParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/secretFile'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    put:
+      operationId: update-env-group-secret-file
+      tags:
+      - Environment Groups
+      summary: Add or update secret file
+      description: 'Add or update a particular secret file in an particular environment group.
+
+        '
+      parameters:
+      - in: path
+        name: envGroupId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: secretFileName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/envGroup'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    delete:
+      operationId: delete-env-group-secret-file
+      tags:
+      - Environment Groups
+      summary: Remove secret file
+      description: 'Remove a particular secret file from a particular environment group.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/envGroupIdParam'
+      - $ref: '#/components/parameters/secretFileNameParam'
+      responses:
+        '204':
+          description: secret file removed from environment group
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+components:
+  schemas:
+    envVarInputArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/envVarInput'
+    secretFileInput:
+      type: object
+      required:
+      - name
+      - content
+      properties:
+        name:
+          type: string
+        content:
+          type: string
+    envGroupMeta:
+      type: object
+      required:
+      - id
+      - name
+      - ownerId
+      - createdAt
+      - updatedAt
+      - serviceLinks
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        ownerId:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        serviceLinks:
+          description: List of serviceIds linked to the envGroup
+          type: array
+          items:
+            $ref: '#/components/schemas/envGroupLink'
+        environmentId:
+          type: string
+    serviceTypeShort:
+      type: string
+      enum:
+      - static
+      - web
+      - pserv
+      - worker
+      - cron
+    envGroup:
+      allOf:
+      - $ref: '#/components/schemas/envGroupMeta'
+      - type: object
+        required:
+        - envVars
+        - secretFiles
+        properties:
+          envVars:
+            type: array
+            items:
+              $ref: '#/components/schemas/envVar'
+          secretFiles:
+            type: array
+            items:
+              $ref: '#/components/schemas/secretFile'
+    envVarKeyGenerateValue:
+      type: object
+      required:
+      - key
+      - generateValue
+      properties:
+        key:
+          type: string
+        generateValue:
+          type: boolean
+    envGroupPATCHInput:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+    secretFile:
+      type: object
+      required:
+      - name
+      - content
+      properties:
+        name:
+          type: string
+        content:
+          type: string
+    envGroupLink:
+      type: object
+      required:
+      - id
+      - name
+      - type
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/serviceTypeShort'
+    envVarInput:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/envVarKeyValue'
+      - $ref: '#/components/schemas/envVarKeyGenerateValue'
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+    envVarGenerateValue:
+      type: object
+      required:
+      - generateValue
+      properties:
+        generateValue:
+          type: boolean
+    envVarValue:
+      type: object
+      required:
+      - value
+      properties:
+        value:
+          type: string
+    addUpdateEnvVarInput:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/envVarValue'
+      - $ref: '#/components/schemas/envVarGenerateValue'
+    envVarKeyValue:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    envVar:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    envGroupPOSTInput:
+      type: object
+      required:
+      - name
+      - ownerId
+      - envVars
+      properties:
+        name:
+          type: string
+        ownerId:
+          type: string
+        envVars:
+          $ref: '#/components/schemas/envVarInputArray'
+        secretFiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/secretFileInput'
+        serviceIds:
+          type: array
+          items:
+            description: List of serviceIds to link the envGroup to
+            type: string
+        environmentId:
+          type: string
+  parameters:
+    envVarKeyParam:
+      name: envVarKey
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The name of the environment variable
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
+    updatedAfterParam:
+      name: updatedAfter
+      in: query
+      schema:
+        type: string
+        format: date-time
+      required: false
+      description: Filter for resources updated after a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-06-17T08:15:30Z'
+    createdBeforeParam:
+      name: createdBefore
+      in: query
+      schema:
+        type: string
+        format: date-time
+      required: false
+      description: Filter for resources created before a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-06-17T08:15:30Z'
+    environmentIdParam:
+      name: environmentId
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+      description: Filter for resources that belong to an environment
+    ownerIdParam:
+      name: ownerId
+      in: query
+      description: The ID of the workspaces to return resources for
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+    secretFileNameParam:
+      name: secretFileName
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The name of the secret file
+    limitParam:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+        description: Defaults to 20
+    updatedBeforeParam:
+      name: updatedBefore
+      in: query
+      schema:
+        type: string
+        format: date-time
+      required: false
+      description: Filter for resources updated before a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-06-17T08:15:30Z'
+    nameParam:
+      name: name
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+      description: Filter by name
+    createdAfterParam:
+      name: createdAfter
+      in: query
+      schema:
+        type: string
+        format: date-time
+      required: false
+      description: Filter for resources created after a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-02-17T08:15:30Z'
+    serviceIdParam:
+      name: serviceId
+      in: path
+      required: true
+      description: The ID of the service
+      schema:
+        type: string
+    envGroupIdParam:
+      name: envGroupId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Filter for resources that belong to an environment group
+  responses:
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+x-readme:
+  metrics-enabled: false

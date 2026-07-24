@@ -1,0 +1,149 @@
+openapi: 3.0.2
+info:
+  title: Render Public Audit Logs Services - Cron Jobs API
+  description: Manage everything about your Render services
+  version: 1.0.0
+  contact:
+    name: Render API
+    url: https://community.render.com
+    email: support@render.com
+servers:
+- url: https://api.render.com/v1
+security:
+- BearerAuth: []
+tags:
+- name: Services - Cron Jobs
+  description: '[Cron Jobs](https://render.com/docs/cronjobs) allow you to interact with runs of your cron jobs.
+
+    '
+paths:
+  /cron-jobs/{cronJobId}/runs:
+    parameters:
+    - $ref: '#/components/parameters/cronJobIdParam'
+    post:
+      summary: Trigger cron job run
+      description: Trigger a run for a cron job and cancel any active runs.
+      operationId: run-cron-job
+      tags:
+      - Services - Cron Jobs
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cronJobRun'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    delete:
+      summary: Cancel running cron job
+      description: Cancel a currently running cron job.
+      operationId: cancel-cron-job-run
+      tags:
+      - Services - Cron Jobs
+      responses:
+        '204':
+          description: Cancelled
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+components:
+  responses:
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  schemas:
+    cronJobRun:
+      type: object
+      description: A run of a cron job
+      required:
+      - id
+      - status
+      properties:
+        id:
+          description: The ID of the run
+          type: string
+        status:
+          type: string
+          enum:
+          - pending
+          - successful
+          - unsuccessful
+          - canceled
+        startedAt:
+          type: string
+          format: date-time
+          example: '2021-07-15T07:20:05.777035-07:00'
+        finishedAt:
+          type: string
+          format: date-time
+          example: '2021-07-15T07:20:05.777035-07:00'
+        triggeredBy:
+          type: string
+          description: user who triggered the cron job run
+        canceledBy:
+          type: string
+          description: user who cancelled the cron job run
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+  parameters:
+    cronJobIdParam:
+      name: cronJobId
+      in: path
+      required: true
+      description: The ID of the cron job
+      schema:
+        type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+x-readme:
+  metrics-enabled: false

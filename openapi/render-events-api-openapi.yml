@@ -1,0 +1,980 @@
+openapi: 3.0.2
+info:
+  title: Render Public Audit Logs Events API
+  description: Manage everything about your Render services
+  version: 1.0.0
+  contact:
+    name: Render API
+    url: https://community.render.com
+    email: support@render.com
+servers:
+- url: https://api.render.com/v1
+security:
+- BearerAuth: []
+tags:
+- name: Events
+  description: View events for a service, postgres or key value
+paths:
+  /events/{eventId}:
+    parameters:
+    - name: eventId
+      in: path
+      description: The ID of the event
+      schema:
+        type: string
+        pattern: ^evt-[0-9a-z]{20}$
+        example: evt-cph1rs3idesc73a2b2mg
+      required: true
+    get:
+      summary: Retrieve event
+      description: 'Retrieve the details of a particular event
+
+        '
+      operationId: retrieve-event
+      tags:
+      - Events
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - timestamp
+                - serviceId
+                - type
+                - details
+                properties:
+                  id:
+                    $ref: '#/paths/~1events~1%7BeventId%7D/parameters/0/schema'
+                  timestamp:
+                    type: string
+                    format: date-time
+                  serviceId:
+                    type: string
+                  type:
+                    $ref: '#/components/schemas/webhookEventWithCursor/properties/webhookEvent/properties/eventType'
+                  details:
+                    oneOf:
+                    - $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details'
+                    - title: Postgres Event Details
+                      oneOf:
+                      - title: Postgres Available
+                        type: object
+                      - title: Postgres Backup Completed
+                        type: object
+                      - title: Postgres Backup Failed
+                        type: object
+                      - title: Postgres Backup Started
+                        type: object
+                      - title: Postgres Cluster Leader Changed
+                        type: object
+                        properties:
+                          leaderId:
+                            type: string
+                      - title: Postgres Created
+                        type: object
+                        properties:
+                          user:
+                            $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/7/properties/user'
+                      - title: Postgres Disk Size Changed
+                        type: object
+                        required:
+                        - fromDiskSize
+                        - toDiskSize
+                        properties:
+                          user:
+                            $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/7/properties/user'
+                          fromDiskSize:
+                            type: integer
+                          toDiskSize:
+                            type: integer
+                      - title: Postgres HA Status Changed
+                        type: object
+                        required:
+                        - fromStatus
+                        - toStatus
+                        properties:
+                          fromStatus:
+                            type: string
+                          toStatus:
+                            type: string
+                      - title: Postgres Read Replicas Changed
+                        type: object
+                        required:
+                        - fromReplicas
+                        - toReplicas
+                        properties:
+                          fromReplicas:
+                            type: integer
+                          toReplicas:
+                            type: integer
+                      - title: Postgres Restarted
+                        type: object
+                        properties:
+                          user:
+                            $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/7/properties/user'
+                      - title: Postgres Unavailable
+                        type: object
+                      - title: Postgres Upgrade Failed
+                        type: object
+                        required:
+                        - fromVersion
+                        - toVersion
+                        properties:
+                          fromVersion:
+                            type: string
+                          toVersion:
+                            type: string
+                      - title: Postgres Upgrade Started
+                        type: object
+                        required:
+                        - fromVersion
+                        - toVersion
+                        properties:
+                          user:
+                            $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/7/properties/user'
+                          fromVersion:
+                            type: string
+                          toVersion:
+                            type: string
+                      - title: Postgres Upgrade Succeeded
+                        type: object
+                        required:
+                        - fromVersion
+                        - toVersion
+                        properties:
+                          fromVersion:
+                            type: string
+                          toVersion:
+                            type: string
+                      - title: Postgres PITR Checkpoint Started
+                        type: object
+                      - title: Postgres PITR Checkpoint Failed
+                        type: object
+                      - title: Postgres PITR Checkpoint Completed
+                        type: object
+                      - title: Postgres Read Replica Stale
+                        type: object
+                    - title: Key Value Event Details
+                      oneOf:
+                      - title: Key Value Available
+                        type: object
+                      - title: Key Value Config Restart
+                        type: object
+                        required:
+                        - reason
+                        - message
+                        properties:
+                          reason:
+                            type: string
+                          message:
+                            type: string
+                      - title: Key Value Unhealthy
+                        type: object
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+components:
+  responses:
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    410Gone:
+      description: The requested resource is no longer available.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  schemas:
+    serviceEventWithCursor:
+      type: object
+      description: A service event with a cursor
+      required:
+      - event
+      - cursor
+      properties:
+        event:
+          type: object
+          required:
+          - id
+          - timestamp
+          - serviceId
+          - type
+          - details
+          properties:
+            id:
+              $ref: '#/paths/~1events~1%7BeventId%7D/parameters/0/schema'
+            timestamp:
+              type: string
+              format: date-time
+            serviceId:
+              type: string
+            type:
+              $ref: '#/components/parameters/eventTypeParam/schema/anyOf/0'
+            details:
+              title: Service Event Details
+              oneOf:
+              - title: Autoscaling Config Changed
+                type: object
+                required:
+                - toConfig
+                properties:
+                  fromConfig:
+                    $ref: '#/components/schemas/webServiceDetails/properties/autoscaling'
+                  toConfig:
+                    $ref: '#/components/schemas/webServiceDetails/properties/autoscaling'
+              - title: Autoscaling Ended
+                type: object
+                required:
+                - fromInstances
+                - toInstances
+                properties:
+                  fromInstances:
+                    type: integer
+                  toInstances:
+                    type: integer
+              - title: Autoscaling Started
+                type: object
+                required:
+                - fromInstances
+                - toInstances
+                properties:
+                  fromInstances:
+                    type: integer
+                  toInstances:
+                    type: integer
+                  currentCPU:
+                    type: integer
+                    x-go-type: int64
+                  targetCPU:
+                    type: integer
+                    x-go-type: int64
+                  currentMemory:
+                    type: integer
+                    x-go-type: int64
+                  targetMemory:
+                    type: integer
+                    x-go-type: int64
+              - title: Branch Deleted
+                type: object
+                required:
+                - deletedBranch
+                - newBranch
+                properties:
+                  deletedBranch:
+                    type: string
+                  newBranch:
+                    type: string
+              - title: Build Ended
+                type: object
+                required:
+                - buildId
+                - status
+                - reason
+                - buildStatus
+                properties:
+                  buildId:
+                    type: string
+                  buildStatus:
+                    type: string
+                    enum:
+                    - succeeded
+                    - failed
+                    - canceled
+                  reason:
+                    type: object
+                    properties:
+                      buildFailed:
+                        $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/4/properties/reason/properties/newBuild'
+                      newBuild:
+                        type: object
+                        required:
+                        - id
+                        properties:
+                          id:
+                            type: string
+                      newDeploy:
+                        $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/4/properties/reason/properties/newBuild'
+                      failure:
+                        $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/7/properties/reason'
+                  status:
+                    deprecated: true
+                    type: integer
+              - title: Build Started
+                type: object
+                required:
+                - buildId
+                - trigger
+                properties:
+                  buildId:
+                    type: string
+                  trigger:
+                    type: object
+                    required:
+                    - firstBuild
+                    - envUpdated
+                    - manual
+                    - deployedByRender
+                    - clearCache
+                    - rollback
+                    properties:
+                      firstBuild:
+                        description: Deploy was triggered by service creation
+                        type: boolean
+                      envUpdated:
+                        description: Deploy was triggered by an environment update
+                        type: boolean
+                      manual:
+                        description: Deploy was triggered manually from the dashboard
+                        type: boolean
+                      user:
+                        $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/7/properties/user'
+                      updatedProperty:
+                        description: Updated property that triggered the deploy
+                        type: string
+                      newCommit:
+                        description: Commit that triggered the deploy
+                        type: string
+                      deployedByRender:
+                        description: Deploy was triggered by Render
+                        type: boolean
+                      clearCache:
+                        description: Whether the cache was cleared for the deploy
+                        type: boolean
+                      rollback:
+                        description: Whether the deploy was triggered by a rollback
+                        type: boolean
+                      rollbackTargetDeployId:
+                        description: Deploy ID that was rolled back to
+                        type: string
+              - title: Commit Ignored
+                type: object
+                required:
+                - id
+                - url
+                properties:
+                  id:
+                    description: the commit id
+                    type: string
+                  url:
+                    description: the commit url
+                    type: string
+              - title: Cron Job Run Ended
+                type: object
+                required:
+                - cronJobRunId
+                - status
+                properties:
+                  cronJobRunId:
+                    type: string
+                  status:
+                    type: string
+                    enum:
+                    - canceled
+                    - pending
+                    - successful
+                    - unsuccessful
+                  reason:
+                    type: object
+                    required:
+                    - evicted
+                    properties:
+                      evicted:
+                        type: boolean
+                      nonZeroExit:
+                        type: integer
+                        description: If present, the application exited with the specified non-zero status.
+                      earlyExit:
+                        type: boolean
+                        description: If true, the application exited early. Services besides cron jobs should not exit unless receiving a `SIGTERM` signal from Render.
+                      oomKilled:
+                        type: object
+                        required:
+                        - memoryLimit
+                        properties:
+                          memoryLimit:
+                            type: string
+                      timedOutSeconds:
+                        type: integer
+                        format: int64
+                      unhealthy:
+                        type: string
+                      timedOutReason:
+                        type: string
+                  user:
+                    type: object
+                    description: User who triggered the action
+                    required:
+                    - id
+                    - email
+                    properties:
+                      id:
+                        type: string
+                      email:
+                        type: string
+              - title: Cron Job Run Started
+                type: object
+                required:
+                - cronJobRunId
+                properties:
+                  cronJobRunId:
+                    type: string
+              - title: Deploy Ended
+                type: object
+                required:
+                - deployId
+                - reason
+                - status
+                - deployStatus
+                properties:
+                  deployId:
+                    type: string
+                  reason:
+                    $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/4/properties/reason'
+                  deployStatus:
+                    $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/4/properties/buildStatus'
+                  status:
+                    deprecated: true
+                    type: integer
+              - title: Deploy Started
+                type: object
+                required:
+                - deployId
+                - trigger
+                properties:
+                  deployId:
+                    type: string
+                  trigger:
+                    $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/5/properties/trigger'
+              - title: Disk Created
+                type: object
+                required:
+                - diskId
+                - sizeGB
+                properties:
+                  diskId:
+                    $ref: '#/paths/~1disks~1%7BdiskId%7D/parameters/0/schema'
+                  sizeGB:
+                    type: integer
+              - title: Disk Updated
+                type: object
+                required:
+                - diskId
+                - fromSizeGB
+                - toSizeGB
+                properties:
+                  diskId:
+                    $ref: '#/paths/~1disks~1%7BdiskId%7D/parameters/0/schema'
+                  fromSizeGB:
+                    type: integer
+                  toSizeGB:
+                    type: integer
+              - title: Disk Deleted
+                type: object
+                required:
+                - diskId
+                properties:
+                  diskId:
+                    $ref: '#/paths/~1disks~1%7BdiskId%7D/parameters/0/schema'
+              - title: Image Pull Failed
+                type: object
+                required:
+                - message
+                - imageURL
+                properties:
+                  message:
+                    type: string
+                  imageURL:
+                    type: string
+              - title: Initial Deploy Hook Started
+                type: object
+                required:
+                - deployId
+                properties:
+                  deployId:
+                    type: string
+              - title: Initial Deploy Hook Ended
+                type: object
+                required:
+                - deployId
+                properties:
+                  deployId:
+                    type: string
+              - title: Instance Count Changed
+                type: object
+                required:
+                - fromInstances
+                - toInstances
+                properties:
+                  fromInstances:
+                    type: integer
+                  toInstances:
+                    type: integer
+              - title: Job Run Ended
+                type: object
+                required:
+                - jobId
+                - status
+                properties:
+                  jobId:
+                    $ref: '#/paths/~1services~1%7BserviceId%7D~1jobs~1%7BjobId%7D/parameters/1/schema'
+                  status:
+                    $ref: '#/paths/~1services~1%7BserviceId%7D~1jobs/get/parameters/2/schema/items'
+                  reason:
+                    $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/7/properties/reason'
+              - title: Maintenance Mode Enabled
+                type: object
+                required:
+                - enabled
+                properties:
+                  enabled:
+                    type: boolean
+              - title: Maintenance Mode URI Updated
+                type: object
+                required:
+                - fromURI
+                - toURI
+                properties:
+                  fromURI:
+                    type: string
+                  toURI:
+                    type: string
+              - title: Maintenance Ended
+                type: object
+              - title: Maintenance Started
+                type: object
+                required:
+                - trigger
+                properties:
+                  trigger:
+                    type: object
+                    required:
+                    - manual
+                    - startedByRender
+                    properties:
+                      user:
+                        $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/7/properties/user'
+                      manual:
+                        description: Maintenance was triggered manually
+                        type: boolean
+                      startedByRender:
+                        description: Maintenance was triggered by Render
+                        type: boolean
+              - title: Pipeline Minutes Exhausted
+                type: object
+                required:
+                - buildId
+                - trigger
+                properties:
+                  buildId:
+                    type: string
+                  trigger:
+                    $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/5/properties/trigger'
+              - title: Instance Type Changed
+                type: object
+                required:
+                - from
+                - to
+                properties:
+                  from:
+                    type: string
+                  to:
+                    type: string
+              - title: Pre Deploy Ended
+                type: object
+                required:
+                - deployCommandExecutionId
+                - deployId
+                - status
+                - preDeployStatus
+                - reason
+                properties:
+                  deployCommandExecutionId:
+                    type: string
+                  deployId:
+                    type: string
+                  preDeployStatus:
+                    $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/4/properties/buildStatus'
+                  reason:
+                    $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/4/properties/reason'
+                  status:
+                    deprecated: true
+                    type: integer
+              - title: Pre Deploy Started
+                type: object
+                required:
+                - deployCommandExecutionId
+                - deployId
+                properties:
+                  deployCommandExecutionId:
+                    type: string
+                  deployId:
+                    type: string
+              - title: Server Available
+                type: object
+              - title: Server Failed
+                type: object
+                properties:
+                  instanceID:
+                    type: string
+                    pattern: ^srv-[0-9a-z]{20}-[0-9a-z]{5}$
+                    example: srv-d0cjkelq67qs70c2pugg-sbpkm
+                  reason:
+                    $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/7/properties/reason'
+              - title: Server Hardware Failure
+                type: object
+              - title: Server Restarted
+                type: object
+                required:
+                - triggeredByUser
+                properties:
+                  triggeredByUser:
+                    type: string
+                    nullable: true
+              - title: Service Resumed
+                type: object
+              - title: Service Suspended
+                type: object
+              - title: Suspender Added
+                type: object
+                required:
+                - actor
+                properties:
+                  actor:
+                    type: string
+                  suspendedByUser:
+                    $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/7/properties/user'
+              - title: Suspender Removed
+                type: object
+                required:
+                - actor
+                properties:
+                  actor:
+                    type: string
+                  resumedByUser:
+                    $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/7/properties/user'
+              - title: Zero Downtime Redeploy Ended
+                type: object
+              - title: Zero Downtime Redeploy Started
+                type: object
+                required:
+                - trigger
+                properties:
+                  trigger:
+                    type: string
+              - title: Edge Cache Disabled
+                type: object
+                required:
+                - trigger
+                properties:
+                  trigger:
+                    type: object
+                    required:
+                    - manual
+                    - system
+                    properties:
+                      manual:
+                        description: Edge Cache change was triggered manually from the dashboard
+                        type: boolean
+                      user:
+                        $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/7/properties/user'
+                      system:
+                        description: Edge Cache Change was triggered by Render
+                        type: boolean
+              - title: Edge Cache Enabled
+                type: object
+                required:
+                - trigger
+                properties:
+                  trigger:
+                    $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/37/properties/trigger'
+              - title: Edge Cache Purged
+                required:
+                - trigger
+                properties:
+                  trigger:
+                    $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/37/properties/trigger'
+    webServiceDetails:
+      type: object
+      required:
+      - env
+      - runtime
+      - envSpecificDetails
+      - plan
+      - region
+      - numInstances
+      - buildPlan
+      - healthCheckPath
+      - openPorts
+      - url
+      properties:
+        autoscaling:
+          type: object
+          required:
+          - enabled
+          - min
+          - max
+          - criteria
+          properties:
+            enabled:
+              type: boolean
+              default: false
+            min:
+              type: integer
+              description: The minimum number of instances for the service
+            max:
+              type: integer
+              description: The maximum number of instances for the service
+            criteria:
+              type: object
+              required:
+              - cpu
+              - memory
+              properties:
+                cpu:
+                  type: object
+                  required:
+                  - enabled
+                  - percentage
+                  properties:
+                    enabled:
+                      type: boolean
+                      default: false
+                    percentage:
+                      type: integer
+                      description: 'Determines when your service will be scaled. If the average resource utilization is significantly above/below the target, we will increase/decrease the number of instances.
+
+                        '
+                memory:
+                  $ref: '#/components/schemas/webServiceDetails/properties/autoscaling/properties/criteria/properties/cpu'
+        cache:
+          $ref: '#/components/schemas/cache'
+        disk:
+          type: object
+          required:
+          - id
+          - name
+          - sizeGB
+          - mountPath
+          properties:
+            id:
+              $ref: '#/paths/~1disks~1%7BdiskId%7D/parameters/0/schema'
+            name:
+              type: string
+            sizeGB:
+              type: integer
+            mountPath:
+              type: string
+        env:
+          $ref: '#/components/schemas/serviceEnv'
+        envSpecificDetails:
+          $ref: '#/components/schemas/envSpecificDetails'
+        healthCheckPath:
+          type: string
+        ipAllowList:
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+        maintenanceMode:
+          $ref: '#/components/schemas/maintenanceMode'
+        numInstances:
+          type: integer
+          description: For a *manually* scaled service, this is the number of instances the service is scaled to. DOES NOT indicate the number of running instances for an *autoscaled* service.
+        openPorts:
+          type: array
+          items:
+            $ref: '#/components/schemas/serverPort'
+        parentServer:
+          $ref: '#/components/schemas/resource'
+        plan:
+          $ref: '#/components/schemas/plan'
+        pullRequestPreviewsEnabled:
+          $ref: '#/components/schemas/pullRequestPreviewsEnabled'
+        previews:
+          $ref: '#/components/schemas/previews'
+        region:
+          $ref: '#/components/schemas/region'
+        runtime:
+          $ref: '#/components/schemas/serviceRuntime'
+        sshAddress:
+          $ref: '#/components/schemas/sshAddress'
+        url:
+          type: string
+        buildPlan:
+          $ref: '#/components/schemas/buildPlan'
+        maxShutdownDelaySeconds:
+          $ref: '#/components/schemas/maxShutdownDelaySeconds'
+        renderSubdomainPolicy:
+          $ref: '#/components/schemas/renderSubdomainPolicy'
+    webhookEventWithCursor:
+      type: object
+      required:
+      - webhookEvent
+      - cursor
+      properties:
+        webhookEvent:
+          type: object
+          required:
+          - id
+          - eventId
+          - eventType
+          - sentAt
+          properties:
+            id:
+              type: string
+              description: the id of the webhook event
+            eventId:
+              type: string
+              description: the id of the event that triggered the webhook
+            eventType:
+              type: string
+              enum:
+              - autoscaling_config_changed
+              - autoscaling_ended
+              - autoscaling_started
+              - branch_deleted
+              - build_ended
+              - build_started
+              - commit_ignored
+              - cron_job_run_ended
+              - cron_job_run_started
+              - deploy_ended
+              - deploy_started
+              - disk_created
+              - disk_updated
+              - disk_deleted
+              - image_pull_failed
+              - instance_count_changed
+              - job_run_ended
+              - maintenance_mode_enabled
+              - maintenance_mode_uri_updated
+              - maintenance_ended
+              - maintenance_started
+              - pipeline_minutes_exhausted
+              - plan_changed
+              - pre_deploy_ended
+              - pre_deploy_started
+              - server_available
+              - server_failed
+              - server_hardware_failure
+              - server_restarted
+              - service_resumed
+              - service_suspended
+              - zero_downtime_redeploy_ended
+              - zero_downtime_redeploy_started
+              - edge_cache_enabled
+              - edge_cache_disabled
+              - edge_cache_purged
+              - postgres_available
+              - postgres_backup_completed
+              - postgres_backup_failed
+              - postgres_backup_started
+              - postgres_cluster_leader_changed
+              - postgres_created
+              - postgres_disk_size_changed
+              - postgres_disk_autoscaling_enabled_changed
+              - postgres_ha_status_changed
+              - postgres_restarted
+              - postgres_unavailable
+              - postgres_upgrade_failed
+              - postgres_upgrade_started
+              - postgres_upgrade_succeeded
+              - postgres_restore_failed
+              - postgres_restore_succeeded
+              - postgres_read_replicas_changed
+              - postgres_pitr_checkpoint_started
+              - postgres_pitr_checkpoint_failed
+              - postgres_pitr_checkpoint_completed
+              - postgres_read_replica_stale
+              - postgres_wal_archive_failed
+              - key_value_available
+              - key_value_config_restart
+              - key_value_unhealthy
+            sentAt:
+              type: string
+              format: date-time
+            statusCode:
+              type: integer
+            responseBody:
+              type: string
+            error:
+              type: string
+              description: error is populated when an error occurs without a response such as a timeout
+        cursor:
+          $ref: '#/components/schemas/cursor'
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+x-readme:
+  metrics-enabled: false

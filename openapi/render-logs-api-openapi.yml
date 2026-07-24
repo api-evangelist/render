@@ -1,0 +1,821 @@
+openapi: 3.0.2
+info:
+  title: Render Public Audit Logs API
+  description: Manage everything about your Render services
+  version: 1.0.0
+  contact:
+    name: Render API
+    url: https://community.render.com
+    email: support@render.com
+servers:
+- url: https://api.render.com/v1
+security:
+- BearerAuth: []
+tags:
+- name: Logs
+  description: '[Logs](https://render.com/docs/logging) allow you to retrieve logs for your services, Postgres databases, and redis instances.
+
+    You can query for logs or subscribe to logs in real-time via a websocket.
+
+    '
+paths:
+  /logs:
+    get:
+      summary: List logs
+      description: 'List logs matching the provided filters. Logs are paginated by start and end timestamps.
+
+        There are more logs to fetch if `hasMore` is true in the response. Provide the `nextStartTime`
+
+        and `nextEndTime` timestamps as the `startTime` and `endTime` query parameters to fetch the next page of logs.
+
+
+        You can query for logs across multiple resources, but all resources must be in the same region and belong to the same owner.
+
+        '
+      operationId: list-logs
+      tags:
+      - Logs
+      parameters:
+      - name: ownerId
+        in: query
+        description: The ID of the workspace to return logs for
+        schema:
+          type: string
+        required: true
+      - $ref: '#/components/parameters/startTimeParam'
+      - $ref: '#/components/parameters/endTimeParam'
+      - name: direction
+        in: query
+        required: false
+        description: 'The direction to query logs for. Backward will return most recent logs first.
+
+          Forward will start with the oldest logs in the time range.
+
+          '
+        schema:
+          default: backward
+          type: string
+          enum:
+          - forward
+          - backward
+      - name: resource
+        in: query
+        required: true
+        description: Filter logs by their resource. A resource is the id of a server, cronjob, job, postgres, redis, or workflow.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: instance
+        in: query
+        required: false
+        description: Filter logs by the instance they were emitted from. An instance is the id of a specific running server.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: host
+        in: query
+        required: false
+        description: Filter request logs by their host. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: statusCode
+        in: query
+        required: false
+        description: Filter request logs by their status code. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: method
+        in: query
+        required: false
+        description: Filter request logs by their requests method. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: task
+        in: query
+        required: false
+        description: Filter logs by their task(s)
+        schema:
+          type: array
+          items:
+            type: string
+      - name: taskRun
+        in: query
+        required: false
+        description: Filter logs by their task run id(s)
+        schema:
+          type: array
+          items:
+            type: string
+      - name: level
+        in: query
+        required: false
+        description: Filter logs by their severity level. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: type
+        in: query
+        required: false
+        description: Filter logs by their type. Types include `app` for application logs, `request` for request logs, and `build` for build logs. You can find the full set of types available for a query by using the `GET /logs/values` endpoint.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: text
+        in: query
+        required: false
+        description: Filter by the text of the logs. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: path
+        in: query
+        required: false
+        description: Filter request logs by their path. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported.
+        schema:
+          type: array
+          items:
+            type: string
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/Logs200Response'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /logs/subscribe:
+    get:
+      summary: Subscribe to new logs
+      description: 'Open a websocket connection to subscribe to logs matching the provided filters. Logs are streamed in real-time as they are generated.
+
+
+        You can query for logs across multiple resources, but all resources must be in the same region and belong to the same owner.
+
+        '
+      operationId: subscribe-logs
+      tags:
+      - Logs
+      parameters:
+      - name: ownerId
+        in: query
+        description: The ID of the workspace to return logs for
+        schema:
+          type: string
+        required: true
+      - $ref: '#/components/parameters/startTimeParam'
+      - $ref: '#/components/parameters/endTimeParam'
+      - $ref: '#/paths/~1logs/get/parameters/3'
+      - $ref: '#/paths/~1logs/get/parameters/4'
+      - $ref: '#/paths/~1logs/get/parameters/5'
+      - $ref: '#/paths/~1logs/get/parameters/6'
+      - $ref: '#/paths/~1logs/get/parameters/7'
+      - $ref: '#/paths/~1logs/get/parameters/8'
+      - $ref: '#/paths/~1logs/get/parameters/9'
+      - $ref: '#/paths/~1logs/get/parameters/10'
+      - $ref: '#/paths/~1logs/get/parameters/11'
+      - $ref: '#/paths/~1logs/get/parameters/12'
+      - $ref: '#/paths/~1logs/get/parameters/13'
+      - $ref: '#/paths/~1logs/get/parameters/14'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        '101':
+          description: The connection has been upgraded to a websocket. The server will send log messages as they are generated in the format defined below.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: A log entry with metadata
+                required:
+                - id
+                - message
+                - timestamp
+                - labels
+                properties:
+                  id:
+                    description: A unique ID of the log entry
+                    type: string
+                  message:
+                    description: The message of the log entry
+                    type: string
+                  timestamp:
+                    description: The timestamp of the log entry
+                    type: string
+                    format: date-time
+                  labels:
+                    type: array
+                    items:
+                      type: object
+                      description: A log label
+                      required:
+                      - name
+                      - value
+                      properties:
+                        name:
+                          description: The name of the log label
+                          type: string
+                          enum:
+                          - resource
+                          - instance
+                          - host
+                          - statusCode
+                          - method
+                          - level
+                          - workflowService
+                          - workflowVeresion
+                          - task
+                          - taskRun
+                          - type
+                          - text
+                          - path
+                          - blocked
+                        value:
+                          description: The value of the log label
+                          type: string
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /logs/values:
+    get:
+      summary: List log label values
+      description: List all values for a given log label in the logs matching the provided filters.
+      operationId: list-logs-values
+      tags:
+      - Logs
+      parameters:
+      - name: ownerId
+        in: query
+        description: The ID of the workspace to return log label values for
+        schema:
+          type: string
+        required: true
+      - name: label
+        in: query
+        required: true
+        description: The label to query logs for
+        schema:
+          type: string
+          enum:
+          - instance
+          - host
+          - statusCode
+          - method
+          - level
+          - type
+      - $ref: '#/components/parameters/startTimeParam'
+      - $ref: '#/components/parameters/endTimeParam'
+      - $ref: '#/paths/~1logs/get/parameters/3'
+      - $ref: '#/paths/~1logs/get/parameters/4'
+      - $ref: '#/paths/~1logs/get/parameters/5'
+      - $ref: '#/paths/~1logs/get/parameters/6'
+      - $ref: '#/paths/~1logs/get/parameters/7'
+      - $ref: '#/paths/~1logs/get/parameters/8'
+      - $ref: '#/paths/~1logs/get/parameters/9'
+      - $ref: '#/paths/~1logs/get/parameters/10'
+      - $ref: '#/paths/~1logs/get/parameters/11'
+      - $ref: '#/paths/~1logs/get/parameters/12'
+      - $ref: '#/paths/~1logs/get/parameters/13'
+      - $ref: '#/paths/~1logs/get/parameters/14'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/LogsValues200Response'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /logs/streams/owner/{ownerId}:
+    get:
+      summary: Retrieve log stream
+      description: Returns log stream information for the specified workspace.
+      operationId: get-owner-log-stream
+      tags:
+      - Logs
+      parameters:
+      - name: ownerId
+        in: path
+        description: The ID of the workspace to return log stream information for
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: Owner log stream setting
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Owner log stream settings
+                properties:
+                  ownerId:
+                    description: The ID of the owner.
+                    type: string
+                  endpoint:
+                    description: The endpoint to stream logs to.
+                    type: string
+                  preview:
+                    $ref: '#/paths/~1logs~1streams~1owner~1%7BownerId%7D/put/requestBody/content/application~1json/schema/properties/preview'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    put:
+      summary: Update log stream
+      description: Updates log stream information for the specified workspace. All logs for resources owned by this workspace will be sent to this log stream unless overridden by individual resources.
+      operationId: update-owner-log-stream
+      tags:
+      - Logs
+      parameters:
+      - name: ownerId
+        in: path
+        description: The ID of the workspace to update log stream information for
+        schema:
+          type: string
+        required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - preview
+              properties:
+                endpoint:
+                  description: The endpoint to stream logs to.
+                  type: string
+                token:
+                  description: The optional token to authenticate the log stream.
+                  type: string
+                preview:
+                  type: string
+                  description: Whether to send logs or drop them.
+                  enum:
+                  - send
+                  - drop
+      responses:
+        '200':
+          $ref: '#/paths/~1logs~1streams~1owner~1%7BownerId%7D/get/responses/200'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    delete:
+      summary: Delete log stream
+      description: Removes the log stream for the specified workspace.
+      operationId: delete-owner-log-stream
+      tags:
+      - Logs
+      parameters:
+      - name: ownerId
+        in: path
+        description: The ID of the workspace to delete the log stream for
+        schema:
+          type: string
+        required: true
+      responses:
+        '204':
+          description: Log stream setting deleted
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /logs/streams/resource:
+    get:
+      summary: List log stream overrides
+      description: Lists log stream overrides for the provided workspace that match the provided filters. These overrides take precedence over the workspace's default log stream.
+      operationId: list-resource-log-streams
+      tags:
+      - Logs
+      parameters:
+      - $ref: '#/components/parameters/ownerIdParam'
+      - name: logStreamId
+        in: query
+        required: false
+        description: Filter log streams by their id.
+        schema:
+          type: array
+          items:
+            type: string
+      - $ref: '#/components/parameters/resourceIdParam'
+      - name: setting
+        in: query
+        required: false
+        description: Filter log streams by their setting.
+        schema:
+          type: array
+          items:
+            type: string
+            description: Whether to send logs or drop them.
+            enum:
+            - send
+            - drop
+      - $ref: '#/components/parameters/cursorParam'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          description: Resource log stream override
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/paths/~1logs~1streams~1resource~1%7BresourceId%7D/get/responses/200/content/application~1json/schema'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /logs/streams/resource/{resourceId}:
+    get:
+      summary: Retrieve log stream override
+      description: Returns log stream override information for the specified resource. A log stream override takes precedence over a workspace's default log stream.
+      operationId: get-resource-log-stream
+      tags:
+      - Logs
+      parameters:
+      - name: resourceId
+        in: path
+        description: The ID of the resource (server, cron job, postgres, or redis) to return log stream override information for
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: Resource log stream override
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Resource log stream overrides
+                properties:
+                  resourceId:
+                    description: The ID of the resource.
+                    type: string
+                  endpoint:
+                    description: The endpoint to stream logs to. Must be present if setting is send. Cannot be present if setting is drop.
+                    type: string
+                  setting:
+                    $ref: '#/paths/~1logs~1streams~1resource/get/parameters/3/schema/items'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    put:
+      summary: Update log stream override
+      description: Updates log stream override information for the specified resource. A log stream override takes precedence over a workspace's default log stream.
+      operationId: update-resource-log-stream
+      tags:
+      - Logs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - setting
+              properties:
+                endpoint:
+                  $ref: '#/paths/~1logs~1streams~1owner~1%7BownerId%7D/put/requestBody/content/application~1json/schema/properties/endpoint'
+                token:
+                  $ref: '#/paths/~1logs~1streams~1owner~1%7BownerId%7D/put/requestBody/content/application~1json/schema/properties/token'
+                setting:
+                  $ref: '#/paths/~1logs~1streams~1resource/get/parameters/3/schema/items'
+      parameters:
+      - name: resourceId
+        in: path
+        description: The ID of the resource (server, cron job, postgres, or redis) to update log stream override information for
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          $ref: '#/paths/~1logs~1streams~1resource~1%7BresourceId%7D/get/responses/200'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    delete:
+      summary: Delete log stream override
+      description: Removes the log stream override for the specified resource. After deletion, the resource will use the workspace's default log stream setting.
+      operationId: delete-resource-log-stream
+      tags:
+      - Logs
+      parameters:
+      - name: resourceId
+        in: path
+        description: The ID of the resource (server, cron job, postgres, or redis) whose log streams should be returned
+        schema:
+          type: string
+        required: true
+      responses:
+        '204':
+          description: Log stream setting deleted
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+components:
+  responses:
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    LogsValues200Response:
+      description: An array of possible values for a log label
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: string
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    Logs200Response:
+      description: A collection of logs with pagination metadata
+      content:
+        application/json:
+          schema:
+            type: object
+            description: A run of a cron job
+            required:
+            - hasMore
+            - nextStartTime
+            - nextEndTime
+            - logs
+            properties:
+              hasMore:
+                description: Ture if there are more logs to fetch
+                type: boolean
+              nextStartTime:
+                description: The start time to use in the next query to fetch the next set of logs
+                type: string
+                format: date-time
+                example: '2021-07-15T07:20:05.777035-07:00'
+              nextEndTime:
+                description: The end time to use in the next query to fetch the next set of logs
+                type: string
+                format: date-time
+                example: '2021-07-15T07:20:05.777035-07:00'
+              logs:
+                type: array
+                items:
+                  $ref: '#/paths/~1logs~1subscribe/get/responses/101/content/application~1json/schema'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    410Gone:
+      description: The requested resource is no longer available.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  parameters:
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
+    ownerIdParam:
+      name: ownerId
+      in: query
+      description: The ID of the workspaces to return resources for
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+    endTimeParam:
+      name: endTime
+      in: query
+      schema:
+        type: string
+        format: date-time
+        example: '2021-06-17T08:30:30Z'
+      required: false
+      description: Epoch/Unix timestamp of end of time range to return. Defaults to `now()`.
+    limitParam:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+        description: Defaults to 20
+    resourceIdParam:
+      name: resourceId
+      in: query
+      required: false
+      description: IDs of resources (server, cron job, postgres, or redis) to filter by
+      schema:
+        type: array
+        items:
+          type: string
+    startTimeParam:
+      name: startTime
+      in: query
+      schema:
+        type: string
+        format: date-time
+        example: '2021-06-17T08:15:30Z'
+      required: false
+      description: Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`.
+  schemas:
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+x-readme:
+  metrics-enabled: false

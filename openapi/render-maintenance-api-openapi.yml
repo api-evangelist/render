@@ -1,0 +1,264 @@
+openapi: 3.0.2
+info:
+  title: Render Public Audit Logs Maintenance API
+  description: Manage everything about your Render services
+  version: 1.0.0
+  contact:
+    name: Render API
+    url: https://community.render.com
+    email: support@render.com
+servers:
+- url: https://api.render.com/v1
+security:
+- BearerAuth: []
+tags:
+- name: Maintenance
+  description: The `Maintenance` endpoints allow you to retrieve the latest maintenance runs for your Render services. You can also reschedule maintenance or trigger it to start immediately.
+paths:
+  /maintenance:
+    get:
+      tags:
+      - Maintenance
+      summary: List maintenance runs
+      description: 'List scheduled and/or recent maintenance runs for specified resources.
+
+        '
+      operationId: list-maintenance
+      parameters:
+      - name: resourceId
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            description: The Id of a resource that can undergo maintenance (Id of a service, a Postgres instance, or a Redis instance)
+        style: form
+        explode: false
+        required: false
+      - $ref: '#/components/parameters/ownerIdParam'
+      - name: state
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - scheduled
+            - in_progress
+            - user_fix_required
+            - cancelled
+            - succeeded
+            - failed
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/paths/~1maintenance~1%7BmaintenanceRunParam%7D/get/responses/200/content/application~1json/schema'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /maintenance/{maintenanceRunParam}:
+    get:
+      tags:
+      - Maintenance
+      summary: Retrieve maintenance run
+      description: Retrieve the maintenance run with the provided ID.
+      operationId: retrieve-maintenance
+      parameters:
+      - name: maintenanceRunParam
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: ^mrn-[0-9a-z]{20}$
+          example: mrn-cph1rs3idesc73a2b2mg
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - type
+                - scheduledAt
+                - state
+                - resourceId
+                properties:
+                  id:
+                    $ref: '#/paths/~1maintenance~1%7BmaintenanceRunParam%7D/get/parameters/0/schema'
+                  type:
+                    type: string
+                  scheduledAt:
+                    type: string
+                    format: date-time
+                  pendingMaintenanceBy:
+                    type: string
+                    format: date-time
+                    description: If present, the maintenance run cannot be scheduled for later than this date-time.
+                  state:
+                    $ref: '#/paths/~1maintenance/get/parameters/2/schema/items'
+                  resourceId:
+                    $ref: '#/paths/~1maintenance/get/parameters/0/schema/items'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    patch:
+      tags:
+      - Maintenance
+      summary: Update maintenance run
+      description: 'Update the maintenance run with the provided ID.
+
+
+        Updates from this endpoint are asynchronous. To check your update''s status, use the [Retrieve maintenance run](https://api-docs.render.com/reference/retrieve-maintenance) endpoint.
+
+        '
+      operationId: update-maintenance
+      parameters:
+      - $ref: '#/paths/~1maintenance~1%7BmaintenanceRunParam%7D/get/parameters/0'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                scheduledAt:
+                  description: The date-time at which the maintenance is scheduled to start. This must be before the pendingMaintenanceBy date-time.
+                  type: string
+                  format: date-time
+      responses:
+        '202':
+          description: Maintenance run updated
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /maintenance/{maintenanceRunParam}/trigger:
+    post:
+      tags:
+      - Maintenance
+      summary: Trigger maintenance run
+      description: 'Trigger the scheduled maintenance run with the provided ID.
+
+
+        Triggering maintenance is asynchronous. To check whether maintenance has started, use the [Retrieve maintenance run](https://api-docs.render.com/reference/retrieve-maintenance) endpoint.
+
+
+        As maintenance progresses, the run''s `state` will change from `scheduled` to other values, such as `in_progress` and `succeeded`.
+
+        '
+      operationId: trigger-maintenance
+      parameters:
+      - $ref: '#/paths/~1maintenance~1%7BmaintenanceRunParam%7D/get/parameters/0'
+      responses:
+        '202':
+          description: Maintenance run triggered
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+components:
+  parameters:
+    ownerIdParam:
+      name: ownerId
+      in: query
+      description: The ID of the workspaces to return resources for
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+  responses:
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  schemas:
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+x-readme:
+  metrics-enabled: false

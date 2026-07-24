@@ -1,0 +1,554 @@
+openapi: 3.0.2
+info:
+  title: Render Public Audit Logs Blueprints API
+  description: Manage everything about your Render services
+  version: 1.0.0
+  contact:
+    name: Render API
+    url: https://community.render.com
+    email: support@render.com
+servers:
+- url: https://api.render.com/v1
+security:
+- BearerAuth: []
+tags:
+- name: Blueprints
+  description: '[Blueprints](https://render.com/docs/infrastructure-as-code) allow you to define your resources in a `render.yaml` file and automatically sync changes to your Render services.
+
+    The API gives control over how your Blueprints are used to create and manage resources.
+
+    '
+paths:
+  /blueprints:
+    get:
+      summary: List Blueprints
+      description: 'List Blueprints for the specified workspaces. If no workspaces are provided, returns all Blueprints the API key has access to.
+
+        '
+      operationId: list-blueprints
+      parameters:
+      - $ref: '#/components/parameters/ownerIdParam'
+      - $ref: '#/components/parameters/cursorParam'
+      - $ref: '#/components/parameters/limitParam'
+      tags:
+      - Blueprints
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/blueprintWithCursor'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /blueprints/validate:
+    post:
+      summary: Validate Blueprint
+      description: 'Validate a `render.yaml` Blueprint file without creating or modifying any resources. This endpoint checks the syntax and structure of the Blueprint, validates that all required fields are present, and returns a plan indicating the resources that would be created.
+
+
+        Requests to this endpoint use `Content-Type: multipart/form-data`. The provided Blueprint file cannot exceed 10MB in size.
+
+        '
+      operationId: validate-blueprint
+      tags:
+      - Blueprints
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - ownerId
+              - file
+              properties:
+                ownerId:
+                  type: string
+                  description: The ID of the workspace to validate against. Obtain your workspace ID from its Settings page in the Render Dashboard.
+                  example: tea-cjnxpkdhshc73d12t9i0
+                file:
+                  type: string
+                  format: binary
+                  description: The render.yaml file to validate, as a binary file.
+      responses:
+        '200':
+          description: Validation complete
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - valid
+                properties:
+                  valid:
+                    type: boolean
+                    description: If `true`, the Blueprint validated successfully. If `false`, at least one validation error occurred.
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - error
+                      properties:
+                        path:
+                          type: string
+                          description: The path to the field with the error (e.g., `services[0].plan`)
+                        error:
+                          type: string
+                          description: The error message
+                        line:
+                          type: integer
+                          description: The line number in the YAML file (1-indexed)
+                        column:
+                          type: integer
+                          description: The column number in the YAML file (1-indexed)
+                    description: A list of validation errors. Only present if `valid` is `false`.
+                  plan:
+                    description: A summary of the resources that would be created as part of the Blueprint. Only present if `valid` is `true`.
+                    type: object
+                    properties:
+                      services:
+                        type: array
+                        items:
+                          type: string
+                        description: The names of services that would be created as part of the Blueprint.
+                      databases:
+                        type: array
+                        items:
+                          type: string
+                        description: The names of Render Postgres databases that would be created as part of the Blueprint.
+                      keyValue:
+                        type: array
+                        items:
+                          type: string
+                        description: The names of Render Key Value instances that would be created as part of the Blueprint.
+                      envGroups:
+                        type: array
+                        items:
+                          type: string
+                        description: The names of environment groups that would be created as part of the Blueprint.
+                      totalActions:
+                        type: integer
+                        description: The total number of actions that would be performed by the Blueprint. In addition to created resources, this includes modifications to individual configuration fields.
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+  /blueprints/{blueprintId}:
+    parameters:
+    - name: blueprintId
+      in: path
+      required: true
+      description: The ID of the Blueprint
+      schema:
+        type: string
+        pattern: ^exs-[0-9a-z]{20}$
+        example: exs-cph1rs3idesc73a2b2mg
+    get:
+      summary: Retrieve Blueprint
+      description: 'Retrieve the Blueprint with the provided ID.
+
+        '
+      operationId: retrieve-blueprint
+      tags:
+      - Blueprints
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - name
+                - status
+                - autoSync
+                - repo
+                - branch
+                - path
+                - resources
+                properties:
+                  id:
+                    $ref: '#/paths/~1blueprints~1%7BblueprintId%7D/parameters/0/schema'
+                  name:
+                    type: string
+                  status:
+                    $ref: '#/components/schemas/blueprintWithCursor/properties/blueprint/properties/status'
+                  autoSync:
+                    $ref: '#/components/schemas/blueprintWithCursor/properties/blueprint/properties/autoSync'
+                  repo:
+                    type: string
+                  branch:
+                    type: string
+                  path:
+                    $ref: '#/components/schemas/blueprintWithCursor/properties/blueprint/properties/path'
+                  lastSync:
+                    type: string
+                    format: date-time
+                  resources:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - name
+                      - type
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        type:
+                          type: string
+                          description: type of the resource (ex. web_service or postgres)
+                          enum:
+                          - static_site
+                          - web_service
+                          - private_service
+                          - background_worker
+                          - cron_job
+                          - redis
+                          - key_value
+                          - postgres
+                          - environment_group
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    patch:
+      summary: Update Blueprint
+      description: 'Update the Blueprint with the provided ID.
+
+        '
+      operationId: update-blueprint
+      tags:
+      - Blueprints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                autoSync:
+                  $ref: '#/components/schemas/blueprintWithCursor/properties/blueprint/properties/autoSync'
+                path:
+                  $ref: '#/components/schemas/blueprintWithCursor/properties/blueprint/properties/path'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/blueprintWithCursor/properties/blueprint'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    delete:
+      summary: Disconnect Blueprint
+      operationId: disconnect-blueprint
+      description: 'Disconnect the Blueprint with the provided ID.
+
+
+        Disconnecting a Blueprint stops automatic resource syncing via the associated `render.yaml` file. It does not _delete_ any services or other resources that were managed by the blueprint.
+
+        '
+      tags:
+      - Blueprints
+      responses:
+        '204':
+          description: Blueprint disconnected
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /blueprints/{blueprintId}/syncs:
+    parameters:
+    - $ref: '#/paths/~1blueprints~1%7BblueprintId%7D/parameters/0'
+    - $ref: '#/components/parameters/cursorParam'
+    - $ref: '#/components/parameters/limitParam'
+    get:
+      description: 'List syncs for the Blueprint with the provided ID.
+
+        '
+      summary: List Blueprint syncs
+      operationId: list-blueprint-syncs
+      tags:
+      - Blueprints
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/syncWithCursor'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+components:
+  responses:
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    410Gone:
+      description: The requested resource is no longer available.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  parameters:
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
+    ownerIdParam:
+      name: ownerId
+      in: query
+      description: The ID of the workspaces to return resources for
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+    limitParam:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+        description: Defaults to 20
+  schemas:
+    cursor:
+      type: string
+    blueprintWithCursor:
+      type: object
+      description: A Blueprint with a cursor
+      required:
+      - blueprint
+      - cursor
+      properties:
+        blueprint:
+          type: object
+          required:
+          - id
+          - name
+          - status
+          - autoSync
+          - repo
+          - branch
+          - path
+          properties:
+            id:
+              $ref: '#/paths/~1blueprints~1%7BblueprintId%7D/parameters/0/schema'
+            name:
+              type: string
+            status:
+              type: string
+              enum:
+              - created
+              - paused
+              - in_sync
+              - syncing
+              - error
+            autoSync:
+              type: boolean
+              description: Automatically sync changes to render.yaml
+            repo:
+              type: string
+            branch:
+              type: string
+            path:
+              type: string
+              description: Path to the Blueprint file in the repository
+              example: render.yaml
+            lastSync:
+              type: string
+              format: date-time
+        cursor:
+          $ref: '#/components/schemas/cursor'
+    syncWithCursor:
+      type: object
+      description: A Blueprint sync with a cursor
+      required:
+      - sync
+      - cursor
+      properties:
+        sync:
+          type: object
+          required:
+          - id
+          - commit
+          - state
+          properties:
+            id:
+              type: string
+              pattern: ^exe-[0-9a-z]{20}$
+              example: exe-cph1rs3idesc73a2b2mg
+            commit:
+              type: object
+              required:
+              - id
+              properties:
+                id:
+                  type: string
+            startedAt:
+              type: string
+              format: date-time
+            completedAt:
+              type: string
+              format: date-time
+            state:
+              type: string
+              enum:
+              - created
+              - pending
+              - running
+              - error
+              - success
+        cursor:
+          $ref: '#/components/schemas/cursor'
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+x-readme:
+  metrics-enabled: false

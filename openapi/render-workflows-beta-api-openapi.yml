@@ -1,0 +1,551 @@
+openapi: 3.0.2
+info:
+  title: Render Public Audit Logs Workflows (Beta) API
+  description: Manage everything about your Render services
+  version: 1.0.0
+  contact:
+    name: Render API
+    url: https://community.render.com
+    email: support@render.com
+servers:
+- url: https://api.render.com/v1
+security:
+- BearerAuth: []
+tags:
+- name: Workflows (Beta)
+  description: 'Create and manage [Render Workflows](https://render.com/docs/workflows) services. Workflows are in public beta.
+
+    '
+paths:
+  /workflows:
+    get:
+      summary: List workflows
+      description: List workflows that match the provided filters. If no filters are provided, all workflows accessible by the authenticated user are returned.
+      tags:
+      - Workflows (Beta)
+      operationId: listWorkflows
+      parameters:
+      - $ref: '#/components/parameters/nameParam'
+      - $ref: '#/components/parameters/ownerIdParam'
+      - $ref: '#/components/parameters/workflowIdParam'
+      - $ref: '#/components/parameters/environmentIdParam'
+      - $ref: '#/components/parameters/cursorParam'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          description: List of workflows
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/workflowWithCursor'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    post:
+      summary: Create a workflow
+      description: Create a new workflow service with the specified configuration.
+      tags:
+      - Workflows (Beta)
+      operationId: createWorkflow
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              - ownerId
+              - region
+              - runCommand
+              - buildConfig
+              properties:
+                name:
+                  type: string
+                ownerId:
+                  type: string
+                buildConfig:
+                  $ref: '#/components/schemas/workflowWithCursor/properties/workflow/properties/buildConfig'
+                runCommand:
+                  type: string
+                  description: The command to run the workflow
+                region:
+                  $ref: '#/components/schemas/workflowWithCursor/properties/workflow/properties/region'
+                autoDeployTrigger:
+                  $ref: '#/components/schemas/workflowWithCursor/properties/workflow/properties/autoDeployTrigger'
+      responses:
+        '201':
+          description: Workflow created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workflowWithCursor/properties/workflow'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /workflows/{workflowId}:
+    parameters:
+    - name: workflowId
+      in: path
+      description: The ID of the workflow
+      schema:
+        type: string
+      required: true
+    get:
+      tags:
+      - Workflows (Beta)
+      summary: Retrieve workflow
+      description: Retrieve the workflow service with the provided ID.
+      operationId: getWorkflow
+      responses:
+        '200':
+          description: Workflow details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workflowWithCursor/properties/workflow'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    patch:
+      summary: Update workflow
+      description: Update the workflow service with the provided ID.
+      tags:
+      - Workflows (Beta)
+      operationId: updateWorkflow
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                buildConfig:
+                  $ref: '#/components/schemas/workflowWithCursor/properties/workflow/properties/buildConfig'
+                runCommand:
+                  type: string
+                  description: The command to run the workflow
+                autoDeployTrigger:
+                  $ref: '#/components/schemas/workflowWithCursor/properties/workflow/properties/autoDeployTrigger'
+      responses:
+        '200':
+          description: Workflow updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workflowWithCursor/properties/workflow'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    delete:
+      summary: Delete workflow
+      description: Delete the workflow service with the provided ID.
+      tags:
+      - Workflows (Beta)
+      operationId: deleteWorkflow
+      responses:
+        '204':
+          description: Workflow deleted
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /workflowversions:
+    get:
+      summary: List workflow versions
+      description: List known versions of the workflow service with the provided ID.
+      tags:
+      - Workflows (Beta)
+      operationId: listWorkflowVersions
+      parameters:
+      - $ref: '#/components/parameters/ownerIdParam'
+      - $ref: '#/components/parameters/workflowIdParam'
+      - $ref: '#/components/parameters/workflowVersionIdParam'
+      - $ref: '#/components/parameters/cursorParam'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          description: List of workflow versions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/workflowVersionWithCursor'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - workflowId
+              properties:
+                workflowId:
+                  type: string
+                commit:
+                  type: string
+      summary: Deploy a workflow version
+      description: Creates and deploys a new version of a workflow.
+      tags:
+      - Workflows (Beta)
+      operationId: createWorkflowVersion
+      responses:
+        '202':
+          description: Workflow version created
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /workflowversions/{workflowVersionId}:
+    parameters:
+    - name: workflowVersionId
+      in: path
+      description: The ID of the workflow version
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Retrieve workflow version
+      description: Retrieve the specific workflow service version with the provided ID.
+      tags:
+      - Workflows (Beta)
+      operationId: getWorkflowVersion
+      responses:
+        '200':
+          description: Workflow version details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workflowVersionWithCursor/properties/workflowVersion'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+components:
+  responses:
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  schemas:
+    workflowWithCursor:
+      type: object
+      required:
+      - workflow
+      - cursor
+      properties:
+        workflow:
+          type: object
+          required:
+          - id
+          - name
+          - createdAt
+          - updatedAt
+          - ownerId
+          - region
+          - runCommand
+          - buildConfig
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            ownerId:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            buildConfig:
+              type: object
+              required:
+              - buildCommand
+              - repo
+              - runtime
+              properties:
+                branch:
+                  type: string
+                  description: The branch to use for the build, if applicable.
+                buildCommand:
+                  type: string
+                  description: The command to run to build the workflow.
+                repo:
+                  type: string
+                  description: The repository URL to use for the build.
+                rootDir:
+                  type: string
+                  description: The root directory of the repository to use for the build, if applicable.
+                runtime:
+                  type: string
+                  enum:
+                  - elixir
+                  - go
+                  - node
+                  - python
+                  - ruby
+                  description: The runtime environment for the workflow (e.g., node, python, etc.).
+            runCommand:
+              type: string
+              description: Command to run the workflow.
+            region:
+              type: string
+              enum:
+              - frankfurt
+              - oregon
+              - ohio
+              - singapore
+              - virginia
+              default: oregon
+              description: Defaults to "oregon"
+            environmentId:
+              type: string
+            slug:
+              type: string
+            autoDeployTrigger:
+              type: string
+              enum:
+              - commit
+              - 'off'
+              - checksPass
+              default: commit
+              description: Controls autodeploy behavior. "commit" deploys when a commit is pushed to the branch. "checksPass" waits for CI checks to pass before deploying. "off" disables autodeploy.
+        cursor:
+          $ref: '#/components/schemas/cursor'
+    cursor:
+      type: string
+    workflowVersionWithCursor:
+      type: object
+      required:
+      - workflowVersion
+      - cursor
+      properties:
+        workflowVersion:
+          type: object
+          required:
+          - id
+          - workflowId
+          - name
+          - image
+          - createdAt
+          - updatedAt
+          - status
+          properties:
+            id:
+              type: string
+            workflowId:
+              type: string
+            name:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            status:
+              type: string
+              enum:
+              - created
+              - building
+              - registering
+              - build_failed
+              - registration_failed
+              - ready
+        cursor:
+          $ref: '#/components/schemas/cursor'
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+  parameters:
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
+    workflowVersionIdParam:
+      name: workflowVersionId
+      in: query
+      description: The IDs of the workflow versions to return resources for
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+    environmentIdParam:
+      name: environmentId
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+      description: Filter for resources that belong to an environment
+    ownerIdParam:
+      name: ownerId
+      in: query
+      description: The ID of the workspaces to return resources for
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+    limitParam:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+        description: Defaults to 20
+    nameParam:
+      name: name
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+      description: Filter by name
+    workflowIdParam:
+      name: workflowID
+      in: query
+      description: The IDs of the workflows to return resources for
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+x-readme:
+  metrics-enabled: false

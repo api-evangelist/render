@@ -1,0 +1,1398 @@
+openapi: 3.0.2
+info:
+  title: Render Public Audit Logs Postgres API
+  description: Manage everything about your Render services
+  version: 1.0.0
+  contact:
+    name: Render API
+    url: https://community.render.com
+    email: support@render.com
+servers:
+- url: https://api.render.com/v1
+security:
+- BearerAuth: []
+tags:
+- name: Postgres
+  description: '[Postgres](https://render.com/docs/postgresql) endpoints enable you to interact with your Render Postgres databases.
+
+    You can manage databases, exports, recoveries, and failovers.
+
+    '
+paths:
+  /postgres:
+    get:
+      tags:
+      - Postgres
+      summary: List Postgres instances
+      description: 'List Postgres instances matching the provided filters. If no filters are provided, all Postgres instances are returned.
+
+        '
+      operationId: list-postgres
+      parameters:
+      - $ref: '#/components/parameters/nameParam'
+      - $ref: '#/components/parameters/regionParam'
+      - $ref: '#/components/parameters/suspendedParam'
+      - $ref: '#/components/parameters/createdBeforeParam'
+      - $ref: '#/components/parameters/createdAfterParam'
+      - $ref: '#/components/parameters/updatedBeforeParam'
+      - $ref: '#/components/parameters/updatedAfterParam'
+      - $ref: '#/components/parameters/ownerIdParam'
+      - $ref: '#/components/parameters/environmentIdParam'
+      - $ref: '#/components/parameters/includeReplicasParam'
+      - $ref: '#/components/parameters/cursorParam'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/postgresWithCursor'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '409':
+          $ref: '#/components/responses/409Conflict'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    post:
+      tags:
+      - Postgres
+      summary: Create Postgres instance
+      description: 'Create a new Postgres instance.
+
+        '
+      operationId: create-postgres
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/postgresPOSTInput'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/postgresDetail'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /postgres/{postgresId}:
+    get:
+      tags:
+      - Postgres
+      summary: Retrieve Postgres instance
+      description: 'Retrieve a Postgres instance by ID.
+
+        '
+      operationId: retrieve-postgres
+      parameters:
+      - in: path
+        name: postgresId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/postgresDetail'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    patch:
+      tags:
+      - Postgres
+      summary: Update Postgres instance
+      description: 'Update a Postgres instance by ID.
+
+        '
+      operationId: update-postgres
+      parameters:
+      - in: path
+        name: postgresId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/postgresPATCHInput'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/postgresDetail'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '409':
+          $ref: '#/components/responses/409Conflict'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    delete:
+      tags:
+      - Postgres
+      summary: Delete Postgres instance
+      description: 'Delete a Postgres instance by ID. This operation is irreversible, and
+
+        all data will be lost.
+
+        '
+      operationId: delete-postgres
+      parameters:
+      - in: path
+        name: postgresId
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Postgres instance deleted
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /postgres/{postgresId}/connection-info:
+    get:
+      tags:
+      - Postgres
+      summary: Retrieve Postgres connection info
+      description: 'Retrieve connection info for a Postgres instance by ID. Connection info includes sensitive information.
+
+        '
+      operationId: retrieve-postgres-connection-info
+      parameters:
+      - in: path
+        name: postgresId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/postgresConnectionInfo'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /postgres/{postgresId}/recovery:
+    get:
+      tags:
+      - Postgres
+      summary: Retrieve point-in-time recovery status
+      description: 'Retrieve information on the availability of Postgres point-in-time recovery for a Postgres instance by ID.
+
+        '
+      operationId: retrieve-postgres-recovery-info
+      parameters:
+      - in: path
+        name: postgresId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - recoveryStatus
+                properties:
+                  recoveryStatus:
+                    type: string
+                    description: Availability of point-in-time recovery.
+                    enum:
+                    - AVAILABLE
+                    - BACKUP_NOT_READY
+                    - NOT_AVAILABLE
+                  startsAt:
+                    type: string
+                    format: date-time
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    post:
+      tags:
+      - Postgres
+      summary: Trigger point-in-time recovery
+      description: 'Trigger [point-in-time recovery](https://render.com/docs/postgresql-backups) on the Postgres instance with the provided ID.
+
+        '
+      operationId: recover-postgres
+      parameters:
+      - in: path
+        name: postgresId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - restoreTime
+              properties:
+                restoreName:
+                  description: Name of the new database.
+                  type: string
+                restoreTime:
+                  type: string
+                  format: date-time
+                  description: The point in time to restore the database to. See `/recovery-info` for restore availability
+                datadogApiKey:
+                  type: string
+                  description: Datadog API key to use for monitoring the new database. Defaults to the API key of the original database. Use an empty string to prevent copying of the API key to the new database.
+                datadogSite:
+                  type: string
+                  description: Datadog region code to use for monitoring the new database. Defaults to the region code of the original database. Use an empty string to prevent copying of the region code to the new database.
+                plan:
+                  type: string
+                  description: The plan to use for the new database. Defaults to the same plan as the original database. Cannot be a lower tier plan than the original database.
+                environmentId:
+                  type: string
+                  description: The environment to create the new database in. Defaults to the environment of the original database.
+      responses:
+        '200':
+          description: Recovery initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/postgresDetail'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /postgres/{postgresId}/suspend:
+    parameters:
+    - in: path
+      name: postgresId
+      required: true
+      schema:
+        type: string
+    post:
+      summary: Suspend Postgres instance
+      description: 'Suspend a Postgres instance by ID.
+
+        '
+      operationId: suspend-postgres
+      tags:
+      - Postgres
+      responses:
+        '202':
+          description: Service suspended successfully
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /postgres/{postgresId}/resume:
+    parameters:
+    - in: path
+      name: postgresId
+      required: true
+      schema:
+        type: string
+    post:
+      summary: Resume Postgres instance
+      description: 'Resume a Postgres instance by ID.
+
+        '
+      operationId: resume-postgres
+      tags:
+      - Postgres
+      responses:
+        '202':
+          description: Service resumed successfully
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /postgres/{postgresId}/restart:
+    parameters:
+    - in: path
+      name: postgresId
+      required: true
+      schema:
+        type: string
+    post:
+      summary: Restart Postgres instance
+      description: 'Restart a Postgres instance by ID.
+
+        '
+      operationId: restart-postgres
+      tags:
+      - Postgres
+      responses:
+        '202':
+          description: Service restarted successfully
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /postgres/{postgresId}/failover:
+    parameters:
+    - in: path
+      name: postgresId
+      required: true
+      schema:
+        type: string
+    post:
+      summary: Failover Postgres instance
+      description: 'Failover a [highly available Postgres](https://render.com/docs/postgresql-high-availability) instance.
+
+        '
+      operationId: failover-postgres
+      tags:
+      - Postgres
+      responses:
+        '202':
+          description: Service failed over successfully
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /postgres/{postgresId}/export:
+    parameters:
+    - in: path
+      name: postgresId
+      required: true
+      schema:
+        type: string
+    get:
+      summary: List Postgres exports
+      description: 'List [exports](https://render.com/docs/postgresql-backups#logical-backups) for a Postgres instance by ID. Returns a URL to download the export.
+
+        '
+      operationId: list-postgres-export
+      tags:
+      - Postgres
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - id
+                  - createdAt
+                  properties:
+                    id:
+                      type: string
+                    createdAt:
+                      type: string
+                      format: date-time
+                    url:
+                      type: string
+                      description: URL to download the Postgres export
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    post:
+      summary: Create Postgres export
+      description: 'Create an [export](https://render.com/docs/postgresql-backups#logical-backups) of a Postgres instance by ID.
+
+        '
+      operationId: create-postgres-export
+      tags:
+      - Postgres
+      responses:
+        '202':
+          description: Export started successfully
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /postgres/{postgresId}/credentials:
+    parameters:
+    - in: path
+      name: postgresId
+      required: true
+      schema:
+        type: string
+    get:
+      summary: List PostgreSQL Users
+      description: 'List PostgreSQL users for the Render Postgres instance with the provided ID.
+
+        '
+      operationId: list-postgres-users
+      tags:
+      - Postgres
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    username:
+                      type: string
+                    default:
+                      type: boolean
+                    createdAt:
+                      type: string
+                    openConnections:
+                      type: integer
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    post:
+      summary: Create PostgreSQL User
+      description: 'Create a new PostgreSQL user for the Render Postgres instance with the provided ID. This becomes the database''s new "default" user.
+
+        '
+      operationId: create-postgres-user
+      tags:
+      - Postgres
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - username
+              properties:
+                username:
+                  description: Name of the new user.
+                  type: string
+      responses:
+        '202':
+          description: PostgreSQL user created successfully
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '406':
+          $ref: '#/components/responses/406NotAcceptable'
+        '410':
+          $ref: '#/components/responses/410Gone'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /postgres/{postgresId}/credentials/{username}:
+    parameters:
+    - in: path
+      name: postgresId
+      required: true
+      schema:
+        type: string
+    - in: path
+      name: username
+      required: true
+      schema:
+        type: string
+    delete:
+      summary: Delete PostgreSQL User
+      description: 'Delete a PostgreSQL user from the Render Postgres instance with the provided ID.
+
+        '
+      operationId: delete-postgres-user
+      tags:
+      - Postgres
+      responses:
+        '200':
+          description: PostgreSQL user deleted
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+components:
+  responses:
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    409Conflict:
+      description: The current state of the resource conflicts with this request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    410Gone:
+      description: The requested resource is no longer available.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  schemas:
+    databaseStatus:
+      type: string
+      enum:
+      - creating
+      - available
+      - unavailable
+      - config_restart
+      - suspended
+      - maintenance_scheduled
+      - maintenance_in_progress
+      - recovery_failed
+      - recovery_in_progress
+      - unknown
+      - updating_instance
+    postgresConnectionInfo:
+      type: object
+      required:
+      - password
+      - internalConnectionString
+      - externalConnectionString
+      - psqlCommand
+      properties:
+        password:
+          type: string
+          format: password
+        internalConnectionString:
+          type: string
+          format: password
+        externalConnectionString:
+          type: string
+          format: password
+        psqlCommand:
+          type: string
+          format: password
+    readReplicas:
+      type: array
+      items:
+        $ref: '#/components/schemas/readReplica'
+    postgresDetail:
+      type: object
+      required:
+      - id
+      - ipAllowList
+      - createdAt
+      - updatedAt
+      - dashboardUrl
+      - databaseName
+      - databaseUser
+      - highAvailabilityEnabled
+      - name
+      - owner
+      - project
+      - plan
+      - region
+      - readReplicas
+      - role
+      - status
+      - version
+      - suspended
+      - suspenders
+      - diskAutoscalingEnabled
+      properties:
+        id:
+          type: string
+        ipAllowList:
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        expiresAt:
+          description: The time at which the database will be expire. Applies to free tier databases only.
+          type: string
+          format: date-time
+        dashboardUrl:
+          type: string
+          description: The URL to view the Postgres instance in the Render Dashboard
+        databaseName:
+          type: string
+        databaseUser:
+          type: string
+        environmentId:
+          type: string
+        highAvailabilityEnabled:
+          type: boolean
+        maintenance:
+          $ref: '#/components/schemas/redisDetail/properties/maintenance'
+        name:
+          type: string
+        owner:
+          $ref: '#/components/schemas/owner'
+        plan:
+          $ref: '#/components/schemas/postgres/properties/plan'
+        diskSizeGB:
+          type: integer
+        parameterOverrides:
+          $ref: '#/components/schemas/postgresParameterOverrides'
+        primaryPostgresID:
+          type: string
+        region:
+          $ref: '#/components/schemas/region'
+        readReplicas:
+          $ref: '#/components/schemas/readReplicas'
+        role:
+          $ref: '#/components/schemas/databaseRole'
+        status:
+          $ref: '#/components/schemas/databaseStatus'
+        version:
+          $ref: '#/components/schemas/postgresVersion'
+        suspended:
+          type: string
+          enum:
+          - suspended
+          - not_suspended
+        suspenders:
+          type: array
+          items:
+            $ref: '#/components/schemas/suspenderType'
+        diskAutoscalingEnabled:
+          type: boolean
+    databaseRole:
+      type: string
+      enum:
+      - primary
+      - replica
+    readReplicasInput:
+      type: array
+      items:
+        $ref: '#/components/schemas/readReplicaInput'
+    owner:
+      type: object
+      required:
+      - id
+      - name
+      - email
+      - type
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        ipAllowList:
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+        twoFactorAuthEnabled:
+          type: boolean
+          description: Whether two-factor authentication is enabled for the owner. Only present if `type` is `user`.
+        type:
+          type: string
+          enum:
+          - user
+          - team
+    cursor:
+      type: string
+    postgresPATCHInput:
+      type: object
+      properties:
+        name:
+          type: string
+        plan:
+          $ref: '#/components/schemas/postgres/properties/plan'
+        diskSizeGB:
+          type: integer
+          description: The number of gigabytes of disk space to allocate for the database
+        enableDiskAutoscaling:
+          type: boolean
+        enableHighAvailability:
+          type: boolean
+        datadogAPIKey:
+          type: string
+          description: The Datadog API key for the Datadog agent to monitor the database. Pass empty string to remove. Restarts Postgres on change.
+        datadogSite:
+          type: string
+          description: Datadog region to use for monitoring the new database. Defaults to 'US1'.
+          example: US1
+        ipAllowList:
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+        parameterOverrides:
+          $ref: '#/components/schemas/postgresParameterOverrides'
+        readReplicas:
+          $ref: '#/components/schemas/readReplicasInput'
+    readReplicaInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The display name of the replica instance.
+        parameterOverrides:
+          $ref: '#/components/schemas/postgresParameterOverrides'
+      required:
+      - name
+    cidrBlockAndDescription:
+      type: object
+      required:
+      - cidrBlock
+      - description
+      properties:
+        cidrBlock:
+          type: string
+        description:
+          description: User-provided description of the CIDR block
+          type: string
+    postgres:
+      type: object
+      required:
+      - id
+      - ipAllowList
+      - createdAt
+      - updatedAt
+      - databaseName
+      - databaseUser
+      - highAvailabilityEnabled
+      - name
+      - owner
+      - plan
+      - region
+      - readReplicas
+      - role
+      - status
+      - version
+      - suspended
+      - suspenders
+      - dashboardUrl
+      - diskAutoscalingEnabled
+      properties:
+        id:
+          type: string
+        ipAllowList:
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        expiresAt:
+          description: The time at which the database will be expire. Applies to free tier databases only.
+          type: string
+          format: date-time
+        databaseName:
+          type: string
+        databaseUser:
+          type: string
+        environmentId:
+          type: string
+        highAvailabilityEnabled:
+          type: boolean
+        name:
+          type: string
+        owner:
+          $ref: '#/components/schemas/owner'
+        plan:
+          type: string
+          enum:
+          - free
+          - starter
+          - standard
+          - pro
+          - pro_plus
+          - custom
+          - basic_256mb
+          - basic_1gb
+          - basic_4gb
+          - pro_4gb
+          - pro_8gb
+          - pro_16gb
+          - pro_32gb
+          - pro_64gb
+          - pro_128gb
+          - pro_192gb
+          - pro_256gb
+          - pro_384gb
+          - pro_512gb
+          - accelerated_16gb
+          - accelerated_32gb
+          - accelerated_64gb
+          - accelerated_128gb
+          - accelerated_256gb
+          - accelerated_384gb
+          - accelerated_512gb
+          - accelerated_768gb
+          - accelerated_1024gb
+        diskSizeGB:
+          type: integer
+        primaryPostgresID:
+          type: string
+        region:
+          $ref: '#/components/schemas/region'
+        readReplicas:
+          $ref: '#/components/schemas/readReplicas'
+        role:
+          $ref: '#/components/schemas/databaseRole'
+        status:
+          $ref: '#/components/schemas/databaseStatus'
+        version:
+          $ref: '#/components/schemas/postgresVersion'
+        suspended:
+          type: string
+          enum:
+          - suspended
+          - not_suspended
+        suspenders:
+          type: array
+          items:
+            $ref: '#/components/schemas/suspenderType'
+        dashboardUrl:
+          type: string
+          description: The URL to view the Postgres instance in the Render Dashboard
+        diskAutoscalingEnabled:
+          type: boolean
+    redisDetail:
+      type: object
+      description: A Redis instance
+      required:
+      - id
+      - createdAt
+      - updatedAt
+      - status
+      - region
+      - plan
+      - name
+      - owner
+      - options
+      - ipAllowList
+      - version
+      properties:
+        id:
+          description: The ID of the Redis instance
+          type: string
+        createdAt:
+          description: The creation time of the Redis instance
+          type: string
+          format: date-time
+        updatedAt:
+          description: The last updated time of the Redis instance
+          type: string
+          format: date-time
+        status:
+          $ref: '#/components/schemas/databaseStatus'
+        region:
+          $ref: '#/components/schemas/region'
+        plan:
+          $ref: '#/components/schemas/redisPlan'
+        name:
+          description: The name of the Redis instance
+          type: string
+        owner:
+          $ref: '#/components/schemas/owner'
+        options:
+          $ref: '#/components/schemas/redisOptions'
+        ipAllowList:
+          description: The IP allow list for the Redis instance
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+        environmentId:
+          description: The ID of the environment the Redis instance is associated with
+          type: string
+        version:
+          description: The version of Redis
+          type: string
+        maintenance:
+          type: object
+          required:
+          - id
+          - type
+          - scheduledAt
+          - state
+          properties:
+            id:
+              $ref: '#/paths/~1maintenance~1%7BmaintenanceRunParam%7D/get/parameters/0/schema'
+            type:
+              type: string
+            scheduledAt:
+              type: string
+              format: date-time
+            pendingMaintenanceBy:
+              type: string
+              format: date-time
+              description: If present, the maintenance run cannot be scheduled for later than this date-time.
+            state:
+              $ref: '#/paths/~1maintenance/get/parameters/2/schema/items'
+    postgresWithCursor:
+      type: object
+      required:
+      - postgres
+      - cursor
+      properties:
+        postgres:
+          $ref: '#/components/schemas/postgres'
+        cursor:
+          $ref: '#/components/schemas/cursor'
+    postgresParameterOverrides:
+      type: object
+      additionalProperties:
+        type: string
+    region:
+      type: string
+      enum:
+      - frankfurt
+      - oregon
+      - ohio
+      - singapore
+      - virginia
+      default: oregon
+      description: Defaults to "oregon"
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+    postgresVersion:
+      type: string
+      description: The PostgreSQL version
+      enum:
+      - '11'
+      - '12'
+      - '13'
+      - '14'
+      - '15'
+      - '16'
+      - '17'
+      - '18'
+    suspenderType:
+      type: string
+      enum:
+      - admin
+      - billing
+      - user
+      - parent_service
+      - stuck_crashlooping
+      - hipaa_enablement
+      - unknown
+    readReplica:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The replica instance identifier.
+        name:
+          type: string
+          description: The display name of the replica instance.
+        parameterOverrides:
+          $ref: '#/components/schemas/postgresParameterOverrides'
+      required:
+      - id
+      - name
+    postgresPOSTInput:
+      type: object
+      required:
+      - name
+      - plan
+      - ownerId
+      - version
+      properties:
+        databaseName:
+          type: string
+          default: randomly generated
+        databaseUser:
+          type: string
+          default: randomly generated
+        datadogAPIKey:
+          type: string
+          description: The Datadog API key for the Datadog agent to monitor the new database.
+        datadogSite:
+          type: string
+          description: Datadog region to use for monitoring the new database. Defaults to 'US1'.
+          example: US1
+        name:
+          type: string
+          description: The name of the database as it will appear in the Render Dashboard
+        enableHighAvailability:
+          type: boolean
+          default: false
+        environmentId:
+          type: string
+        ownerId:
+          type: string
+          description: The ID of the workspace to create the database for
+        plan:
+          $ref: '#/components/schemas/postgres/properties/plan'
+        diskSizeGB:
+          type: integer
+          description: The number of gigabytes of disk space to allocate for the database
+        enableDiskAutoscaling:
+          type: boolean
+          default: false
+        region:
+          type: string
+        ipAllowList:
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+        parameterOverrides:
+          $ref: '#/components/schemas/postgresParameterOverrides'
+        readReplicas:
+          $ref: '#/components/schemas/readReplicasInput'
+        version:
+          $ref: '#/components/schemas/postgresVersion'
+      description: Input for creating a database
+  parameters:
+    includeReplicasParam:
+      name: includeReplicas
+      in: query
+      schema:
+        type: boolean
+        default: true
+      required: false
+      description: Include replicas in the response
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
+    regionParam:
+      name: region
+      in: query
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/region'
+      style: form
+      explode: false
+      required: false
+      description: Filter by resource region
+    createdBeforeParam:
+      name: createdBefore
+      in: query
+      schema:
+        type: string
+        format: date-time
+      required: false
+      description: Filter for resources created before a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-06-17T08:15:30Z'
+    updatedAfterParam:
+      name: updatedAfter
+      in: query
+      schema:
+        type: string
+        format: date-time
+      required: false
+      description: Filter for resources updated after a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-06-17T08:15:30Z'
+    environmentIdParam:
+      name: environmentId
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+      description: Filter for resources that belong to an environment
+    ownerIdParam:
+      name: ownerId
+      in: query
+      description: The ID of the workspaces to return resources for
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+    limitParam:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+        description: Defaults to 20
+    updatedBeforeParam:
+      name: updatedBefore
+      in: query
+      schema:
+        type: string
+        format: date-time
+      required: false
+      description: Filter for resources updated before a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-06-17T08:15:30Z'
+    nameParam:
+      name: name
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+      description: Filter by name
+    createdAfterParam:
+      name: createdAfter
+      in: query
+      schema:
+        type: string
+        format: date-time
+      required: false
+      description: Filter for resources created after a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-02-17T08:15:30Z'
+    suspendedParam:
+      name: suspended
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+          - suspended
+          - not_suspended
+      style: form
+      explode: false
+      required: false
+      description: Filter resources based on whether they're suspended or not suspended
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+x-readme:
+  metrics-enabled: false

@@ -1,0 +1,575 @@
+openapi: 3.0.2
+info:
+  title: Render Public Audit Logs Workflow Tasks (Beta) API
+  description: Manage everything about your Render services
+  version: 1.0.0
+  contact:
+    name: Render API
+    url: https://community.render.com
+    email: support@render.com
+servers:
+- url: https://api.render.com/v1
+security:
+- BearerAuth: []
+tags:
+- name: Workflow Tasks (Beta)
+  description: 'Run and manage tasks as part of [Render Workflows](https://render.com/docs/workflows). Workflows are in public beta.
+
+    '
+paths:
+  /tasks:
+    parameters:
+    - $ref: '#/components/parameters/ownerIdParam'
+    - name: taskSlug
+      in: query
+      description: An array of task slugs in the format workflow-slug/task-name. An optional version can be appended (workflow-slug/task-name:version). If no version is provided, the latest version is used.
+      example:
+      - my-workflow-slug/my-task
+      - my-workflow-slug/my-task:SHA123
+      schema:
+        type: array
+        items:
+          type: string
+    - name: workflowVersionId
+      in: query
+      description: An array of workflow version IDs
+      schema:
+        type: array
+        items:
+          type: string
+    - name: workflowId
+      in: query
+      description: An array of workflow IDs
+      schema:
+        type: array
+        items:
+          type: string
+    get:
+      summary: List tasks
+      description: List workflow tasks that match the provided filters. If no filters are provided, all task definitions accessible by the authenticated user are returned.
+      tags:
+      - Workflow Tasks (Beta)
+      operationId: listTasks
+      parameters:
+      - $ref: '#/components/parameters/cursorParam'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          description: List of tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/taskWithCursor'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /tasks/{taskId}:
+    parameters:
+    - name: taskId
+      in: path
+      description: The ID of the task
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Retrieve task
+      description: Retrieve the workflow task with the provided ID.
+      tags:
+      - Workflow Tasks (Beta)
+      operationId: getTask
+      responses:
+        '200':
+          description: Task details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/taskWithCursor/properties/task'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /task-runs:
+    get:
+      summary: List task runs
+      description: List task runs that match the provided filters. If no filters are provided, all task runs accessible by the authenticated user are returned.
+      tags:
+      - Workflow Tasks (Beta)
+      operationId: listTaskRuns
+      parameters:
+      - $ref: '#/components/parameters/cursorParam'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/paths/~1tasks/parameters/1'
+      - name: rootTaskRunId
+        in: query
+        description: An array of root task run IDs to filter on
+        schema:
+          type: array
+          items:
+            type: string
+      - $ref: '#/components/parameters/ownerIdParam'
+      - $ref: '#/paths/~1tasks/parameters/2'
+      - $ref: '#/paths/~1tasks/parameters/3'
+      responses:
+        '200':
+          description: List of task runs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/taskRunWithCursor'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    post:
+      summary: Run task
+      description: Kicks off a run of the workflow task with the provided ID, passing the provided input data.
+      tags:
+      - Workflow Tasks (Beta)
+      operationId: createTask
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - task
+              - input
+              properties:
+                task:
+                  type: string
+                  description: A task slug in the format workflow-slug/task-name. An optional version can be appended (workflow-slug/task-name:version). If no version is provided, the latest version is used.
+                  example: my-workflow-slug/my-task, my-workflow-slug/my-task:SHA123
+                input:
+                  description: Input data for a task. Can be either an array (for positional arguments) or an object (for named parameters).
+                  oneOf:
+                  - type: array
+                    items: {}
+                    description: Positional arguments passed to the task function
+                  - type: object
+                    additionalProperties: {}
+                    description: Named parameters passed to the task function as keyword arguments
+      responses:
+        '202':
+          description: Task run created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/taskRunWithCursor/properties/taskRun'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /task-runs/events:
+    get:
+      summary: Stream realtime events (SSE)
+      description: 'Establishes a unidirectional event stream. The server sends events as lines
+
+        formatted per the SSE spec. Clients SHOULD set `Accept: text/event-stream`
+
+        and keep the connection open.
+
+        '
+      operationId: streamTaskRunsEvents
+      tags:
+      - Workflow Tasks (Beta)
+      parameters:
+      - name: taskRunIds
+        in: query
+        description: Filter to a subset of task run IDs.
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+          example:
+          - trn-1234
+          - trn-5678
+      - name: Accept
+        in: header
+        description: Must be `text/event-stream`.
+        required: false
+        schema:
+          type: string
+          enum:
+          - text/event-stream
+      responses:
+        '200':
+          description: Event stream established
+          headers:
+            Content-Type:
+              description: Always `text/event-stream; charset=utf-8`
+              schema:
+                type: string
+                example: text/event-stream; charset=utf-8
+            Cache-Control:
+              description: SSE responses should be non-cacheable.
+              schema:
+                type: string
+                example: no-cache, no-transform
+            Connection:
+              description: Keep-alive for streaming.
+              schema:
+                type: string
+                example: keep-alive
+          content:
+            text/event-stream:
+              schema:
+                type: string
+                description: 'Stream of SSE frames. Each event may include `id`, `event`, `data`,
+
+                  and optional `retry`. Frames are separated by a blank line.
+
+                  '
+              examples:
+                taskCompleted:
+                  summary: Named event with JSON data
+                  value: "event: task.completed\ndata: {\n        \"id\": \"string\",\n        \"taskId\": \"string\",\n        \"status\": \"pending\",\n        \"results\": [\n          \"string\"\n        ],\n        \"error\": \"string\",\n        \"startedAt\": \"2025-09-04T17:25:17.979Z\",\n        \"completedAt\": \"2025-09-04T17:25:17.979Z\"\n      }\n"
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /task-runs/{taskRunId}:
+    parameters:
+    - name: taskRunId
+      in: path
+      description: The ID of the task run
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Retrieve task run
+      description: Retrieve the workflow task run with the provided ID.
+      tags:
+      - Workflow Tasks (Beta)
+      operationId: getTaskRun
+      responses:
+        '200':
+          description: Task run details
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - taskId
+                - status
+                - results
+                - input
+                - parentTaskRunId
+                - rootTaskRunId
+                - retries
+                - attempts
+                properties:
+                  id:
+                    type: string
+                  taskId:
+                    type: string
+                  status:
+                    $ref: '#/components/schemas/taskRunWithCursor/properties/taskRun/properties/status'
+                  results:
+                    type: array
+                    items: {}
+                  error:
+                    type: string
+                    description: Error message if the task run failed.
+                  startedAt:
+                    type: string
+                    format: date-time
+                  completedAt:
+                    type: string
+                    format: date-time
+                  input:
+                    $ref: '#/paths/~1task-runs/post/requestBody/content/application~1json/schema/properties/input'
+                  parentTaskRunId:
+                    type: string
+                  rootTaskRunId:
+                    type: string
+                  retries:
+                    type: integer
+                  attempts:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - status
+                      - startedAt
+                      properties:
+                        status:
+                          $ref: '#/components/schemas/taskRunWithCursor/properties/taskRun/properties/status'
+                        enqueuedAt:
+                          type: string
+                          format: date-time
+                        startedAt:
+                          type: string
+                          format: date-time
+                        completedAt:
+                          type: string
+                          format: date-time
+                        error:
+                          type: string
+                          description: Error message if the task attempt failed.
+                        results:
+                          $ref: '#/paths/~1task-runs~1%7BtaskRunId%7D/get/responses/200/content/application~1json/schema/properties/results'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    delete:
+      summary: Cancel task run
+      description: Cancel a running task run with the provided ID.
+      tags:
+      - Workflow Tasks (Beta)
+      operationId: cancelTaskRun
+      responses:
+        '204':
+          description: Task run canceled
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+components:
+  responses:
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  parameters:
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
+    ownerIdParam:
+      name: ownerId
+      in: query
+      description: The ID of the workspaces to return resources for
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+    limitParam:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+        description: Defaults to 20
+  schemas:
+    cursor:
+      type: string
+    taskWithCursor:
+      type: object
+      required:
+      - task
+      - cursor
+      properties:
+        task:
+          type: object
+          required:
+          - id
+          - name
+          - createdAt
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            workflowId:
+              type: string
+            workflowVersionId:
+              type: string
+        cursor:
+          $ref: '#/components/schemas/cursor'
+    taskRunWithCursor:
+      type: object
+      required:
+      - taskRun
+      - cursor
+      properties:
+        taskRun:
+          type: object
+          required:
+          - id
+          - taskId
+          - status
+          - parentTaskRunId
+          - rootTaskRunId
+          - retries
+          - attempts
+          properties:
+            id:
+              type: string
+            taskId:
+              type: string
+            status:
+              type: string
+              enum:
+              - pending
+              - running
+              - completed
+              - succeeded
+              - failed
+              - canceled
+              - paused
+            startedAt:
+              type: string
+              format: date-time
+            completedAt:
+              type: string
+              format: date-time
+            parentTaskRunId:
+              type: string
+            rootTaskRunId:
+              type: string
+            retries:
+              type: integer
+            attempts:
+              type: array
+              items:
+                type: object
+                required:
+                - status
+                - startedAt
+                properties:
+                  status:
+                    $ref: '#/components/schemas/taskRunWithCursor/properties/taskRun/properties/status'
+                  enqueuedAt:
+                    type: string
+                    format: date-time
+                  startedAt:
+                    type: string
+                    format: date-time
+                  completedAt:
+                    type: string
+                    format: date-time
+        cursor:
+          $ref: '#/components/schemas/cursor'
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+x-readme:
+  metrics-enabled: false

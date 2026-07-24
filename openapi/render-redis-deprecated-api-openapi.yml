@@ -1,0 +1,695 @@
+openapi: 3.0.2
+info:
+  title: Render Public Audit Logs Redis (Deprecated) API
+  description: Manage everything about your Render services
+  version: 1.0.0
+  contact:
+    name: Render API
+    url: https://community.render.com
+    email: support@render.com
+servers:
+- url: https://api.render.com/v1
+security:
+- BearerAuth: []
+tags:
+- name: Redis (Deprecated)
+  description: '[Redis](https://render.com/docs/redis) allows you to interact with your Render Redis instances. This API is deprecated in favor of the Key Value API.
+
+    '
+paths:
+  /redis:
+    get:
+      tags:
+      - Redis (Deprecated)
+      summary: List Redis instances
+      deprecated: true
+      description: 'List Redis instances matching the provided filters. If no filters are provided, all Redis instances are returned.
+
+        This API is deprecated in favor of the Key Value API.
+
+        '
+      operationId: list-redis
+      parameters:
+      - $ref: '#/components/parameters/nameParam'
+      - $ref: '#/components/parameters/regionParam'
+      - $ref: '#/components/parameters/createdBeforeParam'
+      - $ref: '#/components/parameters/createdAfterParam'
+      - $ref: '#/components/parameters/updatedBeforeParam'
+      - $ref: '#/components/parameters/updatedAfterParam'
+      - $ref: '#/components/parameters/ownerIdParam'
+      - $ref: '#/components/parameters/environmentIdParam'
+      - $ref: '#/components/parameters/cursorParam'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/redisWithCursor'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '409':
+          $ref: '#/components/responses/409Conflict'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    post:
+      tags:
+      - Redis (Deprecated)
+      summary: Create Redis instance
+      deprecated: true
+      description: 'Create a new Redis instance. This API is deprecated in favor of the Key Value API.
+
+        '
+      operationId: create-redis
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/redisPOSTInput'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/redisDetail'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /redis/{redisId}:
+    get:
+      tags:
+      - Redis (Deprecated)
+      summary: Retrieve Redis instance
+      deprecated: true
+      description: 'Retrieve a Redis instance by ID. This API is deprecated in favor of the Key Value API.
+
+        '
+      operationId: retrieve-redis
+      parameters:
+      - in: path
+        name: redisId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/redisDetail'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    patch:
+      tags:
+      - Redis (Deprecated)
+      summary: Update Redis instance
+      deprecated: true
+      description: 'Update a Redis instance by ID. This API is deprecated in favor of the Key Value API.
+
+        '
+      operationId: update-redis
+      parameters:
+      - in: path
+        name: redisId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/redisPATCHInput'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/redisDetail'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '409':
+          $ref: '#/components/responses/409Conflict'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+    delete:
+      tags:
+      - Redis (Deprecated)
+      summary: Delete Redis instance
+      deprecated: true
+      description: 'Delete a Redis instance by ID. This API is deprecated in favor of the Key Value API.
+
+        '
+      operationId: delete-redis
+      parameters:
+      - in: path
+        name: redisId
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Redis instance deleted
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+  /redis/{redisId}/connection-info:
+    get:
+      tags:
+      - Redis (Deprecated)
+      summary: Retrieve Redis connection info
+      deprecated: true
+      description: 'Retrieve connection info for a Redis instance by ID. Connection info includes sensitive information.
+
+        This API is deprecated in favor of the Key Value API.
+
+        '
+      operationId: retrieve-redis-connection-info
+      parameters:
+      - in: path
+        name: redisId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/redisConnectionInfo'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '429':
+          $ref: '#/components/responses/429RateLimit'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+        '503':
+          $ref: '#/components/responses/503ServiceUnavailable'
+components:
+  responses:
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    409Conflict:
+      description: The current state of the resource conflicts with this request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  schemas:
+    databaseStatus:
+      type: string
+      enum:
+      - creating
+      - available
+      - unavailable
+      - config_restart
+      - suspended
+      - maintenance_scheduled
+      - maintenance_in_progress
+      - recovery_failed
+      - recovery_in_progress
+      - unknown
+      - updating_instance
+    maxmemoryPolicy:
+      type: string
+      description: The eviction policy for the Key Value instance
+      enum:
+      - noeviction
+      - allkeys_lfu
+      - allkeys_lru
+      - allkeys_random
+      - volatile_lfu
+      - volatile_lru
+      - volatile_random
+      - volatile_ttl
+    owner:
+      type: object
+      required:
+      - id
+      - name
+      - email
+      - type
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        ipAllowList:
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+        twoFactorAuthEnabled:
+          type: boolean
+          description: Whether two-factor authentication is enabled for the owner. Only present if `type` is `user`.
+        type:
+          type: string
+          enum:
+          - user
+          - team
+    cursor:
+      type: string
+    cidrBlockAndDescription:
+      type: object
+      required:
+      - cidrBlock
+      - description
+      properties:
+        cidrBlock:
+          type: string
+        description:
+          description: User-provided description of the CIDR block
+          type: string
+    redisOptions:
+      description: Options for a Redis instance
+      type: object
+      properties:
+        maxmemoryPolicy:
+          type: string
+    region:
+      type: string
+      enum:
+      - frankfurt
+      - oregon
+      - ohio
+      - singapore
+      - virginia
+      default: oregon
+      description: Defaults to "oregon"
+    redisDetail:
+      type: object
+      description: A Redis instance
+      required:
+      - id
+      - createdAt
+      - updatedAt
+      - status
+      - region
+      - plan
+      - name
+      - owner
+      - options
+      - ipAllowList
+      - version
+      properties:
+        id:
+          description: The ID of the Redis instance
+          type: string
+        createdAt:
+          description: The creation time of the Redis instance
+          type: string
+          format: date-time
+        updatedAt:
+          description: The last updated time of the Redis instance
+          type: string
+          format: date-time
+        status:
+          $ref: '#/components/schemas/databaseStatus'
+        region:
+          $ref: '#/components/schemas/region'
+        plan:
+          $ref: '#/components/schemas/redisPlan'
+        name:
+          description: The name of the Redis instance
+          type: string
+        owner:
+          $ref: '#/components/schemas/owner'
+        options:
+          $ref: '#/components/schemas/redisOptions'
+        ipAllowList:
+          description: The IP allow list for the Redis instance
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+        environmentId:
+          description: The ID of the environment the Redis instance is associated with
+          type: string
+        version:
+          description: The version of Redis
+          type: string
+        maintenance:
+          type: object
+          required:
+          - id
+          - type
+          - scheduledAt
+          - state
+          properties:
+            id:
+              $ref: '#/paths/~1maintenance~1%7BmaintenanceRunParam%7D/get/parameters/0/schema'
+            type:
+              type: string
+            scheduledAt:
+              type: string
+              format: date-time
+            pendingMaintenanceBy:
+              type: string
+              format: date-time
+              description: If present, the maintenance run cannot be scheduled for later than this date-time.
+            state:
+              $ref: '#/paths/~1maintenance/get/parameters/2/schema/items'
+    redisPOSTInput:
+      type: object
+      description: Input type for creating a Redis instance
+      required:
+      - name
+      - ownerId
+      - plan
+      properties:
+        name:
+          type: string
+          description: The name of the Redis instance
+        ownerId:
+          type: string
+          description: The ID of the owner of the Redis instance
+        plan:
+          $ref: '#/components/schemas/redisPlan'
+        region:
+          type: string
+          description: The region where the Redis instance is located
+        environmentId:
+          type: string
+        maxmemoryPolicy:
+          $ref: '#/components/schemas/maxmemoryPolicy'
+        ipAllowList:
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+    redisWithCursor:
+      type: object
+      required:
+      - redis
+      - cursor
+      properties:
+        redis:
+          $ref: '#/components/schemas/redis'
+        cursor:
+          $ref: '#/components/schemas/cursor'
+    redisPATCHInput:
+      type: object
+      description: Input type for updating a Redis instance
+      properties:
+        name:
+          type: string
+          description: The name of the Redis instance
+        plan:
+          $ref: '#/components/schemas/redisPlan'
+        maxmemoryPolicy:
+          $ref: '#/components/schemas/maxmemoryPolicy'
+        ipAllowList:
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+    redisPlan:
+      type: string
+      enum:
+      - free
+      - starter
+      - standard
+      - pro
+      - pro_plus
+      - custom
+      x-enum-varnames:
+      - RedisPlanFree
+      - RedisPlanStarter
+      - RedisPlanStandard
+      - RedisPlanPro
+      - RedisPlanPro_plus
+      - RedisPlanCustom
+    redisConnectionInfo:
+      type: object
+      description: A Redis instance
+      required:
+      - internalConnectionString
+      - externalConnectionString
+      - redisCLICommand
+      properties:
+        internalConnectionString:
+          description: The connection string to use from within Render
+          type: string
+        externalConnectionString:
+          description: The connection string to use from outside Render
+          type: string
+          format: password
+        redisCLICommand:
+          description: The Redis CLI command to connect to the Redis instance
+          type: string
+          format: password
+    redis:
+      type: object
+      description: A Redis instance
+      required:
+      - id
+      - createdAt
+      - updatedAt
+      - status
+      - region
+      - plan
+      - name
+      - owner
+      - options
+      - ipAllowList
+      - version
+      - dashboardUrl
+      properties:
+        id:
+          description: The ID of the Redis instance
+          type: string
+        createdAt:
+          description: The creation time of the Redis instance
+          type: string
+          format: date-time
+        updatedAt:
+          description: The last updated time of the Redis instance
+          type: string
+          format: date-time
+        status:
+          $ref: '#/components/schemas/databaseStatus'
+        region:
+          $ref: '#/components/schemas/region'
+        plan:
+          $ref: '#/components/schemas/redisPlan'
+        name:
+          description: The name of the Redis instance
+          type: string
+        owner:
+          $ref: '#/components/schemas/owner'
+        options:
+          $ref: '#/components/schemas/redisOptions'
+        ipAllowList:
+          description: The IP allow list for the Redis instance
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+        environmentId:
+          description: The ID of the environment the Redis instance is associated with
+          type: string
+        version:
+          description: The version of Redis
+          type: string
+        dashboardUrl:
+          type: string
+          description: The URL to view the Redis instance in the Render Dashboard
+  parameters:
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
+    regionParam:
+      name: region
+      in: query
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/region'
+      style: form
+      explode: false
+      required: false
+      description: Filter by resource region
+    createdBeforeParam:
+      name: createdBefore
+      in: query
+      schema:
+        type: string
+        format: date-time
+      required: false
+      description: Filter for resources created before a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-06-17T08:15:30Z'
+    updatedAfterParam:
+      name: updatedAfter
+      in: query
+      schema:
+        type: string
+        format: date-time
+      required: false
+      description: Filter for resources updated after a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-06-17T08:15:30Z'
+    environmentIdParam:
+      name: environmentId
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+      description: Filter for resources that belong to an environment
+    ownerIdParam:
+      name: ownerId
+      in: query
+      description: The ID of the workspaces to return resources for
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+    limitParam:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+        description: Defaults to 20
+    updatedBeforeParam:
+      name: updatedBefore
+      in: query
+      schema:
+        type: string
+        format: date-time
+      required: false
+      description: Filter for resources updated before a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-06-17T08:15:30Z'
+    nameParam:
+      name: name
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+      description: Filter by name
+    createdAfterParam:
+      name: createdAfter
+      in: query
+      schema:
+        type: string
+        format: date-time
+      required: false
+      description: Filter for resources created after a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-02-17T08:15:30Z'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+x-readme:
+  metrics-enabled: false
