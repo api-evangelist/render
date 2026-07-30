@@ -8,7 +8,20 @@ description: Render is a cloud platform for building and running applications an
   scaling, environment configuration, custom domains, blueprints, logging, metrics,
   and workflow automation.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/render.png
 tags:
 - Cloud
 - Platform
@@ -23,28 +36,22 @@ created: '2026-03-16'
 modified: '2026-05-30'
 specificationVersion: '0.19'
 apis:
-- aid: render:render-api
-  name: Render API
-  description: The Render Public API enables full programmatic management of Render
-    services, databases, and infrastructure. It supports deploying web services, static
-    sites, background workers, cron jobs, and private services; managing PostgreSQL
-    and Key-Value databases; configuring environment variables, secret files, custom
-    domains, and blueprints; scaling and autoscaling services; streaming logs and
-    metrics; and orchestrating multi-service workflows. Authentication uses a Bearer
-    API key from the Render Dashboard.
+- aid: render:render-audit-logs-api
+  name: Render Audit Logs API
+  description: >-
+    [Audit Logs](https://render.com/docs/audit-logs) allow you to retrieve audit logs for workspaces and
+    organizations.
+
+    These logs provide a trail of actions and changes made to your resources.
   humanURL: https://render.com/docs/api
   baseURL: https://api.render.com/v1
   tags:
-  - Cloud
-  - Platform
-  - Deployment
-  - Infrastructure
-  - DevOps
+  - Audit Logs
   properties:
+  - type: OpenAPI
+    url: openapi/render-audit-logs-api-openapi.yml
   - type: Documentation
     url: https://render.com/docs/api
-  - type: OpenAPI
-    url: openapi/render-openapi.json
   - type: OpenAPISpec
     url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
   - type: AsyncAPI
@@ -69,9 +76,1018 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - url: graphql/render-graphql.md
-    type: GraphQL
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-blueprints-api
+  name: Render Blueprints API
+  description: >-
+    [Blueprints](https://render.com/docs/infrastructure-as-code) allow you to define your resources in
+    a `render.yaml` file and automatically sync changes to your Render services.
+
+    The API gives control over how your Blueprints are used to create and manage resources.
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Blueprints
+  properties:
+  - type: OpenAPI
+    url: openapi/render-blueprints-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-custom-domains-api
+  name: Render Custom Domains API
+  description: >-
+    [Custom Domains](https://render.com/docs/custom-domains) allow you to associate domain names with
+    your Render services.
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Custom Domains
+  properties:
+  - type: OpenAPI
+    url: openapi/render-custom-domains-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-deploys-api
+  name: Render Deploys API
+  description: >-
+    [Deploys](https://render.com/docs/deploys) are the process of updating your service with new code
+    or configuration.
+
+    These endpoints allow you to retrieve data on the deploys of your services
+
+    as well as trigger new deploys and rollbacks. Most changes to your service
+
+    will require a new deploy to take effect.
+
+
+    To create and manage services, use the `Services` endpoints.
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Deploys
+  properties:
+  - type: OpenAPI
+    url: openapi/render-deploys-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-disks-api
+  name: Render Disks API
+  description: >-
+    [Disks](https://render.com/docs/disks) allow you to attach persistent storage to your services.
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Disks
+  properties:
+  - type: OpenAPI
+    url: openapi/render-disks-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-environment-groups-api
+  name: Render Environment Groups API
+  description: >-
+    Collections of environment variables and secret files that can be shared between multiple services
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Environment Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/render-environment-groups-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-events-api
+  name: Render Events API
+  description: View events for a service, postgres or key value
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/render-events-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-key-value-api
+  name: Render Key Value API
+  description: >-
+    [Key Value](https://render.com/docs/key-value) allows you to interact with your Render Key Value instances.
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Key Value
+  properties:
+  - type: OpenAPI
+    url: openapi/render-key-value-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-logs-api
+  name: Render Logs API
+  description: >-
+    [Logs](https://render.com/docs/logging) allow you to retrieve logs for your services, Postgres databases,
+    and redis instances.
+
+    You can query for logs or subscribe to logs in real-time via a websocket.
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Logs
+  properties:
+  - type: OpenAPI
+    url: openapi/render-logs-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-maintenance-api
+  name: Render Maintenance API
+  description: >-
+    The `Maintenance` endpoints allow you to retrieve the latest maintenance runs for your Render services.
+    You can also reschedule maintenance or trigger it to start immediately.
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Maintenance
+  properties:
+  - type: OpenAPI
+    url: openapi/render-maintenance-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-metrics-api
+  name: Render Metrics API
+  description: >-
+    The `Metrics` endpoints allow you to retrieve metrics for your services, Postgres databases, and redis
+    instances.
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/render-metrics-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-notification-settings-api
+  name: Render Notification Settings API
+  description: >-
+    [Notification Settings](https://render.com/docs/notifications) allow you to configure which notifications
+    you want to recieve, and
+
+    where you will receive them.
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Notification Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/render-notification-settings-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-one-off-jobs-api
+  name: Render One-Off Jobs API
+  description: >-
+    [One-off jobs](https://render.com/docs/one-off-jobs) are standalone tasks that run to completion using
+    the most recent successful build of an existing service.
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - One-Off Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/render-one-off-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-postgres-api
+  name: Render Postgres API
+  description: >-
+    [Postgres](https://render.com/docs/postgresql) endpoints enable you to interact with your Render Postgres
+    databases.
+
+    You can manage databases, exports, recoveries, and failovers.
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Postgres
+  properties:
+  - type: OpenAPI
+    url: openapi/render-postgres-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-projects-environments-api
+  name: Render Projects & Environments API
+  description: >-
+    Collections of services and other resources organized by environment (staging, production, etc.)
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Projects & Environments
+  properties:
+  - type: OpenAPI
+    url: openapi/render-projects-environments-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-redis-deprecated-api
+  name: Render Redis (Deprecated) API
+  description: >-
+    [Redis](https://render.com/docs/redis) allows you to interact with your Render Redis instances. This
+    API is deprecated in favor of the Key Value API.
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Redis (Deprecated)
+  properties:
+  - type: OpenAPI
+    url: openapi/render-redis-deprecated-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-registry-credentials-api
+  name: Render Registry Credentials API
+  description: >-
+    [Registry Credentials](https://render.com/docs/deploying-an-image#credentials-for-private-images)
+    allows you to manage credentials for private Docker images.
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Registry Credentials
+  properties:
+  - type: OpenAPI
+    url: openapi/render-registry-credentials-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-services-api
+  name: Render Services API
+  description: >-
+    [Services](https://render.com/docs/service-types) allow you to manage your web services, private services,
+    background workers, cron jobs, and static sites.
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Services
+  properties:
+  - type: OpenAPI
+    url: openapi/render-services-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-services-cron-jobs-api
+  name: Render Services - Cron Jobs API
+  description: >-
+    [Cron Jobs](https://render.com/docs/cronjobs) allow you to interact with runs of your cron jobs.
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Services - Cron Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/render-services-cron-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-services-headers-api
+  name: Render Services - Headers API
+  description: >-
+    Use HTTP headers to inject response headers in static site responses. You can also use wildcards like
+    /path/* to add headers to responses for all matching request paths.
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Services - Headers
+  properties:
+  - type: OpenAPI
+    url: openapi/render-services-headers-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-services-routes-api
+  name: Render Services - Routes API
+  description: >-
+    Add Redirect or Rewrite Rules to modify requests to your site without writing code. You can use URL
+    parameters to capture path segments, and wildcards to redirect everything under a given path.
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Services - Routes
+  properties:
+  - type: OpenAPI
+    url: openapi/render-services-routes-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-users-api
+  name: Render Users API
+  description: The `User` endpoints allow you to retrieve information about the authenticated user
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/render-users-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-webhooks-api
+  name: Render Webhooks API
+  description: >-
+    [Webhooks](https://render.com/docs/webhooks) allows you to manage your Render webhook configuration.
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/render-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-workflow-tasks-beta-api
+  name: Render Workflow Tasks (Beta) API
+  description: >-
+    Run and manage tasks as part of [Render Workflows](https://render.com/docs/workflows). Workflows are
+    in public beta.
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Workflow Tasks (Beta)
+  properties:
+  - type: OpenAPI
+    url: openapi/render-workflow-tasks-beta-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-workflows-beta-api
+  name: Render Workflows (Beta) API
+  description: >-
+    Create and manage [Render Workflows](https://render.com/docs/workflows) services. Workflows are in
+    public beta.
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Workflows (Beta)
+  properties:
+  - type: OpenAPI
+    url: openapi/render-workflows-beta-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
+- aid: render:render-workspaces-api
+  name: Render Workspaces API
+  description: >-
+    The `Workspaces` endpoints supply more information about the workspaces that your API key has access
+    to. This category was previously called `Owners`, as reflected by endpoint paths.
+  humanURL: https://render.com/docs/api
+  baseURL: https://api.render.com/v1
+  tags:
+  - Workspaces
+  properties:
+  - type: OpenAPI
+    url: openapi/render-workspaces-api-openapi.yml
+  - type: Documentation
+    url: https://render.com/docs/api
+  - type: OpenAPISpec
+    url: https://api-docs.render.com/v1.0/openapi/render-public-api-1.json
+  - type: AsyncAPI
+    url: asyncapi/render-webhooks-asyncapi.yml
+  - type: ReferenceDocumentation
+    url: https://api-docs.render.com
+  - type: Rules
+    url: rules/render-rules.yml
+  - type: Capabilities
+    url: capabilities/service-deployment.yaml
+  - type: JSONSchema
+    url: json-schema/render-service-schema.json
+  - type: JSONSchema
+    url: json-schema/render-deploy-schema.json
+  - type: JSONStructure
+    url: json-structure/render-service-structure.json
+  - type: JSONLD
+    url: json-ld/render-context.jsonld
+  - type: Examples
+    url: examples/render-create-service-example.json
+  - type: Examples
+    url: examples/render-trigger-deploy-example.json
+  - type: Vocabulary
+    url: vocabulary/render-vocabulary.yml
+  - type: GraphQL
+    url: graphql/render-graphql.md
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/render/overview
 - type: AgenticAccess
   url: agentic-access/render-agentic-access.yml
 - type: TrustCenter
