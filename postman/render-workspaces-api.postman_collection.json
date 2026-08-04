@@ -1,0 +1,2498 @@
+{
+  "info": {
+    "_postman_id": "bbd568e6-a4f4-43a7-993f-898de065b925",
+    "name": "Render Public Audit Logs Workspaces API",
+    "description": "Manage everything about your Render services\n\nContact Support:\n Name: Render API\n Email: support@render.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:47:37.000Z",
+    "updatedAt": "2026-07-28T02:47:37.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-bbd568e6-a4f4-43a7-993f-898de065b925"
+  },
+  "item": [
+    {
+      "name": "owners",
+      "item": [
+        {
+          "name": "{ownerId}",
+          "item": [
+            {
+              "name": "members",
+              "item": [
+                {
+                  "name": "{userId}",
+                  "item": [
+                    {
+                      "name": "Update workspace member role",
+                      "id": "b47a9357-6912-452d-8ef7-515254cc8b15",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"role\": \"DEVELOPER\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/owners/:ownerId/members/:userId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "owners",
+                            ":ownerId",
+                            "members",
+                            ":userId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "68c1a08d-2e67-4243-ab0e-54a14edbfeb0",
+                              "key": "ownerId",
+                              "value": "<string>",
+                              "description": "(Required) The ID of the workspace to return resources for"
+                            },
+                            {
+                              "id": "1a320c67-4107-4c24-8887-7d5e722c3111",
+                              "key": "userId",
+                              "value": "usr-h6g4mvkg199o9maj8e8a",
+                              "description": "(Required) The ID of the user (Render object ID with a `usr-` prefix)."
+                            }
+                          ]
+                        },
+                        "description": "Update the role of an existing workspace member.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "d0844fe3-10b7-4323-940d-dc524c7fa69e",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"role\": \"DEVELOPER\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/owners/:ownerId/members/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "owners",
+                                ":ownerId",
+                                "members",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ownerId"
+                                },
+                                {
+                                  "key": "userId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"userId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"status\": \"active\",\n  \"role\": \"WORKSPACE_VIEWER\",\n  \"mfaEnabled\": \"<boolean>\"\n}",
+                          "createdAt": "2026-07-28T02:47:37.000Z",
+                          "updatedAt": "2026-07-28T02:47:37.000Z",
+                          "uid": "35240-d0844fe3-10b7-4323-940d-dc524c7fa69e"
+                        },
+                        {
+                          "id": "a9c3f968-197e-4a5a-a4b4-29b4b7f8272d",
+                          "name": "The request could not be understood by the server.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"role\": \"DEVELOPER\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/owners/:ownerId/members/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "owners",
+                                ":ownerId",
+                                "members",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ownerId"
+                                },
+                                {
+                                  "key": "userId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:47:37.000Z",
+                          "updatedAt": "2026-07-28T02:47:37.000Z",
+                          "uid": "35240-a9c3f968-197e-4a5a-a4b4-29b4b7f8272d"
+                        },
+                        {
+                          "id": "5e807fce-b3d1-48ca-9067-9d348eaa6018",
+                          "name": "Authorization information is missing or invalid.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"role\": \"DEVELOPER\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/owners/:ownerId/members/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "owners",
+                                ":ownerId",
+                                "members",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ownerId"
+                                },
+                                {
+                                  "key": "userId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:47:37.000Z",
+                          "updatedAt": "2026-07-28T02:47:37.000Z",
+                          "uid": "35240-5e807fce-b3d1-48ca-9067-9d348eaa6018"
+                        },
+                        {
+                          "id": "6f7813fd-86cc-4e3f-bb9a-b28d1b2851ab",
+                          "name": "You do not have permissions for the requested resource.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"role\": \"DEVELOPER\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/owners/:ownerId/members/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "owners",
+                                ":ownerId",
+                                "members",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ownerId"
+                                },
+                                {
+                                  "key": "userId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:47:37.000Z",
+                          "updatedAt": "2026-07-28T02:47:37.000Z",
+                          "uid": "35240-6f7813fd-86cc-4e3f-bb9a-b28d1b2851ab"
+                        },
+                        {
+                          "id": "edbb54ca-dec7-4c8c-9c45-df0a23055f4a",
+                          "name": "Unable to find the requested resource.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"role\": \"DEVELOPER\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/owners/:ownerId/members/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "owners",
+                                ":ownerId",
+                                "members",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ownerId"
+                                },
+                                {
+                                  "key": "userId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:47:37.000Z",
+                          "updatedAt": "2026-07-28T02:47:37.000Z",
+                          "uid": "35240-edbb54ca-dec7-4c8c-9c45-df0a23055f4a"
+                        },
+                        {
+                          "id": "ca2936c1-aef2-404a-b186-0b91743dda1f",
+                          "name": "The current state of the resource conflicts with this request.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"role\": \"DEVELOPER\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/owners/:ownerId/members/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "owners",
+                                ":ownerId",
+                                "members",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ownerId"
+                                },
+                                {
+                                  "key": "userId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Conflict",
+                          "code": 409,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:47:37.000Z",
+                          "updatedAt": "2026-07-28T02:47:37.000Z",
+                          "uid": "35240-ca2936c1-aef2-404a-b186-0b91743dda1f"
+                        },
+                        {
+                          "id": "b6b42d04-f947-4c42-ac10-373d296660d7",
+                          "name": "Rate limit has been surpassed.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"role\": \"DEVELOPER\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/owners/:ownerId/members/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "owners",
+                                ":ownerId",
+                                "members",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ownerId"
+                                },
+                                {
+                                  "key": "userId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:47:37.000Z",
+                          "updatedAt": "2026-07-28T02:47:37.000Z",
+                          "uid": "35240-b6b42d04-f947-4c42-ac10-373d296660d7"
+                        },
+                        {
+                          "id": "eb024304-7758-4acc-b7d1-617fae86db11",
+                          "name": "An unexpected server error has occurred.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"role\": \"DEVELOPER\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/owners/:ownerId/members/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "owners",
+                                ":ownerId",
+                                "members",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ownerId"
+                                },
+                                {
+                                  "key": "userId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:47:37.000Z",
+                          "updatedAt": "2026-07-28T02:47:37.000Z",
+                          "uid": "35240-eb024304-7758-4acc-b7d1-617fae86db11"
+                        },
+                        {
+                          "id": "9b110a26-f3e3-4847-9d6b-4f97056c14b1",
+                          "name": "Server currently unavailable.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"role\": \"DEVELOPER\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/owners/:ownerId/members/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "owners",
+                                ":ownerId",
+                                "members",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ownerId"
+                                },
+                                {
+                                  "key": "userId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Service Unavailable",
+                          "code": 503,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:47:37.000Z",
+                          "updatedAt": "2026-07-28T02:47:37.000Z",
+                          "uid": "35240-9b110a26-f3e3-4847-9d6b-4f97056c14b1"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:47:37.000Z",
+                      "updatedAt": "2026-07-28T02:47:37.000Z",
+                      "uid": "35240-b47a9357-6912-452d-8ef7-515254cc8b15"
+                    },
+                    {
+                      "name": "Remove workspace member",
+                      "id": "5306e8c1-c243-4c34-9279-a3d7fcf00fa5",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/owners/:ownerId/members/:userId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "owners",
+                            ":ownerId",
+                            "members",
+                            ":userId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "41077bef-da74-46c6-b9e1-7424f3313f15",
+                              "key": "ownerId",
+                              "value": "<string>",
+                              "description": "(Required) The ID of the workspace to return resources for"
+                            },
+                            {
+                              "id": "dab699a8-24ad-4874-8b53-3238e8bf4f1c",
+                              "key": "userId",
+                              "value": "usr-h6g4mvkg199o9maj8e8a",
+                              "description": "(Required) The ID of the user (Render object ID with a `usr-` prefix)."
+                            }
+                          ]
+                        },
+                        "description": "Remove a user from the specified workspace.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "8abb9bc3-75f1-418e-b88b-13355ba4d144",
+                          "name": "No Content",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/owners/:ownerId/members/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "owners",
+                                ":ownerId",
+                                "members",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ownerId"
+                                },
+                                {
+                                  "key": "userId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:47:37.000Z",
+                          "updatedAt": "2026-07-28T02:47:37.000Z",
+                          "uid": "35240-8abb9bc3-75f1-418e-b88b-13355ba4d144"
+                        },
+                        {
+                          "id": "af5d742f-f509-4501-8284-814baf909fca",
+                          "name": "The request could not be understood by the server.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/owners/:ownerId/members/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "owners",
+                                ":ownerId",
+                                "members",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ownerId"
+                                },
+                                {
+                                  "key": "userId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:47:37.000Z",
+                          "updatedAt": "2026-07-28T02:47:37.000Z",
+                          "uid": "35240-af5d742f-f509-4501-8284-814baf909fca"
+                        },
+                        {
+                          "id": "c3807c98-81f5-44c6-9faa-90a06ea8a277",
+                          "name": "Authorization information is missing or invalid.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/owners/:ownerId/members/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "owners",
+                                ":ownerId",
+                                "members",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ownerId"
+                                },
+                                {
+                                  "key": "userId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:47:37.000Z",
+                          "updatedAt": "2026-07-28T02:47:37.000Z",
+                          "uid": "35240-c3807c98-81f5-44c6-9faa-90a06ea8a277"
+                        },
+                        {
+                          "id": "d337d43f-f009-454e-8d0c-32da99a0efe3",
+                          "name": "You do not have permissions for the requested resource.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/owners/:ownerId/members/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "owners",
+                                ":ownerId",
+                                "members",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ownerId"
+                                },
+                                {
+                                  "key": "userId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:47:37.000Z",
+                          "updatedAt": "2026-07-28T02:47:37.000Z",
+                          "uid": "35240-d337d43f-f009-454e-8d0c-32da99a0efe3"
+                        },
+                        {
+                          "id": "b92a7110-26e0-4c61-af17-e0c4a99af771",
+                          "name": "Unable to find the requested resource.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/owners/:ownerId/members/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "owners",
+                                ":ownerId",
+                                "members",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ownerId"
+                                },
+                                {
+                                  "key": "userId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:47:37.000Z",
+                          "updatedAt": "2026-07-28T02:47:37.000Z",
+                          "uid": "35240-b92a7110-26e0-4c61-af17-e0c4a99af771"
+                        },
+                        {
+                          "id": "b62f335d-4879-41a0-aeb1-ba3b631e99fc",
+                          "name": "Rate limit has been surpassed.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/owners/:ownerId/members/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "owners",
+                                ":ownerId",
+                                "members",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ownerId"
+                                },
+                                {
+                                  "key": "userId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:47:37.000Z",
+                          "updatedAt": "2026-07-28T02:47:37.000Z",
+                          "uid": "35240-b62f335d-4879-41a0-aeb1-ba3b631e99fc"
+                        },
+                        {
+                          "id": "85f87b92-de21-4a5a-9e66-38d177e3e3f5",
+                          "name": "An unexpected server error has occurred.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/owners/:ownerId/members/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "owners",
+                                ":ownerId",
+                                "members",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ownerId"
+                                },
+                                {
+                                  "key": "userId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:47:37.000Z",
+                          "updatedAt": "2026-07-28T02:47:37.000Z",
+                          "uid": "35240-85f87b92-de21-4a5a-9e66-38d177e3e3f5"
+                        },
+                        {
+                          "id": "6b550ce8-8a14-4535-9a6d-702dbbb00b9d",
+                          "name": "Server currently unavailable.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/owners/:ownerId/members/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "owners",
+                                ":ownerId",
+                                "members",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ownerId"
+                                },
+                                {
+                                  "key": "userId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Service Unavailable",
+                          "code": 503,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:47:37.000Z",
+                          "updatedAt": "2026-07-28T02:47:37.000Z",
+                          "uid": "35240-6b550ce8-8a14-4535-9a6d-702dbbb00b9d"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:47:37.000Z",
+                      "updatedAt": "2026-07-28T02:47:37.000Z",
+                      "uid": "35240-5306e8c1-c243-4c34-9279-a3d7fcf00fa5"
+                    }
+                  ],
+                  "id": "73a21014-ae59-4ee9-b6fe-09ca0c712779",
+                  "createdAt": "2026-07-28T02:47:37.000Z",
+                  "updatedAt": "2026-07-28T02:47:37.000Z",
+                  "uid": "35240-73a21014-ae59-4ee9-b6fe-09ca0c712779"
+                },
+                {
+                  "name": "List workspace members",
+                  "id": "b8bb17df-ed2c-42f1-a569-08dba3f6b005",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/owners/:ownerId/members",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "owners",
+                        ":ownerId",
+                        "members"
+                      ],
+                      "variable": [
+                        {
+                          "id": "4999eb81-4a4b-4eed-bd0f-414896acbec1",
+                          "key": "ownerId",
+                          "value": "<string>",
+                          "description": "(Required) The ID of the team"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the list of users belonging to the workspace with the provided ID.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "01d1b28a-37fa-4572-aecb-5594822a6480",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/owners/:ownerId/members",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "owners",
+                            ":ownerId",
+                            "members"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ownerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"userId\": \"<string>\",\n    \"name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"status\": \"inactive\",\n    \"role\": \"WORKSPACE_CONTRIBUTOR\",\n    \"mfaEnabled\": \"<boolean>\"\n  },\n  {\n    \"userId\": \"<string>\",\n    \"name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"status\": \"inactive\",\n    \"role\": \"ADMIN\",\n    \"mfaEnabled\": \"<boolean>\"\n  }\n]",
+                      "createdAt": "2026-07-28T02:47:37.000Z",
+                      "updatedAt": "2026-07-28T02:47:37.000Z",
+                      "uid": "35240-01d1b28a-37fa-4572-aecb-5594822a6480"
+                    },
+                    {
+                      "id": "597688ce-1d21-45e2-8cb9-2f5af9753fb8",
+                      "name": "Authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/owners/:ownerId/members",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "owners",
+                            ":ownerId",
+                            "members"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ownerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:37.000Z",
+                      "updatedAt": "2026-07-28T02:47:37.000Z",
+                      "uid": "35240-597688ce-1d21-45e2-8cb9-2f5af9753fb8"
+                    },
+                    {
+                      "id": "050cc212-2aed-485a-a50a-a0224f2cb1ff",
+                      "name": "Unable to find the requested resource.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/owners/:ownerId/members",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "owners",
+                            ":ownerId",
+                            "members"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ownerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:37.000Z",
+                      "updatedAt": "2026-07-28T02:47:37.000Z",
+                      "uid": "35240-050cc212-2aed-485a-a50a-a0224f2cb1ff"
+                    },
+                    {
+                      "id": "344a231a-363b-48b6-859c-24f34ddb1675",
+                      "name": "Unable to generate preferred media types as specified by Accept request header.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/owners/:ownerId/members",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "owners",
+                            ":ownerId",
+                            "members"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ownerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Acceptable",
+                      "code": 406,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:37.000Z",
+                      "updatedAt": "2026-07-28T02:47:37.000Z",
+                      "uid": "35240-344a231a-363b-48b6-859c-24f34ddb1675"
+                    },
+                    {
+                      "id": "5ed47352-e7ad-46e2-bf01-8da8d786a3e6",
+                      "name": "The requested resource is no longer available.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/owners/:ownerId/members",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "owners",
+                            ":ownerId",
+                            "members"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ownerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Gone",
+                      "code": 410,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:37.000Z",
+                      "updatedAt": "2026-07-28T02:47:37.000Z",
+                      "uid": "35240-5ed47352-e7ad-46e2-bf01-8da8d786a3e6"
+                    },
+                    {
+                      "id": "09f392ba-f7cb-44a8-93b1-cc648bb0d601",
+                      "name": "Rate limit has been surpassed.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/owners/:ownerId/members",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "owners",
+                            ":ownerId",
+                            "members"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ownerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:37.000Z",
+                      "updatedAt": "2026-07-28T02:47:37.000Z",
+                      "uid": "35240-09f392ba-f7cb-44a8-93b1-cc648bb0d601"
+                    },
+                    {
+                      "id": "59e7b66a-c0fa-49e0-879a-591c4687b2be",
+                      "name": "An unexpected server error has occurred.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/owners/:ownerId/members",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "owners",
+                            ":ownerId",
+                            "members"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ownerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:37.000Z",
+                      "updatedAt": "2026-07-28T02:47:37.000Z",
+                      "uid": "35240-59e7b66a-c0fa-49e0-879a-591c4687b2be"
+                    },
+                    {
+                      "id": "0abc95a6-c382-4600-a3c3-19a8f7b5439d",
+                      "name": "Server currently unavailable.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/owners/:ownerId/members",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "owners",
+                            ":ownerId",
+                            "members"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ownerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:37.000Z",
+                      "updatedAt": "2026-07-28T02:47:37.000Z",
+                      "uid": "35240-0abc95a6-c382-4600-a3c3-19a8f7b5439d"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:47:37.000Z",
+                  "updatedAt": "2026-07-28T02:47:37.000Z",
+                  "uid": "35240-b8bb17df-ed2c-42f1-a569-08dba3f6b005"
+                }
+              ],
+              "id": "0f74c135-6d73-4190-bae7-07cf47f6422c",
+              "createdAt": "2026-07-28T02:47:37.000Z",
+              "updatedAt": "2026-07-28T02:47:37.000Z",
+              "uid": "35240-0f74c135-6d73-4190-bae7-07cf47f6422c"
+            },
+            {
+              "name": "Retrieve workspace",
+              "id": "e285611a-37dd-427f-b9b6-e4103c582dde",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/owners/:ownerId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "owners",
+                    ":ownerId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "7fad7252-3182-47d6-be89-8ac76664df03",
+                      "key": "ownerId",
+                      "value": "<string>",
+                      "description": "(Required) The ID of the user or team"
+                    }
+                  ]
+                },
+                "description": "Retrieve the workspace with the provided ID.\n\nWorkspace IDs start with `tea-`. If you provide a user ID (starts with `own-`), this endpoint returns the user's default workspace.\n"
+              },
+              "response": [
+                {
+                  "id": "cfeb5b51-4eb2-40f1-a6f5-853ddd0fe9e9",
+                  "name": "OK",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/owners/:ownerId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "owners",
+                        ":ownerId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "ownerId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"type\": \"user\",\n  \"ipAllowList\": [\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"twoFactorAuthEnabled\": \"<boolean>\"\n}",
+                  "createdAt": "2026-07-28T02:47:37.000Z",
+                  "updatedAt": "2026-07-28T02:47:37.000Z",
+                  "uid": "35240-cfeb5b51-4eb2-40f1-a6f5-853ddd0fe9e9"
+                },
+                {
+                  "id": "0389f5ef-e5a2-41fd-ae5d-3a9dd15c2bf6",
+                  "name": "Authorization information is missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/owners/:ownerId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "owners",
+                        ":ownerId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "ownerId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:47:37.000Z",
+                  "updatedAt": "2026-07-28T02:47:37.000Z",
+                  "uid": "35240-0389f5ef-e5a2-41fd-ae5d-3a9dd15c2bf6"
+                },
+                {
+                  "id": "cc642bcb-7fae-44c7-9ad9-2b10338cfb14",
+                  "name": "Unable to find the requested resource.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/owners/:ownerId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "owners",
+                        ":ownerId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "ownerId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:47:37.000Z",
+                  "updatedAt": "2026-07-28T02:47:37.000Z",
+                  "uid": "35240-cc642bcb-7fae-44c7-9ad9-2b10338cfb14"
+                },
+                {
+                  "id": "5d3a62e1-d992-4297-9138-a2822f2a84f3",
+                  "name": "Unable to generate preferred media types as specified by Accept request header.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/owners/:ownerId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "owners",
+                        ":ownerId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "ownerId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Acceptable",
+                  "code": 406,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:47:37.000Z",
+                  "updatedAt": "2026-07-28T02:47:37.000Z",
+                  "uid": "35240-5d3a62e1-d992-4297-9138-a2822f2a84f3"
+                },
+                {
+                  "id": "87d4bdcd-af9c-4114-aea6-ec8f14bae7db",
+                  "name": "The requested resource is no longer available.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/owners/:ownerId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "owners",
+                        ":ownerId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "ownerId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Gone",
+                  "code": 410,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:47:37.000Z",
+                  "updatedAt": "2026-07-28T02:47:37.000Z",
+                  "uid": "35240-87d4bdcd-af9c-4114-aea6-ec8f14bae7db"
+                },
+                {
+                  "id": "abbc3277-31ff-4660-a519-f6298b092af9",
+                  "name": "Rate limit has been surpassed.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/owners/:ownerId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "owners",
+                        ":ownerId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "ownerId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:47:37.000Z",
+                  "updatedAt": "2026-07-28T02:47:37.000Z",
+                  "uid": "35240-abbc3277-31ff-4660-a519-f6298b092af9"
+                },
+                {
+                  "id": "f67619b5-5cbd-4ec4-bf20-8a8a1cb15476",
+                  "name": "An unexpected server error has occurred.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/owners/:ownerId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "owners",
+                        ":ownerId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "ownerId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:47:37.000Z",
+                  "updatedAt": "2026-07-28T02:47:37.000Z",
+                  "uid": "35240-f67619b5-5cbd-4ec4-bf20-8a8a1cb15476"
+                },
+                {
+                  "id": "0647ace5-2e93-4be2-8ea8-2197d3000822",
+                  "name": "Server currently unavailable.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/owners/:ownerId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "owners",
+                        ":ownerId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "ownerId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:47:37.000Z",
+                  "updatedAt": "2026-07-28T02:47:37.000Z",
+                  "uid": "35240-0647ace5-2e93-4be2-8ea8-2197d3000822"
+                }
+              ],
+              "createdAt": "2026-07-28T02:47:37.000Z",
+              "updatedAt": "2026-07-28T02:47:37.000Z",
+              "uid": "35240-e285611a-37dd-427f-b9b6-e4103c582dde"
+            }
+          ],
+          "id": "bf142948-f222-4b9a-9492-23ca805051b9",
+          "createdAt": "2026-07-28T02:47:37.000Z",
+          "updatedAt": "2026-07-28T02:47:37.000Z",
+          "uid": "35240-bf142948-f222-4b9a-9492-23ca805051b9"
+        },
+        {
+          "name": "List workspaces",
+          "id": "39ee6413-61f5-474b-a645-f9978a49f4c4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/owners?name=<string>&name=<string>&email=<string>&email=<string>&cursor=<string>&limit=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "owners"
+              ],
+              "query": [
+                {
+                  "description": "Only return workspaces with one of the provided names. Only exact matches are returned.",
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Only return workspaces with one of the provided names. Only exact matches are returned.",
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Only return workspaces owned by one of the provided email addresses.",
+                  "key": "email",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Only return workspaces owned by one of the provided email addresses.",
+                  "key": "email",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            },
+            "description": "List the workspaces that your API key has access to, optionally filtered by name or owner email address.\n"
+          },
+          "response": [
+            {
+              "id": "d3e426e4-4da4-4d66-acf1-da393d40189e",
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/owners?name=<string>&email=<string>&cursor=<string>&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "owners"
+                  ],
+                  "query": [
+                    {
+                      "description": "Only return workspaces with one of the provided names. Only exact matches are returned.",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Only return workspaces owned by one of the provided email addresses.",
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"owner\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"email\": \"<string>\",\n      \"type\": \"user\",\n      \"ipAllowList\": [\n        {\n          \"cidrBlock\": \"<string>\",\n          \"description\": \"<string>\"\n        },\n        {\n          \"cidrBlock\": \"<string>\",\n          \"description\": \"<string>\"\n        }\n      ],\n      \"twoFactorAuthEnabled\": \"<boolean>\"\n    },\n    \"cursor\": \"<string>\"\n  },\n  {\n    \"owner\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"email\": \"<string>\",\n      \"type\": \"team\",\n      \"ipAllowList\": [\n        {\n          \"cidrBlock\": \"<string>\",\n          \"description\": \"<string>\"\n        },\n        {\n          \"cidrBlock\": \"<string>\",\n          \"description\": \"<string>\"\n        }\n      ],\n      \"twoFactorAuthEnabled\": \"<boolean>\"\n    },\n    \"cursor\": \"<string>\"\n  }\n]",
+              "createdAt": "2026-07-28T02:47:37.000Z",
+              "updatedAt": "2026-07-28T02:47:37.000Z",
+              "uid": "35240-d3e426e4-4da4-4d66-acf1-da393d40189e"
+            },
+            {
+              "id": "8b506f54-8075-4787-ad85-473269513e72",
+              "name": "Authorization information is missing or invalid.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/owners?name=<string>&email=<string>&cursor=<string>&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "owners"
+                  ],
+                  "query": [
+                    {
+                      "description": "Only return workspaces with one of the provided names. Only exact matches are returned.",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Only return workspaces owned by one of the provided email addresses.",
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:47:37.000Z",
+              "updatedAt": "2026-07-28T02:47:37.000Z",
+              "uid": "35240-8b506f54-8075-4787-ad85-473269513e72"
+            },
+            {
+              "id": "f700eb06-fcc4-4edd-9e6b-215ecc4bc19b",
+              "name": "Unable to generate preferred media types as specified by Accept request header.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/owners?name=<string>&email=<string>&cursor=<string>&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "owners"
+                  ],
+                  "query": [
+                    {
+                      "description": "Only return workspaces with one of the provided names. Only exact matches are returned.",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Only return workspaces owned by one of the provided email addresses.",
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Acceptable",
+              "code": 406,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:47:37.000Z",
+              "updatedAt": "2026-07-28T02:47:37.000Z",
+              "uid": "35240-f700eb06-fcc4-4edd-9e6b-215ecc4bc19b"
+            },
+            {
+              "id": "40667d09-53e4-4400-b8ee-c381f860d70e",
+              "name": "Rate limit has been surpassed.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/owners?name=<string>&email=<string>&cursor=<string>&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "owners"
+                  ],
+                  "query": [
+                    {
+                      "description": "Only return workspaces with one of the provided names. Only exact matches are returned.",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Only return workspaces owned by one of the provided email addresses.",
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:47:37.000Z",
+              "updatedAt": "2026-07-28T02:47:37.000Z",
+              "uid": "35240-40667d09-53e4-4400-b8ee-c381f860d70e"
+            },
+            {
+              "id": "7079b1ed-128b-444d-a1bb-d4b6ffd3626e",
+              "name": "An unexpected server error has occurred.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/owners?name=<string>&email=<string>&cursor=<string>&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "owners"
+                  ],
+                  "query": [
+                    {
+                      "description": "Only return workspaces with one of the provided names. Only exact matches are returned.",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Only return workspaces owned by one of the provided email addresses.",
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:47:37.000Z",
+              "updatedAt": "2026-07-28T02:47:37.000Z",
+              "uid": "35240-7079b1ed-128b-444d-a1bb-d4b6ffd3626e"
+            },
+            {
+              "id": "c04911cf-5d73-44d1-abf3-a4ffb8a2f0bd",
+              "name": "Server currently unavailable.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/owners?name=<string>&email=<string>&cursor=<string>&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "owners"
+                  ],
+                  "query": [
+                    {
+                      "description": "Only return workspaces with one of the provided names. Only exact matches are returned.",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Only return workspaces owned by one of the provided email addresses.",
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:47:37.000Z",
+              "updatedAt": "2026-07-28T02:47:37.000Z",
+              "uid": "35240-c04911cf-5d73-44d1-abf3-a4ffb8a2f0bd"
+            }
+          ],
+          "createdAt": "2026-07-28T02:47:37.000Z",
+          "updatedAt": "2026-07-28T02:47:37.000Z",
+          "uid": "35240-39ee6413-61f5-474b-a645-f9978a49f4c4"
+        }
+      ],
+      "id": "5c16867f-133f-472d-994e-d24f9bb166c4",
+      "createdAt": "2026-07-28T02:47:37.000Z",
+      "updatedAt": "2026-07-28T02:47:37.000Z",
+      "uid": "35240-5c16867f-133f-472d-994e-d24f9bb166c4"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.render.com/v1"
+    }
+  ]
+}

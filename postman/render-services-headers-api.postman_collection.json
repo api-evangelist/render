@@ -1,0 +1,2641 @@
+{
+  "info": {
+    "_postman_id": "676b5bf7-9590-455d-84d7-b97c0b93796f",
+    "name": "Render Public Audit Logs Services - Headers API",
+    "description": "Manage everything about your Render services\n\nContact Support:\n Name: Render API\n Email: support@render.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:47:29.000Z",
+    "updatedAt": "2026-07-28T02:47:30.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-676b5bf7-9590-455d-84d7-b97c0b93796f"
+  },
+  "item": [
+    {
+      "name": "services",
+      "item": [
+        {
+          "name": "{serviceId}",
+          "item": [
+            {
+              "name": "headers",
+              "item": [
+                {
+                  "name": "{headerId}",
+                  "item": [
+                    {
+                      "name": "Delete header rule",
+                      "id": "432f338e-004e-4a71-9c9c-8ee50ad7a5ca",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers/:headerId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers",
+                            ":headerId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "dca52168-af34-42eb-9221-4a13e6429676",
+                              "key": "serviceId",
+                              "value": "<string>",
+                              "description": "(Required) The ID of the service"
+                            },
+                            {
+                              "id": "55e3a687-8fb8-4d6a-8bbf-d4843198c3b5",
+                              "key": "headerId",
+                              "value": "<string>",
+                              "description": "(Required) The id of the header"
+                            }
+                          ]
+                        },
+                        "description": "Delete a particular response header rule for a particular service.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "a8abd529-f0d7-4a8b-81a4-166b6aff1ba6",
+                          "name": "Header deleted",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/headers/:headerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "headers",
+                                ":headerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "headerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:47:30.000Z",
+                          "updatedAt": "2026-07-28T02:47:30.000Z",
+                          "uid": "35240-a8abd529-f0d7-4a8b-81a4-166b6aff1ba6"
+                        },
+                        {
+                          "id": "803e4e34-1208-4e08-9385-bbd781926f8c",
+                          "name": "Authorization information is missing or invalid.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/headers/:headerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "headers",
+                                ":headerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "headerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:47:30.000Z",
+                          "updatedAt": "2026-07-28T02:47:30.000Z",
+                          "uid": "35240-803e4e34-1208-4e08-9385-bbd781926f8c"
+                        },
+                        {
+                          "id": "bded9c11-23c2-4f67-a71c-58a3750bd230",
+                          "name": "You do not have permissions for the requested resource.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/headers/:headerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "headers",
+                                ":headerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "headerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:47:30.000Z",
+                          "updatedAt": "2026-07-28T02:47:30.000Z",
+                          "uid": "35240-bded9c11-23c2-4f67-a71c-58a3750bd230"
+                        },
+                        {
+                          "id": "cbac706a-11c7-46e7-8fbe-fb5b9db1018f",
+                          "name": "Unable to find the requested resource.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/headers/:headerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "headers",
+                                ":headerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "headerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:47:30.000Z",
+                          "updatedAt": "2026-07-28T02:47:30.000Z",
+                          "uid": "35240-cbac706a-11c7-46e7-8fbe-fb5b9db1018f"
+                        },
+                        {
+                          "id": "5a4e88ef-fbe6-40ba-a911-f8ff73316551",
+                          "name": "Unable to generate preferred media types as specified by Accept request header.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/headers/:headerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "headers",
+                                ":headerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "headerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Acceptable",
+                          "code": 406,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:47:30.000Z",
+                          "updatedAt": "2026-07-28T02:47:30.000Z",
+                          "uid": "35240-5a4e88ef-fbe6-40ba-a911-f8ff73316551"
+                        },
+                        {
+                          "id": "eb62bd2e-258c-4936-927c-148ffc308876",
+                          "name": "The requested resource is no longer available.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/headers/:headerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "headers",
+                                ":headerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "headerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Gone",
+                          "code": 410,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:47:30.000Z",
+                          "updatedAt": "2026-07-28T02:47:30.000Z",
+                          "uid": "35240-eb62bd2e-258c-4936-927c-148ffc308876"
+                        },
+                        {
+                          "id": "4d8d1b79-8681-4555-9a3a-33af88cfa6b4",
+                          "name": "Rate limit has been surpassed.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/headers/:headerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "headers",
+                                ":headerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "headerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:47:30.000Z",
+                          "updatedAt": "2026-07-28T02:47:30.000Z",
+                          "uid": "35240-4d8d1b79-8681-4555-9a3a-33af88cfa6b4"
+                        },
+                        {
+                          "id": "be8dd059-261a-48da-bc7a-42d2d86758d3",
+                          "name": "An unexpected server error has occurred.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/headers/:headerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "headers",
+                                ":headerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "headerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:47:30.000Z",
+                          "updatedAt": "2026-07-28T02:47:30.000Z",
+                          "uid": "35240-be8dd059-261a-48da-bc7a-42d2d86758d3"
+                        },
+                        {
+                          "id": "04b8dfb7-9ae8-46ab-9b7b-a7f29a31edbb",
+                          "name": "Server currently unavailable.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/headers/:headerId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "headers",
+                                ":headerId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "headerId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Service Unavailable",
+                          "code": 503,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:47:30.000Z",
+                          "updatedAt": "2026-07-28T02:47:30.000Z",
+                          "uid": "35240-04b8dfb7-9ae8-46ab-9b7b-a7f29a31edbb"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-432f338e-004e-4a71-9c9c-8ee50ad7a5ca"
+                    }
+                  ],
+                  "id": "531396dd-3a00-4b52-993c-160867a70673",
+                  "createdAt": "2026-07-28T02:47:30.000Z",
+                  "updatedAt": "2026-07-28T02:47:30.000Z",
+                  "uid": "35240-531396dd-3a00-4b52-993c-160867a70673"
+                },
+                {
+                  "name": "List header rules",
+                  "id": "49e61af9-417b-4aef-8f3a-5110caf65e8c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/services/:serviceId/headers?path=<string>,<string>&name=<string>,<string>&value=<string>,<string>&cursor=<string>&limit=20",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "services",
+                        ":serviceId",
+                        "headers"
+                      ],
+                      "query": [
+                        {
+                          "description": "Filter for specific paths that headers apply to",
+                          "key": "path",
+                          "value": "<string>,<string>"
+                        },
+                        {
+                          "description": "Filter for header names",
+                          "key": "name",
+                          "value": "<string>,<string>"
+                        },
+                        {
+                          "description": "Filter for header values",
+                          "key": "value",
+                          "value": "<string>,<string>"
+                        },
+                        {
+                          "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                          "key": "cursor",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                          "key": "limit",
+                          "value": "20"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "7f772485-ca0a-411a-aff4-b567a6e1d9f3",
+                          "key": "serviceId",
+                          "value": "<string>",
+                          "description": "(Required) The ID of the service"
+                        }
+                      ]
+                    },
+                    "description": "List a particular service's response header rules that match the provided filters. If no filters are provided, all rules for the service are returned.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "1174b1b7-efd3-4666-974d-2ff47d2e7476",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers?path=<string>,<string>&name=<string>,<string>&value=<string>,<string>&cursor=<string>&limit=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter for specific paths that headers apply to",
+                              "key": "path",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for header names",
+                              "key": "name",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for header values",
+                              "key": "value",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"header\": {\n      \"id\": \"<string>\",\n      \"path\": \"<string>\",\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"cursor\": \"<string>\"\n  },\n  {\n    \"header\": {\n      \"id\": \"<string>\",\n      \"path\": \"<string>\",\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"cursor\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-1174b1b7-efd3-4666-974d-2ff47d2e7476"
+                    },
+                    {
+                      "id": "0c5c2c5d-1d19-4749-bca7-6bb0aa1dffeb",
+                      "name": "Authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers?path=<string>,<string>&name=<string>,<string>&value=<string>,<string>&cursor=<string>&limit=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter for specific paths that headers apply to",
+                              "key": "path",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for header names",
+                              "key": "name",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for header values",
+                              "key": "value",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-0c5c2c5d-1d19-4749-bca7-6bb0aa1dffeb"
+                    },
+                    {
+                      "id": "7f06d8c8-2c70-4527-801a-e9fa189ed705",
+                      "name": "You do not have permissions for the requested resource.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers?path=<string>,<string>&name=<string>,<string>&value=<string>,<string>&cursor=<string>&limit=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter for specific paths that headers apply to",
+                              "key": "path",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for header names",
+                              "key": "name",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for header values",
+                              "key": "value",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-7f06d8c8-2c70-4527-801a-e9fa189ed705"
+                    },
+                    {
+                      "id": "80724b4f-8b6e-4066-8fdf-ed6f253fb119",
+                      "name": "Unable to find the requested resource.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers?path=<string>,<string>&name=<string>,<string>&value=<string>,<string>&cursor=<string>&limit=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter for specific paths that headers apply to",
+                              "key": "path",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for header names",
+                              "key": "name",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for header values",
+                              "key": "value",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-80724b4f-8b6e-4066-8fdf-ed6f253fb119"
+                    },
+                    {
+                      "id": "f841c409-1168-4b47-ba0b-5ccccf586680",
+                      "name": "Unable to generate preferred media types as specified by Accept request header.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers?path=<string>,<string>&name=<string>,<string>&value=<string>,<string>&cursor=<string>&limit=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter for specific paths that headers apply to",
+                              "key": "path",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for header names",
+                              "key": "name",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for header values",
+                              "key": "value",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Acceptable",
+                      "code": 406,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-f841c409-1168-4b47-ba0b-5ccccf586680"
+                    },
+                    {
+                      "id": "dd64b528-fb6f-4e1a-9cf4-38897a737e98",
+                      "name": "The requested resource is no longer available.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers?path=<string>,<string>&name=<string>,<string>&value=<string>,<string>&cursor=<string>&limit=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter for specific paths that headers apply to",
+                              "key": "path",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for header names",
+                              "key": "name",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for header values",
+                              "key": "value",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Gone",
+                      "code": 410,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-dd64b528-fb6f-4e1a-9cf4-38897a737e98"
+                    },
+                    {
+                      "id": "f02a59bb-4a06-466f-98e0-2ff121300319",
+                      "name": "Rate limit has been surpassed.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers?path=<string>,<string>&name=<string>,<string>&value=<string>,<string>&cursor=<string>&limit=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter for specific paths that headers apply to",
+                              "key": "path",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for header names",
+                              "key": "name",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for header values",
+                              "key": "value",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-f02a59bb-4a06-466f-98e0-2ff121300319"
+                    },
+                    {
+                      "id": "2b86265d-d233-404e-9bd9-349e714c0f41",
+                      "name": "An unexpected server error has occurred.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers?path=<string>,<string>&name=<string>,<string>&value=<string>,<string>&cursor=<string>&limit=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter for specific paths that headers apply to",
+                              "key": "path",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for header names",
+                              "key": "name",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for header values",
+                              "key": "value",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-2b86265d-d233-404e-9bd9-349e714c0f41"
+                    },
+                    {
+                      "id": "c477a826-7ab2-4490-8a81-958eb4a45a29",
+                      "name": "Server currently unavailable.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers?path=<string>,<string>&name=<string>,<string>&value=<string>,<string>&cursor=<string>&limit=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter for specific paths that headers apply to",
+                              "key": "path",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for header names",
+                              "key": "name",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for header values",
+                              "key": "value",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-c477a826-7ab2-4490-8a81-958eb4a45a29"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:47:30.000Z",
+                  "updatedAt": "2026-07-28T02:47:30.000Z",
+                  "uid": "35240-49e61af9-417b-4aef-8f3a-5110caf65e8c"
+                },
+                {
+                  "name": "Add header rule",
+                  "id": "690bfff7-68de-4140-9905-05a628aec876",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"path\": \"<string>\",\n  \"name\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/services/:serviceId/headers",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "services",
+                        ":serviceId",
+                        "headers"
+                      ],
+                      "variable": [
+                        {
+                          "id": "3cedd6eb-aceb-4fca-a393-356c046da65c",
+                          "key": "serviceId",
+                          "value": "<string>",
+                          "description": "(Required) The ID of the service"
+                        }
+                      ]
+                    },
+                    "description": "Add a response header rule to the service with the provided ID.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "32324a6b-352e-4818-905d-93f8b758f4e0",
+                      "name": "Created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"path\": \"<string>\",\n  \"name\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"headers\": {\n    \"id\": \"<string>\",\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-32324a6b-352e-4818-905d-93f8b758f4e0"
+                    },
+                    {
+                      "id": "009456c1-91e4-432f-be97-b5fc0a530d64",
+                      "name": "Authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"path\": \"<string>\",\n  \"name\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-009456c1-91e4-432f-be97-b5fc0a530d64"
+                    },
+                    {
+                      "id": "1dd22125-d9cf-4eb9-bd32-ba77385262fd",
+                      "name": "You do not have permissions for the requested resource.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"path\": \"<string>\",\n  \"name\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-1dd22125-d9cf-4eb9-bd32-ba77385262fd"
+                    },
+                    {
+                      "id": "3587825a-6f87-4445-9253-28333cec490c",
+                      "name": "Unable to find the requested resource.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"path\": \"<string>\",\n  \"name\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-3587825a-6f87-4445-9253-28333cec490c"
+                    },
+                    {
+                      "id": "0b56f786-0a94-44cc-9dcb-35d83db4c463",
+                      "name": "Unable to generate preferred media types as specified by Accept request header.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"path\": \"<string>\",\n  \"name\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Acceptable",
+                      "code": 406,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-0b56f786-0a94-44cc-9dcb-35d83db4c463"
+                    },
+                    {
+                      "id": "62b0fd9c-5202-4b91-a96f-190ddfc9e636",
+                      "name": "The requested resource is no longer available.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"path\": \"<string>\",\n  \"name\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Gone",
+                      "code": 410,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-62b0fd9c-5202-4b91-a96f-190ddfc9e636"
+                    },
+                    {
+                      "id": "d476f0ac-539c-4edc-b299-c885a9cf2506",
+                      "name": "Rate limit has been surpassed.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"path\": \"<string>\",\n  \"name\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-d476f0ac-539c-4edc-b299-c885a9cf2506"
+                    },
+                    {
+                      "id": "3e64c521-9654-4994-b4d0-23305ae8e1a2",
+                      "name": "An unexpected server error has occurred.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"path\": \"<string>\",\n  \"name\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-3e64c521-9654-4994-b4d0-23305ae8e1a2"
+                    },
+                    {
+                      "id": "8484fc9f-7276-4e5f-84c0-e4ca8c4c49e2",
+                      "name": "Server currently unavailable.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"path\": \"<string>\",\n  \"name\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-8484fc9f-7276-4e5f-84c0-e4ca8c4c49e2"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:47:30.000Z",
+                  "updatedAt": "2026-07-28T02:47:30.000Z",
+                  "uid": "35240-690bfff7-68de-4140-9905-05a628aec876"
+                },
+                {
+                  "name": "Replace header rules",
+                  "id": "5669fb03-9b94-4ad6-a232-73b2d49ea6be",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "[\n  {\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  },\n  {\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n]",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/services/:serviceId/headers",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "services",
+                        ":serviceId",
+                        "headers"
+                      ],
+                      "variable": [
+                        {
+                          "id": "cbe18088-e9d7-4663-b45f-3846f1843b33",
+                          "key": "serviceId",
+                          "value": "<string>",
+                          "description": "(Required) The ID of the service"
+                        }
+                      ]
+                    },
+                    "description": "Replace all header rules for a particular service with the provided list.\n\n**This deletes all existing header rules for the service that aren't included in the request.**\n"
+                  },
+                  "response": [
+                    {
+                      "id": "763f132c-b948-4b46-9f3c-b5f7b1e0992f",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "[\n  {\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  },\n  {\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n]",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"id\": \"<string>\",\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-763f132c-b948-4b46-9f3c-b5f7b1e0992f"
+                    },
+                    {
+                      "id": "d046c477-98ea-4ba5-84d2-e1556df511db",
+                      "name": "The request could not be understood by the server.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "[\n  {\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  },\n  {\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n]",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-d046c477-98ea-4ba5-84d2-e1556df511db"
+                    },
+                    {
+                      "id": "ce90441b-ab4c-4302-9f57-012cb2857373",
+                      "name": "Authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "[\n  {\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  },\n  {\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n]",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-ce90441b-ab4c-4302-9f57-012cb2857373"
+                    },
+                    {
+                      "id": "546b1b99-6499-45cd-ac30-8a7a48b57270",
+                      "name": "You do not have permissions for the requested resource.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "[\n  {\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  },\n  {\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n]",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-546b1b99-6499-45cd-ac30-8a7a48b57270"
+                    },
+                    {
+                      "id": "f7d5836b-ff1d-47ba-87fe-39049c083fbe",
+                      "name": "Unable to find the requested resource.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "[\n  {\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  },\n  {\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n]",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-f7d5836b-ff1d-47ba-87fe-39049c083fbe"
+                    },
+                    {
+                      "id": "1a9e4d7a-b837-4711-bc57-96031f8a5d3d",
+                      "name": "Unable to generate preferred media types as specified by Accept request header.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "[\n  {\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  },\n  {\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n]",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Acceptable",
+                      "code": 406,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-1a9e4d7a-b837-4711-bc57-96031f8a5d3d"
+                    },
+                    {
+                      "id": "e05fb179-3a22-4eb9-a61f-5be3dfc69124",
+                      "name": "The requested resource is no longer available.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "[\n  {\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  },\n  {\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n]",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Gone",
+                      "code": 410,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-e05fb179-3a22-4eb9-a61f-5be3dfc69124"
+                    },
+                    {
+                      "id": "7d6b584d-d313-4e9c-9d4a-1adaee5ca006",
+                      "name": "Rate limit has been surpassed.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "[\n  {\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  },\n  {\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n]",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-7d6b584d-d313-4e9c-9d4a-1adaee5ca006"
+                    },
+                    {
+                      "id": "62107118-2a36-4ff3-b635-2f4ddb98914c",
+                      "name": "An unexpected server error has occurred.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "[\n  {\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  },\n  {\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n]",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-62107118-2a36-4ff3-b635-2f4ddb98914c"
+                    },
+                    {
+                      "id": "7095fd9f-4650-4484-ba5d-04b85d1cc773",
+                      "name": "Server currently unavailable.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "[\n  {\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  },\n  {\n    \"path\": \"<string>\",\n    \"name\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n]",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/headers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "headers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:47:30.000Z",
+                      "updatedAt": "2026-07-28T02:47:30.000Z",
+                      "uid": "35240-7095fd9f-4650-4484-ba5d-04b85d1cc773"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:47:30.000Z",
+                  "updatedAt": "2026-07-28T02:47:30.000Z",
+                  "uid": "35240-5669fb03-9b94-4ad6-a232-73b2d49ea6be"
+                }
+              ],
+              "id": "b672108f-cf27-4460-b514-c1ab93c23609",
+              "createdAt": "2026-07-28T02:47:30.000Z",
+              "updatedAt": "2026-07-28T02:47:30.000Z",
+              "uid": "35240-b672108f-cf27-4460-b514-c1ab93c23609"
+            }
+          ],
+          "id": "913175eb-ad37-4e4f-8292-dec62ebb609a",
+          "createdAt": "2026-07-28T02:47:30.000Z",
+          "updatedAt": "2026-07-28T02:47:30.000Z",
+          "uid": "35240-913175eb-ad37-4e4f-8292-dec62ebb609a"
+        }
+      ],
+      "id": "bc112349-69cb-4a08-ab04-677ff877d127",
+      "createdAt": "2026-07-28T02:47:30.000Z",
+      "updatedAt": "2026-07-28T02:47:30.000Z",
+      "uid": "35240-bc112349-69cb-4a08-ab04-677ff877d127"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.render.com/v1"
+    }
+  ]
+}

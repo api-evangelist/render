@@ -1,0 +1,3225 @@
+{
+  "info": {
+    "_postman_id": "1b74f9c3-cf67-4650-b364-c8e80a0a977d",
+    "name": "Render Public Audit Logs Blueprints API",
+    "description": "Manage everything about your Render services\n\nContact Support:\n Name: Render API\n Email: support@render.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:44:31.000Z",
+    "updatedAt": "2026-07-28T02:44:31.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1b74f9c3-cf67-4650-b364-c8e80a0a977d"
+  },
+  "item": [
+    {
+      "name": "blueprints",
+      "item": [
+        {
+          "name": "validate",
+          "item": [
+            {
+              "name": "Validate Blueprint",
+              "id": "a5b2061f-ceef-466e-94e0-e38bf5ede5d9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "multipart/form-data"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": "(Required) The ID of the workspace to validate against. Obtain your workspace ID from its Settings page in the Render Dashboard.",
+                      "key": "ownerId",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": "(Required) The render.yaml file to validate, as a binary file.",
+                      "key": "file",
+                      "type": "file",
+                      "value": null
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/blueprints/validate",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "blueprints",
+                    "validate"
+                  ]
+                },
+                "description": "Validate a `render.yaml` Blueprint file without creating or modifying any resources. This endpoint checks the syntax and structure of the Blueprint, validates that all required fields are present, and returns a plan indicating the resources that would be created.\n\nRequests to this endpoint use `Content-Type: multipart/form-data`. The provided Blueprint file cannot exceed 10MB in size.\n"
+              },
+              "response": [
+                {
+                  "id": "bee9059f-6f77-481e-ad3f-c96e8220fd59",
+                  "name": "Validation complete",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "multipart/form-data"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "description": "(Required) The ID of the workspace to validate against. Obtain your workspace ID from its Settings page in the Render Dashboard.",
+                          "key": "ownerId",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "(Required) The render.yaml file to validate, as a binary file.",
+                          "key": "file",
+                          "type": "file"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/validate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        "validate"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"valid\": \"<boolean>\",\n  \"errors\": [\n    {\n      \"error\": \"<string>\",\n      \"path\": \"<string>\",\n      \"line\": \"<integer>\",\n      \"column\": \"<integer>\"\n    },\n    {\n      \"error\": \"<string>\",\n      \"path\": \"<string>\",\n      \"line\": \"<integer>\",\n      \"column\": \"<integer>\"\n    }\n  ],\n  \"plan\": {\n    \"services\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"databases\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"keyValue\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"envGroups\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"totalActions\": \"<integer>\"\n  }\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-bee9059f-6f77-481e-ad3f-c96e8220fd59"
+                },
+                {
+                  "id": "94918c6d-8ff2-459e-a715-5cc8cd2ae491",
+                  "name": "The request could not be understood by the server.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "multipart/form-data"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "description": "(Required) The ID of the workspace to validate against. Obtain your workspace ID from its Settings page in the Render Dashboard.",
+                          "key": "ownerId",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "(Required) The render.yaml file to validate, as a binary file.",
+                          "key": "file",
+                          "type": "file"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/validate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        "validate"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-94918c6d-8ff2-459e-a715-5cc8cd2ae491"
+                },
+                {
+                  "id": "606db955-8934-40e2-aef2-e4bb4e48daed",
+                  "name": "Authorization information is missing or invalid.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "multipart/form-data"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "description": "(Required) The ID of the workspace to validate against. Obtain your workspace ID from its Settings page in the Render Dashboard.",
+                          "key": "ownerId",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "(Required) The render.yaml file to validate, as a binary file.",
+                          "key": "file",
+                          "type": "file"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/validate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        "validate"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-606db955-8934-40e2-aef2-e4bb4e48daed"
+                },
+                {
+                  "id": "e1a60467-83ca-45e0-a93d-4d24441ae22d",
+                  "name": "You do not have permissions for the requested resource.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "multipart/form-data"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "description": "(Required) The ID of the workspace to validate against. Obtain your workspace ID from its Settings page in the Render Dashboard.",
+                          "key": "ownerId",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "(Required) The render.yaml file to validate, as a binary file.",
+                          "key": "file",
+                          "type": "file"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/validate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        "validate"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-e1a60467-83ca-45e0-a93d-4d24441ae22d"
+                },
+                {
+                  "id": "3c8d46b0-ce3e-424d-bfd3-8ace74a3b498",
+                  "name": "Rate limit has been surpassed.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "multipart/form-data"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "description": "(Required) The ID of the workspace to validate against. Obtain your workspace ID from its Settings page in the Render Dashboard.",
+                          "key": "ownerId",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "(Required) The render.yaml file to validate, as a binary file.",
+                          "key": "file",
+                          "type": "file"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/validate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        "validate"
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-3c8d46b0-ce3e-424d-bfd3-8ace74a3b498"
+                },
+                {
+                  "id": "9679d328-2b51-4088-b9e9-edc553a2358c",
+                  "name": "An unexpected server error has occurred.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "multipart/form-data"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "description": "(Required) The ID of the workspace to validate against. Obtain your workspace ID from its Settings page in the Render Dashboard.",
+                          "key": "ownerId",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "(Required) The render.yaml file to validate, as a binary file.",
+                          "key": "file",
+                          "type": "file"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/validate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        "validate"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-9679d328-2b51-4088-b9e9-edc553a2358c"
+                }
+              ],
+              "createdAt": "2026-07-28T02:44:32.000Z",
+              "updatedAt": "2026-07-28T02:44:32.000Z",
+              "uid": "35240-a5b2061f-ceef-466e-94e0-e38bf5ede5d9"
+            }
+          ],
+          "id": "9769f484-753c-4cd5-aec0-831f3c7bcd77",
+          "createdAt": "2026-07-28T02:44:32.000Z",
+          "updatedAt": "2026-07-28T02:44:32.000Z",
+          "uid": "35240-9769f484-753c-4cd5-aec0-831f3c7bcd77"
+        },
+        {
+          "name": "{blueprintId}",
+          "item": [
+            {
+              "name": "syncs",
+              "item": [
+                {
+                  "name": "List Blueprint syncs",
+                  "id": "1eec22c1-0fae-4e7f-9f7d-994e3b512d32",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId/syncs?cursor=<string>&limit=20",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId",
+                        "syncs"
+                      ],
+                      "query": [
+                        {
+                          "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                          "key": "cursor",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                          "key": "limit",
+                          "value": "20"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "3b1e62f2-64be-41ba-849c-c8811624d973",
+                          "key": "blueprintId",
+                          "value": "exs-nat7zmc8ngmlb6l4tvwq",
+                          "description": "(Required) The ID of the Blueprint"
+                        }
+                      ]
+                    },
+                    "description": "List syncs for the Blueprint with the provided ID.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "6e6a1dc6-4131-4680-bd1e-c12c06c74a7e",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/blueprints/:blueprintId/syncs?cursor=<string>&limit=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "blueprints",
+                            ":blueprintId",
+                            "syncs"
+                          ],
+                          "query": [
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "blueprintId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"sync\": {\n      \"id\": \"exe-mqakt1gu1aeeo5iqwi3g\",\n      \"commit\": {\n        \"id\": \"<string>\"\n      },\n      \"state\": \"created\",\n      \"startedAt\": \"<dateTime>\",\n      \"completedAt\": \"<dateTime>\"\n    },\n    \"cursor\": \"<string>\"\n  },\n  {\n    \"sync\": {\n      \"id\": \"exe-aqrr8guni5gb9x46cq5u\",\n      \"commit\": {\n        \"id\": \"<string>\"\n      },\n      \"state\": \"running\",\n      \"startedAt\": \"<dateTime>\",\n      \"completedAt\": \"<dateTime>\"\n    },\n    \"cursor\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-07-28T02:44:32.000Z",
+                      "updatedAt": "2026-07-28T02:44:32.000Z",
+                      "uid": "35240-6e6a1dc6-4131-4680-bd1e-c12c06c74a7e"
+                    },
+                    {
+                      "id": "9da3d613-39bf-4b92-aa18-710267ad1ef4",
+                      "name": "Authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/blueprints/:blueprintId/syncs?cursor=<string>&limit=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "blueprints",
+                            ":blueprintId",
+                            "syncs"
+                          ],
+                          "query": [
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "blueprintId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:32.000Z",
+                      "updatedAt": "2026-07-28T02:44:32.000Z",
+                      "uid": "35240-9da3d613-39bf-4b92-aa18-710267ad1ef4"
+                    },
+                    {
+                      "id": "8b3460d4-dfe4-46da-b55c-e8466e406538",
+                      "name": "You do not have permissions for the requested resource.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/blueprints/:blueprintId/syncs?cursor=<string>&limit=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "blueprints",
+                            ":blueprintId",
+                            "syncs"
+                          ],
+                          "query": [
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "blueprintId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:32.000Z",
+                      "updatedAt": "2026-07-28T02:44:32.000Z",
+                      "uid": "35240-8b3460d4-dfe4-46da-b55c-e8466e406538"
+                    },
+                    {
+                      "id": "da551fab-5a2e-40e6-9c6f-fbb53c9e80f6",
+                      "name": "Unable to find the requested resource.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/blueprints/:blueprintId/syncs?cursor=<string>&limit=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "blueprints",
+                            ":blueprintId",
+                            "syncs"
+                          ],
+                          "query": [
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "blueprintId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:32.000Z",
+                      "updatedAt": "2026-07-28T02:44:32.000Z",
+                      "uid": "35240-da551fab-5a2e-40e6-9c6f-fbb53c9e80f6"
+                    },
+                    {
+                      "id": "a3f90265-335c-48da-9b53-38b3f1b30498",
+                      "name": "Unable to generate preferred media types as specified by Accept request header.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/blueprints/:blueprintId/syncs?cursor=<string>&limit=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "blueprints",
+                            ":blueprintId",
+                            "syncs"
+                          ],
+                          "query": [
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "blueprintId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Acceptable",
+                      "code": 406,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:32.000Z",
+                      "updatedAt": "2026-07-28T02:44:32.000Z",
+                      "uid": "35240-a3f90265-335c-48da-9b53-38b3f1b30498"
+                    },
+                    {
+                      "id": "ea4d8799-0a99-496d-b933-3547dddffab4",
+                      "name": "The requested resource is no longer available.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/blueprints/:blueprintId/syncs?cursor=<string>&limit=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "blueprints",
+                            ":blueprintId",
+                            "syncs"
+                          ],
+                          "query": [
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "blueprintId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Gone",
+                      "code": 410,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:32.000Z",
+                      "updatedAt": "2026-07-28T02:44:32.000Z",
+                      "uid": "35240-ea4d8799-0a99-496d-b933-3547dddffab4"
+                    },
+                    {
+                      "id": "dbd0418d-74a0-4fbe-b28a-6b0489846867",
+                      "name": "Rate limit has been surpassed.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/blueprints/:blueprintId/syncs?cursor=<string>&limit=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "blueprints",
+                            ":blueprintId",
+                            "syncs"
+                          ],
+                          "query": [
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "blueprintId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:32.000Z",
+                      "updatedAt": "2026-07-28T02:44:32.000Z",
+                      "uid": "35240-dbd0418d-74a0-4fbe-b28a-6b0489846867"
+                    },
+                    {
+                      "id": "43ced2bf-5df3-4e17-8e14-d4c5abd46a68",
+                      "name": "An unexpected server error has occurred.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/blueprints/:blueprintId/syncs?cursor=<string>&limit=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "blueprints",
+                            ":blueprintId",
+                            "syncs"
+                          ],
+                          "query": [
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "blueprintId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:32.000Z",
+                      "updatedAt": "2026-07-28T02:44:32.000Z",
+                      "uid": "35240-43ced2bf-5df3-4e17-8e14-d4c5abd46a68"
+                    },
+                    {
+                      "id": "48572318-f3d4-4034-ba8e-7d51a2e94e31",
+                      "name": "Server currently unavailable.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/blueprints/:blueprintId/syncs?cursor=<string>&limit=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "blueprints",
+                            ":blueprintId",
+                            "syncs"
+                          ],
+                          "query": [
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "blueprintId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:32.000Z",
+                      "updatedAt": "2026-07-28T02:44:32.000Z",
+                      "uid": "35240-48572318-f3d4-4034-ba8e-7d51a2e94e31"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-1eec22c1-0fae-4e7f-9f7d-994e3b512d32"
+                }
+              ],
+              "id": "466081bf-e696-447f-bfe7-129e2b59df77",
+              "createdAt": "2026-07-28T02:44:32.000Z",
+              "updatedAt": "2026-07-28T02:44:32.000Z",
+              "uid": "35240-466081bf-e696-447f-bfe7-129e2b59df77"
+            },
+            {
+              "name": "Retrieve Blueprint",
+              "id": "f157c50b-bd17-4d50-a8ae-8500cfe28246",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "blueprints",
+                    ":blueprintId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "8a6d6e33-d9a2-44ff-bd0e-7305142f3042",
+                      "key": "blueprintId",
+                      "value": "exs-nat7zmc8ngmlb6l4tvwq",
+                      "description": "(Required) The ID of the Blueprint"
+                    }
+                  ]
+                },
+                "description": "Retrieve the Blueprint with the provided ID.\n"
+              },
+              "response": [
+                {
+                  "id": "21ea625d-badf-4770-8134-49d626712208",
+                  "name": "OK",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"exs-msd0hx15jv2j5pxi7lm2\",\n  \"name\": \"<string>\",\n  \"status\": \"error\",\n  \"autoSync\": \"<boolean>\",\n  \"repo\": \"<string>\",\n  \"branch\": \"<string>\",\n  \"path\": \"<string>\",\n  \"resources\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"postgres\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"environment_group\"\n    }\n  ],\n  \"lastSync\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-21ea625d-badf-4770-8134-49d626712208"
+                },
+                {
+                  "id": "378c7516-5b42-4d11-851a-3a620edfdb34",
+                  "name": "Authorization information is missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-378c7516-5b42-4d11-851a-3a620edfdb34"
+                },
+                {
+                  "id": "9283d5eb-9676-4c46-892e-10e5eaaedd1c",
+                  "name": "You do not have permissions for the requested resource.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-9283d5eb-9676-4c46-892e-10e5eaaedd1c"
+                },
+                {
+                  "id": "e01dbde5-0ef8-4f20-9d6e-ee3af1ab4f28",
+                  "name": "Unable to find the requested resource.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-e01dbde5-0ef8-4f20-9d6e-ee3af1ab4f28"
+                },
+                {
+                  "id": "566e4845-2530-4219-a352-b402fdd3c03f",
+                  "name": "Unable to generate preferred media types as specified by Accept request header.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Acceptable",
+                  "code": 406,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-566e4845-2530-4219-a352-b402fdd3c03f"
+                },
+                {
+                  "id": "c30fffdc-dda8-46b4-ab70-d12a9dfd84a9",
+                  "name": "The requested resource is no longer available.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Gone",
+                  "code": 410,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-c30fffdc-dda8-46b4-ab70-d12a9dfd84a9"
+                },
+                {
+                  "id": "68d85704-b07e-4f01-a2a1-824f11d156c1",
+                  "name": "Rate limit has been surpassed.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-68d85704-b07e-4f01-a2a1-824f11d156c1"
+                },
+                {
+                  "id": "d01c11ba-c1f4-4429-97de-9bdca6574f77",
+                  "name": "An unexpected server error has occurred.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-d01c11ba-c1f4-4429-97de-9bdca6574f77"
+                },
+                {
+                  "id": "a32cee94-d90d-48df-90dd-8fc1ed6390aa",
+                  "name": "Server currently unavailable.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-a32cee94-d90d-48df-90dd-8fc1ed6390aa"
+                }
+              ],
+              "createdAt": "2026-07-28T02:44:32.000Z",
+              "updatedAt": "2026-07-28T02:44:32.000Z",
+              "uid": "35240-f157c50b-bd17-4d50-a8ae-8500cfe28246"
+            },
+            {
+              "name": "Update Blueprint",
+              "id": "e5883c2b-670e-48b3-8de8-30f21af2b112",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"autoSync\": \"<boolean>\",\n  \"path\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "blueprints",
+                    ":blueprintId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "0f4aa81c-71b7-4b3c-9ede-928fbcd8c1af",
+                      "key": "blueprintId",
+                      "value": "exs-nat7zmc8ngmlb6l4tvwq",
+                      "description": "(Required) The ID of the Blueprint"
+                    }
+                  ]
+                },
+                "description": "Update the Blueprint with the provided ID.\n"
+              },
+              "response": [
+                {
+                  "id": "e0ff43b5-2d26-4b61-8218-c20eb80aefed",
+                  "name": "Updated",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"autoSync\": \"<boolean>\",\n  \"path\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"exs-y5yfdokpsuzz1psryrq9\",\n  \"name\": \"<string>\",\n  \"status\": \"syncing\",\n  \"autoSync\": \"<boolean>\",\n  \"repo\": \"<string>\",\n  \"branch\": \"<string>\",\n  \"path\": \"<string>\",\n  \"lastSync\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-e0ff43b5-2d26-4b61-8218-c20eb80aefed"
+                },
+                {
+                  "id": "df7594cf-3dbc-4f21-83f1-0fbaeb07e263",
+                  "name": "Authorization information is missing or invalid.",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"autoSync\": \"<boolean>\",\n  \"path\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-df7594cf-3dbc-4f21-83f1-0fbaeb07e263"
+                },
+                {
+                  "id": "6ebf2d26-e1f1-4f19-b456-ea26858bc669",
+                  "name": "You do not have permissions for the requested resource.",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"autoSync\": \"<boolean>\",\n  \"path\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-6ebf2d26-e1f1-4f19-b456-ea26858bc669"
+                },
+                {
+                  "id": "7d678276-223e-4186-9525-30a31f576064",
+                  "name": "Unable to find the requested resource.",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"autoSync\": \"<boolean>\",\n  \"path\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-7d678276-223e-4186-9525-30a31f576064"
+                },
+                {
+                  "id": "ee36304c-8b59-4b94-a78f-76bfb8dd1d9c",
+                  "name": "Unable to generate preferred media types as specified by Accept request header.",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"autoSync\": \"<boolean>\",\n  \"path\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Acceptable",
+                  "code": 406,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-ee36304c-8b59-4b94-a78f-76bfb8dd1d9c"
+                },
+                {
+                  "id": "1aade59b-546d-42d4-9b6b-44d31cc8ace1",
+                  "name": "The requested resource is no longer available.",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"autoSync\": \"<boolean>\",\n  \"path\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Gone",
+                  "code": 410,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-1aade59b-546d-42d4-9b6b-44d31cc8ace1"
+                },
+                {
+                  "id": "66e1eabc-7cff-43dc-a22f-1612ebfaa914",
+                  "name": "Rate limit has been surpassed.",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"autoSync\": \"<boolean>\",\n  \"path\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-66e1eabc-7cff-43dc-a22f-1612ebfaa914"
+                },
+                {
+                  "id": "2cec250f-4c72-4771-96dc-763c69ee3dca",
+                  "name": "An unexpected server error has occurred.",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"autoSync\": \"<boolean>\",\n  \"path\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-2cec250f-4c72-4771-96dc-763c69ee3dca"
+                },
+                {
+                  "id": "662e845a-5215-4870-bd77-989f675b2d4d",
+                  "name": "Server currently unavailable.",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"autoSync\": \"<boolean>\",\n  \"path\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-662e845a-5215-4870-bd77-989f675b2d4d"
+                }
+              ],
+              "createdAt": "2026-07-28T02:44:32.000Z",
+              "updatedAt": "2026-07-28T02:44:32.000Z",
+              "uid": "35240-e5883c2b-670e-48b3-8de8-30f21af2b112"
+            },
+            {
+              "name": "Disconnect Blueprint",
+              "id": "82e2ab75-a53e-43fa-a57e-0f8a56387d1f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "blueprints",
+                    ":blueprintId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "77ef491a-9562-43b1-986c-dac710bc7d7d",
+                      "key": "blueprintId",
+                      "value": "exs-nat7zmc8ngmlb6l4tvwq",
+                      "description": "(Required) The ID of the Blueprint"
+                    }
+                  ]
+                },
+                "description": "Disconnect the Blueprint with the provided ID.\n\nDisconnecting a Blueprint stops automatic resource syncing via the associated `render.yaml` file. It does not _delete_ any services or other resources that were managed by the blueprint.\n"
+              },
+              "response": [
+                {
+                  "id": "31d3af09-5837-4a86-92a5-e54c2715c5a8",
+                  "name": "Blueprint disconnected",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-31d3af09-5837-4a86-92a5-e54c2715c5a8"
+                },
+                {
+                  "id": "750aa4d8-affb-4343-9a8b-b5e643815003",
+                  "name": "Authorization information is missing or invalid.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-750aa4d8-affb-4343-9a8b-b5e643815003"
+                },
+                {
+                  "id": "952d2681-6db9-4262-b6bd-76ba74275ac6",
+                  "name": "You do not have permissions for the requested resource.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-952d2681-6db9-4262-b6bd-76ba74275ac6"
+                },
+                {
+                  "id": "de946db6-b881-4303-af4d-3d4febe37b8f",
+                  "name": "Unable to find the requested resource.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-de946db6-b881-4303-af4d-3d4febe37b8f"
+                },
+                {
+                  "id": "fcd26dbb-99de-4646-9b57-e0709b2ae36b",
+                  "name": "Unable to generate preferred media types as specified by Accept request header.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Acceptable",
+                  "code": 406,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-fcd26dbb-99de-4646-9b57-e0709b2ae36b"
+                },
+                {
+                  "id": "bd717ae9-9805-452d-87b1-6ae397870e14",
+                  "name": "The requested resource is no longer available.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Gone",
+                  "code": 410,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-bd717ae9-9805-452d-87b1-6ae397870e14"
+                },
+                {
+                  "id": "9c0dc368-a076-4551-ada9-9794149829ce",
+                  "name": "Rate limit has been surpassed.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-9c0dc368-a076-4551-ada9-9794149829ce"
+                },
+                {
+                  "id": "03910e69-224b-4c8c-a9f6-e6fdfccd4b0c",
+                  "name": "An unexpected server error has occurred.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-03910e69-224b-4c8c-a9f6-e6fdfccd4b0c"
+                },
+                {
+                  "id": "541c3ed8-c98f-4966-9453-6769a7eae5e8",
+                  "name": "Server currently unavailable.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/blueprints/:blueprintId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "blueprints",
+                        ":blueprintId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "blueprintId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:32.000Z",
+                  "updatedAt": "2026-07-28T02:44:32.000Z",
+                  "uid": "35240-541c3ed8-c98f-4966-9453-6769a7eae5e8"
+                }
+              ],
+              "createdAt": "2026-07-28T02:44:32.000Z",
+              "updatedAt": "2026-07-28T02:44:32.000Z",
+              "uid": "35240-82e2ab75-a53e-43fa-a57e-0f8a56387d1f"
+            }
+          ],
+          "id": "e824e05f-9136-4f46-8534-4d5d2388d0c1",
+          "createdAt": "2026-07-28T02:44:32.000Z",
+          "updatedAt": "2026-07-28T02:44:32.000Z",
+          "uid": "35240-e824e05f-9136-4f46-8534-4d5d2388d0c1"
+        },
+        {
+          "name": "List Blueprints",
+          "id": "15930d67-dedb-4673-91d8-d0d49f89fe30",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/blueprints?ownerId=<string>,<string>&cursor=<string>&limit=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "blueprints"
+              ],
+              "query": [
+                {
+                  "description": "The ID of the workspaces to return resources for",
+                  "key": "ownerId",
+                  "value": "<string>,<string>"
+                },
+                {
+                  "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            },
+            "description": "List Blueprints for the specified workspaces. If no workspaces are provided, returns all Blueprints the API key has access to.\n"
+          },
+          "response": [
+            {
+              "id": "09a7143b-88f2-417d-ab5d-3833a3f6e4e6",
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/blueprints?ownerId=<string>,<string>&cursor=<string>&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "blueprints"
+                  ],
+                  "query": [
+                    {
+                      "description": "The ID of the workspaces to return resources for",
+                      "key": "ownerId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"blueprint\": {\n      \"id\": \"exs-bxqlzb9himhh31u3feu3\",\n      \"name\": \"<string>\",\n      \"status\": \"created\",\n      \"autoSync\": \"<boolean>\",\n      \"repo\": \"<string>\",\n      \"branch\": \"<string>\",\n      \"path\": \"<string>\",\n      \"lastSync\": \"<dateTime>\"\n    },\n    \"cursor\": \"<string>\"\n  },\n  {\n    \"blueprint\": {\n      \"id\": \"exs-g12q91prgdwtkcnxcm59\",\n      \"name\": \"<string>\",\n      \"status\": \"error\",\n      \"autoSync\": \"<boolean>\",\n      \"repo\": \"<string>\",\n      \"branch\": \"<string>\",\n      \"path\": \"<string>\",\n      \"lastSync\": \"<dateTime>\"\n    },\n    \"cursor\": \"<string>\"\n  }\n]",
+              "createdAt": "2026-07-28T02:44:32.000Z",
+              "updatedAt": "2026-07-28T02:44:32.000Z",
+              "uid": "35240-09a7143b-88f2-417d-ab5d-3833a3f6e4e6"
+            },
+            {
+              "id": "2bff42cd-2720-416f-94cb-d1a2e3e5700e",
+              "name": "Authorization information is missing or invalid.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/blueprints?ownerId=<string>,<string>&cursor=<string>&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "blueprints"
+                  ],
+                  "query": [
+                    {
+                      "description": "The ID of the workspaces to return resources for",
+                      "key": "ownerId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:44:32.000Z",
+              "updatedAt": "2026-07-28T02:44:32.000Z",
+              "uid": "35240-2bff42cd-2720-416f-94cb-d1a2e3e5700e"
+            },
+            {
+              "id": "c211f5f2-092e-499e-9dab-8fda85f3c623",
+              "name": "You do not have permissions for the requested resource.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/blueprints?ownerId=<string>,<string>&cursor=<string>&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "blueprints"
+                  ],
+                  "query": [
+                    {
+                      "description": "The ID of the workspaces to return resources for",
+                      "key": "ownerId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:44:32.000Z",
+              "updatedAt": "2026-07-28T02:44:32.000Z",
+              "uid": "35240-c211f5f2-092e-499e-9dab-8fda85f3c623"
+            },
+            {
+              "id": "b97d715e-a1b9-4273-9687-2c031a048114",
+              "name": "Unable to find the requested resource.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/blueprints?ownerId=<string>,<string>&cursor=<string>&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "blueprints"
+                  ],
+                  "query": [
+                    {
+                      "description": "The ID of the workspaces to return resources for",
+                      "key": "ownerId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:44:32.000Z",
+              "updatedAt": "2026-07-28T02:44:32.000Z",
+              "uid": "35240-b97d715e-a1b9-4273-9687-2c031a048114"
+            },
+            {
+              "id": "48621aba-4302-45d1-a58a-00c4c799f3d7",
+              "name": "Unable to generate preferred media types as specified by Accept request header.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/blueprints?ownerId=<string>,<string>&cursor=<string>&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "blueprints"
+                  ],
+                  "query": [
+                    {
+                      "description": "The ID of the workspaces to return resources for",
+                      "key": "ownerId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Acceptable",
+              "code": 406,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:44:32.000Z",
+              "updatedAt": "2026-07-28T02:44:32.000Z",
+              "uid": "35240-48621aba-4302-45d1-a58a-00c4c799f3d7"
+            },
+            {
+              "id": "225844a7-2c48-4165-a26a-1aaf007c4cb4",
+              "name": "The requested resource is no longer available.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/blueprints?ownerId=<string>,<string>&cursor=<string>&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "blueprints"
+                  ],
+                  "query": [
+                    {
+                      "description": "The ID of the workspaces to return resources for",
+                      "key": "ownerId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Gone",
+              "code": 410,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:44:32.000Z",
+              "updatedAt": "2026-07-28T02:44:32.000Z",
+              "uid": "35240-225844a7-2c48-4165-a26a-1aaf007c4cb4"
+            },
+            {
+              "id": "c2efb8a5-25e4-40c8-96c8-ae81373de62c",
+              "name": "Rate limit has been surpassed.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/blueprints?ownerId=<string>,<string>&cursor=<string>&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "blueprints"
+                  ],
+                  "query": [
+                    {
+                      "description": "The ID of the workspaces to return resources for",
+                      "key": "ownerId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:44:32.000Z",
+              "updatedAt": "2026-07-28T02:44:32.000Z",
+              "uid": "35240-c2efb8a5-25e4-40c8-96c8-ae81373de62c"
+            },
+            {
+              "id": "1d37623c-7da4-4487-a032-284e991050c2",
+              "name": "An unexpected server error has occurred.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/blueprints?ownerId=<string>,<string>&cursor=<string>&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "blueprints"
+                  ],
+                  "query": [
+                    {
+                      "description": "The ID of the workspaces to return resources for",
+                      "key": "ownerId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:44:32.000Z",
+              "updatedAt": "2026-07-28T02:44:32.000Z",
+              "uid": "35240-1d37623c-7da4-4487-a032-284e991050c2"
+            },
+            {
+              "id": "64864520-8b66-4627-a7dc-5879527f7553",
+              "name": "Server currently unavailable.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/blueprints?ownerId=<string>,<string>&cursor=<string>&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "blueprints"
+                  ],
+                  "query": [
+                    {
+                      "description": "The ID of the workspaces to return resources for",
+                      "key": "ownerId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:44:32.000Z",
+              "updatedAt": "2026-07-28T02:44:32.000Z",
+              "uid": "35240-64864520-8b66-4627-a7dc-5879527f7553"
+            }
+          ],
+          "createdAt": "2026-07-28T02:44:32.000Z",
+          "updatedAt": "2026-07-28T02:44:32.000Z",
+          "uid": "35240-15930d67-dedb-4673-91d8-d0d49f89fe30"
+        }
+      ],
+      "id": "944ca7bf-c578-4ed6-9428-4b7f0a98e3b8",
+      "createdAt": "2026-07-28T02:44:32.000Z",
+      "updatedAt": "2026-07-28T02:44:32.000Z",
+      "uid": "35240-944ca7bf-c578-4ed6-9428-4b7f0a98e3b8"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.render.com/v1"
+    }
+  ]
+}

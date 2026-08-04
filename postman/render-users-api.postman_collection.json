@@ -1,0 +1,322 @@
+{
+  "info": {
+    "_postman_id": "86e19ebc-43b8-44bc-8b4e-95d032600aa2",
+    "name": "Render Public Audit Logs Users API",
+    "description": "Manage everything about your Render services\n\nContact Support:\n Name: Render API\n Email: support@render.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:47:32.000Z",
+    "updatedAt": "2026-07-28T02:47:32.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-86e19ebc-43b8-44bc-8b4e-95d032600aa2"
+  },
+  "item": [
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "Get the authenticated user",
+          "id": "e4774ae2-ffb1-464d-833e-1df9e9d16453",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            },
+            "description": "Retrieve the user associated with the provided API key.\n"
+          },
+          "response": [
+            {
+              "id": "52f80daf-e058-4296-8c31-6adf32d8f26c",
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"email\": \"<string>\",\n  \"name\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:47:32.000Z",
+              "updatedAt": "2026-07-28T02:47:32.000Z",
+              "uid": "35240-52f80daf-e058-4296-8c31-6adf32d8f26c"
+            },
+            {
+              "id": "2a13a806-e9e8-4e42-a86d-e23a1c6c60a0",
+              "name": "Authorization information is missing or invalid.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:47:32.000Z",
+              "updatedAt": "2026-07-28T02:47:32.000Z",
+              "uid": "35240-2a13a806-e9e8-4e42-a86d-e23a1c6c60a0"
+            },
+            {
+              "id": "34c6793d-925d-4ff5-b224-e055443407a7",
+              "name": "Unable to generate preferred media types as specified by Accept request header.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "Not Acceptable",
+              "code": 406,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:47:32.000Z",
+              "updatedAt": "2026-07-28T02:47:32.000Z",
+              "uid": "35240-34c6793d-925d-4ff5-b224-e055443407a7"
+            },
+            {
+              "id": "1f445d17-0e46-4344-ab9e-4ac423e9a7bf",
+              "name": "Rate limit has been surpassed.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:47:32.000Z",
+              "updatedAt": "2026-07-28T02:47:32.000Z",
+              "uid": "35240-1f445d17-0e46-4344-ab9e-4ac423e9a7bf"
+            },
+            {
+              "id": "367328b2-4159-421b-83f8-56e377feec8c",
+              "name": "An unexpected server error has occurred.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:47:32.000Z",
+              "updatedAt": "2026-07-28T02:47:32.000Z",
+              "uid": "35240-367328b2-4159-421b-83f8-56e377feec8c"
+            },
+            {
+              "id": "08025f3e-7203-47c0-9c57-b94b465c730a",
+              "name": "Server currently unavailable.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:47:32.000Z",
+              "updatedAt": "2026-07-28T02:47:32.000Z",
+              "uid": "35240-08025f3e-7203-47c0-9c57-b94b465c730a"
+            }
+          ],
+          "createdAt": "2026-07-28T02:47:32.000Z",
+          "updatedAt": "2026-07-28T02:47:32.000Z",
+          "uid": "35240-e4774ae2-ffb1-464d-833e-1df9e9d16453"
+        }
+      ],
+      "id": "2b0198df-6ed4-4a77-803b-8d730b619c23",
+      "createdAt": "2026-07-28T02:47:32.000Z",
+      "updatedAt": "2026-07-28T02:47:32.000Z",
+      "uid": "35240-2b0198df-6ed4-4a77-803b-8d730b619c23"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.render.com/v1"
+    }
+  ]
+}

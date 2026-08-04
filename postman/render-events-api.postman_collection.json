@@ -1,0 +1,568 @@
+{
+  "info": {
+    "_postman_id": "1433c30a-8eda-4a26-8b86-0774306c2c21",
+    "name": "Render Public Audit Logs Events API",
+    "description": "Manage everything about your Render services\n\nContact Support:\n Name: Render API\n Email: support@render.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:44:55.000Z",
+    "updatedAt": "2026-07-28T02:44:55.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1433c30a-8eda-4a26-8b86-0774306c2c21"
+  },
+  "item": [
+    {
+      "name": "events",
+      "item": [
+        {
+          "name": "{eventId}",
+          "item": [
+            {
+              "name": "Retrieve event",
+              "id": "6d295014-0289-47fe-9ee9-3de73f01e5a4",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/events/:eventId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    ":eventId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "d1413b6a-d73f-439a-9b02-e7ed6eee43c4",
+                      "key": "eventId",
+                      "value": "evt-wveu69tw9ladm2h4pzsa",
+                      "description": "(Required) The ID of the event"
+                    }
+                  ]
+                },
+                "description": "Retrieve the details of a particular event\n"
+              },
+              "response": [
+                {
+                  "id": "a637c939-6b7b-4a50-9bf1-61efcc0e1fd8",
+                  "name": "OK",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/events/:eventId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "events",
+                        ":eventId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "eventId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"evt-37p1wru31uz2n3jluf6s\",\n  \"timestamp\": \"<dateTime>\",\n  \"serviceId\": \"<string>\",\n  \"type\": \"disk_created\",\n  \"details\": {\n    \"toConfig\": {\n      \"enabled\": false,\n      \"min\": \"<integer>\",\n      \"max\": \"<integer>\",\n      \"criteria\": {\n        \"cpu\": {\n          \"enabled\": false,\n          \"percentage\": \"<integer>\"\n        },\n        \"memory\": {\n          \"enabled\": false,\n          \"percentage\": \"<integer>\"\n        }\n      }\n    },\n    \"fromConfig\": {\n      \"enabled\": false,\n      \"min\": \"<integer>\",\n      \"max\": \"<integer>\",\n      \"criteria\": {\n        \"cpu\": {\n          \"enabled\": false,\n          \"percentage\": \"<integer>\"\n        },\n        \"memory\": {\n          \"enabled\": false,\n          \"percentage\": \"<integer>\"\n        }\n      }\n    }\n  }\n}",
+                  "createdAt": "2026-07-28T02:44:56.000Z",
+                  "updatedAt": "2026-07-28T02:44:56.000Z",
+                  "uid": "35240-a637c939-6b7b-4a50-9bf1-61efcc0e1fd8"
+                },
+                {
+                  "id": "ab220bb0-2a37-43b9-ba14-7b7dbd2c7579",
+                  "name": "The request could not be understood by the server.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/events/:eventId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "events",
+                        ":eventId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "eventId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:56.000Z",
+                  "updatedAt": "2026-07-28T02:44:56.000Z",
+                  "uid": "35240-ab220bb0-2a37-43b9-ba14-7b7dbd2c7579"
+                },
+                {
+                  "id": "e031a923-4ca2-4c9d-a172-2f917e25e338",
+                  "name": "Authorization information is missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/events/:eventId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "events",
+                        ":eventId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "eventId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:56.000Z",
+                  "updatedAt": "2026-07-28T02:44:56.000Z",
+                  "uid": "35240-e031a923-4ca2-4c9d-a172-2f917e25e338"
+                },
+                {
+                  "id": "7e01f3f8-d14a-467e-ae6f-ba0dac946054",
+                  "name": "You do not have permissions for the requested resource.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/events/:eventId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "events",
+                        ":eventId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "eventId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:56.000Z",
+                  "updatedAt": "2026-07-28T02:44:56.000Z",
+                  "uid": "35240-7e01f3f8-d14a-467e-ae6f-ba0dac946054"
+                },
+                {
+                  "id": "4551c4b4-3261-4e62-a9e0-bc6acab36fb8",
+                  "name": "Unable to find the requested resource.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/events/:eventId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "events",
+                        ":eventId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "eventId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:56.000Z",
+                  "updatedAt": "2026-07-28T02:44:56.000Z",
+                  "uid": "35240-4551c4b4-3261-4e62-a9e0-bc6acab36fb8"
+                },
+                {
+                  "id": "01814ce3-7915-4bab-af62-2268e09340cb",
+                  "name": "Unable to generate preferred media types as specified by Accept request header.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/events/:eventId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "events",
+                        ":eventId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "eventId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Acceptable",
+                  "code": 406,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:56.000Z",
+                  "updatedAt": "2026-07-28T02:44:56.000Z",
+                  "uid": "35240-01814ce3-7915-4bab-af62-2268e09340cb"
+                },
+                {
+                  "id": "8da904ad-7e1f-4c92-8492-4ea97d64ce61",
+                  "name": "The requested resource is no longer available.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/events/:eventId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "events",
+                        ":eventId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "eventId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Gone",
+                  "code": 410,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:56.000Z",
+                  "updatedAt": "2026-07-28T02:44:56.000Z",
+                  "uid": "35240-8da904ad-7e1f-4c92-8492-4ea97d64ce61"
+                },
+                {
+                  "id": "568fa3bc-a61d-4551-85b8-de597e121327",
+                  "name": "Rate limit has been surpassed.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/events/:eventId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "events",
+                        ":eventId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "eventId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:56.000Z",
+                  "updatedAt": "2026-07-28T02:44:56.000Z",
+                  "uid": "35240-568fa3bc-a61d-4551-85b8-de597e121327"
+                },
+                {
+                  "id": "3444d147-ff60-4755-94d1-c96563f28aa3",
+                  "name": "An unexpected server error has occurred.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/events/:eventId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "events",
+                        ":eventId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "eventId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:56.000Z",
+                  "updatedAt": "2026-07-28T02:44:56.000Z",
+                  "uid": "35240-3444d147-ff60-4755-94d1-c96563f28aa3"
+                },
+                {
+                  "id": "10c95fa7-9a9f-43a9-9a6c-246fbab3d05c",
+                  "name": "Server currently unavailable.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/events/:eventId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "events",
+                        ":eventId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "eventId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:44:56.000Z",
+                  "updatedAt": "2026-07-28T02:44:56.000Z",
+                  "uid": "35240-10c95fa7-9a9f-43a9-9a6c-246fbab3d05c"
+                }
+              ],
+              "createdAt": "2026-07-28T02:44:56.000Z",
+              "updatedAt": "2026-07-28T02:44:56.000Z",
+              "uid": "35240-6d295014-0289-47fe-9ee9-3de73f01e5a4"
+            }
+          ],
+          "id": "a3374a7b-32af-4fdf-a99b-445c7efc827a",
+          "createdAt": "2026-07-28T02:44:56.000Z",
+          "updatedAt": "2026-07-28T02:44:56.000Z",
+          "uid": "35240-a3374a7b-32af-4fdf-a99b-445c7efc827a"
+        }
+      ],
+      "id": "71daeb6a-ee02-4a82-a141-4a783790e429",
+      "createdAt": "2026-07-28T02:44:56.000Z",
+      "updatedAt": "2026-07-28T02:44:56.000Z",
+      "uid": "35240-71daeb6a-ee02-4a82-a141-4a783790e429"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.render.com/v1"
+    }
+  ]
+}

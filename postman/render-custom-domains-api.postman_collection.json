@@ -1,0 +1,3551 @@
+{
+  "info": {
+    "_postman_id": "6cda623c-e55a-4a7d-8690-e404d73a19d9",
+    "name": "Render Public Audit Logs Custom Domains API",
+    "description": "Manage everything about your Render services\n\nContact Support:\n Name: Render API\n Email: support@render.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:44:33.000Z",
+    "updatedAt": "2026-07-28T02:44:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6cda623c-e55a-4a7d-8690-e404d73a19d9"
+  },
+  "item": [
+    {
+      "name": "services",
+      "item": [
+        {
+          "name": "{serviceId}",
+          "item": [
+            {
+              "name": "custom-domains",
+              "item": [
+                {
+                  "name": "{customDomainIdOrName}",
+                  "item": [
+                    {
+                      "name": "verify",
+                      "item": [
+                        {
+                          "name": "Verify DNS configuration",
+                          "id": "ec07c964-c49b-47f8-9c9e-b63f0715d911",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName/verify",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "custom-domains",
+                                ":customDomainIdOrName",
+                                "verify"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "e5b3d367-e3f3-4df1-8fe2-13fca0b6881a",
+                                  "key": "serviceId",
+                                  "value": "<string>",
+                                  "description": "(Required) The ID of the service"
+                                },
+                                {
+                                  "id": "b93509b1-4bf2-484e-8bbe-0d2fde3b5c6e",
+                                  "key": "customDomainIdOrName",
+                                  "value": "<string>",
+                                  "description": "(Required) The ID or name of the custom domain"
+                                }
+                              ]
+                            },
+                            "description": "Verify the DNS configuration for a custom domain.\n"
+                          },
+                          "response": [
+                            {
+                              "id": "b6999afe-48b5-49c6-ba4f-92033474f12c",
+                              "name": "Custom domain verification triggered",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName/verify",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    ":serviceId",
+                                    "custom-domains",
+                                    ":customDomainIdOrName",
+                                    "verify"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "serviceId"
+                                    },
+                                    {
+                                      "key": "customDomainIdOrName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Accepted",
+                              "code": 202,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:44:34.000Z",
+                              "updatedAt": "2026-07-28T02:44:34.000Z",
+                              "uid": "35240-b6999afe-48b5-49c6-ba4f-92033474f12c"
+                            },
+                            {
+                              "id": "ffd12aa2-4735-4f03-9c24-702611655cfb",
+                              "name": "The request could not be understood by the server.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName/verify",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    ":serviceId",
+                                    "custom-domains",
+                                    ":customDomainIdOrName",
+                                    "verify"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "serviceId"
+                                    },
+                                    {
+                                      "key": "customDomainIdOrName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:44:34.000Z",
+                              "updatedAt": "2026-07-28T02:44:34.000Z",
+                              "uid": "35240-ffd12aa2-4735-4f03-9c24-702611655cfb"
+                            },
+                            {
+                              "id": "de48cbf0-cc7d-4300-acfc-8c03e44a0fa7",
+                              "name": "Authorization information is missing or invalid.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName/verify",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    ":serviceId",
+                                    "custom-domains",
+                                    ":customDomainIdOrName",
+                                    "verify"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "serviceId"
+                                    },
+                                    {
+                                      "key": "customDomainIdOrName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:44:34.000Z",
+                              "updatedAt": "2026-07-28T02:44:34.000Z",
+                              "uid": "35240-de48cbf0-cc7d-4300-acfc-8c03e44a0fa7"
+                            },
+                            {
+                              "id": "a1b44aa4-6e27-4c6c-b596-c265a4529a89",
+                              "name": "You do not have permissions for the requested resource.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName/verify",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    ":serviceId",
+                                    "custom-domains",
+                                    ":customDomainIdOrName",
+                                    "verify"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "serviceId"
+                                    },
+                                    {
+                                      "key": "customDomainIdOrName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:44:34.000Z",
+                              "updatedAt": "2026-07-28T02:44:34.000Z",
+                              "uid": "35240-a1b44aa4-6e27-4c6c-b596-c265a4529a89"
+                            },
+                            {
+                              "id": "e84b5061-a8c4-4554-8526-aab1e233e82a",
+                              "name": "Unable to find the requested resource.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName/verify",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    ":serviceId",
+                                    "custom-domains",
+                                    ":customDomainIdOrName",
+                                    "verify"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "serviceId"
+                                    },
+                                    {
+                                      "key": "customDomainIdOrName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:44:34.000Z",
+                              "updatedAt": "2026-07-28T02:44:34.000Z",
+                              "uid": "35240-e84b5061-a8c4-4554-8526-aab1e233e82a"
+                            },
+                            {
+                              "id": "2cb68fe8-3124-4a1f-9b56-d9303284df0d",
+                              "name": "Unable to generate preferred media types as specified by Accept request header.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName/verify",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    ":serviceId",
+                                    "custom-domains",
+                                    ":customDomainIdOrName",
+                                    "verify"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "serviceId"
+                                    },
+                                    {
+                                      "key": "customDomainIdOrName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Acceptable",
+                              "code": 406,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:44:34.000Z",
+                              "updatedAt": "2026-07-28T02:44:34.000Z",
+                              "uid": "35240-2cb68fe8-3124-4a1f-9b56-d9303284df0d"
+                            },
+                            {
+                              "id": "675c1c4d-262a-44c1-bf3a-b72863305261",
+                              "name": "The requested resource is no longer available.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName/verify",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    ":serviceId",
+                                    "custom-domains",
+                                    ":customDomainIdOrName",
+                                    "verify"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "serviceId"
+                                    },
+                                    {
+                                      "key": "customDomainIdOrName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Gone",
+                              "code": 410,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:44:34.000Z",
+                              "updatedAt": "2026-07-28T02:44:34.000Z",
+                              "uid": "35240-675c1c4d-262a-44c1-bf3a-b72863305261"
+                            },
+                            {
+                              "id": "f12b0067-bb6f-45cf-8b88-3715fe6feabb",
+                              "name": "Rate limit has been surpassed.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName/verify",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    ":serviceId",
+                                    "custom-domains",
+                                    ":customDomainIdOrName",
+                                    "verify"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "serviceId"
+                                    },
+                                    {
+                                      "key": "customDomainIdOrName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Too Many Requests",
+                              "code": 429,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:44:34.000Z",
+                              "updatedAt": "2026-07-28T02:44:34.000Z",
+                              "uid": "35240-f12b0067-bb6f-45cf-8b88-3715fe6feabb"
+                            },
+                            {
+                              "id": "58d9afdb-3d56-4494-bc2e-76ec7e640c7a",
+                              "name": "An unexpected server error has occurred.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName/verify",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    ":serviceId",
+                                    "custom-domains",
+                                    ":customDomainIdOrName",
+                                    "verify"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "serviceId"
+                                    },
+                                    {
+                                      "key": "customDomainIdOrName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:44:34.000Z",
+                              "updatedAt": "2026-07-28T02:44:34.000Z",
+                              "uid": "35240-58d9afdb-3d56-4494-bc2e-76ec7e640c7a"
+                            },
+                            {
+                              "id": "af30db62-ca57-4eb4-a554-63e2be20fec3",
+                              "name": "Server currently unavailable.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName/verify",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    ":serviceId",
+                                    "custom-domains",
+                                    ":customDomainIdOrName",
+                                    "verify"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "serviceId"
+                                    },
+                                    {
+                                      "key": "customDomainIdOrName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Service Unavailable",
+                              "code": 503,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:44:34.000Z",
+                              "updatedAt": "2026-07-28T02:44:34.000Z",
+                              "uid": "35240-af30db62-ca57-4eb4-a554-63e2be20fec3"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:44:34.000Z",
+                          "updatedAt": "2026-07-28T02:44:34.000Z",
+                          "uid": "35240-ec07c964-c49b-47f8-9c9e-b63f0715d911"
+                        }
+                      ],
+                      "id": "c592e8eb-912f-4125-8c63-f8e05f191396",
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-c592e8eb-912f-4125-8c63-f8e05f191396"
+                    },
+                    {
+                      "name": "Retrieve custom domain",
+                      "id": "77a7fd8f-f4ec-473f-a24e-4b6d87ed264e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains",
+                            ":customDomainIdOrName"
+                          ],
+                          "variable": [
+                            {
+                              "id": "ec98d055-a540-43dd-8927-8a473909d87e",
+                              "key": "serviceId",
+                              "value": "<string>",
+                              "description": "(Required) The ID of the service"
+                            },
+                            {
+                              "id": "27177e1d-b6e6-473d-9a48-93ebdfa4f3a6",
+                              "key": "customDomainIdOrName",
+                              "value": "<string>",
+                              "description": "(Required) The ID or name of the custom domain"
+                            }
+                          ]
+                        },
+                        "description": "Retrieve a particular custom domain for a particular service.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "418df46c-458c-4897-9bb7-9b5d5296e2a0",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "custom-domains",
+                                ":customDomainIdOrName"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "customDomainIdOrName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"domainType\": \"subdomain\",\n  \"publicSuffix\": \"<string>\",\n  \"verificationStatus\": \"unverified\",\n  \"createdAt\": \"<dateTime>\",\n  \"redirectForName\": \"<string>\",\n  \"server\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-07-28T02:44:34.000Z",
+                          "updatedAt": "2026-07-28T02:44:34.000Z",
+                          "uid": "35240-418df46c-458c-4897-9bb7-9b5d5296e2a0"
+                        },
+                        {
+                          "id": "3b569f2d-490c-496a-a2e7-bd9b5674db83",
+                          "name": "The request could not be understood by the server.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "custom-domains",
+                                ":customDomainIdOrName"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "customDomainIdOrName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:44:34.000Z",
+                          "updatedAt": "2026-07-28T02:44:34.000Z",
+                          "uid": "35240-3b569f2d-490c-496a-a2e7-bd9b5674db83"
+                        },
+                        {
+                          "id": "d5f82bb8-41a7-4d7e-876c-8f3e3c290e35",
+                          "name": "Authorization information is missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "custom-domains",
+                                ":customDomainIdOrName"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "customDomainIdOrName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:44:34.000Z",
+                          "updatedAt": "2026-07-28T02:44:34.000Z",
+                          "uid": "35240-d5f82bb8-41a7-4d7e-876c-8f3e3c290e35"
+                        },
+                        {
+                          "id": "bdffb264-36c6-4e89-89d6-e7590567bc52",
+                          "name": "You do not have permissions for the requested resource.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "custom-domains",
+                                ":customDomainIdOrName"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "customDomainIdOrName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:44:34.000Z",
+                          "updatedAt": "2026-07-28T02:44:34.000Z",
+                          "uid": "35240-bdffb264-36c6-4e89-89d6-e7590567bc52"
+                        },
+                        {
+                          "id": "c403b29f-b073-4c91-95b2-1cf14860c37b",
+                          "name": "Unable to find the requested resource.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "custom-domains",
+                                ":customDomainIdOrName"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "customDomainIdOrName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:44:34.000Z",
+                          "updatedAt": "2026-07-28T02:44:34.000Z",
+                          "uid": "35240-c403b29f-b073-4c91-95b2-1cf14860c37b"
+                        },
+                        {
+                          "id": "9491cfde-e14d-4e1a-9917-7fa2c50ea87c",
+                          "name": "Unable to generate preferred media types as specified by Accept request header.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "custom-domains",
+                                ":customDomainIdOrName"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "customDomainIdOrName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Acceptable",
+                          "code": 406,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:44:34.000Z",
+                          "updatedAt": "2026-07-28T02:44:34.000Z",
+                          "uid": "35240-9491cfde-e14d-4e1a-9917-7fa2c50ea87c"
+                        },
+                        {
+                          "id": "d6c0d49d-e306-4c87-8d2d-b165740a91d8",
+                          "name": "The requested resource is no longer available.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "custom-domains",
+                                ":customDomainIdOrName"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "customDomainIdOrName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Gone",
+                          "code": 410,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:44:34.000Z",
+                          "updatedAt": "2026-07-28T02:44:34.000Z",
+                          "uid": "35240-d6c0d49d-e306-4c87-8d2d-b165740a91d8"
+                        },
+                        {
+                          "id": "04ebb126-975e-485b-8138-0191dd6f718b",
+                          "name": "Rate limit has been surpassed.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "custom-domains",
+                                ":customDomainIdOrName"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "customDomainIdOrName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:44:34.000Z",
+                          "updatedAt": "2026-07-28T02:44:34.000Z",
+                          "uid": "35240-04ebb126-975e-485b-8138-0191dd6f718b"
+                        },
+                        {
+                          "id": "1a2a406e-8497-4de9-9b1f-0a9a67b697f1",
+                          "name": "An unexpected server error has occurred.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "custom-domains",
+                                ":customDomainIdOrName"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "customDomainIdOrName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:44:34.000Z",
+                          "updatedAt": "2026-07-28T02:44:34.000Z",
+                          "uid": "35240-1a2a406e-8497-4de9-9b1f-0a9a67b697f1"
+                        },
+                        {
+                          "id": "bf9b3b49-94ae-4379-a1d9-acc3dccfe90a",
+                          "name": "Server currently unavailable.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "custom-domains",
+                                ":customDomainIdOrName"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "customDomainIdOrName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Service Unavailable",
+                          "code": 503,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:44:34.000Z",
+                          "updatedAt": "2026-07-28T02:44:34.000Z",
+                          "uid": "35240-bf9b3b49-94ae-4379-a1d9-acc3dccfe90a"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-77a7fd8f-f4ec-473f-a24e-4b6d87ed264e"
+                    },
+                    {
+                      "name": "Delete custom domain",
+                      "id": "78ca677a-3bbc-42af-a90c-b0c0db28d7ec",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains",
+                            ":customDomainIdOrName"
+                          ],
+                          "variable": [
+                            {
+                              "id": "ddeb8569-2eda-41e5-bd96-27604adfabfc",
+                              "key": "serviceId",
+                              "value": "<string>",
+                              "description": "(Required) The ID of the service"
+                            },
+                            {
+                              "id": "1ecfb709-191e-49e1-8638-413188d42234",
+                              "key": "customDomainIdOrName",
+                              "value": "<string>",
+                              "description": "(Required) The ID or name of the custom domain"
+                            }
+                          ]
+                        },
+                        "description": "Delete a custom domain for a service given the service id and custom domain id or name.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "c8b37296-9ab4-4249-a77a-b3402f493838",
+                          "name": "Custom domain deleted",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "custom-domains",
+                                ":customDomainIdOrName"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "customDomainIdOrName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:44:34.000Z",
+                          "updatedAt": "2026-07-28T02:44:34.000Z",
+                          "uid": "35240-c8b37296-9ab4-4249-a77a-b3402f493838"
+                        },
+                        {
+                          "id": "c2e6dd5a-d399-4db7-932d-969c65b2f8bd",
+                          "name": "The request could not be understood by the server.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "custom-domains",
+                                ":customDomainIdOrName"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "customDomainIdOrName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:44:34.000Z",
+                          "updatedAt": "2026-07-28T02:44:34.000Z",
+                          "uid": "35240-c2e6dd5a-d399-4db7-932d-969c65b2f8bd"
+                        },
+                        {
+                          "id": "89774a9e-dd12-489c-a8a3-b24eeae43cde",
+                          "name": "Authorization information is missing or invalid.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "custom-domains",
+                                ":customDomainIdOrName"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "customDomainIdOrName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:44:34.000Z",
+                          "updatedAt": "2026-07-28T02:44:34.000Z",
+                          "uid": "35240-89774a9e-dd12-489c-a8a3-b24eeae43cde"
+                        },
+                        {
+                          "id": "fefeb937-ed48-41af-b24f-7faa149c1544",
+                          "name": "You do not have permissions for the requested resource.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "custom-domains",
+                                ":customDomainIdOrName"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "customDomainIdOrName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:44:34.000Z",
+                          "updatedAt": "2026-07-28T02:44:34.000Z",
+                          "uid": "35240-fefeb937-ed48-41af-b24f-7faa149c1544"
+                        },
+                        {
+                          "id": "e5070e9d-6fc9-486d-8801-3e0756637aac",
+                          "name": "Unable to find the requested resource.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "custom-domains",
+                                ":customDomainIdOrName"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "customDomainIdOrName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:44:34.000Z",
+                          "updatedAt": "2026-07-28T02:44:34.000Z",
+                          "uid": "35240-e5070e9d-6fc9-486d-8801-3e0756637aac"
+                        },
+                        {
+                          "id": "b155784c-421e-4ea6-bef0-886af24e54ee",
+                          "name": "Unable to generate preferred media types as specified by Accept request header.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "custom-domains",
+                                ":customDomainIdOrName"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "customDomainIdOrName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Acceptable",
+                          "code": 406,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:44:34.000Z",
+                          "updatedAt": "2026-07-28T02:44:34.000Z",
+                          "uid": "35240-b155784c-421e-4ea6-bef0-886af24e54ee"
+                        },
+                        {
+                          "id": "b6b3766a-0523-4f75-b1ff-0ffcea92a4d9",
+                          "name": "The requested resource is no longer available.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "custom-domains",
+                                ":customDomainIdOrName"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "customDomainIdOrName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Gone",
+                          "code": 410,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:44:34.000Z",
+                          "updatedAt": "2026-07-28T02:44:34.000Z",
+                          "uid": "35240-b6b3766a-0523-4f75-b1ff-0ffcea92a4d9"
+                        },
+                        {
+                          "id": "315cc117-ec57-4b92-bd9a-3f121916c970",
+                          "name": "Rate limit has been surpassed.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "custom-domains",
+                                ":customDomainIdOrName"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "customDomainIdOrName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:44:34.000Z",
+                          "updatedAt": "2026-07-28T02:44:34.000Z",
+                          "uid": "35240-315cc117-ec57-4b92-bd9a-3f121916c970"
+                        },
+                        {
+                          "id": "1d0ac063-700e-4eab-880d-9f6b98ed5b53",
+                          "name": "An unexpected server error has occurred.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "custom-domains",
+                                ":customDomainIdOrName"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "customDomainIdOrName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:44:34.000Z",
+                          "updatedAt": "2026-07-28T02:44:34.000Z",
+                          "uid": "35240-1d0ac063-700e-4eab-880d-9f6b98ed5b53"
+                        },
+                        {
+                          "id": "24818f89-b014-4e44-b1a0-03e016076edc",
+                          "name": "Server currently unavailable.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/:serviceId/custom-domains/:customDomainIdOrName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                ":serviceId",
+                                "custom-domains",
+                                ":customDomainIdOrName"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                },
+                                {
+                                  "key": "customDomainIdOrName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Service Unavailable",
+                          "code": 503,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:44:34.000Z",
+                          "updatedAt": "2026-07-28T02:44:34.000Z",
+                          "uid": "35240-24818f89-b014-4e44-b1a0-03e016076edc"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-78ca677a-3bbc-42af-a90c-b0c0db28d7ec"
+                    }
+                  ],
+                  "id": "3a480fbc-e14a-4914-ae38-b8c1d7c25daf",
+                  "createdAt": "2026-07-28T02:44:34.000Z",
+                  "updatedAt": "2026-07-28T02:44:34.000Z",
+                  "uid": "35240-3a480fbc-e14a-4914-ae38-b8c1d7c25daf"
+                },
+                {
+                  "name": "List custom domains",
+                  "id": "80e0950b-3370-4772-9130-4a93d84465b0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/services/:serviceId/custom-domains?cursor=<string>&limit=20&name=<string>,<string>&domainType=apex&verificationStatus=unverified&createdBefore=<dateTime>&createdAfter=<dateTime>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "services",
+                        ":serviceId",
+                        "custom-domains"
+                      ],
+                      "query": [
+                        {
+                          "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                          "key": "cursor",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                          "key": "limit",
+                          "value": "20"
+                        },
+                        {
+                          "description": "Filter for the names of custom domain",
+                          "key": "name",
+                          "value": "<string>,<string>"
+                        },
+                        {
+                          "description": "Filter for domain type",
+                          "key": "domainType",
+                          "value": "apex"
+                        },
+                        {
+                          "description": "Filter for domain verification status (`verified` or `unverified`)",
+                          "key": "verificationStatus",
+                          "value": "unverified"
+                        },
+                        {
+                          "description": "Filter for custom domains created before a certain time (specified as an ISO 8601 timestamp)",
+                          "key": "createdBefore",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Filter for custom domains created after a certain time (specified as an ISO 8601 timestamp)",
+                          "key": "createdAfter",
+                          "value": "<dateTime>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "54843804-bb8c-4a70-b290-76ef7d9afb09",
+                          "key": "serviceId",
+                          "value": "<string>",
+                          "description": "(Required) The ID of the service"
+                        }
+                      ]
+                    },
+                    "description": "List a particular service's custom domains that match the provided filters. If no filters are provided, all custom domains for the service are returned.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "9aea7d33-d9a7-43a1-a983-58c9ed92be29",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains?cursor=<string>&limit=20&name=<string>,<string>&domainType=apex&verificationStatus=unverified&createdBefore=<dateTime>&createdAfter=<dateTime>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains"
+                          ],
+                          "query": [
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            },
+                            {
+                              "description": "Filter for the names of custom domain",
+                              "key": "name",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for domain type",
+                              "key": "domainType",
+                              "value": "apex"
+                            },
+                            {
+                              "description": "Filter for domain verification status (`verified` or `unverified`)",
+                              "key": "verificationStatus",
+                              "value": "unverified"
+                            },
+                            {
+                              "description": "Filter for custom domains created before a certain time (specified as an ISO 8601 timestamp)",
+                              "key": "createdBefore",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "Filter for custom domains created after a certain time (specified as an ISO 8601 timestamp)",
+                              "key": "createdAfter",
+                              "value": "<dateTime>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"customDomain\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"domainType\": \"subdomain\",\n      \"publicSuffix\": \"<string>\",\n      \"verificationStatus\": \"verified\",\n      \"createdAt\": \"<dateTime>\",\n      \"redirectForName\": \"<string>\",\n      \"server\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"cursor\": \"<string>\"\n  },\n  {\n    \"customDomain\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"domainType\": \"apex\",\n      \"publicSuffix\": \"<string>\",\n      \"verificationStatus\": \"verified\",\n      \"createdAt\": \"<dateTime>\",\n      \"redirectForName\": \"<string>\",\n      \"server\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"cursor\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-9aea7d33-d9a7-43a1-a983-58c9ed92be29"
+                    },
+                    {
+                      "id": "83454ebd-6b58-4388-920e-0b44fe642c74",
+                      "name": "The request could not be understood by the server.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains?cursor=<string>&limit=20&name=<string>,<string>&domainType=apex&verificationStatus=unverified&createdBefore=<dateTime>&createdAfter=<dateTime>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains"
+                          ],
+                          "query": [
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            },
+                            {
+                              "description": "Filter for the names of custom domain",
+                              "key": "name",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for domain type",
+                              "key": "domainType",
+                              "value": "apex"
+                            },
+                            {
+                              "description": "Filter for domain verification status (`verified` or `unverified`)",
+                              "key": "verificationStatus",
+                              "value": "unverified"
+                            },
+                            {
+                              "description": "Filter for custom domains created before a certain time (specified as an ISO 8601 timestamp)",
+                              "key": "createdBefore",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "Filter for custom domains created after a certain time (specified as an ISO 8601 timestamp)",
+                              "key": "createdAfter",
+                              "value": "<dateTime>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-83454ebd-6b58-4388-920e-0b44fe642c74"
+                    },
+                    {
+                      "id": "d7c88910-d236-470b-b448-a9b2045960d3",
+                      "name": "Authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains?cursor=<string>&limit=20&name=<string>,<string>&domainType=apex&verificationStatus=unverified&createdBefore=<dateTime>&createdAfter=<dateTime>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains"
+                          ],
+                          "query": [
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            },
+                            {
+                              "description": "Filter for the names of custom domain",
+                              "key": "name",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for domain type",
+                              "key": "domainType",
+                              "value": "apex"
+                            },
+                            {
+                              "description": "Filter for domain verification status (`verified` or `unverified`)",
+                              "key": "verificationStatus",
+                              "value": "unverified"
+                            },
+                            {
+                              "description": "Filter for custom domains created before a certain time (specified as an ISO 8601 timestamp)",
+                              "key": "createdBefore",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "Filter for custom domains created after a certain time (specified as an ISO 8601 timestamp)",
+                              "key": "createdAfter",
+                              "value": "<dateTime>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-d7c88910-d236-470b-b448-a9b2045960d3"
+                    },
+                    {
+                      "id": "7bca84ca-d35d-4289-aa7b-97272dd32fd2",
+                      "name": "You do not have permissions for the requested resource.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains?cursor=<string>&limit=20&name=<string>,<string>&domainType=apex&verificationStatus=unverified&createdBefore=<dateTime>&createdAfter=<dateTime>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains"
+                          ],
+                          "query": [
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            },
+                            {
+                              "description": "Filter for the names of custom domain",
+                              "key": "name",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for domain type",
+                              "key": "domainType",
+                              "value": "apex"
+                            },
+                            {
+                              "description": "Filter for domain verification status (`verified` or `unverified`)",
+                              "key": "verificationStatus",
+                              "value": "unverified"
+                            },
+                            {
+                              "description": "Filter for custom domains created before a certain time (specified as an ISO 8601 timestamp)",
+                              "key": "createdBefore",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "Filter for custom domains created after a certain time (specified as an ISO 8601 timestamp)",
+                              "key": "createdAfter",
+                              "value": "<dateTime>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-7bca84ca-d35d-4289-aa7b-97272dd32fd2"
+                    },
+                    {
+                      "id": "ae1818b6-c7bb-4ee2-bad9-db8e71633001",
+                      "name": "Unable to find the requested resource.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains?cursor=<string>&limit=20&name=<string>,<string>&domainType=apex&verificationStatus=unverified&createdBefore=<dateTime>&createdAfter=<dateTime>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains"
+                          ],
+                          "query": [
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            },
+                            {
+                              "description": "Filter for the names of custom domain",
+                              "key": "name",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for domain type",
+                              "key": "domainType",
+                              "value": "apex"
+                            },
+                            {
+                              "description": "Filter for domain verification status (`verified` or `unverified`)",
+                              "key": "verificationStatus",
+                              "value": "unverified"
+                            },
+                            {
+                              "description": "Filter for custom domains created before a certain time (specified as an ISO 8601 timestamp)",
+                              "key": "createdBefore",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "Filter for custom domains created after a certain time (specified as an ISO 8601 timestamp)",
+                              "key": "createdAfter",
+                              "value": "<dateTime>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-ae1818b6-c7bb-4ee2-bad9-db8e71633001"
+                    },
+                    {
+                      "id": "dae9ab33-648d-4898-8548-5e878d74c2e3",
+                      "name": "Unable to generate preferred media types as specified by Accept request header.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains?cursor=<string>&limit=20&name=<string>,<string>&domainType=apex&verificationStatus=unverified&createdBefore=<dateTime>&createdAfter=<dateTime>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains"
+                          ],
+                          "query": [
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            },
+                            {
+                              "description": "Filter for the names of custom domain",
+                              "key": "name",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for domain type",
+                              "key": "domainType",
+                              "value": "apex"
+                            },
+                            {
+                              "description": "Filter for domain verification status (`verified` or `unverified`)",
+                              "key": "verificationStatus",
+                              "value": "unverified"
+                            },
+                            {
+                              "description": "Filter for custom domains created before a certain time (specified as an ISO 8601 timestamp)",
+                              "key": "createdBefore",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "Filter for custom domains created after a certain time (specified as an ISO 8601 timestamp)",
+                              "key": "createdAfter",
+                              "value": "<dateTime>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Acceptable",
+                      "code": 406,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-dae9ab33-648d-4898-8548-5e878d74c2e3"
+                    },
+                    {
+                      "id": "64393f79-1e87-4e38-990a-bf21dcdc7738",
+                      "name": "The requested resource is no longer available.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains?cursor=<string>&limit=20&name=<string>,<string>&domainType=apex&verificationStatus=unverified&createdBefore=<dateTime>&createdAfter=<dateTime>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains"
+                          ],
+                          "query": [
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            },
+                            {
+                              "description": "Filter for the names of custom domain",
+                              "key": "name",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for domain type",
+                              "key": "domainType",
+                              "value": "apex"
+                            },
+                            {
+                              "description": "Filter for domain verification status (`verified` or `unverified`)",
+                              "key": "verificationStatus",
+                              "value": "unverified"
+                            },
+                            {
+                              "description": "Filter for custom domains created before a certain time (specified as an ISO 8601 timestamp)",
+                              "key": "createdBefore",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "Filter for custom domains created after a certain time (specified as an ISO 8601 timestamp)",
+                              "key": "createdAfter",
+                              "value": "<dateTime>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Gone",
+                      "code": 410,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-64393f79-1e87-4e38-990a-bf21dcdc7738"
+                    },
+                    {
+                      "id": "35757f50-0a04-4cdf-b579-2fbfe7498bfd",
+                      "name": "Rate limit has been surpassed.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains?cursor=<string>&limit=20&name=<string>,<string>&domainType=apex&verificationStatus=unverified&createdBefore=<dateTime>&createdAfter=<dateTime>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains"
+                          ],
+                          "query": [
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            },
+                            {
+                              "description": "Filter for the names of custom domain",
+                              "key": "name",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for domain type",
+                              "key": "domainType",
+                              "value": "apex"
+                            },
+                            {
+                              "description": "Filter for domain verification status (`verified` or `unverified`)",
+                              "key": "verificationStatus",
+                              "value": "unverified"
+                            },
+                            {
+                              "description": "Filter for custom domains created before a certain time (specified as an ISO 8601 timestamp)",
+                              "key": "createdBefore",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "Filter for custom domains created after a certain time (specified as an ISO 8601 timestamp)",
+                              "key": "createdAfter",
+                              "value": "<dateTime>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-35757f50-0a04-4cdf-b579-2fbfe7498bfd"
+                    },
+                    {
+                      "id": "5eb7ce08-c2b6-480f-84da-ad1e0c194b17",
+                      "name": "An unexpected server error has occurred.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains?cursor=<string>&limit=20&name=<string>,<string>&domainType=apex&verificationStatus=unverified&createdBefore=<dateTime>&createdAfter=<dateTime>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains"
+                          ],
+                          "query": [
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            },
+                            {
+                              "description": "Filter for the names of custom domain",
+                              "key": "name",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for domain type",
+                              "key": "domainType",
+                              "value": "apex"
+                            },
+                            {
+                              "description": "Filter for domain verification status (`verified` or `unverified`)",
+                              "key": "verificationStatus",
+                              "value": "unverified"
+                            },
+                            {
+                              "description": "Filter for custom domains created before a certain time (specified as an ISO 8601 timestamp)",
+                              "key": "createdBefore",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "Filter for custom domains created after a certain time (specified as an ISO 8601 timestamp)",
+                              "key": "createdAfter",
+                              "value": "<dateTime>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-5eb7ce08-c2b6-480f-84da-ad1e0c194b17"
+                    },
+                    {
+                      "id": "837a7776-2f10-48ec-b35e-52cc9ba8d1e4",
+                      "name": "Server currently unavailable.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains?cursor=<string>&limit=20&name=<string>,<string>&domainType=apex&verificationStatus=unverified&createdBefore=<dateTime>&createdAfter=<dateTime>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains"
+                          ],
+                          "query": [
+                            {
+                              "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                              "key": "limit",
+                              "value": "20"
+                            },
+                            {
+                              "description": "Filter for the names of custom domain",
+                              "key": "name",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Filter for domain type",
+                              "key": "domainType",
+                              "value": "apex"
+                            },
+                            {
+                              "description": "Filter for domain verification status (`verified` or `unverified`)",
+                              "key": "verificationStatus",
+                              "value": "unverified"
+                            },
+                            {
+                              "description": "Filter for custom domains created before a certain time (specified as an ISO 8601 timestamp)",
+                              "key": "createdBefore",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "Filter for custom domains created after a certain time (specified as an ISO 8601 timestamp)",
+                              "key": "createdAfter",
+                              "value": "<dateTime>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-837a7776-2f10-48ec-b35e-52cc9ba8d1e4"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:44:34.000Z",
+                  "updatedAt": "2026-07-28T02:44:34.000Z",
+                  "uid": "35240-80e0950b-3370-4772-9130-4a93d84465b0"
+                },
+                {
+                  "name": "Add custom domain",
+                  "id": "2103de55-0d4a-4a40-afbd-196a6a6b6eb1",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/services/:serviceId/custom-domains",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "services",
+                        ":serviceId",
+                        "custom-domains"
+                      ],
+                      "variable": [
+                        {
+                          "id": "268c7ed5-86d1-455e-b8f8-da67d34cdbd8",
+                          "key": "serviceId",
+                          "value": "<string>",
+                          "description": "(Required) The ID of the service"
+                        }
+                      ]
+                    },
+                    "description": "Add a custom domain to the service with the provided ID.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "c50f5a2f-da68-43f7-a03b-cf4521c2a98a",
+                      "name": "Created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"domainType\": \"subdomain\",\n    \"publicSuffix\": \"<string>\",\n    \"verificationStatus\": \"unverified\",\n    \"createdAt\": \"<dateTime>\",\n    \"redirectForName\": \"<string>\",\n    \"server\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"domainType\": \"apex\",\n    \"publicSuffix\": \"<string>\",\n    \"verificationStatus\": \"verified\",\n    \"createdAt\": \"<dateTime>\",\n    \"redirectForName\": \"<string>\",\n    \"server\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  }\n]",
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-c50f5a2f-da68-43f7-a03b-cf4521c2a98a"
+                    },
+                    {
+                      "id": "6a70c105-cad2-422d-926a-50c80dc8909f",
+                      "name": "The request could not be understood by the server.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-6a70c105-cad2-422d-926a-50c80dc8909f"
+                    },
+                    {
+                      "id": "ad334995-324a-4d9c-acab-d44a87b18b91",
+                      "name": "Authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-ad334995-324a-4d9c-acab-d44a87b18b91"
+                    },
+                    {
+                      "id": "fd603252-a7d7-425b-b2df-6200b0e5830f",
+                      "name": "You must enter payment information to perform this request.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Payment Required",
+                      "code": 402,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-fd603252-a7d7-425b-b2df-6200b0e5830f"
+                    },
+                    {
+                      "id": "3443e350-1afc-4697-82eb-2a262246a529",
+                      "name": "You do not have permissions for the requested resource.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-3443e350-1afc-4697-82eb-2a262246a529"
+                    },
+                    {
+                      "id": "4536dc0e-532a-4877-9d71-9aaaf691055b",
+                      "name": "Unable to find the requested resource.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-4536dc0e-532a-4877-9d71-9aaaf691055b"
+                    },
+                    {
+                      "id": "e494d969-679c-47a1-90d4-8e49b26b21c0",
+                      "name": "Unable to generate preferred media types as specified by Accept request header.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Acceptable",
+                      "code": 406,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-e494d969-679c-47a1-90d4-8e49b26b21c0"
+                    },
+                    {
+                      "id": "772854cd-583a-4243-b4b3-cb1b558a0900",
+                      "name": "The current state of the resource conflicts with this request.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Conflict",
+                      "code": 409,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-772854cd-583a-4243-b4b3-cb1b558a0900"
+                    },
+                    {
+                      "id": "809cf0dc-2c05-456b-98a4-c500852c3877",
+                      "name": "The requested resource is no longer available.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Gone",
+                      "code": 410,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-809cf0dc-2c05-456b-98a4-c500852c3877"
+                    },
+                    {
+                      "id": "5016b7cd-1410-48c0-94fd-ee45012b1f30",
+                      "name": "Rate limit has been surpassed.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-5016b7cd-1410-48c0-94fd-ee45012b1f30"
+                    },
+                    {
+                      "id": "dd86bcce-3179-4050-8028-d153618ea374",
+                      "name": "An unexpected server error has occurred.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-dd86bcce-3179-4050-8028-d153618ea374"
+                    },
+                    {
+                      "id": "4a038cb6-e8bf-426e-a093-3f34c3110565",
+                      "name": "Server currently unavailable.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/:serviceId/custom-domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            ":serviceId",
+                            "custom-domains"
+                          ],
+                          "variable": [
+                            {
+                              "key": "serviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:44:34.000Z",
+                      "updatedAt": "2026-07-28T02:44:34.000Z",
+                      "uid": "35240-4a038cb6-e8bf-426e-a093-3f34c3110565"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:44:34.000Z",
+                  "updatedAt": "2026-07-28T02:44:34.000Z",
+                  "uid": "35240-2103de55-0d4a-4a40-afbd-196a6a6b6eb1"
+                }
+              ],
+              "id": "3a20d93f-0c81-473a-b70a-7039d4a074a5",
+              "createdAt": "2026-07-28T02:44:34.000Z",
+              "updatedAt": "2026-07-28T02:44:34.000Z",
+              "uid": "35240-3a20d93f-0c81-473a-b70a-7039d4a074a5"
+            }
+          ],
+          "id": "aa32791a-ff4c-4239-84da-afb9b3b9b9f6",
+          "createdAt": "2026-07-28T02:44:34.000Z",
+          "updatedAt": "2026-07-28T02:44:34.000Z",
+          "uid": "35240-aa32791a-ff4c-4239-84da-afb9b3b9b9f6"
+        }
+      ],
+      "id": "010e110a-5616-4139-b28f-cf6f0b33fbb8",
+      "createdAt": "2026-07-28T02:44:34.000Z",
+      "updatedAt": "2026-07-28T02:44:34.000Z",
+      "uid": "35240-010e110a-5616-4139-b28f-cf6f0b33fbb8"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.render.com/v1"
+    }
+  ]
+}

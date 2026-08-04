@@ -1,0 +1,2083 @@
+{
+  "info": {
+    "_postman_id": "171da712-2151-4256-aa0c-8dc0980a6884",
+    "name": "Render Public Audit Logs Notification Settings API",
+    "description": "Manage everything about your Render services\n\nContact Support:\n Name: Render API\n Email: support@render.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:45:06.000Z",
+    "updatedAt": "2026-07-28T02:45:06.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-171da712-2151-4256-aa0c-8dc0980a6884"
+  },
+  "item": [
+    {
+      "name": "notification-settings",
+      "item": [
+        {
+          "name": "owners",
+          "item": [
+            {
+              "name": "{ownerId}",
+              "item": [
+                {
+                  "name": "Retrieve notification settings",
+                  "id": "e0a7fb75-4106-41c0-a42a-e753a5c87943",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/notification-settings/owners/:ownerId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "notification-settings",
+                        "owners",
+                        ":ownerId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "d19dcac1-d026-4996-a6a9-8d7288f782aa",
+                          "key": "ownerId",
+                          "value": "<string>",
+                          "description": "(Required) The ID of the workspace to return resources for"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve notification settings for the owner with the provided ID.\n\nNote that you provide an owner ID to this endpoint, not the ID for a particular resource.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "9e26a49c-f66c-4245-8696-187ba1ab3404",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/notification-settings/owners/:ownerId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "notification-settings",
+                            "owners",
+                            ":ownerId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ownerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"ownerId\": \"<string>\",\n  \"slackEnabled\": \"<boolean>\",\n  \"emailEnabled\": \"<boolean>\",\n  \"previewNotificationsEnabled\": \"<boolean>\",\n  \"notificationsToSend\": \"all\"\n}",
+                      "createdAt": "2026-07-28T02:45:07.000Z",
+                      "updatedAt": "2026-07-28T02:45:07.000Z",
+                      "uid": "35240-9e26a49c-f66c-4245-8696-187ba1ab3404"
+                    },
+                    {
+                      "id": "5ffa4600-9bd1-4ffd-8414-cf5babf14214",
+                      "name": "Authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/notification-settings/owners/:ownerId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "notification-settings",
+                            "owners",
+                            ":ownerId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ownerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:45:07.000Z",
+                      "updatedAt": "2026-07-28T02:45:07.000Z",
+                      "uid": "35240-5ffa4600-9bd1-4ffd-8414-cf5babf14214"
+                    },
+                    {
+                      "id": "f7654205-1494-4821-8036-11ec5ef8b732",
+                      "name": "Unable to generate preferred media types as specified by Accept request header.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/notification-settings/owners/:ownerId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "notification-settings",
+                            "owners",
+                            ":ownerId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ownerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Acceptable",
+                      "code": 406,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:45:07.000Z",
+                      "updatedAt": "2026-07-28T02:45:07.000Z",
+                      "uid": "35240-f7654205-1494-4821-8036-11ec5ef8b732"
+                    },
+                    {
+                      "id": "4024f861-d4d9-4210-971d-06af9a986a08",
+                      "name": "Rate limit has been surpassed.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/notification-settings/owners/:ownerId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "notification-settings",
+                            "owners",
+                            ":ownerId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ownerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:45:07.000Z",
+                      "updatedAt": "2026-07-28T02:45:07.000Z",
+                      "uid": "35240-4024f861-d4d9-4210-971d-06af9a986a08"
+                    },
+                    {
+                      "id": "aac07444-dba2-4910-afc3-b1a14bf59aae",
+                      "name": "An unexpected server error has occurred.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/notification-settings/owners/:ownerId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "notification-settings",
+                            "owners",
+                            ":ownerId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ownerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:45:07.000Z",
+                      "updatedAt": "2026-07-28T02:45:07.000Z",
+                      "uid": "35240-aac07444-dba2-4910-afc3-b1a14bf59aae"
+                    },
+                    {
+                      "id": "7299f8d0-d287-44fc-9f8e-328824be15f5",
+                      "name": "Server currently unavailable.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/notification-settings/owners/:ownerId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "notification-settings",
+                            "owners",
+                            ":ownerId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ownerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:45:07.000Z",
+                      "updatedAt": "2026-07-28T02:45:07.000Z",
+                      "uid": "35240-7299f8d0-d287-44fc-9f8e-328824be15f5"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:45:07.000Z",
+                  "updatedAt": "2026-07-28T02:45:07.000Z",
+                  "uid": "35240-e0a7fb75-4106-41c0-a42a-e753a5c87943"
+                },
+                {
+                  "name": "Update notification settings",
+                  "id": "aa51cba2-6a9b-42d9-a5b5-f59deede1f87",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"emailEnabled\": \"<boolean>\",\n  \"previewNotificationsEnabled\": \"<boolean>\",\n  \"notificationsToSend\": \"failure\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/notification-settings/owners/:ownerId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "notification-settings",
+                        "owners",
+                        ":ownerId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "73b63af1-5506-4de3-90bd-b2444e0167eb",
+                          "key": "ownerId",
+                          "value": "<string>",
+                          "description": "(Required) The ID of the workspace to return resources for"
+                        }
+                      ]
+                    },
+                    "description": "Update notification settings for the owner with the provided ID.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "68abc06d-436f-4b38-9923-6dd0c3603ca1",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"emailEnabled\": \"<boolean>\",\n  \"previewNotificationsEnabled\": \"<boolean>\",\n  \"notificationsToSend\": \"failure\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/notification-settings/owners/:ownerId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "notification-settings",
+                            "owners",
+                            ":ownerId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ownerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"ownerId\": \"<string>\",\n  \"slackEnabled\": \"<boolean>\",\n  \"emailEnabled\": \"<boolean>\",\n  \"previewNotificationsEnabled\": \"<boolean>\",\n  \"notificationsToSend\": \"all\"\n}",
+                      "createdAt": "2026-07-28T02:45:07.000Z",
+                      "updatedAt": "2026-07-28T02:45:07.000Z",
+                      "uid": "35240-68abc06d-436f-4b38-9923-6dd0c3603ca1"
+                    },
+                    {
+                      "id": "0a0a7b91-e010-443e-ab89-4802d5568e91",
+                      "name": "Authorization information is missing or invalid.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"emailEnabled\": \"<boolean>\",\n  \"previewNotificationsEnabled\": \"<boolean>\",\n  \"notificationsToSend\": \"failure\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/notification-settings/owners/:ownerId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "notification-settings",
+                            "owners",
+                            ":ownerId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ownerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:45:07.000Z",
+                      "updatedAt": "2026-07-28T02:45:07.000Z",
+                      "uid": "35240-0a0a7b91-e010-443e-ab89-4802d5568e91"
+                    },
+                    {
+                      "id": "b6cee11a-ddde-4b3c-916f-b6d0b755747a",
+                      "name": "Unable to generate preferred media types as specified by Accept request header.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"emailEnabled\": \"<boolean>\",\n  \"previewNotificationsEnabled\": \"<boolean>\",\n  \"notificationsToSend\": \"failure\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/notification-settings/owners/:ownerId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "notification-settings",
+                            "owners",
+                            ":ownerId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ownerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Acceptable",
+                      "code": 406,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:45:07.000Z",
+                      "updatedAt": "2026-07-28T02:45:07.000Z",
+                      "uid": "35240-b6cee11a-ddde-4b3c-916f-b6d0b755747a"
+                    },
+                    {
+                      "id": "a900b0bc-cdd7-4489-bc4c-1720dd7dcf76",
+                      "name": "Rate limit has been surpassed.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"emailEnabled\": \"<boolean>\",\n  \"previewNotificationsEnabled\": \"<boolean>\",\n  \"notificationsToSend\": \"failure\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/notification-settings/owners/:ownerId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "notification-settings",
+                            "owners",
+                            ":ownerId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ownerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:45:07.000Z",
+                      "updatedAt": "2026-07-28T02:45:07.000Z",
+                      "uid": "35240-a900b0bc-cdd7-4489-bc4c-1720dd7dcf76"
+                    },
+                    {
+                      "id": "1caa9b16-d5b4-4cfd-8f8f-ad74473ca204",
+                      "name": "An unexpected server error has occurred.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"emailEnabled\": \"<boolean>\",\n  \"previewNotificationsEnabled\": \"<boolean>\",\n  \"notificationsToSend\": \"failure\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/notification-settings/owners/:ownerId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "notification-settings",
+                            "owners",
+                            ":ownerId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ownerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:45:07.000Z",
+                      "updatedAt": "2026-07-28T02:45:07.000Z",
+                      "uid": "35240-1caa9b16-d5b4-4cfd-8f8f-ad74473ca204"
+                    },
+                    {
+                      "id": "ab700c09-5d8c-4470-890b-1dde6fe3285a",
+                      "name": "Server currently unavailable.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"emailEnabled\": \"<boolean>\",\n  \"previewNotificationsEnabled\": \"<boolean>\",\n  \"notificationsToSend\": \"failure\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/notification-settings/owners/:ownerId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "notification-settings",
+                            "owners",
+                            ":ownerId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ownerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:45:07.000Z",
+                      "updatedAt": "2026-07-28T02:45:07.000Z",
+                      "uid": "35240-ab700c09-5d8c-4470-890b-1dde6fe3285a"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:45:07.000Z",
+                  "updatedAt": "2026-07-28T02:45:07.000Z",
+                  "uid": "35240-aa51cba2-6a9b-42d9-a5b5-f59deede1f87"
+                }
+              ],
+              "id": "d89631ad-afb0-4ac4-8812-8043df03bde0",
+              "createdAt": "2026-07-28T02:45:07.000Z",
+              "updatedAt": "2026-07-28T02:45:07.000Z",
+              "uid": "35240-d89631ad-afb0-4ac4-8812-8043df03bde0"
+            }
+          ],
+          "id": "8d9470e5-f9aa-4dfb-835d-4cb1e0beb1b5",
+          "createdAt": "2026-07-28T02:45:07.000Z",
+          "updatedAt": "2026-07-28T02:45:07.000Z",
+          "uid": "35240-8d9470e5-f9aa-4dfb-835d-4cb1e0beb1b5"
+        },
+        {
+          "name": "overrides",
+          "item": [
+            {
+              "name": "services",
+              "item": [
+                {
+                  "name": "{serviceId}",
+                  "item": [
+                    {
+                      "name": "Retrieve notification override",
+                      "id": "6ca143c5-0f8f-44f8-a266-6f35ccd1afa0",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/notification-settings/overrides/services/:serviceId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "notification-settings",
+                            "overrides",
+                            "services",
+                            ":serviceId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "0f99226a-dff6-4a17-bffa-c3fe5a804d16",
+                              "key": "serviceId",
+                              "value": "<string>",
+                              "description": "(Required) The ID of the service"
+                            }
+                          ]
+                        },
+                        "description": "Retrieve the notification override for the service with the provided ID.\n\nNote that you provide a service ID to this endpoint, not the ID for a particular override.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "97f5117c-f9f5-4b32-97cc-c4749d6c9790",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/notification-settings/overrides/services/:serviceId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "notification-settings",
+                                "overrides",
+                                "services",
+                                ":serviceId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"serviceId\": \"<string>\",\n  \"previewNotificationsEnabled\": \"true\",\n  \"notificationsToSend\": \"failure\"\n}",
+                          "createdAt": "2026-07-28T02:45:07.000Z",
+                          "updatedAt": "2026-07-28T02:45:07.000Z",
+                          "uid": "35240-97f5117c-f9f5-4b32-97cc-c4749d6c9790"
+                        },
+                        {
+                          "id": "f9d6aa8b-a8eb-4b86-9230-4db89fa422a5",
+                          "name": "Authorization information is missing or invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/notification-settings/overrides/services/:serviceId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "notification-settings",
+                                "overrides",
+                                "services",
+                                ":serviceId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:45:07.000Z",
+                          "updatedAt": "2026-07-28T02:45:07.000Z",
+                          "uid": "35240-f9d6aa8b-a8eb-4b86-9230-4db89fa422a5"
+                        },
+                        {
+                          "id": "19a81569-1a25-4914-be66-179c8b829a0f",
+                          "name": "Unable to generate preferred media types as specified by Accept request header.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/notification-settings/overrides/services/:serviceId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "notification-settings",
+                                "overrides",
+                                "services",
+                                ":serviceId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Acceptable",
+                          "code": 406,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:45:07.000Z",
+                          "updatedAt": "2026-07-28T02:45:07.000Z",
+                          "uid": "35240-19a81569-1a25-4914-be66-179c8b829a0f"
+                        },
+                        {
+                          "id": "f19ba435-51fa-4338-93dc-8492ba667c82",
+                          "name": "Rate limit has been surpassed.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/notification-settings/overrides/services/:serviceId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "notification-settings",
+                                "overrides",
+                                "services",
+                                ":serviceId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:45:07.000Z",
+                          "updatedAt": "2026-07-28T02:45:07.000Z",
+                          "uid": "35240-f19ba435-51fa-4338-93dc-8492ba667c82"
+                        },
+                        {
+                          "id": "fa19cb40-c45d-47c6-9a95-0592a9414eb9",
+                          "name": "An unexpected server error has occurred.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/notification-settings/overrides/services/:serviceId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "notification-settings",
+                                "overrides",
+                                "services",
+                                ":serviceId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:45:07.000Z",
+                          "updatedAt": "2026-07-28T02:45:07.000Z",
+                          "uid": "35240-fa19cb40-c45d-47c6-9a95-0592a9414eb9"
+                        },
+                        {
+                          "id": "1a6fb51d-bf13-40fa-b04e-f29e8004756e",
+                          "name": "Server currently unavailable.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/notification-settings/overrides/services/:serviceId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "notification-settings",
+                                "overrides",
+                                "services",
+                                ":serviceId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Service Unavailable",
+                          "code": 503,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:45:07.000Z",
+                          "updatedAt": "2026-07-28T02:45:07.000Z",
+                          "uid": "35240-1a6fb51d-bf13-40fa-b04e-f29e8004756e"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:45:07.000Z",
+                      "updatedAt": "2026-07-28T02:45:07.000Z",
+                      "uid": "35240-6ca143c5-0f8f-44f8-a266-6f35ccd1afa0"
+                    },
+                    {
+                      "name": "Update notification override",
+                      "id": "69a1c723-19e8-4385-89ac-3e697157003d",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"previewNotificationsEnabled\": \"default\",\n  \"notificationsToSend\": \"all\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/notification-settings/overrides/services/:serviceId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "notification-settings",
+                            "overrides",
+                            "services",
+                            ":serviceId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "0e8e7d0c-a838-47f7-855f-947c13f5617b",
+                              "key": "serviceId",
+                              "value": "<string>",
+                              "description": "(Required) The ID of the service"
+                            }
+                          ]
+                        },
+                        "description": "Update the notification override for the service with the provided ID.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "11c24eac-ccf1-42d1-b830-fe494e2478cd",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"previewNotificationsEnabled\": \"default\",\n  \"notificationsToSend\": \"all\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/notification-settings/overrides/services/:serviceId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "notification-settings",
+                                "overrides",
+                                "services",
+                                ":serviceId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"serviceId\": \"<string>\",\n  \"previewNotificationsEnabled\": \"true\",\n  \"notificationsToSend\": \"failure\"\n}",
+                          "createdAt": "2026-07-28T02:45:07.000Z",
+                          "updatedAt": "2026-07-28T02:45:07.000Z",
+                          "uid": "35240-11c24eac-ccf1-42d1-b830-fe494e2478cd"
+                        },
+                        {
+                          "id": "76d7b320-2906-42c6-a41f-837f8044bc6d",
+                          "name": "Authorization information is missing or invalid.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"previewNotificationsEnabled\": \"default\",\n  \"notificationsToSend\": \"all\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/notification-settings/overrides/services/:serviceId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "notification-settings",
+                                "overrides",
+                                "services",
+                                ":serviceId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:45:07.000Z",
+                          "updatedAt": "2026-07-28T02:45:07.000Z",
+                          "uid": "35240-76d7b320-2906-42c6-a41f-837f8044bc6d"
+                        },
+                        {
+                          "id": "96cee025-9c3d-4a33-8ff3-c77735f2b74d",
+                          "name": "Unable to generate preferred media types as specified by Accept request header.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"previewNotificationsEnabled\": \"default\",\n  \"notificationsToSend\": \"all\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/notification-settings/overrides/services/:serviceId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "notification-settings",
+                                "overrides",
+                                "services",
+                                ":serviceId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Acceptable",
+                          "code": 406,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:45:07.000Z",
+                          "updatedAt": "2026-07-28T02:45:07.000Z",
+                          "uid": "35240-96cee025-9c3d-4a33-8ff3-c77735f2b74d"
+                        },
+                        {
+                          "id": "e613cf5f-3909-4257-bc71-4c5ba08f3aef",
+                          "name": "Rate limit has been surpassed.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"previewNotificationsEnabled\": \"default\",\n  \"notificationsToSend\": \"all\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/notification-settings/overrides/services/:serviceId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "notification-settings",
+                                "overrides",
+                                "services",
+                                ":serviceId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:45:07.000Z",
+                          "updatedAt": "2026-07-28T02:45:07.000Z",
+                          "uid": "35240-e613cf5f-3909-4257-bc71-4c5ba08f3aef"
+                        },
+                        {
+                          "id": "696d693b-1282-4835-8873-a7b7173528dc",
+                          "name": "An unexpected server error has occurred.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"previewNotificationsEnabled\": \"default\",\n  \"notificationsToSend\": \"all\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/notification-settings/overrides/services/:serviceId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "notification-settings",
+                                "overrides",
+                                "services",
+                                ":serviceId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:45:07.000Z",
+                          "updatedAt": "2026-07-28T02:45:07.000Z",
+                          "uid": "35240-696d693b-1282-4835-8873-a7b7173528dc"
+                        },
+                        {
+                          "id": "2ed2ef37-b252-4f50-8329-f152e0a993dc",
+                          "name": "Server currently unavailable.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"previewNotificationsEnabled\": \"default\",\n  \"notificationsToSend\": \"all\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/notification-settings/overrides/services/:serviceId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "notification-settings",
+                                "overrides",
+                                "services",
+                                ":serviceId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "serviceId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Service Unavailable",
+                          "code": 503,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:45:07.000Z",
+                          "updatedAt": "2026-07-28T02:45:07.000Z",
+                          "uid": "35240-2ed2ef37-b252-4f50-8329-f152e0a993dc"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:45:07.000Z",
+                      "updatedAt": "2026-07-28T02:45:07.000Z",
+                      "uid": "35240-69a1c723-19e8-4385-89ac-3e697157003d"
+                    }
+                  ],
+                  "id": "72010cad-5f05-4323-a2fb-be161b044b89",
+                  "createdAt": "2026-07-28T02:45:07.000Z",
+                  "updatedAt": "2026-07-28T02:45:07.000Z",
+                  "uid": "35240-72010cad-5f05-4323-a2fb-be161b044b89"
+                }
+              ],
+              "id": "c58ebe99-9faa-4337-8a82-2626e863977b",
+              "createdAt": "2026-07-28T02:45:07.000Z",
+              "updatedAt": "2026-07-28T02:45:07.000Z",
+              "uid": "35240-c58ebe99-9faa-4337-8a82-2626e863977b"
+            },
+            {
+              "name": "List notification overrides",
+              "id": "67b6ebe3-3c9c-4f13-9807-4c3b564e5055",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/notification-settings/overrides?ownerId=<string>,<string>&serviceId=<string>&serviceId=<string>&cursor=<string>&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "notification-settings",
+                    "overrides"
+                  ],
+                  "query": [
+                    {
+                      "description": "The ID of the workspaces to return resources for",
+                      "key": "ownerId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "description": "Filter for resources by service ID",
+                      "key": "serviceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter for resources by service ID",
+                      "key": "serviceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                },
+                "description": "List notification overrides matching the provided filters. If no filters are provided, returns all notification overrides for all workspaces the user belongs to.\n"
+              },
+              "response": [
+                {
+                  "id": "4a38c37a-4db0-428f-9fb8-b7c560160061",
+                  "name": "OK",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/notification-settings/overrides?ownerId=<string>,<string>&serviceId=<string>&cursor=<string>&limit=20",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "notification-settings",
+                        "overrides"
+                      ],
+                      "query": [
+                        {
+                          "description": "The ID of the workspaces to return resources for",
+                          "key": "ownerId",
+                          "value": "<string>,<string>"
+                        },
+                        {
+                          "description": "Filter for resources by service ID",
+                          "key": "serviceId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                          "key": "cursor",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                          "key": "limit",
+                          "value": "20"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"override\": {\n      \"serviceId\": \"<string>\",\n      \"previewNotificationsEnabled\": \"true\",\n      \"notificationsToSend\": \"none\",\n      \"type\": true\n    },\n    \"cursor\": \"<string>\"\n  },\n  {\n    \"override\": {\n      \"serviceId\": \"<string>\",\n      \"previewNotificationsEnabled\": \"true\",\n      \"notificationsToSend\": \"none\",\n      \"type\": -11928737.497385949\n    },\n    \"cursor\": \"<string>\"\n  }\n]",
+                  "createdAt": "2026-07-28T02:45:07.000Z",
+                  "updatedAt": "2026-07-28T02:45:07.000Z",
+                  "uid": "35240-4a38c37a-4db0-428f-9fb8-b7c560160061"
+                },
+                {
+                  "id": "06116b03-156d-44de-b4bc-badf735cb5aa",
+                  "name": "Authorization information is missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/notification-settings/overrides?ownerId=<string>,<string>&serviceId=<string>&cursor=<string>&limit=20",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "notification-settings",
+                        "overrides"
+                      ],
+                      "query": [
+                        {
+                          "description": "The ID of the workspaces to return resources for",
+                          "key": "ownerId",
+                          "value": "<string>,<string>"
+                        },
+                        {
+                          "description": "Filter for resources by service ID",
+                          "key": "serviceId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                          "key": "cursor",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                          "key": "limit",
+                          "value": "20"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:45:07.000Z",
+                  "updatedAt": "2026-07-28T02:45:07.000Z",
+                  "uid": "35240-06116b03-156d-44de-b4bc-badf735cb5aa"
+                },
+                {
+                  "id": "d86b8099-9087-49cc-83b4-fe8802292dd9",
+                  "name": "Unable to generate preferred media types as specified by Accept request header.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/notification-settings/overrides?ownerId=<string>,<string>&serviceId=<string>&cursor=<string>&limit=20",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "notification-settings",
+                        "overrides"
+                      ],
+                      "query": [
+                        {
+                          "description": "The ID of the workspaces to return resources for",
+                          "key": "ownerId",
+                          "value": "<string>,<string>"
+                        },
+                        {
+                          "description": "Filter for resources by service ID",
+                          "key": "serviceId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                          "key": "cursor",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                          "key": "limit",
+                          "value": "20"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Acceptable",
+                  "code": 406,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:45:07.000Z",
+                  "updatedAt": "2026-07-28T02:45:07.000Z",
+                  "uid": "35240-d86b8099-9087-49cc-83b4-fe8802292dd9"
+                },
+                {
+                  "id": "05adacb9-9ba2-4126-bebe-befc9aaee726",
+                  "name": "Rate limit has been surpassed.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/notification-settings/overrides?ownerId=<string>,<string>&serviceId=<string>&cursor=<string>&limit=20",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "notification-settings",
+                        "overrides"
+                      ],
+                      "query": [
+                        {
+                          "description": "The ID of the workspaces to return resources for",
+                          "key": "ownerId",
+                          "value": "<string>,<string>"
+                        },
+                        {
+                          "description": "Filter for resources by service ID",
+                          "key": "serviceId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                          "key": "cursor",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                          "key": "limit",
+                          "value": "20"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:45:07.000Z",
+                  "updatedAt": "2026-07-28T02:45:07.000Z",
+                  "uid": "35240-05adacb9-9ba2-4126-bebe-befc9aaee726"
+                },
+                {
+                  "id": "602b165a-12b7-47e6-81b6-f64f2342a7d4",
+                  "name": "An unexpected server error has occurred.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/notification-settings/overrides?ownerId=<string>,<string>&serviceId=<string>&cursor=<string>&limit=20",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "notification-settings",
+                        "overrides"
+                      ],
+                      "query": [
+                        {
+                          "description": "The ID of the workspaces to return resources for",
+                          "key": "ownerId",
+                          "value": "<string>,<string>"
+                        },
+                        {
+                          "description": "Filter for resources by service ID",
+                          "key": "serviceId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                          "key": "cursor",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                          "key": "limit",
+                          "value": "20"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:45:07.000Z",
+                  "updatedAt": "2026-07-28T02:45:07.000Z",
+                  "uid": "35240-602b165a-12b7-47e6-81b6-f64f2342a7d4"
+                },
+                {
+                  "id": "04bca697-39b5-4972-81a9-6795ce402d02",
+                  "name": "Server currently unavailable.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/notification-settings/overrides?ownerId=<string>,<string>&serviceId=<string>&cursor=<string>&limit=20",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "notification-settings",
+                        "overrides"
+                      ],
+                      "query": [
+                        {
+                          "description": "The ID of the workspaces to return resources for",
+                          "key": "ownerId",
+                          "value": "<string>,<string>"
+                        },
+                        {
+                          "description": "Filter for resources by service ID",
+                          "key": "serviceId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                          "key": "cursor",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).",
+                          "key": "limit",
+                          "value": "20"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:45:07.000Z",
+                  "updatedAt": "2026-07-28T02:45:07.000Z",
+                  "uid": "35240-04bca697-39b5-4972-81a9-6795ce402d02"
+                }
+              ],
+              "createdAt": "2026-07-28T02:45:07.000Z",
+              "updatedAt": "2026-07-28T02:45:07.000Z",
+              "uid": "35240-67b6ebe3-3c9c-4f13-9807-4c3b564e5055"
+            }
+          ],
+          "id": "df235188-5944-49cd-a6a7-57bade455be8",
+          "createdAt": "2026-07-28T02:45:07.000Z",
+          "updatedAt": "2026-07-28T02:45:07.000Z",
+          "uid": "35240-df235188-5944-49cd-a6a7-57bade455be8"
+        }
+      ],
+      "id": "5f657792-77f2-474b-b32a-0b6c6de7b8ff",
+      "createdAt": "2026-07-28T02:45:07.000Z",
+      "updatedAt": "2026-07-28T02:45:07.000Z",
+      "uid": "35240-5f657792-77f2-474b-b32a-0b6c6de7b8ff"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.render.com/v1"
+    }
+  ]
+}
