@@ -60,8 +60,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -102,8 +100,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -142,8 +138,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -191,8 +185,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -230,8 +222,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -269,8 +259,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -307,8 +295,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -346,8 +332,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -388,8 +372,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -428,8 +410,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -468,8 +448,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -510,8 +488,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -550,8 +526,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -592,8 +566,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -631,8 +603,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -671,8 +641,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -711,8 +679,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -751,8 +717,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -790,8 +754,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -830,8 +792,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -870,8 +830,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -908,8 +866,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -947,8 +903,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -987,8 +941,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -1027,8 +979,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
@@ -1067,8 +1017,6 @@ apis:
     url: https://api-docs.render.com
   - type: Rules
     url: rules/render-rules.yml
-  - type: Capabilities
-    url: capabilities/service-deployment.yaml
   - type: JSONSchema
     url: json-schema/render-service-schema.json
   - type: JSONSchema
