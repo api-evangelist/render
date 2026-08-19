@@ -1,0 +1,110 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Render Public Audit Logs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Audit Logs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List workspace audit logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/owners/:ownerId/audit-logs",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace to return resources for"
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Start time for filtering audit logs (ISO 8601 format)"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "End time for filtering audit logs (ISO 8601 format)"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of audit log items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              }
+            ]
+          },
+          "docs": "Retrieve audit logs for a specific workspace with optional filtering and pagination.\n"
+        },
+        {
+          "info": {
+            "name": "List organization audit logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/organizations/:orgId/audit-logs",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization"
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Start time for filtering audit logs (ISO 8601 format)"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "End time for filtering audit logs (ISO 8601 format)"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of audit log items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              }
+            ]
+          },
+          "docs": "Retrieve audit logs for a specific organization with optional filtering and pagination.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

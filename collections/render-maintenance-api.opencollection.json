@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Render Public Audit Logs Maintenance API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Maintenance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List maintenance runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/maintenance",
+            "params": [
+              {
+                "name": "resourceId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the workspaces to return resources for"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List scheduled and/or recent maintenance runs for specified resources.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve maintenance run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/maintenance/:maintenanceRunParam",
+            "params": [
+              {
+                "name": "maintenanceRunParam",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve the maintenance run with the provided ID."
+        },
+        {
+          "info": {
+            "name": "Update maintenance run",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.render.com/v1/maintenance/:maintenanceRunParam",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the maintenance run with the provided ID.\n\nUpdates from this endpoint are asynchronous. To check your update's status, use the [Retrieve maintenance run](https://api-docs.render.com/reference/retrieve-maintenance) endpoint.\n"
+        },
+        {
+          "info": {
+            "name": "Trigger maintenance run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/maintenance/:maintenanceRunParam/trigger"
+          },
+          "docs": "Trigger the scheduled maintenance run with the provided ID.\n\nTriggering maintenance is asynchronous. To check whether maintenance has started, use the [Retrieve maintenance run](https://api-docs.render.com/reference/retrieve-maintenance) endpoint.\n\nAs maintenance progresses, the run's `state` will change from `scheduled` to other values, such as `in_progress` and `succeeded`.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

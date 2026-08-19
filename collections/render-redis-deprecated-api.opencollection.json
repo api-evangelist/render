@@ -1,0 +1,188 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Render Public Audit Logs Redis (Deprecated) API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Redis (Deprecated)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Redis instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/redis",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name"
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Filter by resource region"
+              },
+              {
+                "name": "createdBefore",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources created before a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "createdAfter",
+                "value": "2021-02-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources created after a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "updatedBefore",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources updated before a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "updatedAfter",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources updated after a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the workspaces to return resources for"
+              },
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "query",
+                "description": "Filter for resources that belong to an environment"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              }
+            ]
+          },
+          "docs": "List Redis instances matching the provided filters. If no filters are provided, all Redis instances are returned.\nThis API is deprecated in favor of the Key Value API.\n"
+        },
+        {
+          "info": {
+            "name": "Create Redis instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/redis",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new Redis instance. This API is deprecated in favor of the Key Value API.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve Redis instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/redis/:redisId",
+            "params": [
+              {
+                "name": "redisId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a Redis instance by ID. This API is deprecated in favor of the Key Value API.\n"
+        },
+        {
+          "info": {
+            "name": "Update Redis instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.render.com/v1/redis/:redisId",
+            "params": [
+              {
+                "name": "redisId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Redis instance by ID. This API is deprecated in favor of the Key Value API.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Redis instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.render.com/v1/redis/:redisId",
+            "params": [
+              {
+                "name": "redisId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a Redis instance by ID. This API is deprecated in favor of the Key Value API.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve Redis connection info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/redis/:redisId/connection-info",
+            "params": [
+              {
+                "name": "redisId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve connection info for a Redis instance by ID. Connection info includes sensitive information.\nThis API is deprecated in favor of the Key Value API.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

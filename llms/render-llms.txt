@@ -1,0 +1,222 @@
+# Render API Documentation
+
+> Documentation for Render API
+
+## Guides
+- [OpenAPI Spec](https://api-docs.render.com/docs/api-spec.md): Use the Render OpenAPI spec with tools like Postman and Insomnia or generate your own Render clients
+
+## API Reference
+- [Introduction](https://api-docs.render.com/reference/introduction.md)
+- [Authentication](https://api-docs.render.com/reference/authentication.md)
+- [Pagination](https://api-docs.render.com/reference/pagination.md)
+- [Filtering Results](https://api-docs.render.com/reference/parameters.md)
+- [Rate Limiting](https://api-docs.render.com/reference/rate-limiting.md)
+- [PATCH Requests](https://api-docs.render.com/reference/requests.md)
+- [List deploys](https://api-docs.render.com/reference/list-deploys.md): List deploys matching the provided filters. If no filters are provided, all deploys for the service are returned.
+- [Trigger deploy](https://api-docs.render.com/reference/create-deploy.md): Trigger a deploy for the service with the provided ID.
+- [Retrieve deploy](https://api-docs.render.com/reference/retrieve-deploy.md): Retrieve the details of a particular deploy for a particular service.
+- [Cancel deploy](https://api-docs.render.com/reference/cancel-deploy.md): Cancel an in-progress deploy for a service.  Not supported for cron jobs.
+- [Roll back deploy](https://api-docs.render.com/reference/rollback-deploy.md): Trigger a rollback to a previous deploy of the specified service.  Triggering a rollback with this endpoint does not disable autodeploys for the service. This means an autodeploy might restore changes you had intentionally rolled back.  You can toggle autodeploys for your service with the [Update service](https://api-docs.render.com/reference/update-service) endpoint or in the Render Dashboard.
+- [List services](https://api-docs.render.com/reference/list-services.md): List services matching the provided filters. If no filters are provided, returns all services you have permissions to view.
+- [Create service](https://api-docs.render.com/reference/create-service.md): Creates a new Render service in the specified workspace with the specified configuration.
+- [Retrieve service](https://api-docs.render.com/reference/retrieve-service.md): Retrieve the service with the provided ID.
+- [Update service](https://api-docs.render.com/reference/update-service.md): Update the service with the provided ID.
+- [Delete service](https://api-docs.render.com/reference/delete-service.md): Delete the service with the provided ID.
+- [Purge Web Service Cache](https://api-docs.render.com/reference/purge-cache.md): Trigger cache purge for the web service if caching is enabled.
+- [List events](https://api-docs.render.com/reference/list-events.md): List recent events that occurred for the service with the provided ID.
+- [Suspend service](https://api-docs.render.com/reference/suspend-service-1.md): Suspend the service with the provided ID.
+- [Resume service](https://api-docs.render.com/reference/resume-service-1.md): Resume the service with the provided ID (if it's currently suspended).
+- [Restart service](https://api-docs.render.com/reference/restart-service.md): Restart the service with the provided ID.  Not supported for cron jobs.
+- [List instances](https://api-docs.render.com/reference/list-instances.md): List instances for the provided service.
+- [Scale instance count](https://api-docs.render.com/reference/scale-service.md): [Scale](https://render.com/docs/scaling#manual-scaling) the service with the provided ID to a fixed number of instances.  Render ignores this value as long as autoscaling is enabled for the service.
+- [Update autoscaling config](https://api-docs.render.com/reference/autoscale-service.md): Update the [autoscaling](https://render.com/docs/scaling#autoscaling) config for the service with the provided ID.
+- [Delete autoscaling config](https://api-docs.render.com/reference/delete-autoscaling-config.md): Delete the autoscaling config for a service given the service id.
+- [Create service preview (image-backed)](https://api-docs.render.com/reference/preview-service.md): Create a preview instance for an image-backed service. The preview uses the settings of the base service (referenced by `serviceId`), except settings overridden via provided parameters.  View all active previews from your service's Previews tab in the Render Dashboard.  Note that you can't create previews for Git-backed services using the Render API.
+- [Trigger cron job run](https://api-docs.render.com/reference/run-cron-job.md): Trigger a run for a cron job and cancel any active runs.
+- [Cancel running cron job](https://api-docs.render.com/reference/cancel-cron-job-run.md): Cancel a currently running cron job.
+- [List environment variables](https://api-docs.render.com/reference/get-env-vars-for-service.md): List all environment variables for the service with the provided ID.
+- [Retrieve environment variable](https://api-docs.render.com/reference/retrieve-env-var.md): Retrieve a particular environment variable for a particular service.  This only applies to environment variables set directly on the service, not to environment variables in a linked environment group.
+- [Add or update environment variable](https://api-docs.render.com/reference/update-env-var.md): Add or update a particular environment variable for a particular service.  This only applies to environment variables set directly on the service, not to environment variables in a linked environment group.
+- [Update environment variables](https://api-docs.render.com/reference/update-env-vars-for-service.md): Replace all environment variables for a service with the provided list of environment variables.
+- [Delete environment variable](https://api-docs.render.com/reference/delete-env-var.md): Delete a particular environment variable from a particular service.  This only applies to environment variables set directly on the service, not to environment variables in a linked environment group.
+- [List secret files](https://api-docs.render.com/reference/list-secret-files-for-service.md): List all secret files for the service with the provided ID.
+- [Retrieve secret file](https://api-docs.render.com/reference/retrieve-secret-file.md): Retrieve a particular secret file for a particular service.  This only applies to secret files set directly on the service, not to secret files in a linked environment group.
+- [Add or update secret file](https://api-docs.render.com/reference/add-or-update-secret-file.md): Add or update a particular secret file for a particular service.  This only applies to secret files set directly on the service, not to secret files in a linked environment group.
+- [Update secret files](https://api-docs.render.com/reference/update-secret-files-for-service.md): Replace all secret files for a service with the provided list of secret files.  **Any of the service's existing secret files not included in this request will be deleted.**  This only applies to secret files set directly on the service, not to secret files in a linked environment group.
+- [Delete secret file](https://api-docs.render.com/reference/delete-secret-file.md): Delete a particular secret file from a particular service.  This only applies to secret files set directly on the service, not to secret files in a linked environment group.
+- [List custom domains](https://api-docs.render.com/reference/list-custom-domains.md): List a particular service's custom domains that match the provided filters. If no filters are provided, all custom domains for the service are returned.
+- [Add custom domain](https://api-docs.render.com/reference/create-custom-domain.md): Add a custom domain to the service with the provided ID.
+- [Retrieve custom domain](https://api-docs.render.com/reference/retrieve-custom-domain.md): Retrieve a particular custom domain for a particular service.
+- [Delete custom domain](https://api-docs.render.com/reference/delete-custom-domain.md): Delete a custom domain for a service given the service id and custom domain id or name.
+- [Verify DNS configuration](https://api-docs.render.com/reference/refresh-custom-domain.md): Verify the DNS configuration for a custom domain.
+- [List jobs](https://api-docs.render.com/reference/list-job.md): List jobs for the provided service that match the provided filters. If no filters are provided, all jobs for the service are returned.
+- [Create job](https://api-docs.render.com/reference/post-job.md): Create a one-off job using the provided service. For details, see [One-Off Jobs](https://render.com/docs/one-off-jobs).
+- [Retrieve job](https://api-docs.render.com/reference/retrieve-job.md): Retrieve the details of a particular one-off job for a particular service.
+- [Cancel running job](https://api-docs.render.com/reference/cancel-job.md): Cancel a particular one-off job for a particular service.
+- [List workflows](https://api-docs.render.com/reference/listworkflows.md): List workflows that match the provided filters. If no filters are provided, all workflows accessible by the authenticated user are returned.
+- [Create a workflow](https://api-docs.render.com/reference/createworkflow.md): Create a new workflow service with the specified configuration.
+- [Retrieve workflow](https://api-docs.render.com/reference/getworkflow.md): Retrieve the workflow service with the provided ID.
+- [Update workflow](https://api-docs.render.com/reference/updateworkflow.md): Update the workflow service with the provided ID.
+- [Delete workflow](https://api-docs.render.com/reference/deleteworkflow.md): Delete the workflow service with the provided ID.
+- [List workflow versions](https://api-docs.render.com/reference/listworkflowversions.md): List known versions of the workflow service with the provided ID.
+- [Deploy a workflow version](https://api-docs.render.com/reference/createworkflowversion.md): Creates and deploys a new version of a workflow.
+- [Retrieve workflow version](https://api-docs.render.com/reference/getworkflowversion.md): Retrieve the specific workflow service version with the provided ID.
+- [List tasks](https://api-docs.render.com/reference/listtasks.md): List workflow tasks that match the provided filters. If no filters are provided, all task definitions accessible by the authenticated user are returned.
+- [Retrieve task](https://api-docs.render.com/reference/gettask.md): Retrieve the workflow task with the provided ID.
+- [List task runs](https://api-docs.render.com/reference/listtaskruns.md): List task runs that match the provided filters. If no filters are provided, all task runs accessible by the authenticated user are returned.
+- [Run task](https://api-docs.render.com/reference/createtask.md): Kicks off a run of the workflow task with the provided ID, passing the provided input data.
+- [Retrieve task run](https://api-docs.render.com/reference/gettaskrun.md): Retrieve the workflow task run with the provided ID.
+- [Cancel task run](https://api-docs.render.com/reference/canceltaskrun.md): Cancel a running task run with the provided ID.
+- [Stream realtime events (SSE)](https://api-docs.render.com/reference/streamtaskrunsevents.md): Establishes a unidirectional event stream. The server sends events as lines formatted per the SSE spec. Clients SHOULD set `Accept: text/event-stream` and keep the connection open.
+- [List header rules](https://api-docs.render.com/reference/list-headers.md): List a particular service's response header rules that match the provided filters. If no filters are provided, all rules for the service are returned.
+- [Add header rule](https://api-docs.render.com/reference/add-headers.md): Add a response header rule to the service with the provided ID.
+- [Replace header rules](https://api-docs.render.com/reference/update-headers.md): Replace all header rules for a particular service with the provided list.  **This deletes all existing header rules for the service that aren't included in the request.**
+- [Delete header rule](https://api-docs.render.com/reference/delete-header.md): Delete a particular response header rule for a particular service.
+- [List redirect/rewrite rules](https://api-docs.render.com/reference/list-routes.md): List a particular service's redirect/rewrite rules that match the provided filters. If no filters are provided, all rules for the service are returned.
+- [Add redirect/rewrite rules](https://api-docs.render.com/reference/add-route.md): Add redirect/rewrite rules to the service with the provided ID.
+- [Update redirect/rewrite rule priority](https://api-docs.render.com/reference/patch-route.md): Update the priority for a particular redirect/rewrite rule.  To apply redirect/rewrite rules to an incoming request, Render starts from the rule with priority `0` and applies the first encountered rule that matches the request's path (if any).  Render increments the priority of other rules by `1` as necessary to make space for the updated rule.
+- [Update redirect/rewrite rules](https://api-docs.render.com/reference/put-routes.md): Replace all redirect/rewrite rules for a particular service with the provided list.  **This deletes all existing redirect/rewrite rules for the service that aren't included in the request.**  Rule priority is assigned according to list order (the first rule in the list has the highest priority).
+- [Delete redirect/rewrite rule](https://api-docs.render.com/reference/delete-route.md): Delete a particular redirect/rewrite rule for a particular service.
+- [List Postgres instances](https://api-docs.render.com/reference/list-postgres.md): List Postgres instances matching the provided filters. If no filters are provided, all Postgres instances are returned.
+- [Create Postgres instance](https://api-docs.render.com/reference/create-postgres.md): Create a new Postgres instance.
+- [Retrieve Postgres instance](https://api-docs.render.com/reference/retrieve-postgres.md): Retrieve a Postgres instance by ID.
+- [Update Postgres instance](https://api-docs.render.com/reference/update-postgres.md): Update a Postgres instance by ID.
+- [Delete Postgres instance](https://api-docs.render.com/reference/delete-postgres.md): Delete a Postgres instance by ID. This operation is irreversible, and all data will be lost.
+- [Retrieve Postgres connection info](https://api-docs.render.com/reference/retrieve-postgres-connection-info.md): Retrieve connection info for a Postgres instance by ID. Connection info includes sensitive information.
+- [Retrieve point-in-time recovery status](https://api-docs.render.com/reference/retrieve-postgres-recovery-info.md): Retrieve information on the availability of Postgres point-in-time recovery for a Postgres instance by ID.
+- [Trigger point-in-time recovery](https://api-docs.render.com/reference/recover-postgres.md): Trigger [point-in-time recovery](https://render.com/docs/postgresql-backups) on the Postgres instance with the provided ID.
+- [Suspend Postgres instance](https://api-docs.render.com/reference/suspend-postgres.md): Suspend a Postgres instance by ID.
+- [Resume Postgres instance](https://api-docs.render.com/reference/resume-postgres.md): Resume a Postgres instance by ID.
+- [Restart Postgres instance](https://api-docs.render.com/reference/restart-postgres.md): Restart a Postgres instance by ID.
+- [Failover Postgres instance](https://api-docs.render.com/reference/failover-postgres.md): Failover a [highly available Postgres](https://render.com/docs/postgresql-high-availability) instance.
+- [List Postgres exports](https://api-docs.render.com/reference/list-postgres-export.md): List [exports](https://render.com/docs/postgresql-backups#logical-backups) for a Postgres instance by ID. Returns a URL to download the export.
+- [Create Postgres export](https://api-docs.render.com/reference/create-postgres-export.md): Create an [export](https://render.com/docs/postgresql-backups#logical-backups) of a Postgres instance by ID.
+- [List live queries](https://api-docs.render.com/reference/list-postgres-processes.md): List currently running queries (from `pg_stat_activity`) on a Postgres instance by ID.
+- [List database, table, and index sizes](https://api-docs.render.com/reference/list-postgres-sizes.md): List the sizes of databases, tables, and indexes on a Postgres instance by ID.
+- [List table scans](https://api-docs.render.com/reference/list-postgres-table-scans.md): List the number of sequential scans performed against each table on a Postgres instance by ID.
+- [List top queries](https://api-docs.render.com/reference/list-postgres-top-queries.md): List the top 50 queries by total execution time (from `pg_stat_statements`) on a Postgres instance by ID.
+- [List PostgreSQL Users](https://api-docs.render.com/reference/list-postgres-users.md): List PostgreSQL users for the Render Postgres instance with the provided ID.
+- [Create PostgreSQL User](https://api-docs.render.com/reference/create-postgres-user.md): Create a new PostgreSQL user for the Render Postgres instance with the provided ID. This becomes the database's new "default" user.
+- [Delete PostgreSQL User](https://api-docs.render.com/reference/delete-postgres-user.md): Delete a PostgreSQL user from the Render Postgres instance with the provided ID.
+- [List Key Value instances](https://api-docs.render.com/reference/list-key-value.md): List Key Value instances matching the provided filters. If no filters are provided, all Key Value instances are returned.
+- [Create Key Value instance](https://api-docs.render.com/reference/create-key-value.md): Create a new Key Value instance.
+- [Retrieve Key Value instance](https://api-docs.render.com/reference/retrieve-key-value.md): Retrieve a Key Value instance by ID.
+- [Retrieve Key Value connection info](https://api-docs.render.com/reference/retrieve-key-value-connection-info.md): Retrieve connection info for a Key Value instance by ID. Connection info includes sensitive information.
+- [Update Key Value instance](https://api-docs.render.com/reference/update-key-value.md): Update a Key Value instance by ID. Note that changing your plan, max memory policy, or persistence mode will restart your Key Value instance.
+- [Delete Key Value instance](https://api-docs.render.com/reference/delete-key-value.md): Delete a Key Value instance by ID.
+- [Suspend Key Value instance](https://api-docs.render.com/reference/suspend-key-value.md): Suspend a Key Value instance by ID.
+- [Resume Key Value instance](https://api-docs.render.com/reference/resume-key-value.md): Resume a Key Value instance by ID.
+- [List disks](https://api-docs.render.com/reference/list-disks.md): List persistent disks matching the provided filters. If no filters are provided, returns all disks you have permissions to view.
+- [Add disk](https://api-docs.render.com/reference/add-disk.md): Attach a persistent disk to a web service, private service, or background worker.  The service must be redeployed for the disk to be attached.
+- [Retrieve disk](https://api-docs.render.com/reference/retrieve-disk.md): Retrieve the persistent disk with the provided ID.
+- [Update disk](https://api-docs.render.com/reference/update-disk.md): Update the persistent disk with the provided ID.  The disk's associated service must be deployed and active for updates to take effect.  When resizing a disk, the new size must be greater than the current size.
+- [Delete disk](https://api-docs.render.com/reference/delete-disk.md): Delete a persistent disk attached to a service.  **All data on the disk will be lost.** The disk's associated service will immediately lose access to it.
+- [List snapshots](https://api-docs.render.com/reference/list-snapshots.md): List snapshots for the persistent disk with the provided ID. Each snapshot is a point-in-time copy of the disk's data.
+- [Restore snapshot](https://api-docs.render.com/reference/restore-snapshot.md): Restore a persistent disk to an available snapshot.  **This operation is irreversible.** It will overwrite the current disk data. It might also trigger a service deploy.  Snapshot keys returned from the [List snapshots](https://api-docs.render.com/reference/list-snapshots) endpoint expire after 24 hours. If a snapshot key has expired, query the endpoint again for a new key.
+- [List Blueprints](https://api-docs.render.com/reference/list-blueprints.md): List Blueprints for the specified workspaces. If no workspaces are provided, returns all Blueprints the API key has access to.
+- [Validate Blueprint](https://api-docs.render.com/reference/validate-blueprint.md): Validate a `render.yaml` Blueprint file without creating or modifying any resources. This endpoint checks the syntax and structure of the Blueprint, validates that all required fields are present, and returns a plan indicating the resources that would be created.  Requests to this endpoint use `Content-Type: multipart/form-data`. The request body (including the Blueprint file) cannot exceed 10MB in size.
+- [Retrieve Blueprint](https://api-docs.render.com/reference/retrieve-blueprint.md): Retrieve the Blueprint with the provided ID.
+- [Update Blueprint](https://api-docs.render.com/reference/update-blueprint.md): Update the Blueprint with the provided ID.
+- [Disconnect Blueprint](https://api-docs.render.com/reference/disconnect-blueprint.md): Disconnect the Blueprint with the provided ID.  Disconnecting a Blueprint stops automatic resource syncing via the associated `render.yaml` file. It does not _delete_ any services or other resources that were managed by the blueprint.
+- [List Blueprint syncs](https://api-docs.render.com/reference/list-blueprint-syncs.md): List syncs for the Blueprint with the provided ID.
+- [List dedicated IPs](https://api-docs.render.com/reference/list-dedicated-ips.md): List dedicated IP sets for a workspace.
+- [Create dedicated IP set](https://api-docs.render.com/reference/create-dedicated-ip.md): Create a dedicated IP set. Provisioning an IP set is asynchronous. The response returns immediately with `status: CREATING` and `ips: []`. When provisioning completes, status changes to `RUNNING` and `ips` contains your assigned addresses.  If `environmentIds` is omitted or empty, this IP set applies to all services in the workspace in the selected region. Otherwise, it applies only to services in the listed environments in that region.
+- [Retrieve dedicated IP set](https://api-docs.render.com/reference/retrieve-dedicated-ip.md): Retrieve the dedicated IP set with the provided ID.
+- [Update dedicated IP set](https://api-docs.render.com/reference/update-dedicated-ip.md): Update the dedicated IP set with the provided ID. All fields are optional. Omitted fields are left unchanged. To switch from environment-scoped to workspace-scoped, provide `environmentIds: []`.
+- [Delete dedicated IP set](https://api-docs.render.com/reference/delete-dedicated-ip.md): Delete the dedicated IP set with the provided ID.
+- [List environment groups](https://api-docs.render.com/reference/list-env-groups.md): List environment groups matching the provided filters. If no filters are provided, all environment groups are returned.
+- [Create environment group](https://api-docs.render.com/reference/create-env-group.md): Create a new environment group.
+- [Retrieve environment group](https://api-docs.render.com/reference/retrieve-env-group.md): Retrieve an environment group by ID.
+- [Update environment group](https://api-docs.render.com/reference/update-env-group.md): Update the attributes of an environment group.
+- [Delete environment group](https://api-docs.render.com/reference/delete-env-group.md): Delete the environment group with the provided ID, including all environment variables and secret files it contains.
+- [Link service](https://api-docs.render.com/reference/link-service-to-env-group.md): Link a particular service to a particular environment group.  The linked service will have access to the environment variables and secret files in the group.
+- [Unlink service](https://api-docs.render.com/reference/unlink-service-from-env-group.md): Unlink a particular service from a particular environment group.  The service will lose access to the environment variables and secret files in the group.
+- [Retrieve environment variable](https://api-docs.render.com/reference/retrieve-env-group-env-var.md): Retrieve a particular environment variable in a particular environment group.
+- [Add or update environment variable](https://api-docs.render.com/reference/update-env-group-env-var.md): Add or update a particular environment variable in a particular environment group.
+- [Remove environment variable](https://api-docs.render.com/reference/delete-env-group-env-var.md): Remove a particular environment variable from a particular environment group.
+- [Retrieve secret file](https://api-docs.render.com/reference/retrieve-env-group-secret-file.md): Retrieve a particular secret file in a particular environment group.
+- [Add or update secret file](https://api-docs.render.com/reference/update-env-group-secret-file.md): Add or update a particular secret file in an particular environment group.
+- [Remove secret file](https://api-docs.render.com/reference/delete-env-group-secret-file.md): Remove a particular secret file from a particular environment group.
+- [List maintenance runs](https://api-docs.render.com/reference/list-maintenance.md): List scheduled and/or recent maintenance runs for specified resources.
+- [Retrieve maintenance run](https://api-docs.render.com/reference/retrieve-maintenance.md): Retrieve the maintenance run with the provided ID.
+- [Update maintenance run](https://api-docs.render.com/reference/update-maintenance.md): Update the maintenance run with the provided ID.  Updates from this endpoint are asynchronous. To check your update's status, use the [Retrieve maintenance run](https://api-docs.render.com/reference/retrieve-maintenance) endpoint.
+- [Trigger maintenance run](https://api-docs.render.com/reference/trigger-maintenance.md): Trigger the scheduled maintenance run with the provided ID.  Triggering maintenance is asynchronous. To check whether maintenance has started, use the [Retrieve maintenance run](https://api-docs.render.com/reference/retrieve-maintenance) endpoint.  As maintenance progresses, the run's `state` will change from `scheduled` to other values, such as `in_progress` and `succeeded`.
+- [List projects](https://api-docs.render.com/reference/list-projects.md): List projects matching the provided filters. If no filters are provided, all projects are returned.
+- [Create project](https://api-docs.render.com/reference/create-project.md): Create a new project.
+- [Retrieve Project](https://api-docs.render.com/reference/retrieve-project.md): Retrieve the project with the provided ID.
+- [Update project](https://api-docs.render.com/reference/update-project.md): Update the details of a project.  To update the details of a particular _environment_ in the project, instead use the [Update environment](https://api-docs.render.com/reference/update-environment) endpoint.
+- [Delete project](https://api-docs.render.com/reference/delete-project.md): Delete the project with the provided ID.  Requires _all_ of the project's environments to be empty (i.e., they must contain no services or other resources). Otherwise, deletion fails with a `409` response.  To delete a non-empty project, do one of the following: - First move or delete all contained services and other resources. - Delete the project in the [Render Dashboard](https://dashboard.render.com).
+- [Create environment](https://api-docs.render.com/reference/create-environment.md): Create a new environment belonging to the project with the provided ID.
+- [List environments](https://api-docs.render.com/reference/list-environments.md): List a particular project's environments matching the provided filters. If no filters are provided, all environments are returned.
+- [Retrieve environment](https://api-docs.render.com/reference/retrieve-environment.md): Retrieve the environment with the provided ID.
+- [Update environment](https://api-docs.render.com/reference/update-environment.md): Update the details of the environment with the provided ID.
+- [Delete environment](https://api-docs.render.com/reference/delete-environment.md): Delete the environment with the provided ID.  Requires the environment to be empty (i.e., it must contain no services or other resources). Otherwise, deletion fails with a `409` response.  To delete a non-empty environment, do one of the following: - First move or delete all contained services and other resources. - Delete the environment in the [Render Dashboard](https://dashboard.render.com).
+- [Add resources to environment](https://api-docs.render.com/reference/add-resources-to-environment.md): Add resources to the environment with the provided ID.
+- [Remove resources from environment](https://api-docs.render.com/reference/remove-resources-from-environment.md): Remove resources from the environment with the provided ID.
+- [List registry credentials](https://api-docs.render.com/reference/list-registry-credentials.md): List registry credentials matching the provided filters. If no filters are provided, returns all registry credentials you have permissions to view.
+- [Create registry credential](https://api-docs.render.com/reference/create-registry-credential.md): Create a new registry credential.
+- [Retrieve registry credential](https://api-docs.render.com/reference/retrieve-registry-credential.md): Retrieve the registry credential with the provided ID.
+- [Update registry credential](https://api-docs.render.com/reference/update-registry-credential.md): Update the registry credential with the provided ID. Services that use this credential must be redeployed to use updated values.
+- [Delete registry credential](https://api-docs.render.com/reference/delete-registry-credential.md): Delete the registry credential with the provided ID.
+- [List logs](https://api-docs.render.com/reference/list-logs.md): List logs matching the provided filters. Logs are paginated by start and end timestamps. There are more logs to fetch if `hasMore` is true in the response. Provide the `nextStartTime` and `nextEndTime` timestamps as the `startTime` and `endTime` query parameters to fetch the next page of logs.  You can query for logs across multiple resources, but all resources must be in the same region and belong to the same owner.
+- [Subscribe to new logs](https://api-docs.render.com/reference/subscribe-logs.md): Open a websocket connection to subscribe to logs matching the provided filters. Logs are streamed in real-time as they are generated.  You can query for logs across multiple resources, but all resources must be in the same region and belong to the same owner.
+- [List log label values](https://api-docs.render.com/reference/list-logs-values.md): List all values for a given log label in the logs matching the provided filters.
+- [Retrieve log stream](https://api-docs.render.com/reference/get-owner-log-stream.md): Returns log stream information for the specified workspace.
+- [Update log stream](https://api-docs.render.com/reference/update-owner-log-stream.md): Updates log stream information for the specified workspace. All logs for resources owned by this workspace will be sent to this log stream unless overridden by individual resources.
+- [Delete log stream](https://api-docs.render.com/reference/delete-owner-log-stream.md): Removes the log stream for the specified workspace.
+- [List log stream overrides](https://api-docs.render.com/reference/list-resource-log-streams.md): Lists log stream overrides for the provided workspace that match the provided filters. These overrides take precedence over the workspace's default log stream.
+- [Retrieve log stream override](https://api-docs.render.com/reference/get-resource-log-stream.md): Returns log stream override information for the specified resource. A log stream override takes precedence over a workspace's default log stream.
+- [Update log stream override](https://api-docs.render.com/reference/update-resource-log-stream.md): Updates log stream override information for the specified resource. A log stream override takes precedence over a workspace's default log stream.
+- [Delete log stream override](https://api-docs.render.com/reference/delete-resource-log-stream.md): Removes the log stream override for the specified resource. After deletion, the resource will use the workspace's default log stream setting.
+- [Retrieve metrics stream](https://api-docs.render.com/reference/getownermetricsstream.md): Returns metrics stream information for the specified workspace.
+- [Create or update metrics stream](https://api-docs.render.com/reference/upsertownermetricsstream.md): Creates or updates the metrics stream for the specified workspace.
+- [Delete metrics stream](https://api-docs.render.com/reference/deleteownermetricsstream.md): Deletes the metrics stream for the specified workspace.
+- [Get CPU usage](https://api-docs.render.com/reference/get-cpu.md): Get CPU usage for one or more resources.
+- [Get CPU limit](https://api-docs.render.com/reference/get-cpu-limit.md): Get the CPU limit for one or more resources.
+- [Get CPU target](https://api-docs.render.com/reference/get-cpu-target.md): Get CPU target for one or more resources.
+- [Get memory usage](https://api-docs.render.com/reference/get-memory.md): Get memory usage for one or more resources.
+- [Get memory limit](https://api-docs.render.com/reference/get-memory-limit.md): Get the memory limit for one or more resources.
+- [Get memory target](https://api-docs.render.com/reference/get-memory-target.md): Get memory target for one or more resources.
+- [Get HTTP request count](https://api-docs.render.com/reference/get-http-requests.md): Get the HTTP request count for one or more resources.
+- [Get HTTP latency](https://api-docs.render.com/reference/get-http-latency.md): Get HTTP latency metrics for one or more resources.
+- [Get bandwidth usage](https://api-docs.render.com/reference/get-bandwidth.md): Get bandwidth usage for one or more resources.
+- [Get disk usage](https://api-docs.render.com/reference/get-disk-usage.md): Get persistent disk usage for one or more resources.
+- [Get bandwidth usage breakdown by traffic source](https://api-docs.render.com/reference/get-bandwidth-sources.md): Get bandwidth usage for one or more resources broken down by traffic source (HTTP, WebSocket, NAT, PrivateLink).  Returns hourly data points with traffic source breakdown. Traffic source data is available from March 9, 2025 onwards. Queries for earlier dates will return a 400 Bad Request error.
+- [Get disk capacity](https://api-docs.render.com/reference/get-disk-capacity.md): Get persistent disk capacity for one or more resources.
+- [Get instance count](https://api-docs.render.com/reference/get-instance-count.md): Get the instance count for one or more resources.
+- [Get active connection count](https://api-docs.render.com/reference/get-active-connections.md): Get the number of active connections for one or more Postgres databases or Redis instances.
+- [Get replica lag](https://api-docs.render.com/reference/get-replication-lag.md): Get seconds of replica lag of a Postgres replica.
+- [List queryable instance values](https://api-docs.render.com/reference/list-application-filter-values.md): List instance values to filter by for one or more resources.
+- [List queryable status codes and host values](https://api-docs.render.com/reference/list-http-filter-values.md): List status codes and host values to filter by for one or more resources.
+- [List queryable paths](https://api-docs.render.com/reference/list-path-filter-values.md): The path suggestions are based on the most recent 5000 log lines as filtered by the provided filters
+- [Get task runs queued count](https://api-docs.render.com/reference/get-task-runs-queued.md): Get the total number of task runs queued for one or more tasks.
+- [Get task runs completed count](https://api-docs.render.com/reference/get-task-runs-completed.md): Get the total number of task runs completed for one or more tasks. Optionally filter by state (succeeded/failed) or aggregate by state.
+- [Retrieve event](https://api-docs.render.com/reference/retrieve-event.md): Retrieve the details of a particular event
+- [Retrieve notification settings](https://api-docs.render.com/reference/retrieve-owner-notification-settings.md): Retrieve notification settings for the owner with the provided ID.  Note that you provide an owner ID to this endpoint, not the ID for a particular resource.
+- [Update notification settings](https://api-docs.render.com/reference/patch-owner-notification-settings.md): Update notification settings for the owner with the provided ID.
+- [List notification overrides](https://api-docs.render.com/reference/list-notification-overrides.md): List notification overrides matching the provided filters. If no filters are provided, returns all notification overrides for all workspaces the user belongs to.
+- [Retrieve notification override](https://api-docs.render.com/reference/retrieve-service-notification-overrides.md): Retrieve the notification override for the service with the provided ID.  Note that you provide a service ID to this endpoint, not the ID for a particular override.
+- [Update notification override](https://api-docs.render.com/reference/patch-service-notification-overrides.md): Update the notification override for the service with the provided ID.
+- [Create a webhook](https://api-docs.render.com/reference/create-webhook.md): Create a new webhook.
+- [List webhooks](https://api-docs.render.com/reference/list-webhooks.md): List webhooks
+- [Retrieve a webhook](https://api-docs.render.com/reference/retrieve-webhook.md): Retrieve the webhook with the provided ID
+- [Update a webhook](https://api-docs.render.com/reference/update-webhook.md): Update the webhook with the provided ID.
+- [Delete a webhook](https://api-docs.render.com/reference/delete-webhook.md): Delete the webhook with the provided ID.
+- [List webhook events](https://api-docs.render.com/reference/list-webhook-events.md): Retrieve a list of events that have been sent to this webhook, with optional filtering by timestamp.
+- [List workspace audit logs](https://api-docs.render.com/reference/list-owner-audit-logs.md): Retrieve audit logs for a specific workspace with optional filtering and pagination.
+- [List organization audit logs](https://api-docs.render.com/reference/list-organization-audit-logs.md): Retrieve audit logs for a specific organization with optional filtering and pagination.
+- [Get the authenticated user](https://api-docs.render.com/reference/get-user.md): Retrieve the user associated with the provided API key.
+- [List workspaces](https://api-docs.render.com/reference/list-owners.md): List the workspaces that your API key has access to, optionally filtered by name or owner email address.
+- [Retrieve workspace](https://api-docs.render.com/reference/retrieve-owner.md): Retrieve the workspace with the provided ID.  Workspace IDs start with `tea-`. If you provide a user ID (starts with `own-`), this endpoint returns the user's default workspace.
+- [List workspace members](https://api-docs.render.com/reference/retrieve-owner-members.md): Retrieves the list of users belonging to the workspace with the provided ID.
+- [Update workspace member role](https://api-docs.render.com/reference/update-workspace-member.md): Update the role of an existing workspace member.
+- [Remove workspace member](https://api-docs.render.com/reference/remove-workspace-member.md): Remove a user from the specified workspace.
+- [List Redis instances](https://api-docs.render.com/reference/list-redis.md): List Redis instances matching the provided filters. If no filters are provided, all Redis instances are returned. This API is deprecated in favor of the Key Value API.
+- [Create Redis instance](https://api-docs.render.com/reference/create-redis.md): Create a new Redis instance. This API is deprecated in favor of the Key Value API.
+- [Retrieve Redis instance](https://api-docs.render.com/reference/retrieve-redis.md): Retrieve a Redis instance by ID. This API is deprecated in favor of the Key Value API.
+- [Update Redis instance](https://api-docs.render.com/reference/update-redis.md): Update a Redis instance by ID. This API is deprecated in favor of the Key Value API.
+- [Delete Redis instance](https://api-docs.render.com/reference/delete-redis.md): Delete a Redis instance by ID. This API is deprecated in favor of the Key Value API.
+- [Retrieve Redis connection info](https://api-docs.render.com/reference/retrieve-redis-connection-info.md): Retrieve connection info for a Redis instance by ID. Connection info includes sensitive information. This API is deprecated in favor of the Key Value API.
+- [Suspend Redis instance](https://api-docs.render.com/reference/suspend-redis.md): Suspend a Redis instance by ID. This API is deprecated in favor of the Key Value API.
+- [Resume Redis instance](https://api-docs.render.com/reference/resume-redis.md): Resume a Redis instance by ID. This API is deprecated in favor of the Key Value API.
+- [Retrieve service outbound IPs](https://api-docs.render.com/reference/retrieve-service-outbound-ips.md): Retrieve the IP addresses the service's outbound traffic originates from.  A service uses either a dedicated IP set that applies to it, or the shared Render IPs for its region.

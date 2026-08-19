@@ -1,0 +1,411 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Render Public Audit Logs Postgres API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Postgres",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Postgres instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/postgres",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name"
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Filter by resource region"
+              },
+              {
+                "name": "suspended",
+                "value": "",
+                "type": "query",
+                "description": "Filter resources based on whether they're suspended or not suspended"
+              },
+              {
+                "name": "createdBefore",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources created before a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "createdAfter",
+                "value": "2021-02-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources created after a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "updatedBefore",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources updated before a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "updatedAfter",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources updated after a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the workspaces to return resources for"
+              },
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "query",
+                "description": "Filter for resources that belong to an environment"
+              },
+              {
+                "name": "includeReplicas",
+                "value": "",
+                "type": "query",
+                "description": "Include replicas in the response"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              }
+            ]
+          },
+          "docs": "List Postgres instances matching the provided filters. If no filters are provided, all Postgres instances are returned.\n"
+        },
+        {
+          "info": {
+            "name": "Create Postgres instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/postgres",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new Postgres instance.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve Postgres instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/postgres/:postgresId",
+            "params": [
+              {
+                "name": "postgresId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a Postgres instance by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update Postgres instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.render.com/v1/postgres/:postgresId",
+            "params": [
+              {
+                "name": "postgresId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Postgres instance by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Postgres instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.render.com/v1/postgres/:postgresId",
+            "params": [
+              {
+                "name": "postgresId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a Postgres instance by ID. This operation is irreversible, and\nall data will be lost.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve Postgres connection info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/postgres/:postgresId/connection-info",
+            "params": [
+              {
+                "name": "postgresId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve connection info for a Postgres instance by ID. Connection info includes sensitive information.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve point-in-time recovery status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/postgres/:postgresId/recovery",
+            "params": [
+              {
+                "name": "postgresId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve information on the availability of Postgres point-in-time recovery for a Postgres instance by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Trigger point-in-time recovery",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/postgres/:postgresId/recovery",
+            "params": [
+              {
+                "name": "postgresId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Trigger [point-in-time recovery](https://render.com/docs/postgresql-backups) on the Postgres instance with the provided ID.\n"
+        },
+        {
+          "info": {
+            "name": "Suspend Postgres instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/postgres/:postgresId/suspend",
+            "params": [
+              {
+                "name": "postgresId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Suspend a Postgres instance by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Resume Postgres instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/postgres/:postgresId/resume",
+            "params": [
+              {
+                "name": "postgresId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Resume a Postgres instance by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Restart Postgres instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/postgres/:postgresId/restart",
+            "params": [
+              {
+                "name": "postgresId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Restart a Postgres instance by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Failover Postgres instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/postgres/:postgresId/failover",
+            "params": [
+              {
+                "name": "postgresId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Failover a [highly available Postgres](https://render.com/docs/postgresql-high-availability) instance.\n"
+        },
+        {
+          "info": {
+            "name": "List Postgres exports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/postgres/:postgresId/export",
+            "params": [
+              {
+                "name": "postgresId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List [exports](https://render.com/docs/postgresql-backups#logical-backups) for a Postgres instance by ID. Returns a URL to download the export.\n"
+        },
+        {
+          "info": {
+            "name": "Create Postgres export",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/postgres/:postgresId/export",
+            "params": [
+              {
+                "name": "postgresId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create an [export](https://render.com/docs/postgresql-backups#logical-backups) of a Postgres instance by ID.\n"
+        },
+        {
+          "info": {
+            "name": "List PostgreSQL Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/postgres/:postgresId/credentials",
+            "params": [
+              {
+                "name": "postgresId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List PostgreSQL users for the Render Postgres instance with the provided ID.\n"
+        },
+        {
+          "info": {
+            "name": "Create PostgreSQL User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/postgres/:postgresId/credentials",
+            "params": [
+              {
+                "name": "postgresId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new PostgreSQL user for the Render Postgres instance with the provided ID. This becomes the database's new \"default\" user.\n"
+        },
+        {
+          "info": {
+            "name": "Delete PostgreSQL User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.render.com/v1/postgres/:postgresId/credentials/:username",
+            "params": [
+              {
+                "name": "postgresId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a PostgreSQL user from the Render Postgres instance with the provided ID.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

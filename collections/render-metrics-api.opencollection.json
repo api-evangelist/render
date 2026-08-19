@@ -1,0 +1,1029 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Render Public Audit Logs Metrics API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Metrics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve metrics stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/metrics-stream/:ownerId",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace to return metrics stream information for"
+              }
+            ]
+          },
+          "docs": "Returns metrics stream information for the specified workspace."
+        },
+        {
+          "info": {
+            "name": "Create or update metrics stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.render.com/v1/metrics-stream/:ownerId",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace to return metrics stream information for"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates the metrics stream for the specified workspace."
+        },
+        {
+          "info": {
+            "name": "Delete metrics stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.render.com/v1/metrics-stream/:ownerId",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace to return metrics stream information for"
+              }
+            ]
+          },
+          "docs": "Deletes the metrics stream for the specified workspace."
+        },
+        {
+          "info": {
+            "name": "Get CPU usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/metrics/cpu",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "resolutionSeconds",
+                "value": "",
+                "type": "query",
+                "description": "The resolution of the returned data"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Resource ID to query. When multiple resource query params are provided, they are ORed together. Resources can be service ids, Postgres ids, or Redis ids"
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is deprecated. Please use `resource` instead"
+              },
+              {
+                "name": "instance",
+                "value": "",
+                "type": "query",
+                "description": "Instance ID to query. When multiple instance ID query params are provided, they are ORed together"
+              },
+              {
+                "name": "aggregationMethod",
+                "value": "",
+                "type": "query",
+                "description": "The aggregation method to apply to multiple time series"
+              }
+            ]
+          },
+          "docs": "Get CPU usage for one or more resources.\n"
+        },
+        {
+          "info": {
+            "name": "Get CPU limit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/metrics/cpu-limit",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "resolutionSeconds",
+                "value": "",
+                "type": "query",
+                "description": "The resolution of the returned data"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Resource ID to query. When multiple resource query params are provided, they are ORed together. Resources can be service ids, Postgres ids, or Redis ids"
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is deprecated. Please use `resource` instead"
+              },
+              {
+                "name": "instance",
+                "value": "",
+                "type": "query",
+                "description": "Instance ID to query. When multiple instance ID query params are provided, they are ORed together"
+              }
+            ]
+          },
+          "docs": "Get the CPU limit for one or more resources.\n"
+        },
+        {
+          "info": {
+            "name": "Get CPU target",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/metrics/cpu-target",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "resolutionSeconds",
+                "value": "",
+                "type": "query",
+                "description": "The resolution of the returned data"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Resource ID to query. When multiple resource query params are provided, they are ORed together. Resources can be service ids, Postgres ids, or Redis ids"
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is deprecated. Please use `resource` instead"
+              },
+              {
+                "name": "instance",
+                "value": "",
+                "type": "query",
+                "description": "Instance ID to query. When multiple instance ID query params are provided, they are ORed together"
+              }
+            ]
+          },
+          "docs": "Get CPU target for one or more resources.\n"
+        },
+        {
+          "info": {
+            "name": "Get memory usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/metrics/memory",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "resolutionSeconds",
+                "value": "",
+                "type": "query",
+                "description": "The resolution of the returned data"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Resource ID to query. When multiple resource query params are provided, they are ORed together. Resources can be service ids, Postgres ids, or Redis ids"
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is deprecated. Please use `resource` instead"
+              },
+              {
+                "name": "instance",
+                "value": "",
+                "type": "query",
+                "description": "Instance ID to query. When multiple instance ID query params are provided, they are ORed together"
+              }
+            ]
+          },
+          "docs": "Get memory usage for one or more resources.\n"
+        },
+        {
+          "info": {
+            "name": "Get memory limit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/metrics/memory-limit",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "resolutionSeconds",
+                "value": "",
+                "type": "query",
+                "description": "The resolution of the returned data"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Resource ID to query. When multiple resource query params are provided, they are ORed together. Resources can be service ids, Postgres ids, or Redis ids"
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is deprecated. Please use `resource` instead"
+              },
+              {
+                "name": "instance",
+                "value": "",
+                "type": "query",
+                "description": "Instance ID to query. When multiple instance ID query params are provided, they are ORed together"
+              }
+            ]
+          },
+          "docs": "Get the memory limit for one or more resources.\n"
+        },
+        {
+          "info": {
+            "name": "Get memory target",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/metrics/memory-target",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "resolutionSeconds",
+                "value": "",
+                "type": "query",
+                "description": "The resolution of the returned data"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Resource ID to query. When multiple resource query params are provided, they are ORed together. Resources can be service ids, Postgres ids, or Redis ids"
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is deprecated. Please use `resource` instead"
+              },
+              {
+                "name": "instance",
+                "value": "",
+                "type": "query",
+                "description": "Instance ID to query. When multiple instance ID query params are provided, they are ORed together"
+              }
+            ]
+          },
+          "docs": "Get memory target for one or more resources.\n"
+        },
+        {
+          "info": {
+            "name": "Get HTTP request count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/metrics/http-requests",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "resolutionSeconds",
+                "value": "",
+                "type": "query",
+                "description": "The resolution of the returned data"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Service ID to query. When multiple service ids are provided, they are ORed together"
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is deprecated. Please use `resource` instead"
+              },
+              {
+                "name": "host",
+                "value": "",
+                "type": "query",
+                "description": "The hosts of HTTP requests to filter to. When multiple host query params are provided, they are ORed together"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "The paths of HTTP requests to filter to. When multiple path query params are provided, they are ORed together"
+              },
+              {
+                "name": "aggregateBy",
+                "value": "",
+                "type": "query",
+                "description": "The field to aggregate by"
+              }
+            ]
+          },
+          "docs": "Get the HTTP request count for one or more resources.\n"
+        },
+        {
+          "info": {
+            "name": "Get HTTP latency",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/metrics/http-latency",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "resolutionSeconds",
+                "value": "",
+                "type": "query",
+                "description": "The resolution of the returned data"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Service ID to query. When multiple service ids are provided, they are ORed together"
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is deprecated. Please use `resource` instead"
+              },
+              {
+                "name": "host",
+                "value": "",
+                "type": "query",
+                "description": "The hosts of HTTP requests to filter to. When multiple host query params are provided, they are ORed together"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "The paths of HTTP requests to filter to. When multiple path query params are provided, they are ORed together"
+              },
+              {
+                "name": "quantile",
+                "value": "",
+                "type": "query",
+                "description": "The quantile of latencies to fetch. When multiple quantile query params are provided, they are ORed together"
+              }
+            ]
+          },
+          "docs": "Get HTTP latency metrics for one or more resources.\n"
+        },
+        {
+          "info": {
+            "name": "Get bandwidth usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/metrics/bandwidth",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Service ID to query. When multiple service ids are provided, they are ORed together"
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is deprecated. Please use `resource` instead"
+              }
+            ]
+          },
+          "docs": "Get bandwidth usage for one or more resources.\n"
+        },
+        {
+          "info": {
+            "name": "Get bandwidth usage breakdown by traffic source",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/metrics/bandwidth-sources",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Service ID to query. When multiple service ids are provided, they are ORed together"
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is deprecated. Please use `resource` instead"
+              }
+            ]
+          },
+          "docs": "Get bandwidth usage for one or more resources broken down by traffic source (HTTP, WebSocket, NAT, PrivateLink).\n\nReturns hourly data points with traffic source breakdown. Traffic source data is available from March 9, 2025 onwards.\nQueries for earlier dates will return a 400 Bad Request error.\n"
+        },
+        {
+          "info": {
+            "name": "Get disk usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/metrics/disk-usage",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "resolutionSeconds",
+                "value": "",
+                "type": "query",
+                "description": "The resolution of the returned data"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Resource ID to query. When multiple resource query params are provided, they are ORed together. Resources can be service ids, Postgres ids, or Redis ids"
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is deprecated. Please use `resource` instead"
+              }
+            ]
+          },
+          "docs": "Get persistent disk usage for one or more resources.\n"
+        },
+        {
+          "info": {
+            "name": "Get disk capacity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/metrics/disk-capacity",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "resolutionSeconds",
+                "value": "",
+                "type": "query",
+                "description": "The resolution of the returned data"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Resource ID to query. When multiple resource query params are provided, they are ORed together. Resources can be service ids, Postgres ids, or Redis ids"
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is deprecated. Please use `resource` instead"
+              }
+            ]
+          },
+          "docs": "Get persistent disk capacity for one or more resources.\n"
+        },
+        {
+          "info": {
+            "name": "Get instance count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/metrics/instance-count",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "resolutionSeconds",
+                "value": "",
+                "type": "query",
+                "description": "The resolution of the returned data"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Resource ID to query. When multiple resource query params are provided, they are ORed together. Resources can be service ids, Postgres ids, or Redis ids"
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is deprecated. Please use `resource` instead"
+              }
+            ]
+          },
+          "docs": "Get the instance count for one or more resources.\n"
+        },
+        {
+          "info": {
+            "name": "Get active connection count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/metrics/active-connections",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "resolutionSeconds",
+                "value": "",
+                "type": "query",
+                "description": "The resolution of the returned data"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Resource ID to query. When multiple resource query params are provided, they are ORed together. Resources Postgres ids or Redis ids"
+              }
+            ]
+          },
+          "docs": "Get the number of active connections for one or more Postgres databases or Redis instances.\n"
+        },
+        {
+          "info": {
+            "name": "Get replica lag",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/metrics/replication-lag",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "resolutionSeconds",
+                "value": "",
+                "type": "query",
+                "description": "The resolution of the returned data"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Postgres ID to query. When multiple resource query params are provided, they are ORed together"
+              }
+            ]
+          },
+          "docs": "Get seconds of replica lag of a Postgres replica.\n"
+        },
+        {
+          "info": {
+            "name": "List queryable instance values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/metrics/filters/application",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "resolutionSeconds",
+                "value": "",
+                "type": "query",
+                "description": "The resolution of the returned data"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Service ID to query. When multiple service ids are provided, they are ORed together"
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is deprecated. Please use `resource` instead"
+              }
+            ]
+          },
+          "docs": "List instance values to filter by for one or more resources.\n"
+        },
+        {
+          "info": {
+            "name": "List queryable status codes and host values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/metrics/filters/http",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "resolutionSeconds",
+                "value": "",
+                "type": "query",
+                "description": "The resolution of the returned data"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Service ID to query. When multiple service ids are provided, they are ORed together"
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is deprecated. Please use `resource` instead"
+              },
+              {
+                "name": "host",
+                "value": "",
+                "type": "query",
+                "description": "The hosts of HTTP requests to filter to. When multiple host query params are provided, they are ORed together"
+              },
+              {
+                "name": "statusCode",
+                "value": "",
+                "type": "query",
+                "description": "The status codes of HTTP requests to filter to. When multiple status code query params are provided, they are ORed together"
+              }
+            ]
+          },
+          "docs": "List status codes and host values to filter by for one or more resources.\n"
+        },
+        {
+          "info": {
+            "name": "List queryable paths",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/metrics/filters/path",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "resolutionSeconds",
+                "value": "",
+                "type": "query",
+                "description": "The resolution of the returned data"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Service ID to query. When multiple service ids are provided, they are ORed together"
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is deprecated. Please use `resource` instead"
+              },
+              {
+                "name": "host",
+                "value": "",
+                "type": "query",
+                "description": "The hosts of HTTP requests to filter to. When multiple host query params are provided, they are ORed together"
+              },
+              {
+                "name": "statusCode",
+                "value": "",
+                "type": "query",
+                "description": "The status codes of HTTP requests to filter to. When multiple status code query params are provided, they are ORed together"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "The paths of HTTP requests to filter to. When multiple path query params are provided, they are ORed together"
+              }
+            ]
+          },
+          "docs": "The path suggestions are based on the most recent 5000 log lines as filtered by the provided filters"
+        },
+        {
+          "info": {
+            "name": "Get task runs queued count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/metrics/task-runs-queued",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "resolutionSeconds",
+                "value": "",
+                "type": "query",
+                "description": "The resolution of the returned data"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Task ID to query. When multiple task IDs are provided, they are ORed together"
+              }
+            ]
+          },
+          "docs": "Get the total number of task runs queued for one or more tasks.\n"
+        },
+        {
+          "info": {
+            "name": "Get task runs completed count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/metrics/task-runs-completed",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "resolutionSeconds",
+                "value": "",
+                "type": "query",
+                "description": "The resolution of the returned data"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Task ID to query. When multiple task IDs are provided, they are ORed together"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "The state of task runs to filter to. When multiple state query params are provided, they are ORed together"
+              },
+              {
+                "name": "aggregateBy",
+                "value": "",
+                "type": "query",
+                "description": "The field to aggregate by"
+              }
+            ]
+          },
+          "docs": "Get the total number of task runs completed for one or more tasks. Optionally filter by state (succeeded/failed) or aggregate by state.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

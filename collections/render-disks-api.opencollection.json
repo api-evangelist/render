@@ -1,0 +1,215 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Render Public Audit Logs Disks API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Disks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List disks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/disks",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the workspaces to return resources for"
+              },
+              {
+                "name": "diskId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by disk IDs"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name"
+              },
+              {
+                "name": "createdBefore",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources created before a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "createdAfter",
+                "value": "2021-02-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources created after a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "updatedBefore",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources updated before a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "updatedAfter",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources updated after a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "query",
+                "description": "Filter for resources by service ID"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              }
+            ]
+          },
+          "docs": "List persistent disks matching the provided filters. If no filters are provided, returns all disks you have permissions to view.\n"
+        },
+        {
+          "info": {
+            "name": "Add disk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/disks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attach a persistent disk to a web service, private service, or background worker.\n\nThe service must be redeployed for the disk to be attached.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve disk",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/disks/:diskId",
+            "params": [
+              {
+                "name": "diskId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the disk"
+              }
+            ]
+          },
+          "docs": "Retrieve the persistent disk with the provided ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update disk",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.render.com/v1/disks/:diskId",
+            "params": [
+              {
+                "name": "diskId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the disk"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the persistent disk with the provided ID.\n\nThe disk's associated service must be deployed and active for updates to take effect.\n\nWhen resizing a disk, the new size must be greater than the current size.\n"
+        },
+        {
+          "info": {
+            "name": "Delete disk",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.render.com/v1/disks/:diskId",
+            "params": [
+              {
+                "name": "diskId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the disk"
+              }
+            ]
+          },
+          "docs": "Delete a persistent disk attached to a service.\n\n**All data on the disk will be lost.** The disk's associated service will immediately lose access to it.\n"
+        },
+        {
+          "info": {
+            "name": "List snapshots",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/disks/:diskId/snapshots",
+            "params": [
+              {
+                "name": "diskId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the disk"
+              }
+            ]
+          },
+          "docs": "List snapshots for the persistent disk with the provided ID. Each snapshot is a point-in-time copy of the disk's data.\n"
+        },
+        {
+          "info": {
+            "name": "Restore snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/disks/:diskId/snapshots/restore",
+            "params": [
+              {
+                "name": "diskId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the disk"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Restore a persistent disk to an available snapshot.\n\n**This operation is irreversible.** It will overwrite the current disk data. It might also trigger a service deploy.\n\nSnapshot keys returned from the [List snapshots](https://api-docs.render.com/reference/list-snapshots) endpoint expire after 24 hours. If a snapshot key has expired, query the endpoint again for a new key.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

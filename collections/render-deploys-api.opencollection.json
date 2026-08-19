@@ -1,0 +1,193 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Render Public Audit Logs Deploys API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Deploys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List deploys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/services/:serviceId/deploys",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter for deploys with the specified statuses"
+              },
+              {
+                "name": "createdBefore",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for deploys created before a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "createdAfter",
+                "value": "2021-02-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for deploys created after a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "updatedBefore",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for deploys updated before a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "updatedAfter",
+                "value": "2021-02-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for deploys updated after a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "finishedBefore",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for deploys finished before a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "finishedAfter",
+                "value": "2021-02-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for deploys finished after a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              }
+            ]
+          },
+          "docs": "List deploys matching the provided filters. If no filters are provided, all deploys for the service are returned.\n"
+        },
+        {
+          "info": {
+            "name": "Trigger deploy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/services/:serviceId/deploys",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Trigger a deploy for the service with the provided ID.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve deploy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/services/:serviceId/deploys/:deployId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              },
+              {
+                "name": "deployId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the deploy"
+              }
+            ]
+          },
+          "docs": "Retrieve the details of a particular deploy for a particular service.\n"
+        },
+        {
+          "info": {
+            "name": "Cancel deploy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/services/:serviceId/deploys/:deployId/cancel",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              },
+              {
+                "name": "deployId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the deploy"
+              }
+            ]
+          },
+          "docs": "Cancel an in-progress deploy for a service.\n\nNot supported for cron jobs.\n"
+        },
+        {
+          "info": {
+            "name": "Roll back deploy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/services/:serviceId/rollback",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Trigger a rollback to a previous deploy of the specified service.\n\nTriggering a rollback with this endpoint does not disable autodeploys for the service. This means an autodeploy might restore changes you had intentionally rolled back.\n\nYou can toggle autodeploys for your service with the [Update service](https://api-docs.render.com/reference/update-service) endpoint or in the Render Dashboard.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

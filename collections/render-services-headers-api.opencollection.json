@@ -1,0 +1,144 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Render Public Audit Logs Services - Headers API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Services - Headers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List header rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/services/:serviceId/headers",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "Filter for specific paths that headers apply to"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter for header names"
+              },
+              {
+                "name": "value",
+                "value": "",
+                "type": "query",
+                "description": "Filter for header values"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              }
+            ]
+          },
+          "docs": "List a particular service's response header rules that match the provided filters. If no filters are provided, all rules for the service are returned.\n"
+        },
+        {
+          "info": {
+            "name": "Add header rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/services/:serviceId/headers",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a response header rule to the service with the provided ID.\n"
+        },
+        {
+          "info": {
+            "name": "Replace header rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.render.com/v1/services/:serviceId/headers",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace all header rules for a particular service with the provided list.\n\n**This deletes all existing header rules for the service that aren't included in the request.**\n"
+        },
+        {
+          "info": {
+            "name": "Delete header rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.render.com/v1/services/:serviceId/headers/:headerId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              },
+              {
+                "name": "headerId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the header"
+              }
+            ]
+          },
+          "docs": "Delete a particular response header rule for a particular service.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

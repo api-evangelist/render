@@ -1,0 +1,224 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Render Public Audit Logs Key Value API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Key Value",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Key Value instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/key-value",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name"
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Filter by resource region"
+              },
+              {
+                "name": "createdBefore",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources created before a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "createdAfter",
+                "value": "2021-02-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources created after a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "updatedBefore",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources updated before a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "updatedAfter",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources updated after a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the workspaces to return resources for"
+              },
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "query",
+                "description": "Filter for resources that belong to an environment"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              }
+            ]
+          },
+          "docs": "List Key Value instances matching the provided filters. If no filters are provided, all Key Value instances are returned.\n"
+        },
+        {
+          "info": {
+            "name": "Create Key Value instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/key-value",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new Key Value instance.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve Key Value instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/key-value/:keyValueId",
+            "params": [
+              {
+                "name": "keyValueId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a Key Value instance by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update Key Value instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.render.com/v1/key-value/:keyValueId",
+            "params": [
+              {
+                "name": "keyValueId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Key Value instance by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Key Value instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.render.com/v1/key-value/:keyValueId",
+            "params": [
+              {
+                "name": "keyValueId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a Key Value instance by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve Key Value connection info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/key-value/:keyValueId/connection-info",
+            "params": [
+              {
+                "name": "keyValueId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve connection info for a Key Value instance by ID. Connection info includes sensitive information.\n"
+        },
+        {
+          "info": {
+            "name": "Suspend Key Value instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/key-value/:keyValueId/suspend",
+            "params": [
+              {
+                "name": "keyValueId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Suspend a Key Value instance by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Resume Key Value instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/key-value/:keyValueId/resume",
+            "params": [
+              {
+                "name": "keyValueId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Resume a Key Value instance by ID.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

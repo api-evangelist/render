@@ -1,0 +1,145 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Render Public Audit Logs Notification Settings API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Notification Settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve notification settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/notification-settings/owners/:ownerId",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace to return resources for"
+              }
+            ]
+          },
+          "docs": "Retrieve notification settings for the owner with the provided ID.\n\nNote that you provide an owner ID to this endpoint, not the ID for a particular resource.\n"
+        },
+        {
+          "info": {
+            "name": "Update notification settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.render.com/v1/notification-settings/owners/:ownerId",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace to return resources for"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update notification settings for the owner with the provided ID.\n"
+        },
+        {
+          "info": {
+            "name": "List notification overrides",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/notification-settings/overrides",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the workspaces to return resources for"
+              },
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "query",
+                "description": "Filter for resources by service ID"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              }
+            ]
+          },
+          "docs": "List notification overrides matching the provided filters. If no filters are provided, returns all notification overrides for all workspaces the user belongs to.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve notification override",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/notification-settings/overrides/services/:serviceId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ]
+          },
+          "docs": "Retrieve the notification override for the service with the provided ID.\n\nNote that you provide a service ID to this endpoint, not the ID for a particular override.\n"
+        },
+        {
+          "info": {
+            "name": "Update notification override",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.render.com/v1/notification-settings/overrides/services/:serviceId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the notification override for the service with the provided ID.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

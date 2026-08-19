@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Render Public Audit Logs Services - Cron Jobs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Services - Cron Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Trigger cron job run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/cron-jobs/:cronJobId/runs",
+            "params": [
+              {
+                "name": "cronJobId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the cron job"
+              }
+            ]
+          },
+          "docs": "Trigger a run for a cron job and cancel any active runs."
+        },
+        {
+          "info": {
+            "name": "Cancel running cron job",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.render.com/v1/cron-jobs/:cronJobId/runs",
+            "params": [
+              {
+                "name": "cronJobId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the cron job"
+              }
+            ]
+          },
+          "docs": "Cancel a currently running cron job."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,368 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Render Public Audit Logs Environment Groups API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Environment Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List environment groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/env-groups",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name"
+              },
+              {
+                "name": "createdBefore",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources created before a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "createdAfter",
+                "value": "2021-02-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources created after a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "updatedBefore",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources updated before a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "updatedAfter",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources updated after a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the workspaces to return resources for"
+              },
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "query",
+                "description": "Filter for resources that belong to an environment"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              }
+            ]
+          },
+          "docs": "List environment groups matching the provided filters. If no filters are provided, all environment groups are returned.\n"
+        },
+        {
+          "info": {
+            "name": "Create environment group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/env-groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new environment group.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve environment group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/env-groups/:envGroupId",
+            "params": [
+              {
+                "name": "envGroupId",
+                "value": "",
+                "type": "path",
+                "description": "Filter for resources that belong to an environment group"
+              }
+            ]
+          },
+          "docs": "Retrieve an environment group by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update environment group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.render.com/v1/env-groups/:envGroupId",
+            "params": [
+              {
+                "name": "envGroupId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the attributes of an environment group."
+        },
+        {
+          "info": {
+            "name": "Delete environment group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.render.com/v1/env-groups/:envGroupId",
+            "params": [
+              {
+                "name": "envGroupId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete the environment group with the provided ID, including all environment variables and secret files it contains."
+        },
+        {
+          "info": {
+            "name": "Link service",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/env-groups/:envGroupId/services/:serviceId",
+            "params": [
+              {
+                "name": "envGroupId",
+                "value": "",
+                "type": "path",
+                "description": "Filter for resources that belong to an environment group"
+              },
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ]
+          },
+          "docs": "Link a particular service to a particular environment group.\n\nThe linked service will have access to the environment variables and secret files in the group.\n"
+        },
+        {
+          "info": {
+            "name": "Unlink service",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.render.com/v1/env-groups/:envGroupId/services/:serviceId",
+            "params": [
+              {
+                "name": "envGroupId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Unlink a particular service from a particular environment group.\n\nThe service will lose access to the environment variables and secret files in the group.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve environment variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/env-groups/:envGroupId/env-vars/:envVarKey",
+            "params": [
+              {
+                "name": "envGroupId",
+                "value": "",
+                "type": "path",
+                "description": "Filter for resources that belong to an environment group"
+              },
+              {
+                "name": "envVarKey",
+                "value": "",
+                "type": "path",
+                "description": "The name of the environment variable"
+              }
+            ]
+          },
+          "docs": "Retrieve a particular environment variable in a particular environment group.\n"
+        },
+        {
+          "info": {
+            "name": "Add or update environment variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.render.com/v1/env-groups/:envGroupId/env-vars/:envVarKey",
+            "params": [
+              {
+                "name": "envGroupId",
+                "value": "",
+                "type": "path",
+                "description": "Filter for resources that belong to an environment group"
+              },
+              {
+                "name": "envVarKey",
+                "value": "",
+                "type": "path",
+                "description": "The name of the environment variable"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add or update a particular environment variable in a particular environment group.\n"
+        },
+        {
+          "info": {
+            "name": "Remove environment variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.render.com/v1/env-groups/:envGroupId/env-vars/:envVarKey",
+            "params": [
+              {
+                "name": "envGroupId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "envVarKey",
+                "value": "",
+                "type": "path",
+                "description": "The name of the environment variable"
+              }
+            ]
+          },
+          "docs": "Remove a particular environment variable from a particular environment group.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve secret file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/env-groups/:envGroupId/secret-files/:secretFileName",
+            "params": [
+              {
+                "name": "envGroupId",
+                "value": "",
+                "type": "path",
+                "description": "Filter for resources that belong to an environment group"
+              },
+              {
+                "name": "secretFileName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the secret file"
+              }
+            ]
+          },
+          "docs": "Retrieve a particular secret file in a particular environment group.\n"
+        },
+        {
+          "info": {
+            "name": "Add or update secret file",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.render.com/v1/env-groups/:envGroupId/secret-files/:secretFileName",
+            "params": [
+              {
+                "name": "envGroupId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "secretFileName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add or update a particular secret file in an particular environment group.\n"
+        },
+        {
+          "info": {
+            "name": "Remove secret file",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.render.com/v1/env-groups/:envGroupId/secret-files/:secretFileName",
+            "params": [
+              {
+                "name": "envGroupId",
+                "value": "",
+                "type": "path",
+                "description": "Filter for resources that belong to an environment group"
+              },
+              {
+                "name": "secretFileName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the secret file"
+              }
+            ]
+          },
+          "docs": "Remove a particular secret file from a particular environment group.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

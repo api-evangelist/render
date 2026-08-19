@@ -1,0 +1,167 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Render Public Audit Logs Blueprints API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Blueprints",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Blueprints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/blueprints",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the workspaces to return resources for"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              }
+            ]
+          },
+          "docs": "List Blueprints for the specified workspaces. If no workspaces are provided, returns all Blueprints the API key has access to.\n"
+        },
+        {
+          "info": {
+            "name": "Validate Blueprint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/blueprints/validate",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "ownerId",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Validate a `render.yaml` Blueprint file without creating or modifying any resources. This endpoint checks the syntax and structure of the Blueprint, validates that all required fields are present, and returns a plan indicating the resources that would be created.\n\nRequests to this endpoint use `Content-Type: multipart/form-data`. The provided Blueprint file cannot exceed 10MB in size.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve Blueprint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/blueprints/:blueprintId",
+            "params": [
+              {
+                "name": "blueprintId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Blueprint"
+              }
+            ]
+          },
+          "docs": "Retrieve the Blueprint with the provided ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update Blueprint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.render.com/v1/blueprints/:blueprintId",
+            "params": [
+              {
+                "name": "blueprintId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Blueprint"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the Blueprint with the provided ID.\n"
+        },
+        {
+          "info": {
+            "name": "Disconnect Blueprint",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.render.com/v1/blueprints/:blueprintId",
+            "params": [
+              {
+                "name": "blueprintId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Blueprint"
+              }
+            ]
+          },
+          "docs": "Disconnect the Blueprint with the provided ID.\n\nDisconnecting a Blueprint stops automatic resource syncing via the associated `render.yaml` file. It does not _delete_ any services or other resources that were managed by the blueprint.\n"
+        },
+        {
+          "info": {
+            "name": "List Blueprint syncs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/blueprints/:blueprintId/syncs",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              }
+            ]
+          },
+          "docs": "List syncs for the Blueprint with the provided ID.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

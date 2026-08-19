@@ -1,0 +1,2979 @@
+{
+  "item": [
+    {
+      "id": "77ea80c7-ca96-4981-8573-aded7d73eac0",
+      "name": "Redis (Deprecated)",
+      "description": {
+        "content": "[Redis](https://render.com/docs/redis) allows you to interact with your Render Redis instances. This API is deprecated in favor of the Key Value API.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0adbe140-da9e-4206-8f6e-1e80749d1704",
+          "name": "List Redis instances",
+          "request": {
+            "name": "List Redis instances",
+            "description": {
+              "content": "List Redis instances matching the provided filters. If no filters are provided, all Redis instances are returned.\nThis API is deprecated in favor of the Key Value API.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "redis"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>,<string>",
+                  "description": "Filter by name"
+                },
+                {
+                  "disabled": false,
+                  "key": "region",
+                  "value": "oregon,oregon",
+                  "description": "Filter by resource region"
+                },
+                {
+                  "disabled": false,
+                  "key": "createdBefore",
+                  "value": "<dateTime>",
+                  "description": "Filter for resources created before a certain time (specified as an ISO 8601 timestamp)"
+                },
+                {
+                  "disabled": false,
+                  "key": "createdAfter",
+                  "value": "<dateTime>",
+                  "description": "Filter for resources created after a certain time (specified as an ISO 8601 timestamp)"
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedBefore",
+                  "value": "<dateTime>",
+                  "description": "Filter for resources updated before a certain time (specified as an ISO 8601 timestamp)"
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedAfter",
+                  "value": "<dateTime>",
+                  "description": "Filter for resources updated after a certain time (specified as an ISO 8601 timestamp)"
+                },
+                {
+                  "disabled": false,
+                  "key": "ownerId",
+                  "value": "<string>,<string>",
+                  "description": "The ID of the workspaces to return resources for"
+                },
+                {
+                  "disabled": false,
+                  "key": "environmentId",
+                  "value": "<string>,<string>",
+                  "description": "Filter for resources that belong to an environment"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ecde40ff-b981-4033-95be-a0b698268b4f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "region",
+                      "value": "oregon,oregon"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "2021-02-17T08:15:30Z"
+                    },
+                    {
+                      "key": "updatedBefore",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "updatedAfter",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "ownerId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "environmentId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"redis\": {\n      \"id\": \"string\",\n      \"createdAt\": \"2000-11-28T17:19:56.783Z\",\n      \"updatedAt\": \"2005-05-17T13:16:26.246Z\",\n      \"status\": \"maintenance_in_progress\",\n      \"region\": \"oregon\",\n      \"plan\": \"pro\",\n      \"name\": \"string\",\n      \"owner\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"type\": \"user\",\n        \"ipAllowList\": [\n          {\n            \"cidrBlock\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"cidrBlock\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"twoFactorAuthEnabled\": false\n      },\n      \"options\": {\n        \"maxmemoryPolicy\": \"string\"\n      },\n      \"ipAllowList\": [\n        {\n          \"cidrBlock\": \"string\",\n          \"description\": \"string\"\n        },\n        {\n          \"cidrBlock\": \"string\",\n          \"description\": \"string\"\n        }\n      ],\n      \"version\": \"string\",\n      \"dashboardUrl\": \"string\",\n      \"environmentId\": \"string\"\n    },\n    \"cursor\": \"string\"\n  },\n  {\n    \"redis\": {\n      \"id\": \"string\",\n      \"createdAt\": \"1947-06-20T20:13:06.719Z\",\n      \"updatedAt\": \"1968-03-22T22:22:28.295Z\",\n      \"status\": \"suspended\",\n      \"region\": \"oregon\",\n      \"plan\": \"pro\",\n      \"name\": \"string\",\n      \"owner\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"type\": \"user\",\n        \"ipAllowList\": [\n          {\n            \"cidrBlock\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"cidrBlock\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"twoFactorAuthEnabled\": true\n      },\n      \"options\": {\n        \"maxmemoryPolicy\": \"string\"\n      },\n      \"ipAllowList\": [\n        {\n          \"cidrBlock\": \"string\",\n          \"description\": \"string\"\n        },\n        {\n          \"cidrBlock\": \"string\",\n          \"description\": \"string\"\n        }\n      ],\n      \"version\": \"string\",\n      \"dashboardUrl\": \"string\",\n      \"environmentId\": \"string\"\n    },\n    \"cursor\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "00ba1f3f-2809-405b-9eb9-6b807829a70f",
+              "name": "The request could not be understood by the server.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "region",
+                      "value": "oregon,oregon"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "2021-02-17T08:15:30Z"
+                    },
+                    {
+                      "key": "updatedBefore",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "updatedAfter",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "ownerId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "environmentId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "912f8850-5534-4979-a47e-0963c1f8c085",
+              "name": "Authorization information is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "region",
+                      "value": "oregon,oregon"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "2021-02-17T08:15:30Z"
+                    },
+                    {
+                      "key": "updatedBefore",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "updatedAfter",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "ownerId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "environmentId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e867649a-f4c0-41d0-944b-9ca595d72f01",
+              "name": "Unable to find the requested resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "region",
+                      "value": "oregon,oregon"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "2021-02-17T08:15:30Z"
+                    },
+                    {
+                      "key": "updatedBefore",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "updatedAfter",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "ownerId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "environmentId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f6a0dbb-8039-407f-a752-ff95739f67c6",
+              "name": "The current state of the resource conflicts with this request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "region",
+                      "value": "oregon,oregon"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "2021-02-17T08:15:30Z"
+                    },
+                    {
+                      "key": "updatedBefore",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "updatedAfter",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "ownerId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "environmentId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f09885bc-a0aa-40f2-a4d2-7365dfd99e2a",
+              "name": "Rate limit has been surpassed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "region",
+                      "value": "oregon,oregon"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "2021-02-17T08:15:30Z"
+                    },
+                    {
+                      "key": "updatedBefore",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "updatedAfter",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "ownerId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "environmentId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e137ecd9-d059-4243-8958-59841d978535",
+              "name": "An unexpected server error has occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "region",
+                      "value": "oregon,oregon"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "2021-02-17T08:15:30Z"
+                    },
+                    {
+                      "key": "updatedBefore",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "updatedAfter",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "ownerId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "environmentId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1ee859a1-df98-4cf8-a15d-32fef2f96970",
+              "name": "Server currently unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "region",
+                      "value": "oregon,oregon"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "2021-02-17T08:15:30Z"
+                    },
+                    {
+                      "key": "updatedBefore",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "updatedAfter",
+                      "value": "2021-06-17T08:15:30Z"
+                    },
+                    {
+                      "key": "ownerId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "environmentId",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "11f1ad3f-129a-415e-8044-1bfcac4656e7",
+          "name": "Create Redis instance",
+          "request": {
+            "name": "Create Redis instance",
+            "description": {
+              "content": "Create a new Redis instance. This API is deprecated in favor of the Key Value API.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "redis"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"ownerId\": \"<string>\",\n  \"plan\": \"<string>\",\n  \"region\": \"<string>\",\n  \"environmentId\": \"<string>\",\n  \"maxmemoryPolicy\": \"<string>\",\n  \"ipAllowList\": [\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b4c5ea2a-56f5-4088-86e3-1a0334265568",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"ownerId\": \"<string>\",\n  \"plan\": \"<string>\",\n  \"region\": \"<string>\",\n  \"environmentId\": \"<string>\",\n  \"maxmemoryPolicy\": \"<string>\",\n  \"ipAllowList\": [\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"2003-01-08T00:12:02.183Z\",\n  \"updatedAt\": \"1984-10-16T21:28:28.385Z\",\n  \"status\": \"maintenance_scheduled\",\n  \"region\": \"oregon\",\n  \"plan\": \"<string>\",\n  \"name\": \"string\",\n  \"owner\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"type\": \"user\",\n    \"ipAllowList\": [\n      {\n        \"cidrBlock\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"cidrBlock\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ],\n    \"twoFactorAuthEnabled\": false\n  },\n  \"options\": {\n    \"maxmemoryPolicy\": \"string\"\n  },\n  \"ipAllowList\": [\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"version\": \"string\",\n  \"environmentId\": \"string\",\n  \"maintenance\": {\n    \"id\": {\n      \"value\": \"reference #/paths/~1maintenance~1%7BmaintenanceRunParam%7D/get/parameters/0/schema not found in the OpenAPI spec\"\n    },\n    \"type\": \"string\",\n    \"scheduledAt\": \"1978-01-24T10:07:13.919Z\",\n    \"state\": {\n      \"value\": \"reference #/paths/~1maintenance/get/parameters/2/schema/items not found in the OpenAPI spec\"\n    },\n    \"pendingMaintenanceBy\": \"2001-03-27T12:09:10.800Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b1e72f3-0647-4cf8-b227-a4866440e151",
+              "name": "The request could not be understood by the server.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"ownerId\": \"<string>\",\n  \"plan\": \"<string>\",\n  \"region\": \"<string>\",\n  \"environmentId\": \"<string>\",\n  \"maxmemoryPolicy\": \"<string>\",\n  \"ipAllowList\": [\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "80581951-d7f1-4259-bbeb-859677d5dcc2",
+              "name": "Authorization information is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"ownerId\": \"<string>\",\n  \"plan\": \"<string>\",\n  \"region\": \"<string>\",\n  \"environmentId\": \"<string>\",\n  \"maxmemoryPolicy\": \"<string>\",\n  \"ipAllowList\": [\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "15583d06-ac02-4da0-b0d8-09ffd6a28ccc",
+              "name": "Unable to find the requested resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"ownerId\": \"<string>\",\n  \"plan\": \"<string>\",\n  \"region\": \"<string>\",\n  \"environmentId\": \"<string>\",\n  \"maxmemoryPolicy\": \"<string>\",\n  \"ipAllowList\": [\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e71b8727-e54f-49a0-88ef-f846fc57dd5e",
+              "name": "Rate limit has been surpassed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"ownerId\": \"<string>\",\n  \"plan\": \"<string>\",\n  \"region\": \"<string>\",\n  \"environmentId\": \"<string>\",\n  \"maxmemoryPolicy\": \"<string>\",\n  \"ipAllowList\": [\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "810bcaf3-8498-4bfb-a589-8f6f8f4ff8ba",
+              "name": "An unexpected server error has occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"ownerId\": \"<string>\",\n  \"plan\": \"<string>\",\n  \"region\": \"<string>\",\n  \"environmentId\": \"<string>\",\n  \"maxmemoryPolicy\": \"<string>\",\n  \"ipAllowList\": [\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "32173ee8-157b-43f3-826d-ea871b650e46",
+              "name": "Server currently unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"ownerId\": \"<string>\",\n  \"plan\": \"<string>\",\n  \"region\": \"<string>\",\n  \"environmentId\": \"<string>\",\n  \"maxmemoryPolicy\": \"<string>\",\n  \"ipAllowList\": [\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a2b7f725-09af-4e0b-a696-65b7d513df44",
+          "name": "Retrieve Redis instance",
+          "request": {
+            "name": "Retrieve Redis instance",
+            "description": {
+              "content": "Retrieve a Redis instance by ID. This API is deprecated in favor of the Key Value API.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "redis",
+                ":redisId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "redisId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a09f0644-eba1-4482-abca-dc6173fabcaf",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"1990-05-05T05:20:11.136Z\",\n  \"updatedAt\": \"1987-05-31T03:03:20.403Z\",\n  \"status\": \"recovery_in_progress\",\n  \"region\": \"oregon\",\n  \"plan\": \"<string>\",\n  \"name\": \"string\",\n  \"owner\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"type\": \"user\",\n    \"ipAllowList\": [\n      {\n        \"cidrBlock\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"cidrBlock\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ],\n    \"twoFactorAuthEnabled\": true\n  },\n  \"options\": {\n    \"maxmemoryPolicy\": \"string\"\n  },\n  \"ipAllowList\": [\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"version\": \"string\",\n  \"environmentId\": \"string\",\n  \"maintenance\": {\n    \"id\": {\n      \"value\": \"reference #/paths/~1maintenance~1%7BmaintenanceRunParam%7D/get/parameters/0/schema not found in the OpenAPI spec\"\n    },\n    \"type\": \"string\",\n    \"scheduledAt\": \"2016-05-06T18:35:13.656Z\",\n    \"state\": {\n      \"value\": \"reference #/paths/~1maintenance/get/parameters/2/schema/items not found in the OpenAPI spec\"\n    },\n    \"pendingMaintenanceBy\": \"1955-03-01T06:54:11.668Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb9e4b63-1776-4404-b5aa-1f8ea6348c65",
+              "name": "The request could not be understood by the server.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "079241c0-3c73-4696-836c-1665130349f5",
+              "name": "Authorization information is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8475c066-3afb-444b-8150-6be224920a87",
+              "name": "Unable to find the requested resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2eb7c34a-645e-4d58-a6ee-ad94bca6719d",
+              "name": "Rate limit has been surpassed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7b7f006-332e-445c-bfc2-16fa77db34b5",
+              "name": "An unexpected server error has occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73a0f955-3683-4922-b7a4-d178ab52c045",
+              "name": "Server currently unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fb07e4f9-40b7-4496-9dae-272694f17ee0",
+          "name": "Update Redis instance",
+          "request": {
+            "name": "Update Redis instance",
+            "description": {
+              "content": "Update a Redis instance by ID. This API is deprecated in favor of the Key Value API.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "redis",
+                ":redisId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "redisId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"plan\": \"<string>\",\n  \"maxmemoryPolicy\": \"<string>\",\n  \"ipAllowList\": [\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2d0e5711-0d34-4955-b75a-fbbd6cb6ab9e",
+              "name": "Updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"plan\": \"<string>\",\n  \"maxmemoryPolicy\": \"<string>\",\n  \"ipAllowList\": [\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdAt\": \"1990-05-05T05:20:11.136Z\",\n  \"updatedAt\": \"1987-05-31T03:03:20.403Z\",\n  \"status\": \"recovery_in_progress\",\n  \"region\": \"oregon\",\n  \"plan\": \"<string>\",\n  \"name\": \"string\",\n  \"owner\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"type\": \"user\",\n    \"ipAllowList\": [\n      {\n        \"cidrBlock\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"cidrBlock\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ],\n    \"twoFactorAuthEnabled\": true\n  },\n  \"options\": {\n    \"maxmemoryPolicy\": \"string\"\n  },\n  \"ipAllowList\": [\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"version\": \"string\",\n  \"environmentId\": \"string\",\n  \"maintenance\": {\n    \"id\": {\n      \"value\": \"reference #/paths/~1maintenance~1%7BmaintenanceRunParam%7D/get/parameters/0/schema not found in the OpenAPI spec\"\n    },\n    \"type\": \"string\",\n    \"scheduledAt\": \"2016-05-06T18:35:13.656Z\",\n    \"state\": {\n      \"value\": \"reference #/paths/~1maintenance/get/parameters/2/schema/items not found in the OpenAPI spec\"\n    },\n    \"pendingMaintenanceBy\": \"1955-03-01T06:54:11.668Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b009cd1d-a52c-4b05-bbe2-ccb119ce72d5",
+              "name": "The request could not be understood by the server.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"plan\": \"<string>\",\n  \"maxmemoryPolicy\": \"<string>\",\n  \"ipAllowList\": [\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "86098396-80c8-448c-9b4f-bb92a07e3bb5",
+              "name": "Authorization information is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"plan\": \"<string>\",\n  \"maxmemoryPolicy\": \"<string>\",\n  \"ipAllowList\": [\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf72758e-53f4-4730-aa89-5f14a94b8ec4",
+              "name": "Unable to find the requested resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"plan\": \"<string>\",\n  \"maxmemoryPolicy\": \"<string>\",\n  \"ipAllowList\": [\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e8dc8a6-f78a-4998-a3e1-54e5858a04bc",
+              "name": "The current state of the resource conflicts with this request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"plan\": \"<string>\",\n  \"maxmemoryPolicy\": \"<string>\",\n  \"ipAllowList\": [\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0e1203a-3fea-4946-9f20-712d945b4a96",
+              "name": "Rate limit has been surpassed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"plan\": \"<string>\",\n  \"maxmemoryPolicy\": \"<string>\",\n  \"ipAllowList\": [\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af6e3d4b-ee18-475b-9f80-a1df4d62a4ee",
+              "name": "An unexpected server error has occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"plan\": \"<string>\",\n  \"maxmemoryPolicy\": \"<string>\",\n  \"ipAllowList\": [\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cae3d687-8e86-4c6d-b5b1-1dfdc115c84a",
+              "name": "Server currently unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"plan\": \"<string>\",\n  \"maxmemoryPolicy\": \"<string>\",\n  \"ipAllowList\": [\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"cidrBlock\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "19276d5a-7237-41c8-bcff-8fa910b3b388",
+          "name": "Delete Redis instance",
+          "request": {
+            "name": "Delete Redis instance",
+            "description": {
+              "content": "Delete a Redis instance by ID. This API is deprecated in favor of the Key Value API.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "redis",
+                ":redisId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "redisId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c5e95329-5976-4167-9e51-ca96f830bb65",
+              "name": "Redis instance deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "25fd7238-8cbf-4b61-854d-56904c6d4b43",
+              "name": "The request could not be understood by the server.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ff3802bd-e0f1-46a8-bd4e-c38c6a1ba680",
+              "name": "Authorization information is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5213a5b3-9a64-4727-b8f3-41d9197213eb",
+              "name": "Unable to find the requested resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "82c5d6f7-328e-4fa2-8091-c53193600ce1",
+              "name": "Rate limit has been surpassed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "35a3315b-3c75-4747-b645-2368cfd9962c",
+              "name": "An unexpected server error has occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d66574a5-b262-4216-af4e-7e6d437a5fb2",
+              "name": "Server currently unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "023cc1f2-6abe-4760-9291-6426dae6a4bd",
+          "name": "Retrieve Redis connection info",
+          "request": {
+            "name": "Retrieve Redis connection info",
+            "description": {
+              "content": "Retrieve connection info for a Redis instance by ID. Connection info includes sensitive information.\nThis API is deprecated in favor of the Key Value API.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "redis",
+                ":redisId",
+                "connection-info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "redisId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "05ecc3cb-0252-48af-9ec5-c4f2a4d477b8",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId",
+                    "connection-info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"internalConnectionString\": \"string\",\n  \"externalConnectionString\": \"string\",\n  \"redisCLICommand\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0e620c8-6953-43af-bae7-4c51243bcb02",
+              "name": "The request could not be understood by the server.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId",
+                    "connection-info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "adeed48c-a5f4-443f-aa13-6859b779b9a0",
+              "name": "Authorization information is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId",
+                    "connection-info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1d778353-a44a-4d9c-90e7-19f0096f65ab",
+              "name": "Unable to find the requested resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId",
+                    "connection-info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4cd018e-21c8-4c6a-9f5f-1ac721c9cf80",
+              "name": "Rate limit has been surpassed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId",
+                    "connection-info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75e7122e-d18e-4bf4-9916-5fd8210c3e71",
+              "name": "An unexpected server error has occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId",
+                    "connection-info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bcabb14b-5036-4d96-b3bc-4b7e84d8d8b1",
+              "name": "Server currently unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "redis",
+                    ":redisId",
+                    "connection-info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redisId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.render.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "28103c2e-ddfe-4d71-a31a-1e26aa3feaf9",
+    "name": "Render Public Audit Logs Redis (Deprecated) API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Manage everything about your Render services\n\nContact Support:\n Name: Render API\n Email: support@render.com",
+      "type": "text/plain"
+    }
+  }
+}

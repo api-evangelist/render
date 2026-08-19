@@ -1,0 +1,225 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Render Public Audit Logs Workflow Tasks (Beta) API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workflow Tasks (Beta)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List tasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/tasks",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the workspaces to return resources for"
+              },
+              {
+                "name": "taskSlug",
+                "value": "my-workflow-slug/my-task,my-workflow-slug/my-task:SHA123",
+                "type": "query",
+                "description": "An array of task slugs in the format workflow-slug/task-name. An optional version can be appended (workflow-slug/task-name:version). If no version is provided, the latest version is used."
+              },
+              {
+                "name": "workflowVersionId",
+                "value": "",
+                "type": "query",
+                "description": "An array of workflow version IDs"
+              },
+              {
+                "name": "workflowId",
+                "value": "",
+                "type": "query",
+                "description": "An array of workflow IDs"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              }
+            ]
+          },
+          "docs": "List workflow tasks that match the provided filters. If no filters are provided, all task definitions accessible by the authenticated user are returned."
+        },
+        {
+          "info": {
+            "name": "Retrieve task",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/tasks/:taskId",
+            "params": [
+              {
+                "name": "taskId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the task"
+              }
+            ]
+          },
+          "docs": "Retrieve the workflow task with the provided ID."
+        },
+        {
+          "info": {
+            "name": "List task runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/task-runs",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "taskSlug",
+                "value": "my-workflow-slug/my-task,my-workflow-slug/my-task:SHA123",
+                "type": "query",
+                "description": "An array of task slugs in the format workflow-slug/task-name. An optional version can be appended (workflow-slug/task-name:version). If no version is provided, the latest version is used."
+              },
+              {
+                "name": "rootTaskRunId",
+                "value": "",
+                "type": "query",
+                "description": "An array of root task run IDs to filter on"
+              },
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the workspaces to return resources for"
+              },
+              {
+                "name": "workflowVersionId",
+                "value": "",
+                "type": "query",
+                "description": "An array of workflow version IDs"
+              },
+              {
+                "name": "workflowId",
+                "value": "",
+                "type": "query",
+                "description": "An array of workflow IDs"
+              }
+            ]
+          },
+          "docs": "List task runs that match the provided filters. If no filters are provided, all task runs accessible by the authenticated user are returned."
+        },
+        {
+          "info": {
+            "name": "Run task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/task-runs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Kicks off a run of the workflow task with the provided ID, passing the provided input data."
+        },
+        {
+          "info": {
+            "name": "Stream realtime events (SSE)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/task-runs/events",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "taskRunIds",
+                "value": "",
+                "type": "query",
+                "description": "Filter to a subset of task run IDs."
+              }
+            ]
+          },
+          "docs": "Establishes a unidirectional event stream. The server sends events as lines\nformatted per the SSE spec. Clients SHOULD set `Accept: text/event-stream`\nand keep the connection open.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve task run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/task-runs/:taskRunId",
+            "params": [
+              {
+                "name": "taskRunId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the task run"
+              }
+            ]
+          },
+          "docs": "Retrieve the workflow task run with the provided ID."
+        },
+        {
+          "info": {
+            "name": "Cancel task run",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.render.com/v1/task-runs/:taskRunId",
+            "params": [
+              {
+                "name": "taskRunId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the task run"
+              }
+            ]
+          },
+          "docs": "Cancel a running task run with the provided ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

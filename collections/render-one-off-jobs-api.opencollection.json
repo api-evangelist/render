@@ -1,0 +1,164 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Render Public Audit Logs One-Off Jobs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "One-Off Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/services/:serviceId/jobs",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter for the status of the job (`pending`, `running`, `succeeded`, `failed`, or `canceled`)"
+              },
+              {
+                "name": "createdBefore",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for jobs created before a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "createdAfter",
+                "value": "2021-02-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for jobs created after a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "startedBefore",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for jobs started before a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "startedAfter",
+                "value": "2021-02-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for jobs started after a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "finishedBefore",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for jobs finished before a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "finishedAfter",
+                "value": "2021-02-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for jobs finished after a certain time (specified as an ISO 8601 timestamp)"
+              }
+            ]
+          },
+          "docs": "List jobs for the provided service that match the provided filters. If no filters are provided, all jobs for the service are returned.\n"
+        },
+        {
+          "info": {
+            "name": "Create job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/services/:serviceId/jobs",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a one-off job using the provided service. For details, see [One-Off Jobs](https://render.com/docs/one-off-jobs).\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/services/:serviceId/jobs/:jobId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              },
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job"
+              }
+            ]
+          },
+          "docs": "Retrieve the details of a particular one-off job for a particular service.\n"
+        },
+        {
+          "info": {
+            "name": "Cancel running job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/services/:serviceId/jobs/:jobId/cancel",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ]
+          },
+          "docs": "Cancel a particular one-off job for a particular service.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

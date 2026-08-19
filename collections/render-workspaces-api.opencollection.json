@@ -1,0 +1,153 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Render Public Audit Logs Workspaces API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workspaces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update workspace member role",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.render.com/v1/owners/:ownerId/members/:userId",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace to return resources for"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the user (Render object ID with a `usr-` prefix)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the role of an existing workspace member.\n"
+        },
+        {
+          "info": {
+            "name": "Remove workspace member",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.render.com/v1/owners/:ownerId/members/:userId",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace to return resources for"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the user (Render object ID with a `usr-` prefix)."
+              }
+            ]
+          },
+          "docs": "Remove a user from the specified workspace.\n"
+        },
+        {
+          "info": {
+            "name": "List workspaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/owners",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Only return workspaces with one of the provided names. Only exact matches are returned."
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "Only return workspaces owned by one of the provided email addresses."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              }
+            ]
+          },
+          "docs": "List the workspaces that your API key has access to, optionally filtered by name or owner email address.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/owners/:ownerId",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the user or team"
+              }
+            ]
+          },
+          "docs": "Retrieve the workspace with the provided ID.\n\nWorkspace IDs start with `tea-`. If you provide a user ID (starts with `own-`), this endpoint returns the user's default workspace.\n"
+        },
+        {
+          "info": {
+            "name": "List workspace members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/owners/:ownerId/members",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the team"
+              }
+            ]
+          },
+          "docs": "Retrieves the list of users belonging to the workspace with the provided ID.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

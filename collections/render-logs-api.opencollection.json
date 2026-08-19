@@ -1,0 +1,528 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Render Public Audit Logs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Logs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/logs",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the workspace to return logs for"
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "The direction to query logs for. Backward will return most recent logs first.\nForward will start with the oldest logs in the time range.\n"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs by their resource. A resource is the id of a server, cronjob, job, postgres, redis, or workflow."
+              },
+              {
+                "name": "instance",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs by the instance they were emitted from. An instance is the id of a specific running server."
+              },
+              {
+                "name": "host",
+                "value": "",
+                "type": "query",
+                "description": "Filter request logs by their host. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported."
+              },
+              {
+                "name": "statusCode",
+                "value": "",
+                "type": "query",
+                "description": "Filter request logs by their status code. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported."
+              },
+              {
+                "name": "method",
+                "value": "",
+                "type": "query",
+                "description": "Filter request logs by their requests method. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported."
+              },
+              {
+                "name": "task",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs by their task(s)"
+              },
+              {
+                "name": "taskRun",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs by their task run id(s)"
+              },
+              {
+                "name": "level",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs by their severity level. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs by their type. Types include `app` for application logs, `request` for request logs, and `build` for build logs. You can find the full set of types available for a query by using the `GET /logs/values` endpoint."
+              },
+              {
+                "name": "text",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the text of the logs. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported."
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "Filter request logs by their path. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              }
+            ]
+          },
+          "docs": "List logs matching the provided filters. Logs are paginated by start and end timestamps.\nThere are more logs to fetch if `hasMore` is true in the response. Provide the `nextStartTime`\nand `nextEndTime` timestamps as the `startTime` and `endTime` query parameters to fetch the next page of logs.\n\nYou can query for logs across multiple resources, but all resources must be in the same region and belong to the same owner.\n"
+        },
+        {
+          "info": {
+            "name": "Subscribe to new logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/logs/subscribe",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the workspace to return logs for"
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "The direction to query logs for. Backward will return most recent logs first.\nForward will start with the oldest logs in the time range.\n"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs by their resource. A resource is the id of a server, cronjob, job, postgres, redis, or workflow."
+              },
+              {
+                "name": "instance",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs by the instance they were emitted from. An instance is the id of a specific running server."
+              },
+              {
+                "name": "host",
+                "value": "",
+                "type": "query",
+                "description": "Filter request logs by their host. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported."
+              },
+              {
+                "name": "statusCode",
+                "value": "",
+                "type": "query",
+                "description": "Filter request logs by their status code. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported."
+              },
+              {
+                "name": "method",
+                "value": "",
+                "type": "query",
+                "description": "Filter request logs by their requests method. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported."
+              },
+              {
+                "name": "task",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs by their task(s)"
+              },
+              {
+                "name": "taskRun",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs by their task run id(s)"
+              },
+              {
+                "name": "level",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs by their severity level. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs by their type. Types include `app` for application logs, `request` for request logs, and `build` for build logs. You can find the full set of types available for a query by using the `GET /logs/values` endpoint."
+              },
+              {
+                "name": "text",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the text of the logs. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported."
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "Filter request logs by their path. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              }
+            ]
+          },
+          "docs": "Open a websocket connection to subscribe to logs matching the provided filters. Logs are streamed in real-time as they are generated.\n\nYou can query for logs across multiple resources, but all resources must be in the same region and belong to the same owner.\n"
+        },
+        {
+          "info": {
+            "name": "List log label values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/logs/values",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the workspace to return log label values for"
+              },
+              {
+                "name": "label",
+                "value": "",
+                "type": "query",
+                "description": "The label to query logs for"
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "The direction to query logs for. Backward will return most recent logs first.\nForward will start with the oldest logs in the time range.\n"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs by their resource. A resource is the id of a server, cronjob, job, postgres, redis, or workflow."
+              },
+              {
+                "name": "instance",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs by the instance they were emitted from. An instance is the id of a specific running server."
+              },
+              {
+                "name": "host",
+                "value": "",
+                "type": "query",
+                "description": "Filter request logs by their host. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported."
+              },
+              {
+                "name": "statusCode",
+                "value": "",
+                "type": "query",
+                "description": "Filter request logs by their status code. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported."
+              },
+              {
+                "name": "method",
+                "value": "",
+                "type": "query",
+                "description": "Filter request logs by their requests method. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported."
+              },
+              {
+                "name": "task",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs by their task(s)"
+              },
+              {
+                "name": "taskRun",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs by their task run id(s)"
+              },
+              {
+                "name": "level",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs by their severity level. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs by their type. Types include `app` for application logs, `request` for request logs, and `build` for build logs. You can find the full set of types available for a query by using the `GET /logs/values` endpoint."
+              },
+              {
+                "name": "text",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the text of the logs. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported."
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "Filter request logs by their path. [Wildcards and regex](https://render.com/docs/logging#wildcards-and-regular-expressions) are supported."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              }
+            ]
+          },
+          "docs": "List all values for a given log label in the logs matching the provided filters."
+        },
+        {
+          "info": {
+            "name": "Retrieve log stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/logs/streams/owner/:ownerId",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace to return log stream information for"
+              }
+            ]
+          },
+          "docs": "Returns log stream information for the specified workspace."
+        },
+        {
+          "info": {
+            "name": "Update log stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.render.com/v1/logs/streams/owner/:ownerId",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace to update log stream information for"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates log stream information for the specified workspace. All logs for resources owned by this workspace will be sent to this log stream unless overridden by individual resources."
+        },
+        {
+          "info": {
+            "name": "Delete log stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.render.com/v1/logs/streams/owner/:ownerId",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace to delete the log stream for"
+              }
+            ]
+          },
+          "docs": "Removes the log stream for the specified workspace."
+        },
+        {
+          "info": {
+            "name": "List log stream overrides",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/logs/streams/resource",
+            "params": [
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the workspaces to return resources for"
+              },
+              {
+                "name": "logStreamId",
+                "value": "",
+                "type": "query",
+                "description": "Filter log streams by their id."
+              },
+              {
+                "name": "resourceId",
+                "value": "",
+                "type": "query",
+                "description": "IDs of resources (server, cron job, postgres, or redis) to filter by"
+              },
+              {
+                "name": "setting",
+                "value": "",
+                "type": "query",
+                "description": "Filter log streams by their setting."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              }
+            ]
+          },
+          "docs": "Lists log stream overrides for the provided workspace that match the provided filters. These overrides take precedence over the workspace's default log stream."
+        },
+        {
+          "info": {
+            "name": "Retrieve log stream override",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/logs/streams/resource/:resourceId",
+            "params": [
+              {
+                "name": "resourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the resource (server, cron job, postgres, or redis) to return log stream override information for"
+              }
+            ]
+          },
+          "docs": "Returns log stream override information for the specified resource. A log stream override takes precedence over a workspace's default log stream."
+        },
+        {
+          "info": {
+            "name": "Update log stream override",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.render.com/v1/logs/streams/resource/:resourceId",
+            "params": [
+              {
+                "name": "resourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the resource (server, cron job, postgres, or redis) to update log stream override information for"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates log stream override information for the specified resource. A log stream override takes precedence over a workspace's default log stream."
+        },
+        {
+          "info": {
+            "name": "Delete log stream override",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.render.com/v1/logs/streams/resource/:resourceId",
+            "params": [
+              {
+                "name": "resourceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the resource (server, cron job, postgres, or redis) whose log streams should be returned"
+              }
+            ]
+          },
+          "docs": "Removes the log stream override for the specified resource. After deletion, the resource will use the workspace's default log stream setting."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

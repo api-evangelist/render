@@ -1,0 +1,695 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Render Public Audit Logs Services API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Services",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List services",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/services",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter for types of services"
+              },
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "query",
+                "description": "Filter for resources that belong to an environment"
+              },
+              {
+                "name": "env",
+                "value": "",
+                "type": "query",
+                "description": "Filter for environments (runtimes) of services (deprecated; use `runtime` instead)"
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Filter by resource region"
+              },
+              {
+                "name": "suspended",
+                "value": "",
+                "type": "query",
+                "description": "Filter resources based on whether they're suspended or not suspended"
+              },
+              {
+                "name": "createdBefore",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources created before a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "createdAfter",
+                "value": "2021-02-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources created after a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "updatedBefore",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources updated before a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "updatedAfter",
+                "value": "2021-06-17T08:15:30Z",
+                "type": "query",
+                "description": "Filter for resources updated after a certain time (specified as an ISO 8601 timestamp)"
+              },
+              {
+                "name": "ownerId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the workspaces to return resources for"
+              },
+              {
+                "name": "includePreviews",
+                "value": "",
+                "type": "query",
+                "description": "Include previews in the response"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              }
+            ]
+          },
+          "docs": "List services matching the provided filters. If no filters are provided, returns all services you have permissions to view.\n"
+        },
+        {
+          "info": {
+            "name": "Create service",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/services",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Render service in the specified workspace with the specified configuration.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/services/:serviceId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ]
+          },
+          "docs": "Retrieve the service with the provided ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update service",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.render.com/v1/services/:serviceId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the service with the provided ID.\n"
+        },
+        {
+          "info": {
+            "name": "Delete service",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.render.com/v1/services/:serviceId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ]
+          },
+          "docs": "Delete the service with the provided ID.\n"
+        },
+        {
+          "info": {
+            "name": "Purge Web Service Cache",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/services/:serviceId/cache/purge",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ]
+          },
+          "docs": "Trigger cache purge for the web service if caching is enabled.\n"
+        },
+        {
+          "info": {
+            "name": "List environment variables",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/services/:serviceId/env-vars",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              }
+            ]
+          },
+          "docs": "List all environment variables for the service with the provided ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update environment variables",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.render.com/v1/services/:serviceId/env-vars",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace all environment variables for a service with the provided list of environment variables."
+        },
+        {
+          "info": {
+            "name": "Retrieve environment variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/services/:serviceId/env-vars/:envVarKey",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              },
+              {
+                "name": "envVarKey",
+                "value": "",
+                "type": "path",
+                "description": "The name of the environment variable"
+              }
+            ]
+          },
+          "docs": "Retrieve a particular environment variable for a particular service.\n\nThis only applies to environment variables set directly on the service, not to environment variables in a linked environment group.\n"
+        },
+        {
+          "info": {
+            "name": "Add or update environment variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.render.com/v1/services/:serviceId/env-vars/:envVarKey",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              },
+              {
+                "name": "envVarKey",
+                "value": "",
+                "type": "path",
+                "description": "The name of the environment variable"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add or update a particular environment variable for a particular service.\n\nThis only applies to environment variables set directly on the service, not to environment variables in a linked environment group.\n"
+        },
+        {
+          "info": {
+            "name": "Delete environment variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.render.com/v1/services/:serviceId/env-vars/:envVarKey",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              },
+              {
+                "name": "envVarKey",
+                "value": "",
+                "type": "path",
+                "description": "The name of the environment variable"
+              }
+            ]
+          },
+          "docs": "Delete a particular environment variable from a particular service.\n\nThis only applies to environment variables set directly on the service, not to environment variables in a linked environment group.\n"
+        },
+        {
+          "info": {
+            "name": "List secret files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/services/:serviceId/secret-files",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              }
+            ]
+          },
+          "docs": "List all secret files for the service with the provided ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update secret files",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.render.com/v1/services/:serviceId/secret-files",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace all secret files for a service with the provided list of secret files.\n\n**Any of the service's existing secret files not included in this request will be deleted.**\n\nThis only applies to secret files set directly on the service, not to secret files in a linked environment group.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve secret file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/services/:serviceId/secret-files/:secretFileName",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              },
+              {
+                "name": "secretFileName",
+                "value": "",
+                "type": "path",
+                "description": "The file name of the secret file"
+              }
+            ]
+          },
+          "docs": "Retrieve a particular secret file for a particular service.\n\nThis only applies to secret files set directly on the service, not to secret files in a linked environment group.\n"
+        },
+        {
+          "info": {
+            "name": "Add or update secret file",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.render.com/v1/services/:serviceId/secret-files/:secretFileName",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              },
+              {
+                "name": "secretFileName",
+                "value": "",
+                "type": "path",
+                "description": "The file name of the secret file"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add or update a particular secret file for a particular service.\n\nThis only applies to secret files set directly on the service, not to secret files in a linked environment group.\n"
+        },
+        {
+          "info": {
+            "name": "Delete secret file",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.render.com/v1/services/:serviceId/secret-files/:secretFileName",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              },
+              {
+                "name": "secretFileName",
+                "value": "",
+                "type": "path",
+                "description": "The file name of the secret file"
+              }
+            ]
+          },
+          "docs": "Delete a particular secret file from a particular service.\n\nThis only applies to secret files set directly on the service, not to secret files in a linked environment group.\n"
+        },
+        {
+          "info": {
+            "name": "List events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/services/:serviceId/events",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "The type of event to filter to"
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Epoch/Unix timestamp of end of time range to return. Defaults to `now()`."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              }
+            ]
+          },
+          "docs": "List recent events that occurred for the service with the provided ID."
+        },
+        {
+          "info": {
+            "name": "Suspend service",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/services/:serviceId/suspend",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ]
+          },
+          "docs": "Suspend the service with the provided ID.\n"
+        },
+        {
+          "info": {
+            "name": "Resume service",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/services/:serviceId/resume",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ]
+          },
+          "docs": "Resume the service with the provided ID (if it's currently suspended).\n"
+        },
+        {
+          "info": {
+            "name": "Restart service",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/services/:serviceId/restart",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ]
+          },
+          "docs": "Restart the service with the provided ID.\n\nNot supported for cron jobs.\n"
+        },
+        {
+          "info": {
+            "name": "Scale instance count",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/services/:serviceId/scale",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "[Scale](https://render.com/docs/scaling#manual-scaling) the service with the provided ID to a fixed number of instances.\n\nRender ignores this value as long as autoscaling is enabled for the service.\n"
+        },
+        {
+          "info": {
+            "name": "Update autoscaling config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.render.com/v1/services/:serviceId/autoscaling",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the [autoscaling](https://render.com/docs/scaling#autoscaling) config for the service with the provided ID.\n"
+        },
+        {
+          "info": {
+            "name": "Delete autoscaling config",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.render.com/v1/services/:serviceId/autoscaling",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ]
+          },
+          "docs": "Delete the autoscaling config for a service given the service id.\n"
+        },
+        {
+          "info": {
+            "name": "Create service preview (image-backed)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/services/:serviceId/preview",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a preview instance for an image-backed service. The preview uses the settings of the base service (referenced by `serviceId`), except settings overridden via provided parameters.\n\nView all active previews from your service's Previews tab in the Render Dashboard.\n\nNote that you can't create previews for Git-backed services using the Render API.\n"
+        },
+        {
+          "info": {
+            "name": "List instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/services/:serviceId/instances",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ]
+          },
+          "docs": "List instances for the provided service."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,167 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Render Public Audit Logs Services - Routes API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Services - Routes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List redirect/rewrite rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.render.com/v1/services/:serviceId/routes",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter for the type of route rule"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Filter for the source path of the route"
+              },
+              {
+                "name": "destination",
+                "value": "",
+                "type": "query",
+                "description": "Filter for the destination path of the route"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination)."
+              }
+            ]
+          },
+          "docs": "List a particular service's redirect/rewrite rules that match the provided filters. If no filters are provided, all rules for the service are returned.\n"
+        },
+        {
+          "info": {
+            "name": "Add redirect/rewrite rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.render.com/v1/services/:serviceId/routes",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add redirect/rewrite rules to the service with the provided ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update redirect/rewrite rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.render.com/v1/services/:serviceId/routes",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace all redirect/rewrite rules for a particular service with the provided list.\n\n**This deletes all existing redirect/rewrite rules for the service that aren't included in the request.**\n\nRule priority is assigned according to list order (the first rule in the list has the highest priority).\n"
+        },
+        {
+          "info": {
+            "name": "Update redirect/rewrite rule priority",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.render.com/v1/services/:serviceId/routes",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the priority for a particular redirect/rewrite rule.\n\nTo apply redirect/rewrite rules to an incoming request, Render starts from the rule with priority `0` and applies the first encountered rule that matches the request's path (if any).\n\nRender increments the priority of other rules by `1` as necessary to make space for the updated rule.\n"
+        },
+        {
+          "info": {
+            "name": "Delete redirect/rewrite rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.render.com/v1/services/:serviceId/routes/:routeId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the service"
+              },
+              {
+                "name": "routeId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the route"
+              }
+            ]
+          },
+          "docs": "Delete a particular redirect/rewrite rule for a particular service.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
