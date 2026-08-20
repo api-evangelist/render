@@ -281,6 +281,8 @@ apis:
   humanURL: https://render.com/docs/api
   baseURL: https://api.render.com/v1
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -318,6 +320,8 @@ apis:
   humanURL: https://render.com/docs/api
   baseURL: https://api.render.com/v1
   tags:
+  - Key-Value
+  tags_raw:
   - Key Value
   properties:
   - type: OpenAPI
@@ -852,6 +856,8 @@ apis:
   humanURL: https://render.com/docs/api
   baseURL: https://api.render.com/v1
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
@@ -889,6 +895,8 @@ apis:
   humanURL: https://render.com/docs/api
   baseURL: https://api.render.com/v1
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
