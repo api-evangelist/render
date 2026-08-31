@@ -332,7 +332,7 @@ apis:
   humanURL: https://render.com/docs/api
   baseURL: https://api.render.com/v1
   tags:
-  - Key-Value
+  - Key Value
   tags_raw:
   - Key Value
   properties:
