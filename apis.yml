@@ -42,6 +42,15 @@ tags:
 - Infrastructure
 - DevOps
 - Web Services
+- Database
+- Hosting
+tags_raw:
+- Cloud
+- Platform
+- Deployment
+- Infrastructure
+- DevOps
+- Web Services
 - Databases
 - Hosting
 url: https://raw.githubusercontent.com/api-evangelist/render/refs/heads/main/apis.yml
@@ -1024,6 +1033,8 @@ apis:
   humanURL: https://render.com/docs/api
   baseURL: https://api.render.com/v1
   tags:
+  - Workspace
+  tags_raw:
   - Workspaces
   properties:
   - type: OpenAPI
