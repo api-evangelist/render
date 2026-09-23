@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Render Public Audit Logs Notification Settings API
+  title: Render Public Notification Settings API
   description: Manage everything about your Render services
   version: 1.0.0
   contact:
@@ -13,11 +13,9 @@ security:
 - BearerAuth: []
 tags:
 - name: Notification Settings
-  description: '[Notification Settings](https://render.com/docs/notifications) allow you to configure which notifications you want to recieve, and
+  description: 'Notification Settings allow you to configure which notifications you want to recieve, and
 
-    where you will receive them.
-
-    '
+    where you will receive them.'
 paths:
   /notification-settings/owners/{ownerId}:
     parameters:
@@ -27,9 +25,7 @@ paths:
       description: 'Retrieve notification settings for the owner with the provided ID.
 
 
-        Note that you provide an owner ID to this endpoint, not the ID for a particular resource.
-
-        '
+        Note that you provide an owner ID to this endpoint, not the ID for a particular resource.'
       operationId: retrieve-owner-notification-settings
       tags:
       - Notification Settings
@@ -69,9 +65,7 @@ paths:
           $ref: '#/components/responses/503ServiceUnavailable'
     patch:
       summary: Update notification settings
-      description: 'Update notification settings for the owner with the provided ID.
-
-        '
+      description: Update notification settings for the owner with the provided ID.
       operationId: patch-owner-notification-settings
       tags:
       - Notification Settings
@@ -117,9 +111,7 @@ paths:
       - $ref: '#/components/parameters/cursorParam'
       - $ref: '#/components/parameters/limitParam'
       summary: List notification overrides
-      description: 'List notification overrides matching the provided filters. If no filters are provided, returns all notification overrides for all workspaces the user belongs to.
-
-        '
+      description: List notification overrides matching the provided filters. If no filters are provided, returns all notification overrides for all workspaces the user belongs to.
       operationId: list-notification-overrides
       tags:
       - Notification Settings
@@ -150,9 +142,7 @@ paths:
       description: 'Retrieve the notification override for the service with the provided ID.
 
 
-        Note that you provide a service ID to this endpoint, not the ID for a particular override.
-
-        '
+        Note that you provide a service ID to this endpoint, not the ID for a particular override.'
       operationId: retrieve-service-notification-overrides
       tags:
       - Notification Settings
@@ -186,9 +176,7 @@ paths:
           $ref: '#/components/responses/503ServiceUnavailable'
     patch:
       summary: Update notification override
-      description: 'Update the notification override for the service with the provided ID.
-
-        '
+      description: Update the notification override for the service with the provided ID.
       operationId: patch-service-notification-overrides
       tags:
       - Notification Settings
@@ -222,40 +210,11 @@ paths:
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
   parameters:
-    ownerIdParam:
-      name: ownerId
-      in: query
-      description: The ID of the workspaces to return resources for
-      schema:
-        type: array
-        items:
-          type: string
-      style: form
-      explode: false
-      required: false
     serviceIdParam:
       name: serviceId
       in: path
       required: true
       description: The ID of the service
-      schema:
-        type: string
-    limitParam:
-      name: limit
-      in: query
-      required: false
-      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: integer
-        default: 20
-        minimum: 1
-        maximum: 100
-        description: Defaults to 20
-    cursorParam:
-      name: cursor
-      in: query
-      required: false
-      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
       schema:
         type: string
     serviceIdsParam:
@@ -275,15 +234,38 @@ components:
       schema:
         type: string
       required: true
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+        description: Defaults to 20
+    ownerIdParam:
+      name: ownerId
+      in: query
+      description: The ID of the workspaces to return resources for
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
   responses:
-    429RateLimit:
-      description: Rate limit has been surpassed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    500InternalServerError:
-      description: An unexpected server error has occurred.
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
       content:
         application/json:
           schema:
@@ -300,8 +282,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    406NotAcceptable:
-      description: Unable to generate preferred media types as specified by Accept request header.
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    429RateLimit:
+      description: Rate limit has been surpassed.
       content:
         application/json:
           schema:

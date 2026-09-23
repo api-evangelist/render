@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Render Public Audit Logs Services - Cron Jobs API
+  title: Render Public Services - Cron Jobs API
   description: Manage everything about your Render services
   version: 1.0.0
   contact:
@@ -13,9 +13,7 @@ security:
 - BearerAuth: []
 tags:
 - name: Services - Cron Jobs
-  description: '[Cron Jobs](https://render.com/docs/cronjobs) allow you to interact with runs of your cron jobs.
-
-    '
+  description: Cron Jobs allow you to interact with runs of your cron jobs.
 paths:
   /cron-jobs/{cronJobId}/runs:
     parameters:
@@ -64,14 +62,8 @@ paths:
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
   responses:
-    429RateLimit:
-      description: Rate limit has been surpassed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    500InternalServerError:
-      description: An unexpected server error has occurred.
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
       content:
         application/json:
           schema:
@@ -82,14 +74,20 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    406NotAcceptable:
-      description: Unable to generate preferred media types as specified by Accept request header.
+    503ServiceUnavailable:
+      description: Server currently unavailable.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    503ServiceUnavailable:
-      description: Server currently unavailable.
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    429RateLimit:
+      description: Rate limit has been surpassed.
       content:
         application/json:
           schema:

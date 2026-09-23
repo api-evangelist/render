@@ -1,4 +1,4 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
   title: Render Public Audit Logs API
   description: Manage everything about your Render services
@@ -13,20 +13,16 @@ security:
 - BearerAuth: []
 tags:
 - name: Audit Logs
-  description: '[Audit Logs](https://render.com/docs/audit-logs) allow you to retrieve audit logs for workspaces and organizations.
+  description: 'Audit Logs allow you to retrieve audit logs for workspaces and organizations.
 
-    These logs provide a trail of actions and changes made to your resources.
-
-    '
+    These logs provide a trail of actions and changes made to your resources.'
 paths:
   /owners/{ownerId}/audit-logs:
     parameters:
     - $ref: '#/components/parameters/ownerIdPathParam'
     get:
       summary: List workspace audit logs
-      description: 'Retrieve audit logs for a specific workspace with optional filtering and pagination.
-
-        '
+      description: Retrieve audit logs for a specific workspace with optional filtering and pagination.
       operationId: list-owner-audit-logs
       tags:
       - Audit Logs
@@ -87,9 +83,7 @@ paths:
         type: string
     get:
       summary: List organization audit logs
-      description: 'Retrieve audit logs for a specific organization with optional filtering and pagination.
-
-        '
+      description: Retrieve audit logs for a specific organization with optional filtering and pagination.
       operationId: list-organization-audit-logs
       tags:
       - Audit Logs
@@ -141,62 +135,24 @@ paths:
         '503':
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
-  responses:
-    403Forbidden:
-      description: You do not have permissions for the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    429RateLimit:
-      description: Rate limit has been surpassed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    500InternalServerError:
-      description: An unexpected server error has occurred.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    404NotFound:
-      description: Unable to find the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    401Unauthorized:
-      description: Authorization information is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    406NotAcceptable:
-      description: Unable to generate preferred media types as specified by Accept request header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    503ServiceUnavailable:
-      description: Server currently unavailable.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    400BadRequest:
-      description: The request could not be understood by the server.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    410Gone:
-      description: The requested resource is no longer available.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
   schemas:
+    auditLogWithCursor:
+      type: object
+      required:
+      - cursor
+      - auditLog
+      properties:
+        cursor:
+          $ref: '#/components/schemas/cursor'
+        auditLog:
+          $ref: '#/components/schemas/auditLog'
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
     auditLogActor:
       type: object
       required:
@@ -218,23 +174,6 @@ components:
           type: string
           description: Unique identifier of the actor (if applicable)
           example: usr-123456789
-    auditLogWithCursor:
-      type: object
-      required:
-      - cursor
-      - auditLog
-      properties:
-        cursor:
-          $ref: '#/components/schemas/cursor'
-        auditLog:
-          $ref: '#/components/schemas/auditLog'
-    error:
-      type: object
-      properties:
-        id:
-          type: string
-        message:
-          type: string
     auditLog:
       type: object
       required:
@@ -352,6 +291,61 @@ components:
             field: env_vars
     cursor:
       type: string
+  responses:
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    410Gone:
+      description: The requested resource is no longer available.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   parameters:
     auditLogLimitParam:
       name: limit
@@ -364,13 +358,6 @@ components:
         minimum: 1
         maximum: 1000
         description: Defaults to 20
-    cursorParam:
-      name: cursor
-      in: query
-      required: false
-      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: string
     ownerIdPathParam:
       name: ownerId
       in: path
@@ -378,6 +365,13 @@ components:
       schema:
         type: string
       required: true
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
   securitySchemes:
     BearerAuth:
       type: http

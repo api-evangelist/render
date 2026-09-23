@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Render Public Audit Logs API
+  title: Render Public Logs API
   description: Manage everything about your Render services
   version: 1.0.0
   contact:
@@ -13,11 +13,9 @@ security:
 - BearerAuth: []
 tags:
 - name: Logs
-  description: '[Logs](https://render.com/docs/logging) allow you to retrieve logs for your services, Postgres databases, and redis instances.
+  description: 'Logs allow you to retrieve logs for your services, Postgres databases, and redis instances.
 
-    You can query for logs or subscribe to logs in real-time via a websocket.
-
-    '
+    You can query for logs or subscribe to logs in real-time via a websocket.'
 paths:
   /logs:
     get:
@@ -29,9 +27,7 @@ paths:
         and `nextEndTime` timestamps as the `startTime` and `endTime` query parameters to fetch the next page of logs.
 
 
-        You can query for logs across multiple resources, but all resources must be in the same region and belong to the same owner.
-
-        '
+        You can query for logs across multiple resources, but all resources must be in the same region and belong to the same owner.'
       operationId: list-logs
       tags:
       - Logs
@@ -174,9 +170,7 @@ paths:
       description: 'Open a websocket connection to subscribe to logs matching the provided filters. Logs are streamed in real-time as they are generated.
 
 
-        You can query for logs across multiple resources, but all resources must be in the same region and belong to the same owner.
-
-        '
+        You can query for logs across multiple resources, but all resources must be in the same region and belong to the same owner.'
       operationId: subscribe-logs
       tags:
       - Logs
@@ -655,47 +649,17 @@ paths:
         '503':
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
+  schemas:
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
   responses:
-    429RateLimit:
-      description: Rate limit has been surpassed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    LogsValues200Response:
-      description: An array of possible values for a log label
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              type: string
-    503ServiceUnavailable:
-      description: Server currently unavailable.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    403Forbidden:
-      description: You do not have permissions for the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
     500InternalServerError:
       description: An unexpected server error has occurred.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    404NotFound:
-      description: Unable to find the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    406NotAcceptable:
-      description: Unable to generate preferred media types as specified by Accept request header.
       content:
         application/json:
           schema:
@@ -736,12 +700,50 @@ components:
                 type: array
                 items:
                   $ref: '#/paths/~1logs~1subscribe/get/responses/101/content/application~1json/schema'
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
     401Unauthorized:
       description: Authorization information is missing or invalid.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    LogsValues200Response:
+      description: An array of possible values for a log label
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: string
     410Gone:
       description: The requested resource is no longer available.
       content:
@@ -749,13 +751,15 @@ components:
           schema:
             $ref: '#/components/schemas/error'
   parameters:
-    cursorParam:
-      name: cursor
+    endTimeParam:
+      name: endTime
       in: query
-      required: false
-      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
       schema:
         type: string
+        format: date-time
+        example: '2021-06-17T08:30:30Z'
+      required: false
+      description: Epoch/Unix timestamp of end of time range to return. Defaults to `now()`.
     ownerIdParam:
       name: ownerId
       in: query
@@ -767,15 +771,31 @@ components:
       style: form
       explode: false
       required: false
-    endTimeParam:
-      name: endTime
+    startTimeParam:
+      name: startTime
       in: query
       schema:
         type: string
         format: date-time
-        example: '2021-06-17T08:30:30Z'
+        example: '2021-06-17T08:15:30Z'
       required: false
-      description: Epoch/Unix timestamp of end of time range to return. Defaults to `now()`.
+      description: Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`.
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
+    resourceIdParam:
+      name: resourceId
+      in: query
+      required: false
+      description: IDs of resources (server, cron job, postgres, or redis) to filter by
+      schema:
+        type: array
+        items:
+          type: string
     limitParam:
       name: limit
       in: query
@@ -787,32 +807,6 @@ components:
         minimum: 1
         maximum: 100
         description: Defaults to 20
-    resourceIdParam:
-      name: resourceId
-      in: query
-      required: false
-      description: IDs of resources (server, cron job, postgres, or redis) to filter by
-      schema:
-        type: array
-        items:
-          type: string
-    startTimeParam:
-      name: startTime
-      in: query
-      schema:
-        type: string
-        format: date-time
-        example: '2021-06-17T08:15:30Z'
-      required: false
-      description: Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`.
-  schemas:
-    error:
-      type: object
-      properties:
-        id:
-          type: string
-        message:
-          type: string
   securitySchemes:
     BearerAuth:
       type: http

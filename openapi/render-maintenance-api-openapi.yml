@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Render Public Audit Logs Maintenance API
+  title: Render Public Maintenance API
   description: Manage everything about your Render services
   version: 1.0.0
   contact:
@@ -20,9 +20,7 @@ paths:
       tags:
       - Maintenance
       summary: List maintenance runs
-      description: 'List scheduled and/or recent maintenance runs for specified resources.
-
-        '
+      description: List scheduled and/or recent maintenance runs for specified resources.
       operationId: list-maintenance
       parameters:
       - name: resourceId
@@ -134,9 +132,7 @@ paths:
       description: 'Update the maintenance run with the provided ID.
 
 
-        Updates from this endpoint are asynchronous. To check your update''s status, use the [Retrieve maintenance run](https://api-docs.render.com/reference/retrieve-maintenance) endpoint.
-
-        '
+        Updates from this endpoint are asynchronous. To check your update''s status, use the Retrieve maintenance run endpoint.'
       operationId: update-maintenance
       parameters:
       - $ref: '#/paths/~1maintenance~1%7BmaintenanceRunParam%7D/get/parameters/0'
@@ -174,12 +170,10 @@ paths:
       description: 'Trigger the scheduled maintenance run with the provided ID.
 
 
-        Triggering maintenance is asynchronous. To check whether maintenance has started, use the [Retrieve maintenance run](https://api-docs.render.com/reference/retrieve-maintenance) endpoint.
+        Triggering maintenance is asynchronous. To check whether maintenance has started, use the Retrieve maintenance run endpoint.
 
 
-        As maintenance progresses, the run''s `state` will change from `scheduled` to other values, such as `in_progress` and `succeeded`.
-
-        '
+        As maintenance progresses, the run''s `state` will change from `scheduled` to other values, such as `in_progress` and `succeeded`.'
       operationId: trigger-maintenance
       parameters:
       - $ref: '#/paths/~1maintenance~1%7BmaintenanceRunParam%7D/get/parameters/0'
@@ -199,37 +193,7 @@ paths:
         '503':
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
-  parameters:
-    ownerIdParam:
-      name: ownerId
-      in: query
-      description: The ID of the workspaces to return resources for
-      schema:
-        type: array
-        items:
-          type: string
-      style: form
-      explode: false
-      required: false
   responses:
-    429RateLimit:
-      description: Rate limit has been surpassed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    500InternalServerError:
-      description: An unexpected server error has occurred.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    404NotFound:
-      description: Unable to find the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
     401Unauthorized:
       description: Authorization information is missing or invalid.
       content:
@@ -242,8 +206,26 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
     400BadRequest:
       description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    429RateLimit:
+      description: Rate limit has been surpassed.
       content:
         application/json:
           schema:
@@ -256,6 +238,18 @@ components:
           type: string
         message:
           type: string
+  parameters:
+    ownerIdParam:
+      name: ownerId
+      in: query
+      description: The ID of the workspaces to return resources for
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
   securitySchemes:
     BearerAuth:
       type: http

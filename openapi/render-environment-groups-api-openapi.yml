@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Render Public Audit Logs Environment Groups API
+  title: Render Public Environment Groups API
   description: Manage everything about your Render services
   version: 1.0.0
   contact:
@@ -21,9 +21,7 @@ paths:
       tags:
       - Environment Groups
       summary: List environment groups
-      description: 'List environment groups matching the provided filters. If no filters are provided, all environment groups are returned.
-
-        '
+      description: List environment groups matching the provided filters. If no filters are provided, all environment groups are returned.
       parameters:
       - $ref: '#/components/parameters/nameParam'
       - $ref: '#/components/parameters/createdBeforeParam'
@@ -60,9 +58,7 @@ paths:
       tags:
       - Environment Groups
       summary: Create environment group
-      description: 'Create a new environment group.
-
-        '
+      description: Create a new environment group.
       requestBody:
         required: true
         content:
@@ -94,9 +90,7 @@ paths:
       tags:
       - Environment Groups
       summary: Retrieve environment group
-      description: 'Retrieve an environment group by ID.
-
-        '
+      description: Retrieve an environment group by ID.
       parameters:
       - $ref: '#/components/parameters/envGroupIdParam'
       responses:
@@ -191,9 +185,7 @@ paths:
       description: 'Link a particular service to a particular environment group.
 
 
-        The linked service will have access to the environment variables and secret files in the group.
-
-        '
+        The linked service will have access to the environment variables and secret files in the group.'
       parameters:
       - $ref: '#/components/parameters/envGroupIdParam'
       - $ref: '#/components/parameters/serviceIdParam'
@@ -224,9 +216,7 @@ paths:
       description: 'Unlink a particular service from a particular environment group.
 
 
-        The service will lose access to the environment variables and secret files in the group.
-
-        '
+        The service will lose access to the environment variables and secret files in the group.'
       parameters:
       - in: path
         name: envGroupId
@@ -259,9 +249,7 @@ paths:
       tags:
       - Environment Groups
       summary: Retrieve environment variable
-      description: 'Retrieve a particular environment variable in a particular environment group.
-
-        '
+      description: Retrieve a particular environment variable in a particular environment group.
       parameters:
       - $ref: '#/components/parameters/envGroupIdParam'
       - $ref: '#/components/parameters/envVarKeyParam'
@@ -289,9 +277,7 @@ paths:
       tags:
       - Environment Groups
       summary: Add or update environment variable
-      description: 'Add or update a particular environment variable in a particular environment group.
-
-        '
+      description: Add or update a particular environment variable in a particular environment group.
       parameters:
       - $ref: '#/components/parameters/envGroupIdParam'
       - $ref: '#/components/parameters/envVarKeyParam'
@@ -325,9 +311,7 @@ paths:
       tags:
       - Environment Groups
       summary: Remove environment variable
-      description: 'Remove a particular environment variable from a particular environment group.
-
-        '
+      description: Remove a particular environment variable from a particular environment group.
       parameters:
       - in: path
         name: envGroupId
@@ -356,9 +340,7 @@ paths:
       tags:
       - Environment Groups
       summary: Retrieve secret file
-      description: 'Retrieve a particular secret file in a particular environment group.
-
-        '
+      description: Retrieve a particular secret file in a particular environment group.
       parameters:
       - $ref: '#/components/parameters/envGroupIdParam'
       - $ref: '#/components/parameters/secretFileNameParam'
@@ -386,9 +368,7 @@ paths:
       tags:
       - Environment Groups
       summary: Add or update secret file
-      description: 'Add or update a particular secret file in an particular environment group.
-
-        '
+      description: Add or update a particular secret file in an particular environment group.
       parameters:
       - in: path
         name: envGroupId
@@ -433,9 +413,7 @@ paths:
       tags:
       - Environment Groups
       summary: Remove secret file
-      description: 'Remove a particular secret file from a particular environment group.
-
-        '
+      description: Remove a particular secret file from a particular environment group.
       parameters:
       - $ref: '#/components/parameters/envGroupIdParam'
       - $ref: '#/components/parameters/secretFileNameParam'
@@ -456,57 +434,40 @@ paths:
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
   schemas:
-    envVarInputArray:
-      type: array
-      items:
-        $ref: '#/components/schemas/envVarInput'
-    secretFileInput:
-      type: object
-      required:
-      - name
-      - content
-      properties:
-        name:
-          type: string
-        content:
-          type: string
-    envGroupMeta:
+    envGroupLink:
       type: object
       required:
       - id
       - name
-      - ownerId
-      - createdAt
-      - updatedAt
-      - serviceLinks
+      - type
       properties:
         id:
           type: string
         name:
           type: string
-        ownerId:
+        type:
+          $ref: '#/components/schemas/serviceTypeShort'
+    envGroupPATCHInput:
+      type: object
+      required:
+      - name
+      properties:
+        name:
           type: string
-        createdAt:
+    error:
+      type: object
+      properties:
+        id:
           type: string
-          format: date-time
-        updatedAt:
+        message:
           type: string
-          format: date-time
-        serviceLinks:
-          description: List of serviceIds linked to the envGroup
-          type: array
-          items:
-            $ref: '#/components/schemas/envGroupLink'
-        environmentId:
+    envVarValue:
+      type: object
+      required:
+      - value
+      properties:
+        value:
           type: string
-    serviceTypeShort:
-      type: string
-      enum:
-      - static
-      - web
-      - pserv
-      - worker
-      - cron
     envGroup:
       allOf:
       - $ref: '#/components/schemas/envGroupMeta'
@@ -523,24 +484,14 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/secretFile'
-    envVarKeyGenerateValue:
+    envVarGenerateValue:
       type: object
       required:
-      - key
       - generateValue
       properties:
-        key:
-          type: string
         generateValue:
           type: boolean
-    envGroupPATCHInput:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-    secretFile:
+    secretFileInput:
       type: object
       required:
       - name
@@ -549,60 +500,6 @@ components:
         name:
           type: string
         content:
-          type: string
-    envGroupLink:
-      type: object
-      required:
-      - id
-      - name
-      - type
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          $ref: '#/components/schemas/serviceTypeShort'
-    envVarInput:
-      type: object
-      oneOf:
-      - $ref: '#/components/schemas/envVarKeyValue'
-      - $ref: '#/components/schemas/envVarKeyGenerateValue'
-    error:
-      type: object
-      properties:
-        id:
-          type: string
-        message:
-          type: string
-    envVarGenerateValue:
-      type: object
-      required:
-      - generateValue
-      properties:
-        generateValue:
-          type: boolean
-    envVarValue:
-      type: object
-      required:
-      - value
-      properties:
-        value:
-          type: string
-    addUpdateEnvVarInput:
-      type: object
-      oneOf:
-      - $ref: '#/components/schemas/envVarValue'
-      - $ref: '#/components/schemas/envVarGenerateValue'
-    envVarKeyValue:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          type: string
-        value:
           type: string
     envVar:
       type: object
@@ -638,7 +535,104 @@ components:
             type: string
         environmentId:
           type: string
+    secretFile:
+      type: object
+      required:
+      - name
+      - content
+      properties:
+        name:
+          type: string
+        content:
+          type: string
+    serviceTypeShort:
+      type: string
+      enum:
+      - static
+      - web
+      - pserv
+      - worker
+      - cron
+    envGroupMeta:
+      type: object
+      required:
+      - id
+      - name
+      - ownerId
+      - createdAt
+      - updatedAt
+      - serviceLinks
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        ownerId:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        serviceLinks:
+          description: List of serviceIds linked to the envGroup
+          type: array
+          items:
+            $ref: '#/components/schemas/envGroupLink'
+        environmentId:
+          type: string
+    addUpdateEnvVarInput:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/envVarValue'
+      - $ref: '#/components/schemas/envVarGenerateValue'
+    envVarKeyValue:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    envVarInput:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/envVarKeyValue'
+      - $ref: '#/components/schemas/envVarKeyGenerateValue'
+    envVarInputArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/envVarInput'
+    envVarKeyGenerateValue:
+      type: object
+      required:
+      - key
+      - generateValue
+      properties:
+        key:
+          type: string
+        generateValue:
+          type: boolean
   parameters:
+    serviceIdParam:
+      name: serviceId
+      in: path
+      required: true
+      description: The ID of the service
+      schema:
+        type: string
+    createdAfterParam:
+      name: createdAfter
+      in: query
+      schema:
+        type: string
+        format: date-time
+      required: false
+      description: Filter for resources created after a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-02-17T08:15:30Z'
     envVarKeyParam:
       name: envVarKey
       in: path
@@ -646,22 +640,6 @@ components:
       schema:
         type: string
       description: The name of the environment variable
-    cursorParam:
-      name: cursor
-      in: query
-      required: false
-      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: string
-    updatedAfterParam:
-      name: updatedAfter
-      in: query
-      schema:
-        type: string
-        format: date-time
-      required: false
-      description: Filter for resources updated after a certain time (specified as an ISO 8601 timestamp)
-      example: '2021-06-17T08:15:30Z'
     createdBeforeParam:
       name: createdBefore
       in: query
@@ -670,6 +648,15 @@ components:
         format: date-time
       required: false
       description: Filter for resources created before a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-06-17T08:15:30Z'
+    updatedBeforeParam:
+      name: updatedBefore
+      in: query
+      schema:
+        type: string
+        format: date-time
+      required: false
+      description: Filter for resources updated before a certain time (specified as an ISO 8601 timestamp)
       example: '2021-06-17T08:15:30Z'
     environmentIdParam:
       name: environmentId
@@ -682,24 +669,22 @@ components:
       explode: false
       required: false
       description: Filter for resources that belong to an environment
-    ownerIdParam:
-      name: ownerId
+    updatedAfterParam:
+      name: updatedAfter
       in: query
-      description: The ID of the workspaces to return resources for
-      schema:
-        type: array
-        items:
-          type: string
-      style: form
-      explode: false
-      required: false
-    secretFileNameParam:
-      name: secretFileName
-      in: path
-      required: true
       schema:
         type: string
-      description: The name of the secret file
+        format: date-time
+      required: false
+      description: Filter for resources updated after a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-06-17T08:15:30Z'
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
     limitParam:
       name: limit
       in: query
@@ -711,15 +696,6 @@ components:
         minimum: 1
         maximum: 100
         description: Defaults to 20
-    updatedBeforeParam:
-      name: updatedBefore
-      in: query
-      schema:
-        type: string
-        format: date-time
-      required: false
-      description: Filter for resources updated before a certain time (specified as an ISO 8601 timestamp)
-      example: '2021-06-17T08:15:30Z'
     nameParam:
       name: name
       in: query
@@ -731,22 +707,13 @@ components:
       explode: false
       required: false
       description: Filter by name
-    createdAfterParam:
-      name: createdAfter
-      in: query
-      schema:
-        type: string
-        format: date-time
-      required: false
-      description: Filter for resources created after a certain time (specified as an ISO 8601 timestamp)
-      example: '2021-02-17T08:15:30Z'
-    serviceIdParam:
-      name: serviceId
+    secretFileNameParam:
+      name: secretFileName
       in: path
       required: true
-      description: The ID of the service
       schema:
         type: string
+      description: The name of the secret file
     envGroupIdParam:
       name: envGroupId
       in: path
@@ -754,27 +721,20 @@ components:
       schema:
         type: string
       description: Filter for resources that belong to an environment group
+    ownerIdParam:
+      name: ownerId
+      in: query
+      description: The ID of the workspaces to return resources for
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
   responses:
-    429RateLimit:
-      description: Rate limit has been surpassed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    503ServiceUnavailable:
-      description: Server currently unavailable.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
     500InternalServerError:
       description: An unexpected server error has occurred.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    404NotFound:
-      description: Unable to find the requested resource.
       content:
         application/json:
           schema:
@@ -785,8 +745,26 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
     401Unauthorized:
       description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
       content:
         application/json:
           schema:

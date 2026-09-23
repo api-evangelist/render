@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Render Public Audit Logs Services - Headers API
+  title: Render Public Services - Headers API
   description: Manage everything about your Render services
   version: 1.0.0
   contact:
@@ -20,9 +20,7 @@ paths:
     - $ref: '#/components/parameters/serviceIdParam'
     get:
       summary: List header rules
-      description: 'List a particular service''s response header rules that match the provided filters. If no filters are provided, all rules for the service are returned.
-
-        '
+      description: List a particular service's response header rules that match the provided filters. If no filters are provided, all rules for the service are returned.
       operationId: list-headers
       tags:
       - Services - Headers
@@ -86,9 +84,7 @@ paths:
           $ref: '#/components/responses/503ServiceUnavailable'
     post:
       summary: Add header rule
-      description: 'Add a response header rule to the service with the provided ID.
-
-        '
+      description: Add a response header rule to the service with the provided ID.
       operationId: add-headers
       tags:
       - Services - Headers
@@ -129,9 +125,7 @@ paths:
       description: 'Replace all header rules for a particular service with the provided list.
 
 
-        **This deletes all existing header rules for the service that aren''t included in the request.**
-
-        '
+        **This deletes all existing header rules for the service that aren''t included in the request.**'
       operationId: update-headers
       tags:
       - Services - Headers
@@ -181,9 +175,7 @@ paths:
         type: string
     delete:
       summary: Delete header rule
-      description: 'Delete a particular response header rule for a particular service.
-
-        '
+      description: Delete a particular response header rule for a particular service.
       operationId: delete-header
       tags:
       - Services - Headers
@@ -208,26 +200,14 @@ paths:
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
   responses:
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
     403Forbidden:
       description: You do not have permissions for the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    429RateLimit:
-      description: Rate limit has been surpassed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    500InternalServerError:
-      description: An unexpected server error has occurred.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    404NotFound:
-      description: Unable to find the requested resource.
       content:
         application/json:
           schema:
@@ -238,20 +218,32 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    406NotAcceptable:
-      description: Unable to generate preferred media types as specified by Accept request header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
     503ServiceUnavailable:
       description: Server currently unavailable.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
     400BadRequest:
       description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    429RateLimit:
+      description: Rate limit has been surpassed.
       content:
         application/json:
           schema:
@@ -270,6 +262,13 @@ components:
       description: The ID of the service
       schema:
         type: string
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
     limitParam:
       name: limit
       in: query
@@ -281,14 +280,30 @@ components:
         minimum: 1
         maximum: 100
         description: Defaults to 20
-    cursorParam:
-      name: cursor
-      in: query
-      required: false
-      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: string
   schemas:
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+    header:
+      type: object
+      required:
+      - id
+      - path
+      - name
+      - value
+      properties:
+        id:
+          type: string
+        path:
+          type: string
+        name:
+          type: string
+        value:
+          type: string
     headerInput:
       type: object
       required:
@@ -317,29 +332,6 @@ components:
         header:
           $ref: '#/components/schemas/header'
         cursor:
-          type: string
-    error:
-      type: object
-      properties:
-        id:
-          type: string
-        message:
-          type: string
-    header:
-      type: object
-      required:
-      - id
-      - path
-      - name
-      - value
-      properties:
-        id:
-          type: string
-        path:
-          type: string
-        name:
-          type: string
-        value:
           type: string
   securitySchemes:
     BearerAuth:

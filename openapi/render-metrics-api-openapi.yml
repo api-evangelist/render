@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Render Public Audit Logs Metrics API
+  title: Render Public Metrics API
   description: Manage everything about your Render services
   version: 1.0.0
   contact:
@@ -158,9 +158,7 @@ paths:
         - MIN
     get:
       summary: Get CPU usage
-      description: 'Get CPU usage for one or more resources.
-
-        '
+      description: Get CPU usage for one or more resources.
       operationId: get-cpu
       tags:
       - Metrics
@@ -233,9 +231,7 @@ paths:
     - $ref: '#/paths/~1metrics~1cpu/parameters/5'
     get:
       summary: Get CPU limit
-      description: 'Get the CPU limit for one or more resources.
-
-        '
+      description: Get the CPU limit for one or more resources.
       operationId: get-cpu-limit
       tags:
       - Metrics
@@ -256,9 +252,7 @@ paths:
     - $ref: '#/paths/~1metrics~1cpu/parameters/5'
     get:
       summary: Get CPU target
-      description: 'Get CPU target for one or more resources.
-
-        '
+      description: Get CPU target for one or more resources.
       operationId: get-cpu-target
       tags:
       - Metrics
@@ -279,9 +273,7 @@ paths:
     - $ref: '#/paths/~1metrics~1cpu/parameters/5'
     get:
       summary: Get memory usage
-      description: 'Get memory usage for one or more resources.
-
-        '
+      description: Get memory usage for one or more resources.
       operationId: get-memory
       tags:
       - Metrics
@@ -302,9 +294,7 @@ paths:
     - $ref: '#/paths/~1metrics~1cpu/parameters/5'
     get:
       summary: Get memory limit
-      description: 'Get the memory limit for one or more resources.
-
-        '
+      description: Get the memory limit for one or more resources.
       operationId: get-memory-limit
       tags:
       - Metrics
@@ -325,9 +315,7 @@ paths:
     - $ref: '#/paths/~1metrics~1cpu/parameters/5'
     get:
       summary: Get memory target
-      description: 'Get memory target for one or more resources.
-
-        '
+      description: Get memory target for one or more resources.
       operationId: get-memory-target
       tags:
       - Metrics
@@ -358,9 +346,7 @@ paths:
         - host
     get:
       summary: Get HTTP request count
-      description: 'Get the HTTP request count for one or more resources.
-
-        '
+      description: Get the HTTP request count for one or more resources.
       operationId: get-http-requests
       tags:
       - Metrics
@@ -402,9 +388,7 @@ paths:
         example: 0.99
     get:
       summary: Get HTTP latency
-      description: 'Get HTTP latency metrics for one or more resources.
-
-        '
+      description: Get HTTP latency metrics for one or more resources.
       operationId: get-http-latency
       tags:
       - Metrics
@@ -428,9 +412,7 @@ paths:
     - $ref: '#/paths/~1metrics~1cpu/parameters/4'
     get:
       summary: Get bandwidth usage
-      description: 'Get bandwidth usage for one or more resources.
-
-        '
+      description: Get bandwidth usage for one or more resources.
       operationId: get-bandwidth
       tags:
       - Metrics
@@ -454,9 +436,7 @@ paths:
 
         Returns hourly data points with traffic source breakdown. Traffic source data is available from March 9, 2025 onwards.
 
-        Queries for earlier dates will return a 400 Bad Request error.
-
-        '
+        Queries for earlier dates will return a 400 Bad Request error.'
       operationId: get-bandwidth-sources
       tags:
       - Metrics
@@ -546,9 +526,7 @@ paths:
     - $ref: '#/paths/~1metrics~1cpu/parameters/4'
     get:
       summary: Get disk usage
-      description: 'Get persistent disk usage for one or more resources.
-
-        '
+      description: Get persistent disk usage for one or more resources.
       operationId: get-disk-usage
       tags:
       - Metrics
@@ -568,9 +546,7 @@ paths:
     - $ref: '#/paths/~1metrics~1cpu/parameters/4'
     get:
       summary: Get disk capacity
-      description: 'Get persistent disk capacity for one or more resources.
-
-        '
+      description: Get persistent disk capacity for one or more resources.
       operationId: get-disk-capacity
       tags:
       - Metrics
@@ -590,9 +566,7 @@ paths:
     - $ref: '#/paths/~1metrics~1cpu/parameters/4'
     get:
       summary: Get instance count
-      description: 'Get the instance count for one or more resources.
-
-        '
+      description: Get the instance count for one or more resources.
       operationId: get-instance-count
       tags:
       - Metrics
@@ -616,9 +590,7 @@ paths:
         example: dpg-xxxxx,red-xxxxx
     get:
       summary: Get active connection count
-      description: 'Get the number of active connections for one or more Postgres databases or Redis instances.
-
-        '
+      description: Get the number of active connections for one or more Postgres databases or Redis instances.
       operationId: get-active-connections
       tags:
       - Metrics
@@ -642,9 +614,7 @@ paths:
         example: dpg-xxxxx
     get:
       summary: Get replica lag
-      description: 'Get seconds of replica lag of a Postgres replica.
-
-        '
+      description: Get seconds of replica lag of a Postgres replica.
       operationId: get-replication-lag
       tags:
       - Metrics
@@ -664,9 +634,7 @@ paths:
     - $ref: '#/paths/~1metrics~1cpu/parameters/4'
     get:
       summary: List queryable instance values
-      description: 'List instance values to filter by for one or more resources.
-
-        '
+      description: List instance values to filter by for one or more resources.
       operationId: list-application-filter-values
       tags:
       - Metrics
@@ -713,9 +681,7 @@ paths:
         example: '200'
     get:
       summary: List queryable status codes and host values
-      description: 'List status codes and host values to filter by for one or more resources.
-
-        '
+      description: List status codes and host values to filter by for one or more resources.
       operationId: list-http-filter-values
       tags:
       - Metrics
@@ -792,9 +758,7 @@ paths:
         example: tsk-xxxxx
     get:
       summary: Get task runs queued count
-      description: 'Get the total number of task runs queued for one or more tasks.
-
-        '
+      description: Get the total number of task runs queued for one or more tasks.
       operationId: get-task-runs-queued
       tags:
       - Metrics
@@ -830,9 +794,7 @@ paths:
         - state
     get:
       summary: Get task runs completed count
-      description: 'Get the total number of task runs completed for one or more tasks. Optionally filter by state (succeeded/failed) or aggregate by state.
-
-        '
+      description: Get the total number of task runs completed for one or more tasks. Optionally filter by state (succeeded/failed) or aggregate by state.
       operationId: get-task-runs-completed
       tags:
       - Metrics
@@ -844,6 +806,14 @@ paths:
         '500':
           $ref: '#/components/responses/500InternalServerError'
 components:
+  schemas:
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
   parameters:
     endTimeParam:
       name: endTime
@@ -876,14 +846,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-  schemas:
-    error:
-      type: object
-      properties:
-        id:
-          type: string
-        message:
-          type: string
   securitySchemes:
     BearerAuth:
       type: http

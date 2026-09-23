@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Render Public Audit Logs Services - Routes API
+  title: Render Public Services - Routes API
   description: Manage everything about your Render services
   version: 1.0.0
   contact:
@@ -20,9 +20,7 @@ paths:
     - $ref: '#/components/parameters/serviceIdParam'
     get:
       summary: List redirect/rewrite rules
-      description: 'List a particular service''s redirect/rewrite rules that match the provided filters. If no filters are provided, all rules for the service are returned.
-
-        '
+      description: List a particular service's redirect/rewrite rules that match the provided filters. If no filters are provided, all rules for the service are returned.
       operationId: list-routes
       tags:
       - Services - Routes
@@ -89,9 +87,7 @@ paths:
           $ref: '#/components/responses/503ServiceUnavailable'
     post:
       summary: Add redirect/rewrite rules
-      description: 'Add redirect/rewrite rules to the service with the provided ID.
-
-        '
+      description: Add redirect/rewrite rules to the service with the provided ID.
       operationId: add-route
       tags:
       - Services - Routes
@@ -134,9 +130,7 @@ paths:
         To apply redirect/rewrite rules to an incoming request, Render starts from the rule with priority `0` and applies the first encountered rule that matches the request''s path (if any).
 
 
-        Render increments the priority of other rules by `1` as necessary to make space for the updated rule.
-
-        '
+        Render increments the priority of other rules by `1` as necessary to make space for the updated rule.'
       operationId: patch-route
       tags:
       - Services - Routes
@@ -180,9 +174,7 @@ paths:
         **This deletes all existing redirect/rewrite rules for the service that aren''t included in the request.**
 
 
-        Rule priority is assigned according to list order (the first rule in the list has the highest priority).
-
-        '
+        Rule priority is assigned according to list order (the first rule in the list has the highest priority).'
       operationId: put-routes
       tags:
       - Services - Routes
@@ -232,9 +224,7 @@ paths:
         type: string
     delete:
       summary: Delete redirect/rewrite rule
-      description: 'Delete a particular redirect/rewrite rule for a particular service.
-
-        '
+      description: Delete a particular redirect/rewrite rule for a particular service.
       operationId: delete-route
       tags:
       - Services - Routes
@@ -258,62 +248,14 @@ paths:
         '503':
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
-  responses:
-    429RateLimit:
-      description: Rate limit has been surpassed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    503ServiceUnavailable:
-      description: Server currently unavailable.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    403Forbidden:
-      description: You do not have permissions for the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    500InternalServerError:
-      description: An unexpected server error has occurred.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    404NotFound:
-      description: Unable to find the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    406NotAcceptable:
-      description: Unable to generate preferred media types as specified by Accept request header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    400BadRequest:
-      description: The request could not be understood by the server.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    401Unauthorized:
-      description: Authorization information is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    410Gone:
-      description: The requested resource is no longer available.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
   parameters:
+    serviceIdParam:
+      name: serviceId
+      in: path
+      required: true
+      description: The ID of the service
+      schema:
+        type: string
     cursorParam:
       name: cursor
       in: query
@@ -332,23 +274,14 @@ components:
         minimum: 1
         maximum: 100
         description: Defaults to 20
-    serviceIdParam:
-      name: serviceId
-      in: path
-      required: true
-      description: The ID of the service
-      schema:
-        type: string
   schemas:
-    routePatch:
+    error:
       type: object
-      required:
-      - priority
       properties:
-        priority:
-          x-go-type: '*int'
-          type: integer
-          description: Redirect and Rewrite Rules are applied in priority order starting at 0. Moves this route to the specified priority and adjusts other route priorities accordingly.
+        id:
+          type: string
+        message:
+          type: string
     route:
       type: object
       required:
@@ -369,16 +302,24 @@ components:
         priority:
           type: integer
           description: Redirect and Rewrite Rules are applied in priority order starting at 0
-    routeWithCursor:
+    routePost:
       type: object
       required:
-      - route
-      - cursor
+      - type
+      - source
+      - destination
       properties:
-        route:
-          $ref: '#/components/schemas/route'
-        cursor:
+        type:
+          $ref: '#/components/schemas/routeType'
+        source:
           type: string
+          example: /:bar/foo
+        destination:
+          type: string
+          example: /foo/:bar
+        priority:
+          type: integer
+          description: Redirect and Rewrite Rules are applied in priority order starting at 0. Defaults to last in the priority list.
     routeType:
       type: string
       enum:
@@ -399,31 +340,80 @@ components:
         destination:
           type: string
           example: /foo/:bar
-    error:
-      type: object
-      properties:
-        id:
-          type: string
-        message:
-          type: string
-    routePost:
+    routeWithCursor:
       type: object
       required:
-      - type
-      - source
-      - destination
+      - route
+      - cursor
       properties:
-        type:
-          $ref: '#/components/schemas/routeType'
-        source:
+        route:
+          $ref: '#/components/schemas/route'
+        cursor:
           type: string
-          example: /:bar/foo
-        destination:
-          type: string
-          example: /foo/:bar
+    routePatch:
+      type: object
+      required:
+      - priority
+      properties:
         priority:
+          x-go-type: '*int'
           type: integer
-          description: Redirect and Rewrite Rules are applied in priority order starting at 0. Defaults to last in the priority list.
+          description: Redirect and Rewrite Rules are applied in priority order starting at 0. Moves this route to the specified priority and adjusts other route priorities accordingly.
+  responses:
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    410Gone:
+      description: The requested resource is no longer available.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   securitySchemes:
     BearerAuth:
       type: http

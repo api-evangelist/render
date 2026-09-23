@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Render Public Audit Logs Workflow Tasks (Beta) API
+  title: Render Public Workflow Tasks (Beta) API
   description: Manage everything about your Render services
   version: 1.0.0
   contact:
@@ -13,9 +13,7 @@ security:
 - BearerAuth: []
 tags:
 - name: Workflow Tasks (Beta)
-  description: 'Run and manage tasks as part of [Render Workflows](https://render.com/docs/workflows). Workflows are in public beta.
-
-    '
+  description: Run and manage tasks as part of Render Workflows. Workflows are in public beta.
 paths:
   /tasks:
     parameters:
@@ -206,9 +204,7 @@ paths:
 
         formatted per the SSE spec. Clients SHOULD set `Accept: text/event-stream`
 
-        and keep the connection open.
-
-        '
+        and keep the connection open.'
       operationId: streamTaskRunsEvents
       tags:
       - Workflow Tasks (Beta)
@@ -394,108 +390,14 @@ paths:
         '503':
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
-  responses:
-    429RateLimit:
-      description: Rate limit has been surpassed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    503ServiceUnavailable:
-      description: Server currently unavailable.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    403Forbidden:
-      description: You do not have permissions for the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    500InternalServerError:
-      description: An unexpected server error has occurred.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    404NotFound:
-      description: Unable to find the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    400BadRequest:
-      description: The request could not be understood by the server.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    401Unauthorized:
-      description: Authorization information is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-  parameters:
-    cursorParam:
-      name: cursor
-      in: query
-      required: false
-      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: string
-    ownerIdParam:
-      name: ownerId
-      in: query
-      description: The ID of the workspaces to return resources for
-      schema:
-        type: array
-        items:
-          type: string
-      style: form
-      explode: false
-      required: false
-    limitParam:
-      name: limit
-      in: query
-      required: false
-      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: integer
-        default: 20
-        minimum: 1
-        maximum: 100
-        description: Defaults to 20
   schemas:
-    cursor:
-      type: string
-    taskWithCursor:
+    error:
       type: object
-      required:
-      - task
-      - cursor
       properties:
-        task:
-          type: object
-          required:
-          - id
-          - name
-          - createdAt
-          properties:
-            id:
-              type: string
-            name:
-              type: string
-            createdAt:
-              type: string
-              format: date-time
-            workflowId:
-              type: string
-            workflowVersionId:
-              type: string
-        cursor:
-          $ref: '#/components/schemas/cursor'
+        id:
+          type: string
+        message:
+          type: string
     taskRunWithCursor:
       type: object
       required:
@@ -560,13 +462,107 @@ components:
                     format: date-time
         cursor:
           $ref: '#/components/schemas/cursor'
-    error:
+    taskWithCursor:
       type: object
+      required:
+      - task
+      - cursor
       properties:
-        id:
+        task:
+          type: object
+          required:
+          - id
+          - name
+          - createdAt
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            workflowId:
+              type: string
+            workflowVersionId:
+              type: string
+        cursor:
+          $ref: '#/components/schemas/cursor'
+    cursor:
+      type: string
+  responses:
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  parameters:
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+        description: Defaults to 20
+    ownerIdParam:
+      name: ownerId
+      in: query
+      description: The ID of the workspaces to return resources for
+      schema:
+        type: array
+        items:
           type: string
-        message:
-          type: string
+      style: form
+      explode: false
+      required: false
   securitySchemes:
     BearerAuth:
       type: http

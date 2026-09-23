@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Render Public Audit Logs Workflows (Beta) API
+  title: Render Public Workflows (Beta) API
   description: Manage everything about your Render services
   version: 1.0.0
   contact:
@@ -13,9 +13,7 @@ security:
 - BearerAuth: []
 tags:
 - name: Workflows (Beta)
-  description: 'Create and manage [Render Workflows](https://render.com/docs/workflows) services. Workflows are in public beta.
-
-    '
+  description: Create and manage Render Workflows services. Workflows are in public beta.
 paths:
   /workflows:
     get:
@@ -300,44 +298,14 @@ paths:
         '503':
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
-  responses:
-    429RateLimit:
-      description: Rate limit has been surpassed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    503ServiceUnavailable:
-      description: Server currently unavailable.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    403Forbidden:
-      description: You do not have permissions for the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    500InternalServerError:
-      description: An unexpected server error has occurred.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    404NotFound:
-      description: Unable to find the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    401Unauthorized:
-      description: Authorization information is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
   schemas:
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
     workflowWithCursor:
       type: object
       required:
@@ -423,8 +391,6 @@ components:
               description: Controls autodeploy behavior. "commit" deploys when a commit is pushed to the branch. "checksPass" waits for CI checks to pass before deploying. "off" disables autodeploy.
         cursor:
           $ref: '#/components/schemas/cursor'
-    cursor:
-      type: string
     workflowVersionWithCursor:
       type: object
       required:
@@ -462,32 +428,46 @@ components:
               - ready
         cursor:
           $ref: '#/components/schemas/cursor'
-    error:
-      type: object
-      properties:
-        id:
-          type: string
-        message:
-          type: string
+    cursor:
+      type: string
+  responses:
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   parameters:
-    cursorParam:
-      name: cursor
-      in: query
-      required: false
-      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: string
-    workflowVersionIdParam:
-      name: workflowVersionId
-      in: query
-      description: The IDs of the workflow versions to return resources for
-      schema:
-        type: array
-        items:
-          type: string
-      style: form
-      explode: false
-      required: false
     environmentIdParam:
       name: environmentId
       in: query
@@ -499,10 +479,10 @@ components:
       explode: false
       required: false
       description: Filter for resources that belong to an environment
-    ownerIdParam:
-      name: ownerId
+    workflowVersionIdParam:
+      name: workflowVersionId
       in: query
-      description: The ID of the workspaces to return resources for
+      description: The IDs of the workflow versions to return resources for
       schema:
         type: array
         items:
@@ -510,6 +490,13 @@ components:
       style: form
       explode: false
       required: false
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
     limitParam:
       name: limit
       in: query
@@ -521,6 +508,17 @@ components:
         minimum: 1
         maximum: 100
         description: Defaults to 20
+    workflowIdParam:
+      name: workflowID
+      in: query
+      description: The IDs of the workflows to return resources for
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
     nameParam:
       name: name
       in: query
@@ -532,10 +530,10 @@ components:
       explode: false
       required: false
       description: Filter by name
-    workflowIdParam:
-      name: workflowID
+    ownerIdParam:
+      name: ownerId
       in: query
-      description: The IDs of the workflows to return resources for
+      description: The ID of the workspaces to return resources for
       schema:
         type: array
         items:

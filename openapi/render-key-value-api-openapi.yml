@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Render Public Audit Logs Key Value API
+  title: Render Public Key Value API
   description: Manage everything about your Render services
   version: 1.0.0
   contact:
@@ -13,18 +13,14 @@ security:
 - BearerAuth: []
 tags:
 - name: Key Value
-  description: '[Key Value](https://render.com/docs/key-value) allows you to interact with your Render Key Value instances.
-
-    '
+  description: Key Value allows you to interact with your Render Key Value instances.
 paths:
   /key-value:
     get:
       tags:
       - Key Value
       summary: List Key Value instances
-      description: 'List Key Value instances matching the provided filters. If no filters are provided, all Key Value instances are returned.
-
-        '
+      description: List Key Value instances matching the provided filters. If no filters are provided, all Key Value instances are returned.
       operationId: list-key-value
       parameters:
       - $ref: '#/components/parameters/nameParam'
@@ -64,9 +60,7 @@ paths:
       tags:
       - Key Value
       summary: Create Key Value instance
-      description: 'Create a new Key Value instance.
-
-        '
+      description: Create a new Key Value instance.
       operationId: create-key-value
       requestBody:
         required: true
@@ -98,9 +92,7 @@ paths:
       tags:
       - Key Value
       summary: Retrieve Key Value instance
-      description: 'Retrieve a Key Value instance by ID.
-
-        '
+      description: Retrieve a Key Value instance by ID.
       operationId: retrieve-key-value
       parameters:
       - in: path
@@ -131,9 +123,7 @@ paths:
       tags:
       - Key Value
       summary: Update Key Value instance
-      description: 'Update a Key Value instance by ID.
-
-        '
+      description: Update a Key Value instance by ID.
       operationId: update-key-value
       parameters:
       - in: path
@@ -172,9 +162,7 @@ paths:
       tags:
       - Key Value
       summary: Delete Key Value instance
-      description: 'Delete a Key Value instance by ID.
-
-        '
+      description: Delete a Key Value instance by ID.
       operationId: delete-key-value
       parameters:
       - in: path
@@ -202,9 +190,7 @@ paths:
       tags:
       - Key Value
       summary: Retrieve Key Value connection info
-      description: 'Retrieve connection info for a Key Value instance by ID. Connection info includes sensitive information.
-
-        '
+      description: Retrieve connection info for a Key Value instance by ID. Connection info includes sensitive information.
       operationId: retrieve-key-value-connection-info
       parameters:
       - in: path
@@ -240,9 +226,7 @@ paths:
         type: string
     post:
       summary: Suspend Key Value instance
-      description: 'Suspend a Key Value instance by ID.
-
-        '
+      description: Suspend a Key Value instance by ID.
       operationId: suspend-key-value
       tags:
       - Key Value
@@ -276,9 +260,7 @@ paths:
         type: string
     post:
       summary: Resume Key Value instance
-      description: 'Resume a Key Value instance by ID.
-
-        '
+      description: Resume a Key Value instance by ID.
       operationId: resume-key-value
       tags:
       - Key Value
@@ -304,82 +286,7 @@ paths:
         '503':
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
-  responses:
-    429RateLimit:
-      description: Rate limit has been surpassed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    409Conflict:
-      description: The current state of the resource conflicts with this request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    503ServiceUnavailable:
-      description: Server currently unavailable.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    403Forbidden:
-      description: You do not have permissions for the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    500InternalServerError:
-      description: An unexpected server error has occurred.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    404NotFound:
-      description: Unable to find the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    406NotAcceptable:
-      description: Unable to generate preferred media types as specified by Accept request header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    400BadRequest:
-      description: The request could not be understood by the server.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    401Unauthorized:
-      description: Authorization information is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    410Gone:
-      description: The requested resource is no longer available.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
   schemas:
-    databaseStatus:
-      type: string
-      enum:
-      - creating
-      - available
-      - unavailable
-      - config_restart
-      - suspended
-      - maintenance_scheduled
-      - maintenance_in_progress
-      - recovery_failed
-      - recovery_in_progress
-      - unknown
-      - updating_instance
     keyValueWithCursor:
       type: object
       required:
@@ -390,18 +297,13 @@ components:
           $ref: '#/components/schemas/keyValue'
         cursor:
           $ref: '#/components/schemas/cursor'
-    maxmemoryPolicy:
-      type: string
-      description: The eviction policy for the Key Value instance
-      enum:
-      - noeviction
-      - allkeys_lfu
-      - allkeys_lru
-      - allkeys_random
-      - volatile_lfu
-      - volatile_lru
-      - volatile_random
-      - volatile_ttl
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
     owner:
       type: object
       required:
@@ -428,8 +330,52 @@ components:
           enum:
           - user
           - team
-    cursor:
+    keyValuePlan:
       type: string
+      enum:
+      - free
+      - starter
+      - standard
+      - pro
+      - pro_plus
+      - custom
+    databaseStatus:
+      type: string
+      enum:
+      - creating
+      - available
+      - unavailable
+      - config_restart
+      - suspended
+      - maintenance_scheduled
+      - maintenance_in_progress
+      - recovery_failed
+      - recovery_in_progress
+      - unknown
+      - updating_instance
+    cidrBlockAndDescription:
+      type: object
+      required:
+      - cidrBlock
+      - description
+      properties:
+        cidrBlock:
+          type: string
+        description:
+          description: User-provided description of the CIDR block
+          type: string
+    maxmemoryPolicy:
+      type: string
+      description: The eviction policy for the Key Value instance
+      enum:
+      - noeviction
+      - allkeys_lfu
+      - allkeys_lru
+      - allkeys_random
+      - volatile_lfu
+      - volatile_lru
+      - volatile_random
+      - volatile_ttl
     redisDetail:
       type: object
       description: A Redis instance
@@ -502,17 +448,25 @@ components:
               description: If present, the maintenance run cannot be scheduled for later than this date-time.
             state:
               $ref: '#/paths/~1maintenance/get/parameters/2/schema/items'
-    cidrBlockAndDescription:
+    keyValueConnectionInfo:
       type: object
+      description: A Key Value instance
       required:
-      - cidrBlock
-      - description
+      - internalConnectionString
+      - externalConnectionString
+      - cliCommand
       properties:
-        cidrBlock:
+        internalConnectionString:
+          description: The connection string to use from within Render
           type: string
-        description:
-          description: User-provided description of the CIDR block
+        externalConnectionString:
+          description: The connection string to use from outside Render
           type: string
+          format: password
+        cliCommand:
+          description: The CLI (redis-cli or valkey-cli) command to connect to the Key Value instance
+          type: string
+          format: password
     keyValue:
       type: object
       description: A Key Value instance
@@ -568,84 +522,6 @@ components:
         dashboardUrl:
           type: string
           description: The URL to view the Key Value instance in the Render Dashboard
-    keyValueOptions:
-      description: Options for a Key Value instance
-      type: object
-      properties:
-        maxmemoryPolicy:
-          type: string
-    region:
-      type: string
-      enum:
-      - frankfurt
-      - oregon
-      - ohio
-      - singapore
-      - virginia
-      default: oregon
-      description: Defaults to "oregon"
-    keyValuePlan:
-      type: string
-      enum:
-      - free
-      - starter
-      - standard
-      - pro
-      - pro_plus
-      - custom
-    error:
-      type: object
-      properties:
-        id:
-          type: string
-        message:
-          type: string
-    keyValueConnectionInfo:
-      type: object
-      description: A Key Value instance
-      required:
-      - internalConnectionString
-      - externalConnectionString
-      - cliCommand
-      properties:
-        internalConnectionString:
-          description: The connection string to use from within Render
-          type: string
-        externalConnectionString:
-          description: The connection string to use from outside Render
-          type: string
-          format: password
-        cliCommand:
-          description: The CLI (redis-cli or valkey-cli) command to connect to the Key Value instance
-          type: string
-          format: password
-    keyValuePOSTInput:
-      type: object
-      description: Input type for creating a Key Value instance
-      required:
-      - name
-      - ownerId
-      - plan
-      properties:
-        name:
-          type: string
-          description: The name of the Key Value instance
-        ownerId:
-          type: string
-          description: The ID of the owner of the Key Value instance
-        plan:
-          $ref: '#/components/schemas/keyValuePlan'
-        region:
-          type: string
-          description: The region where the Key Value instance is located
-        environmentId:
-          type: string
-        maxmemoryPolicy:
-          $ref: '#/components/schemas/maxmemoryPolicy'
-        ipAllowList:
-          type: array
-          items:
-            $ref: '#/components/schemas/cidrBlockAndDescription'
     keyValuePATCHInput:
       type: object
       description: Input type for updating a Key Value instance
@@ -661,6 +537,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/cidrBlockAndDescription'
+    cursor:
+      type: string
+    keyValueOptions:
+      description: Options for a Key Value instance
+      type: object
+      properties:
+        maxmemoryPolicy:
+          type: string
     keyValueDetail:
       type: object
       description: A Key Value instance
@@ -714,25 +598,53 @@ components:
           type: string
         maintenance:
           $ref: '#/components/schemas/redisDetail/properties/maintenance'
+    region:
+      type: string
+      enum:
+      - frankfurt
+      - oregon
+      - ohio
+      - singapore
+      - virginia
+      default: oregon
+      description: Defaults to "oregon"
+    keyValuePOSTInput:
+      type: object
+      description: Input type for creating a Key Value instance
+      required:
+      - name
+      - ownerId
+      - plan
+      properties:
+        name:
+          type: string
+          description: The name of the Key Value instance
+        ownerId:
+          type: string
+          description: The ID of the owner of the Key Value instance
+        plan:
+          $ref: '#/components/schemas/keyValuePlan'
+        region:
+          type: string
+          description: The region where the Key Value instance is located
+        environmentId:
+          type: string
+        maxmemoryPolicy:
+          $ref: '#/components/schemas/maxmemoryPolicy'
+        ipAllowList:
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
   parameters:
-    cursorParam:
-      name: cursor
+    createdAfterParam:
+      name: createdAfter
       in: query
-      required: false
-      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
       schema:
         type: string
-    regionParam:
-      name: region
-      in: query
-      schema:
-        type: array
-        items:
-          $ref: '#/components/schemas/region'
-      style: form
-      explode: false
+        format: date-time
       required: false
-      description: Filter by resource region
+      description: Filter for resources created after a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-02-17T08:15:30Z'
     createdBeforeParam:
       name: createdBefore
       in: query
@@ -742,26 +654,15 @@ components:
       required: false
       description: Filter for resources created before a certain time (specified as an ISO 8601 timestamp)
       example: '2021-06-17T08:15:30Z'
-    updatedAfterParam:
-      name: updatedAfter
+    updatedBeforeParam:
+      name: updatedBefore
       in: query
       schema:
         type: string
         format: date-time
       required: false
-      description: Filter for resources updated after a certain time (specified as an ISO 8601 timestamp)
+      description: Filter for resources updated before a certain time (specified as an ISO 8601 timestamp)
       example: '2021-06-17T08:15:30Z'
-    ownerIdParam:
-      name: ownerId
-      in: query
-      description: The ID of the workspaces to return resources for
-      schema:
-        type: array
-        items:
-          type: string
-      style: form
-      explode: false
-      required: false
     environmentIdParam:
       name: environmentId
       in: query
@@ -773,6 +674,22 @@ components:
       explode: false
       required: false
       description: Filter for resources that belong to an environment
+    updatedAfterParam:
+      name: updatedAfter
+      in: query
+      schema:
+        type: string
+        format: date-time
+      required: false
+      description: Filter for resources updated after a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-06-17T08:15:30Z'
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
     limitParam:
       name: limit
       in: query
@@ -784,15 +701,6 @@ components:
         minimum: 1
         maximum: 100
         description: Defaults to 20
-    updatedBeforeParam:
-      name: updatedBefore
-      in: query
-      schema:
-        type: string
-        format: date-time
-      required: false
-      description: Filter for resources updated before a certain time (specified as an ISO 8601 timestamp)
-      example: '2021-06-17T08:15:30Z'
     nameParam:
       name: name
       in: query
@@ -804,15 +712,89 @@ components:
       explode: false
       required: false
       description: Filter by name
-    createdAfterParam:
-      name: createdAfter
+    regionParam:
+      name: region
       in: query
       schema:
-        type: string
-        format: date-time
+        type: array
+        items:
+          $ref: '#/components/schemas/region'
+      style: form
+      explode: false
       required: false
-      description: Filter for resources created after a certain time (specified as an ISO 8601 timestamp)
-      example: '2021-02-17T08:15:30Z'
+      description: Filter by resource region
+    ownerIdParam:
+      name: ownerId
+      in: query
+      description: The ID of the workspaces to return resources for
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+  responses:
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    410Gone:
+      description: The requested resource is no longer available.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    409Conflict:
+      description: The current state of the resource conflicts with this request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   securitySchemes:
     BearerAuth:
       type: http

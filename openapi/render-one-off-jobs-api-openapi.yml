@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Render Public Audit Logs One-Off Jobs API
+  title: Render Public One-Off Jobs API
   description: Manage everything about your Render services
   version: 1.0.0
   contact:
@@ -13,18 +13,14 @@ security:
 - BearerAuth: []
 tags:
 - name: One-Off Jobs
-  description: '[One-off jobs](https://render.com/docs/one-off-jobs) are standalone tasks that run to completion using the most recent successful build of an existing service.
-
-    '
+  description: One-off jobs are standalone tasks that run to completion using the most recent successful build of an existing service.
 paths:
   /services/{serviceId}/jobs:
     parameters:
     - $ref: '#/components/parameters/serviceIdParam'
     get:
       summary: List jobs
-      description: 'List jobs for the provided service that match the provided filters. If no filters are provided, all jobs for the service are returned.
-
-        '
+      description: List jobs for the provided service that match the provided filters. If no filters are provided, all jobs for the service are returned.
       operationId: list-job
       tags:
       - One-Off Jobs
@@ -118,9 +114,7 @@ paths:
           $ref: '#/components/responses/503ServiceUnavailable'
     post:
       summary: Create job
-      description: 'Create a one-off job using the provided service. For details, see [One-Off Jobs](https://render.com/docs/one-off-jobs).
-
-        '
+      description: Create a one-off job using the provided service. For details, see One-Off Jobs.
       requestBody:
         required: true
         content:
@@ -169,9 +163,7 @@ paths:
         example: job-cph1rs3idesc73a2b2mg
     get:
       summary: Retrieve job
-      description: 'Retrieve the details of a particular one-off job for a particular service.
-
-        '
+      description: Retrieve the details of a particular one-off job for a particular service.
       operationId: retrieve-job
       tags:
       - One-Off Jobs
@@ -200,9 +192,7 @@ paths:
     - $ref: '#/paths/~1services~1%7BserviceId%7D~1jobs~1%7BjobId%7D/parameters/1'
     post:
       summary: Cancel running job
-      description: 'Cancel a particular one-off job for a particular service.
-
-        '
+      description: Cancel a particular one-off job for a particular service.
       operationId: cancel-job
       tags:
       - One-Off Jobs
@@ -226,49 +216,19 @@ paths:
         '503':
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
-  responses:
-    429RateLimit:
-      description: Rate limit has been surpassed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    500InternalServerError:
-      description: An unexpected server error has occurred.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    404NotFound:
-      description: Unable to find the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    401Unauthorized:
-      description: Authorization information is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    503ServiceUnavailable:
-      description: Server currently unavailable.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    400BadRequest:
-      description: The request could not be understood by the server.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
   parameters:
     serviceIdParam:
       name: serviceId
       in: path
       required: true
       description: The ID of the service
+      schema:
+        type: string
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
       schema:
         type: string
     limitParam:
@@ -282,21 +242,44 @@ components:
         minimum: 1
         maximum: 100
         description: Defaults to 20
-    cursorParam:
-      name: cursor
-      in: query
-      required: false
-      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: string
+  responses:
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   schemas:
-    error:
-      type: object
-      properties:
-        id:
-          type: string
-        message:
-          type: string
     jobWithCursor:
       type: object
       required:
@@ -339,6 +322,13 @@ components:
               example: '2021-07-15T07:20:05.777035-07:00'
         cursor:
           $ref: '#/components/schemas/cursor'
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
     cursor:
       type: string
   securitySchemes:

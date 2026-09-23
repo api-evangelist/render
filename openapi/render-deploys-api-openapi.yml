@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Render Public Audit Logs Deploys API
+  title: Render Public Deploys API
   description: Manage everything about your Render services
   version: 1.0.0
   contact:
@@ -13,7 +13,7 @@ security:
 - BearerAuth: []
 tags:
 - name: Deploys
-  description: '[Deploys](https://render.com/docs/deploys) are the process of updating your service with new code or configuration.
+  description: 'Deploys are the process of updating your service with new code or configuration.
 
     These endpoints allow you to retrieve data on the deploys of your services
 
@@ -22,18 +22,14 @@ tags:
     will require a new deploy to take effect.
 
 
-    To create and manage services, use the `Services` endpoints.
-
-    '
+    To create and manage services, use the `Services` endpoints.'
 paths:
   /services/{serviceId}/deploys:
     parameters:
     - $ref: '#/components/parameters/serviceIdParam'
     get:
       summary: List deploys
-      description: 'List deploys matching the provided filters. If no filters are provided, all deploys for the service are returned.
-
-        '
+      description: List deploys matching the provided filters. If no filters are provided, all deploys for the service are returned.
       operationId: list-deploys
       tags:
       - Deploys
@@ -121,9 +117,7 @@ paths:
           $ref: '#/components/responses/503ServiceUnavailable'
     post:
       summary: Trigger deploy
-      description: 'Trigger a deploy for the service with the provided ID.
-
-        '
+      description: Trigger a deploy for the service with the provided ID.
       operationId: create-deploy
       tags:
       - Deploys
@@ -207,9 +201,7 @@ paths:
     - $ref: '#/components/parameters/deployIdParam'
     get:
       summary: Retrieve deploy
-      description: 'Retrieve the details of a particular deploy for a particular service.
-
-        '
+      description: Retrieve the details of a particular deploy for a particular service.
       operationId: retrieve-deploy
       tags:
       - Deploys
@@ -245,9 +237,7 @@ paths:
       description: 'Cancel an in-progress deploy for a service.
 
 
-        Not supported for cron jobs.
-
-        '
+        Not supported for cron jobs.'
       operationId: cancel-deploy
       tags:
       - Deploys
@@ -283,9 +273,7 @@ paths:
         Triggering a rollback with this endpoint does not disable autodeploys for the service. This means an autodeploy might restore changes you had intentionally rolled back.
 
 
-        You can toggle autodeploys for your service with the [Update service](https://api-docs.render.com/reference/update-service) endpoint or in the Render Dashboard.
-
-        '
+        You can toggle autodeploys for your service with the Update service endpoint or in the Render Dashboard.'
       operationId: rollback-deploy
       tags:
       - Deploys
@@ -323,73 +311,12 @@ paths:
         '503':
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
-  responses:
-    429RateLimit:
-      description: Rate limit has been surpassed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    409Conflict:
-      description: The current state of the resource conflicts with this request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    503ServiceUnavailable:
-      description: Server currently unavailable.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    403Forbidden:
-      description: You do not have permissions for the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    500InternalServerError:
-      description: An unexpected server error has occurred.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    404NotFound:
-      description: Unable to find the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    406NotAcceptable:
-      description: Unable to generate preferred media types as specified by Accept request header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    400BadRequest:
-      description: The request could not be understood by the server.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    401Unauthorized:
-      description: Authorization information is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    410Gone:
-      description: The requested resource is no longer available.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
   parameters:
-    cursorParam:
-      name: cursor
-      in: query
-      required: false
-      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+    serviceIdParam:
+      name: serviceId
+      in: path
+      required: true
+      description: The ID of the service
       schema:
         type: string
     deployIdParam:
@@ -397,6 +324,13 @@ components:
       in: path
       required: true
       description: The ID of the deploy
+      schema:
+        type: string
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
       schema:
         type: string
     limitParam:
@@ -410,16 +344,14 @@ components:
         minimum: 1
         maximum: 100
         description: Defaults to 20
-    serviceIdParam:
-      name: serviceId
-      in: path
-      required: true
-      description: The ID of the service
-      schema:
-        type: string
   schemas:
-    cursor:
-      type: string
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
     DeployMode:
       type: string
       enum:
@@ -439,10 +371,6 @@ components:
 
         '
       default: build_and_deploy
-    deployList:
-      type: array
-      items:
-        $ref: '#/components/schemas/deployWithCursor'
     deployWithCursor:
       type: object
       properties:
@@ -464,13 +392,12 @@ components:
       - canceled
       - pre_deploy_in_progress
       - pre_deploy_failed
-    error:
-      type: object
-      properties:
-        id:
-          type: string
-        message:
-          type: string
+    cursor:
+      type: string
+    deployList:
+      type: array
+      items:
+        $ref: '#/components/schemas/deployWithCursor'
     deploy:
       type: object
       required:
@@ -528,6 +455,67 @@ components:
         updatedAt:
           type: string
           format: date-time
+  responses:
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    409Conflict:
+      description: The current state of the resource conflicts with this request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    410Gone:
+      description: The requested resource is no longer available.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   securitySchemes:
     BearerAuth:
       type: http
