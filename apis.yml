@@ -96,8 +96,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-blueprints-api
   name: Render Blueprints API
   description: >-
@@ -136,8 +134,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-custom-domains-api
   name: Render Custom Domains API
   description: >-
@@ -174,8 +170,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-deploys-api
   name: Render Deploys API
   description: >-
@@ -221,8 +215,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-disks-api
   name: Render Disks API
   description: >-
@@ -258,8 +250,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-environment-groups-api
   name: Render Environment Groups API
   description: >-
@@ -295,8 +285,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-events-api
   name: Render Events API
   description: View events for a service, postgres or key value
@@ -333,8 +321,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-key-value-api
   name: Render Key Value API
   description: >-
@@ -342,9 +328,10 @@ apis:
   humanURL: https://render.com/docs/api
   baseURL: https://api.render.com/v1
   tags:
-  - Key-Value
+  - Key-Value Store
   tags_raw:
   - Key Value
+  - Key-Value
   properties:
   - type: OpenAPI
     url: openapi/render-key-value-api-openapi.yml
@@ -372,8 +359,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-logs-api
   name: Render Logs API
   description: >-
@@ -412,8 +397,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-maintenance-api
   name: Render Maintenance API
   description: >-
@@ -450,8 +433,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-metrics-api
   name: Render Metrics API
   description: >-
@@ -488,8 +469,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-notification-settings-api
   name: Render Notification Settings API
   description: >-
@@ -528,8 +507,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-one-off-jobs-api
   name: Render One-Off Jobs API
   description: >-
@@ -566,8 +543,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-postgres-api
   name: Render Postgres API
   description: >-
@@ -578,6 +553,8 @@ apis:
   humanURL: https://render.com/docs/api
   baseURL: https://api.render.com/v1
   tags:
+  - PostgreSQL
+  tags_raw:
   - Postgres
   properties:
   - type: OpenAPI
@@ -606,8 +583,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-projects-environments-api
   name: Render Projects & Environments API
   description: >-
@@ -643,8 +618,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-redis-deprecated-api
   name: Render Redis (Deprecated) API
   description: >-
@@ -681,8 +654,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-registry-credentials-api
   name: Render Registry Credentials API
   description: >-
@@ -719,8 +690,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-services-api
   name: Render Services API
   description: >-
@@ -757,8 +726,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-services-cron-jobs-api
   name: Render Services - Cron Jobs API
   description: >-
@@ -794,8 +761,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-services-headers-api
   name: Render Services - Headers API
   description: >-
@@ -832,8 +797,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-services-routes-api
   name: Render Services - Routes API
   description: >-
@@ -870,8 +833,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-users-api
   name: Render Users API
   description: The `User` endpoints allow you to retrieve information about the authenticated user
@@ -908,8 +869,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-webhooks-api
   name: Render Webhooks API
   description: >-
@@ -947,8 +906,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-workflow-tasks-beta-api
   name: Render Workflow Tasks (Beta) API
   description: >-
@@ -985,8 +942,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-workflows-beta-api
   name: Render Workflows (Beta) API
   description: >-
@@ -1023,8 +978,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 - aid: render:render-workspaces-api
   name: Render Workspaces API
   description: >-
@@ -1063,8 +1016,6 @@ apis:
     url: examples/render-trigger-deploy-example.json
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
-  - type: GraphQL
-    url: graphql/render-graphql.md
 common:
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/render/overview
