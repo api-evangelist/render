@@ -41,18 +41,6 @@ paths:
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
   responses:
-    406NotAcceptable:
-      description: Unable to generate preferred media types as specified by Accept request header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    401Unauthorized:
-      description: Authorization information is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
     503ServiceUnavailable:
       description: Server currently unavailable.
       content:
@@ -61,6 +49,18 @@ components:
             $ref: '#/components/schemas/error'
     500InternalServerError:
       description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
       content:
         application/json:
           schema:

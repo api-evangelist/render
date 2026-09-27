@@ -806,14 +806,19 @@ paths:
         '500':
           $ref: '#/components/responses/500InternalServerError'
 components:
-  schemas:
-    error:
-      type: object
-      properties:
-        id:
-          type: string
-        message:
-          type: string
+  responses:
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   parameters:
     endTimeParam:
       name: endTime
@@ -833,19 +838,14 @@ components:
         example: '2021-06-17T08:15:30Z'
       required: false
       description: Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`.
-  responses:
-    500InternalServerError:
-      description: An unexpected server error has occurred.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    400BadRequest:
-      description: The request could not be understood by the server.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
+  schemas:
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
   securitySchemes:
     BearerAuth:
       type: http

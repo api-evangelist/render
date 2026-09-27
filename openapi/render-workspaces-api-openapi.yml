@@ -208,17 +208,115 @@ paths:
         '503':
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
+  responses:
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    409Conflict:
+      description: The current state of the resource conflicts with this request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    410Gone:
+      description: The requested resource is no longer available.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   schemas:
-    teamMembers:
-      type: array
-      items:
-        $ref: '#/components/schemas/teamMember'
-    error:
+    teamMemberRole:
+      type: string
+      description: The member's workspace role. Values are always returned in uppercase.
+      enum:
+      - ADMIN
+      - DEVELOPER
+      - WORKSPACE_CONTRIBUTOR
+      - WORKSPACE_BILLING
+      - WORKSPACE_VIEWER
+      example: DEVELOPER
+    cursor:
+      type: string
+    teamMember:
       type: object
+      required:
+      - userId
+      - name
+      - email
+      - status
+      - role
+      - mfaEnabled
       properties:
-        id:
+        userId:
           type: string
-        message:
+        name:
+          type: string
+        email:
+          type: string
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+        role:
+          $ref: '#/components/schemas/teamMemberRole'
+        mfaEnabled:
+          type: boolean
+    cidrBlockAndDescription:
+      type: object
+      required:
+      - cidrBlock
+      - description
+      properties:
+        cidrBlock:
+          type: string
+        description:
+          description: User-provided description of the CIDR block
           type: string
     owner:
       type: object
@@ -246,17 +344,6 @@ components:
           enum:
           - user
           - team
-    cidrBlockAndDescription:
-      type: object
-      required:
-      - cidrBlock
-      - description
-      properties:
-        cidrBlock:
-          type: string
-        description:
-          description: User-provided description of the CIDR block
-          type: string
     ownerWithCursor:
       type: object
       properties:
@@ -264,104 +351,17 @@ components:
           $ref: '#/components/schemas/owner'
         cursor:
           $ref: '#/components/schemas/cursor'
-    teamMemberRole:
-      type: string
-      description: The member's workspace role. Values are always returned in uppercase.
-      enum:
-      - ADMIN
-      - DEVELOPER
-      - WORKSPACE_CONTRIBUTOR
-      - WORKSPACE_BILLING
-      - WORKSPACE_VIEWER
-      example: DEVELOPER
-    teamMember:
+    teamMembers:
+      type: array
+      items:
+        $ref: '#/components/schemas/teamMember'
+    error:
       type: object
-      required:
-      - userId
-      - name
-      - email
-      - status
-      - role
-      - mfaEnabled
       properties:
-        userId:
+        id:
           type: string
-        name:
+        message:
           type: string
-        email:
-          type: string
-        status:
-          type: string
-          enum:
-          - active
-          - inactive
-        role:
-          $ref: '#/components/schemas/teamMemberRole'
-        mfaEnabled:
-          type: boolean
-    cursor:
-      type: string
-  responses:
-    500InternalServerError:
-      description: An unexpected server error has occurred.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    400BadRequest:
-      description: The request could not be understood by the server.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    403Forbidden:
-      description: You do not have permissions for the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    429RateLimit:
-      description: Rate limit has been surpassed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    404NotFound:
-      description: Unable to find the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    409Conflict:
-      description: The current state of the resource conflicts with this request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    406NotAcceptable:
-      description: Unable to generate preferred media types as specified by Accept request header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    401Unauthorized:
-      description: Authorization information is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    503ServiceUnavailable:
-      description: Server currently unavailable.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    410Gone:
-      description: The requested resource is no longer available.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
   parameters:
     cursorParam:
       name: cursor
@@ -370,15 +370,13 @@ components:
       description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
       schema:
         type: string
-    userIdPathParam:
-      name: userId
+    ownerIdPathParam:
+      name: ownerId
       in: path
-      required: true
-      description: The ID of the user (Render object ID with a `usr-` prefix).
+      description: The ID of the workspace to return resources for
       schema:
         type: string
-        pattern: ^usr-[0-9a-v]{20}$
-        example: usr-5k6m7n8p9q0r1s2t3u4v
+      required: true
     limitParam:
       name: limit
       in: query
@@ -390,13 +388,15 @@ components:
         minimum: 1
         maximum: 100
         description: Defaults to 20
-    ownerIdPathParam:
-      name: ownerId
+    userIdPathParam:
+      name: userId
       in: path
-      description: The ID of the workspace to return resources for
+      required: true
+      description: The ID of the user (Render object ID with a `usr-` prefix).
       schema:
         type: string
-      required: true
+        pattern: ^usr-[0-9a-v]{20}$
+        example: usr-5k6m7n8p9q0r1s2t3u4v
   securitySchemes:
     BearerAuth:
       type: http

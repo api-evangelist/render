@@ -238,26 +238,20 @@ paths:
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
   responses:
-    401Unauthorized:
-      description: Authorization information is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
     503ServiceUnavailable:
       description: Server currently unavailable.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    404NotFound:
-      description: Unable to find the requested resource.
+    500InternalServerError:
+      description: An unexpected server error has occurred.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    500InternalServerError:
-      description: An unexpected server error has occurred.
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
       content:
         application/json:
           schema:
@@ -270,6 +264,12 @@ components:
             $ref: '#/components/schemas/error'
     429RateLimit:
       description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
       content:
         application/json:
           schema:
@@ -308,6 +308,8 @@ components:
                 $ref: '#/components/schemas/webhookEventWithCursor/properties/webhookEvent/properties/eventType'
         cursor:
           $ref: '#/components/schemas/cursor'
+    cursor:
+      type: string
     error:
       type: object
       properties:
@@ -411,16 +413,7 @@ components:
               description: error is populated when an error occurs without a response such as a timeout
         cursor:
           $ref: '#/components/schemas/cursor'
-    cursor:
-      type: string
   parameters:
-    cursorParam:
-      name: cursor
-      in: query
-      required: false
-      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: string
     limitParam:
       name: limit
       in: query
@@ -443,6 +436,13 @@ components:
       style: form
       explode: false
       required: false
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
   securitySchemes:
     BearerAuth:
       type: http

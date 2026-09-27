@@ -649,27 +649,45 @@ paths:
         '503':
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
-  schemas:
-    error:
-      type: object
-      properties:
-        id:
-          type: string
-        message:
-          type: string
   responses:
-    500InternalServerError:
-      description: An unexpected server error has occurred.
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    400BadRequest:
-      description: The request could not be understood by the server.
+    429RateLimit:
+      description: Rate limit has been surpassed.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    LogsValues200Response:
+      description: An array of possible values for a log label
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: string
     Logs200Response:
       description: A collection of logs with pagination metadata
       content:
@@ -700,32 +718,14 @@ components:
                 type: array
                 items:
                   $ref: '#/paths/~1logs~1subscribe/get/responses/101/content/application~1json/schema'
-    403Forbidden:
-      description: You do not have permissions for the requested resource.
+    410Gone:
+      description: The requested resource is no longer available.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    429RateLimit:
-      description: Rate limit has been surpassed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    404NotFound:
-      description: Unable to find the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    406NotAcceptable:
-      description: Unable to generate preferred media types as specified by Accept request header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    401Unauthorized:
-      description: Authorization information is missing or invalid.
+    400BadRequest:
+      description: The request could not be understood by the server.
       content:
         application/json:
           schema:
@@ -736,30 +736,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    LogsValues200Response:
-      description: An array of possible values for a log label
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              type: string
-    410Gone:
-      description: The requested resource is no longer available.
+    500InternalServerError:
+      description: An unexpected server error has occurred.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
   parameters:
-    endTimeParam:
-      name: endTime
-      in: query
-      schema:
-        type: string
-        format: date-time
-        example: '2021-06-17T08:30:30Z'
-      required: false
-      description: Epoch/Unix timestamp of end of time range to return. Defaults to `now()`.
     ownerIdParam:
       name: ownerId
       in: query
@@ -771,15 +754,6 @@ components:
       style: form
       explode: false
       required: false
-    startTimeParam:
-      name: startTime
-      in: query
-      schema:
-        type: string
-        format: date-time
-        example: '2021-06-17T08:15:30Z'
-      required: false
-      description: Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`.
     cursorParam:
       name: cursor
       in: query
@@ -796,6 +770,24 @@ components:
         type: array
         items:
           type: string
+    endTimeParam:
+      name: endTime
+      in: query
+      schema:
+        type: string
+        format: date-time
+        example: '2021-06-17T08:30:30Z'
+      required: false
+      description: Epoch/Unix timestamp of end of time range to return. Defaults to `now()`.
+    startTimeParam:
+      name: startTime
+      in: query
+      schema:
+        type: string
+        format: date-time
+        example: '2021-06-17T08:15:30Z'
+      required: false
+      description: Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`.
     limitParam:
       name: limit
       in: query
@@ -807,6 +799,14 @@ components:
         minimum: 1
         maximum: 100
         description: Defaults to 20
+  schemas:
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
   securitySchemes:
     BearerAuth:
       type: http

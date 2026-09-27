@@ -904,96 +904,407 @@ paths:
         '503':
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
-  schemas:
-    service:
-      type: object
-      required:
-      - id
-      - name
-      - ownerId
-      - type
-      - createdAt
-      - dashboardUrl
-      - updatedAt
-      - suspended
-      - suspenders
-      - autoDeploy
-      - notifyOnFail
-      - slug
-      - serviceDetails
-      - rootDir
-      properties:
-        id:
+  parameters:
+    createdAfterParam:
+      name: createdAfter
+      in: query
+      schema:
+        type: string
+        format: date-time
+      required: false
+      description: Filter for resources created after a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-02-17T08:15:30Z'
+    createdBeforeParam:
+      name: createdBefore
+      in: query
+      schema:
+        type: string
+        format: date-time
+      required: false
+      description: Filter for resources created before a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-06-17T08:15:30Z'
+    regionParam:
+      name: region
+      in: query
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/region'
+      style: form
+      explode: false
+      required: false
+      description: Filter by resource region
+    serviceTypeParam:
+      name: type
+      in: query
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/serviceType'
+      style: form
+      explode: false
+      required: false
+      description: Filter for types of services
+    limitParam:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+        description: Defaults to 20
+    eventTypeParam:
+      name: type
+      in: query
+      description: The type of event to filter to
+      required: false
+      schema:
+        anyOf:
+        - type: string
+          enum:
+          - autoscaling_config_changed
+          - autoscaling_ended
+          - autoscaling_started
+          - branch_deleted
+          - build_ended
+          - build_started
+          - commit_ignored
+          - cron_job_run_ended
+          - cron_job_run_started
+          - deploy_ended
+          - deploy_started
+          - disk_created
+          - disk_updated
+          - disk_deleted
+          - image_pull_failed
+          - initial_deploy_hook_ended
+          - initial_deploy_hook_started
+          - instance_count_changed
+          - job_run_ended
+          - maintenance_mode_enabled
+          - maintenance_mode_uri_updated
+          - maintenance_ended
+          - maintenance_started
+          - pipeline_minutes_exhausted
+          - plan_changed
+          - pre_deploy_ended
+          - pre_deploy_started
+          - server_available
+          - server_failed
+          - server_hardware_failure
+          - server_restarted
+          - service_resumed
+          - service_suspended
+          - suspender_added
+          - suspender_removed
+          - zero_downtime_redeploy_ended
+          - zero_downtime_redeploy_started
+    envVarKeyParam:
+      name: envVarKey
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The name of the environment variable
+    includePreviewsParam:
+      name: includePreviews
+      in: query
+      schema:
+        type: boolean
+        default: true
+      required: false
+      description: Include previews in the response
+    serviceIdParam:
+      name: serviceId
+      in: path
+      required: true
+      description: The ID of the service
+      schema:
+        type: string
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
+    startTimeParam:
+      name: startTime
+      in: query
+      schema:
+        type: string
+        format: date-time
+        example: '2021-06-17T08:15:30Z'
+      required: false
+      description: Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`.
+    ownerIdParam:
+      name: ownerId
+      in: query
+      description: The ID of the workspaces to return resources for
+      schema:
+        type: array
+        items:
           type: string
-        autoDeploy:
-          $ref: '#/components/schemas/autoDeploy'
-        branch:
-          type: string
-        buildFilter:
-          $ref: '#/components/schemas/buildFilter'
-        createdAt:
-          type: string
-          format: date-time
-        dashboardUrl:
-          type: string
-          description: The URL to view the service in the Render Dashboard
-        environmentId:
-          type: string
-        imagePath:
-          type: string
-        name:
-          type: string
-        notifyOnFail:
-          $ref: '#/components/schemas/notifySetting'
-        ownerId:
-          type: string
-        registryCredential:
-          $ref: '#/components/schemas/registryCredentialSummary'
-        repo:
-          type: string
-          example: https://github.com/render-examples/flask-hello-world
-        rootDir:
-          type: string
-        slug:
-          type: string
-        suspended:
+      style: form
+      explode: false
+      required: false
+    envParam:
+      name: env
+      in: query
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/serviceRuntime'
+      style: form
+      explode: false
+      required: false
+      deprecated: true
+      description: Filter for environments (runtimes) of services (deprecated; use `runtime` instead)
+    suspendedParam:
+      name: suspended
+      in: query
+      schema:
+        type: array
+        items:
           type: string
           enum:
           - suspended
           - not_suspended
-        suspenders:
-          type: array
-          items:
-            $ref: '#/components/schemas/suspenderType'
-        type:
-          $ref: '#/components/schemas/serviceType'
-        updatedAt:
+      style: form
+      explode: false
+      required: false
+      description: Filter resources based on whether they're suspended or not suspended
+    environmentIdParam:
+      name: environmentId
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+      description: Filter for resources that belong to an environment
+    endTimeParam:
+      name: endTime
+      in: query
+      schema:
+        type: string
+        format: date-time
+        example: '2021-06-17T08:30:30Z'
+      required: false
+      description: Epoch/Unix timestamp of end of time range to return. Defaults to `now()`.
+    updatedAfterParam:
+      name: updatedAfter
+      in: query
+      schema:
+        type: string
+        format: date-time
+      required: false
+      description: Filter for resources updated after a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-06-17T08:15:30Z'
+    updatedBeforeParam:
+      name: updatedBefore
+      in: query
+      schema:
+        type: string
+        format: date-time
+      required: false
+      description: Filter for resources updated before a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-06-17T08:15:30Z'
+    nameParam:
+      name: name
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+      description: Filter by name
+  schemas:
+    serviceInstance:
+      type: object
+      required:
+      - id
+      - createdAt
+      properties:
+        id:
+          type: string
+        createdAt:
           type: string
           format: date-time
-        serviceDetails:
-          oneOf:
-          - $ref: '#/components/schemas/staticSiteDetails'
-          - $ref: '#/components/schemas/webServiceDetails'
-          - $ref: '#/components/schemas/privateServiceDetails'
-          - $ref: '#/components/schemas/backgroundWorkerDetails'
-          - $ref: '#/components/schemas/cronJobDetails'
-    envVarValue:
+    dockerDetailsPOST:
+      type: object
+      properties:
+        dockerCommand:
+          type: string
+        dockerContext:
+          type: string
+        dockerfilePath:
+          type: string
+          description: Defaults to "./Dockerfile"
+        registryCredentialId:
+          type: string
+    plan:
+      type: string
+      enum:
+      - starter
+      - starter_plus
+      - standard
+      - standard_plus
+      - pro
+      - pro_plus
+      - pro_max
+      - pro_ultra
+      - free
+      - custom
+      example: starter
+      description: The instance type to use. Note that base services on any paid instance type can't create preview instances with the `free` instance type.
+    webServiceDetails:
       type: object
       required:
-      - value
+      - env
+      - runtime
+      - envSpecificDetails
+      - plan
+      - region
+      - numInstances
+      - buildPlan
+      - healthCheckPath
+      - openPorts
+      - url
       properties:
-        value:
+        autoscaling:
+          type: object
+          required:
+          - enabled
+          - min
+          - max
+          - criteria
+          properties:
+            enabled:
+              type: boolean
+              default: false
+            min:
+              type: integer
+              description: The minimum number of instances for the service
+            max:
+              type: integer
+              description: The maximum number of instances for the service
+            criteria:
+              type: object
+              required:
+              - cpu
+              - memory
+              properties:
+                cpu:
+                  type: object
+                  required:
+                  - enabled
+                  - percentage
+                  properties:
+                    enabled:
+                      type: boolean
+                      default: false
+                    percentage:
+                      type: integer
+                      description: 'Determines when your service will be scaled. If the average resource utilization is significantly above/below the target, we will increase/decrease the number of instances.
+
+                        '
+                memory:
+                  $ref: '#/components/schemas/webServiceDetails/properties/autoscaling/properties/criteria/properties/cpu'
+        cache:
+          $ref: '#/components/schemas/cache'
+        disk:
+          type: object
+          required:
+          - id
+          - name
+          - sizeGB
+          - mountPath
+          properties:
+            id:
+              $ref: '#/paths/~1disks~1%7BdiskId%7D/parameters/0/schema'
+            name:
+              type: string
+            sizeGB:
+              type: integer
+            mountPath:
+              type: string
+        env:
+          $ref: '#/components/schemas/serviceEnv'
+        envSpecificDetails:
+          $ref: '#/components/schemas/envSpecificDetails'
+        healthCheckPath:
           type: string
-    envVar:
+        ipAllowList:
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+        maintenanceMode:
+          $ref: '#/components/schemas/maintenanceMode'
+        numInstances:
+          type: integer
+          description: For a *manually* scaled service, this is the number of instances the service is scaled to. DOES NOT indicate the number of running instances for an *autoscaled* service.
+        openPorts:
+          type: array
+          items:
+            $ref: '#/components/schemas/serverPort'
+        parentServer:
+          $ref: '#/components/schemas/resource'
+        plan:
+          $ref: '#/components/schemas/plan'
+        pullRequestPreviewsEnabled:
+          $ref: '#/components/schemas/pullRequestPreviewsEnabled'
+        previews:
+          $ref: '#/components/schemas/previews'
+        region:
+          $ref: '#/components/schemas/region'
+        runtime:
+          $ref: '#/components/schemas/serviceRuntime'
+        sshAddress:
+          $ref: '#/components/schemas/sshAddress'
+        url:
+          type: string
+        buildPlan:
+          $ref: '#/components/schemas/buildPlan'
+        maxShutdownDelaySeconds:
+          $ref: '#/components/schemas/maxShutdownDelaySeconds'
+        renderSubdomainPolicy:
+          $ref: '#/components/schemas/renderSubdomainPolicy'
+    serviceEnv:
+      type: string
+      enum:
+      - docker
+      - elixir
+      - go
+      - node
+      - python
+      - ruby
+      - rust
+      - image
+      deprecated: true
+      description: This field has been deprecated, runtime should be used in its place.
+    cursor:
+      type: string
+    notifySetting:
+      type: string
+      enum:
+      - default
+      - notify
+      - ignore
+    envVarGenerateValue:
       type: object
       required:
-      - key
-      - value
+      - generateValue
       properties:
-        key:
-          type: string
-        value:
-          type: string
+        generateValue:
+          type: boolean
     serviceEventWithCursor:
       type: object
       description: A service event with a cursor
@@ -1503,38 +1814,256 @@ components:
                 properties:
                   trigger:
                     $ref: '#/components/schemas/serviceEventWithCursor/properties/event/properties/details/oneOf/37/properties/trigger'
-    secretFile:
+    envVarKeyGenerateValue:
       type: object
       required:
-      - name
-      - content
+      - key
+      - generateValue
       properties:
-        name:
+        key:
           type: string
-        content:
-          type: string
-    routeType:
+        generateValue:
+          type: boolean
+    region:
       type: string
       enum:
-      - redirect
-      - rewrite
-    cronJobDetailsPOST:
+      - frankfurt
+      - oregon
+      - ohio
+      - singapore
+      - virginia
+      default: oregon
+      description: Defaults to "oregon"
+    headerInput:
+      type: object
+      required:
+      - path
+      - name
+      - value
+      properties:
+        path:
+          type: string
+          description: The request path to add the header to. Wildcards will cause headers to be applied to all matching paths.
+          example: /static/*
+        name:
+          type: string
+          description: Header name
+          example: Cache-Control
+        value:
+          type: string
+          description: Header value
+          example: public, max-age=604800
+    cidrBlockAndDescription:
+      type: object
+      required:
+      - cidrBlock
+      - description
+      properties:
+        cidrBlock:
+          type: string
+        description:
+          description: User-provided description of the CIDR block
+          type: string
+    envVarWithCursor:
+      type: object
+      required:
+      - envVar
+      - cursor
+      properties:
+        envVar:
+          $ref: '#/components/schemas/envVar'
+        cursor:
+          $ref: '#/components/schemas/cursor'
+    previews:
+      type: object
+      properties:
+        generation:
+          type: string
+          enum:
+          - 'off'
+          - manual
+          - automatic
+          default: 'off'
+          description: Defaults to "off"
+    cronJobDetailsPATCH:
+      type: object
+      properties:
+        envSpecificDetails:
+          $ref: '#/components/schemas/envSpecificDetailsPATCH'
+        plan:
+          $ref: '#/components/schemas/paidPlan'
+        schedule:
+          type: string
+        runtime:
+          $ref: '#/components/schemas/serviceRuntime'
+    backgroundWorkerDetailsPOST:
       type: object
       required:
       - runtime
-      - schedule
       properties:
+        autoscaling:
+          $ref: '#/components/schemas/webServiceDetails/properties/autoscaling'
+        disk:
+          $ref: '#/components/schemas/serviceDisk'
         env:
           $ref: '#/components/schemas/serviceEnv'
         runtime:
           $ref: '#/components/schemas/serviceRuntime'
         envSpecificDetails:
-          $ref: '#/components/schemas/envSpecificDetails'
+          $ref: '#/components/schemas/envSpecificDetailsPOST'
+        numInstances:
+          type: integer
+          minimum: 1
+          default: 1
+          description: Defaults to 1
         plan:
           $ref: '#/components/schemas/paidPlan'
+        preDeployCommand:
+          type: string
+        pullRequestPreviewsEnabled:
+          $ref: '#/components/schemas/pullRequestPreviewsEnabled'
+        previews:
+          $ref: '#/components/schemas/previews'
         region:
           $ref: '#/components/schemas/region'
-        schedule:
+        maxShutdownDelaySeconds:
+          $ref: '#/components/schemas/maxShutdownDelaySeconds'
+    envVarKeyValue:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    registryCredentialRegistry:
+      type: string
+      enum:
+      - GITHUB
+      - GITLAB
+      - DOCKER
+      - GOOGLE_ARTIFACT
+      - AWS_ECR
+      description: The registry to use this credential with
+    serviceDisk:
+      type: object
+      required:
+      - name
+      - mountPath
+      properties:
+        name:
+          type: string
+        mountPath:
+          type: string
+        sizeGB:
+          type: integer
+          minimum: 1
+          description: Defaults to 1
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+    webServiceDetailsPOST:
+      type: object
+      required:
+      - runtime
+      properties:
+        autoscaling:
+          $ref: '#/components/schemas/webServiceDetails/properties/autoscaling'
+        disk:
+          $ref: '#/components/schemas/serviceDisk'
+        env:
+          $ref: '#/components/schemas/serviceEnv'
+        runtime:
+          $ref: '#/components/schemas/serviceRuntime'
+        envSpecificDetails:
+          $ref: '#/components/schemas/envSpecificDetailsPOST'
+        healthCheckPath:
+          type: string
+        maintenanceMode:
+          $ref: '#/components/schemas/maintenanceMode'
+        numInstances:
+          type: integer
+          minimum: 1
+          description: Defaults to 1
+        plan:
+          $ref: '#/components/schemas/plan'
+          default: starter
+          description: The instance type to use. If omitted, defaults to `starter` when creating a new service.
+        preDeployCommand:
+          type: string
+        pullRequestPreviewsEnabled:
+          $ref: '#/components/schemas/pullRequestPreviewsEnabled'
+        previews:
+          $ref: '#/components/schemas/previews'
+        region:
+          $ref: '#/components/schemas/region'
+        maxShutdownDelaySeconds:
+          $ref: '#/components/schemas/maxShutdownDelaySeconds'
+        renderSubdomainPolicy:
+          $ref: '#/components/schemas/renderSubdomainPolicy'
+        ipAllowList:
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+    privateServiceDetailsPATCH:
+      type: object
+      properties:
+        envSpecificDetails:
+          $ref: '#/components/schemas/envSpecificDetailsPATCH'
+        plan:
+          $ref: '#/components/schemas/paidPlan'
+        preDeployCommand:
+          type: string
+        pullRequestPreviewsEnabled:
+          $ref: '#/components/schemas/pullRequestPreviewsEnabled'
+        previews:
+          $ref: '#/components/schemas/previews'
+        runtime:
+          $ref: '#/components/schemas/serviceRuntime'
+        maxShutdownDelaySeconds:
+          $ref: '#/components/schemas/maxShutdownDelaySeconds'
+    maintenanceMode:
+      type: object
+      required:
+      - enabled
+      - uri
+      properties:
+        enabled:
+          type: boolean
+        uri:
+          type: string
+          description: The page to be served when [maintenance mode](https://render.com/docs/maintenance-mode) is enabled. When empty, the default maintenance mode page is served.
+    buildFilter:
+      type: object
+      required:
+      - paths
+      - ignoredPaths
+      properties:
+        paths:
+          type: array
+          items:
+            type: string
+        ignoredPaths:
+          type: array
+          items:
+            type: string
+    nativeEnvironmentDetails:
+      type: object
+      required:
+      - buildCommand
+      - startCommand
+      properties:
+        buildCommand:
+          type: string
+        startCommand:
+          type: string
+        preDeployCommand:
           type: string
     cronJobDetails:
       required:
@@ -1564,239 +2093,41 @@ components:
           type: string
         buildPlan:
           $ref: '#/components/schemas/buildPlan'
-    serviceType:
-      type: string
-      enum:
-      - static_site
-      - web_service
-      - private_service
-      - background_worker
-      - cron_job
-    envSpecificDetailsPOST:
-      oneOf:
-      - $ref: '#/components/schemas/dockerDetailsPOST'
-      - $ref: '#/components/schemas/nativeEnvironmentDetailsPOST'
-    webServiceDetails:
+    staticSiteDetails:
       type: object
       required:
-      - env
-      - runtime
-      - envSpecificDetails
-      - plan
-      - region
-      - numInstances
-      - buildPlan
-      - healthCheckPath
-      - openPorts
+      - buildCommand
+      - publishPath
       - url
+      - buildPlan
       properties:
-        autoscaling:
-          type: object
-          required:
-          - enabled
-          - min
-          - max
-          - criteria
-          properties:
-            enabled:
-              type: boolean
-              default: false
-            min:
-              type: integer
-              description: The minimum number of instances for the service
-            max:
-              type: integer
-              description: The maximum number of instances for the service
-            criteria:
-              type: object
-              required:
-              - cpu
-              - memory
-              properties:
-                cpu:
-                  type: object
-                  required:
-                  - enabled
-                  - percentage
-                  properties:
-                    enabled:
-                      type: boolean
-                      default: false
-                    percentage:
-                      type: integer
-                      description: 'Determines when your service will be scaled. If the average resource utilization is significantly above/below the target, we will increase/decrease the number of instances.
-
-                        '
-                memory:
-                  $ref: '#/components/schemas/webServiceDetails/properties/autoscaling/properties/criteria/properties/cpu'
-        cache:
-          $ref: '#/components/schemas/cache'
-        disk:
-          type: object
-          required:
-          - id
-          - name
-          - sizeGB
-          - mountPath
-          properties:
-            id:
-              $ref: '#/paths/~1disks~1%7BdiskId%7D/parameters/0/schema'
-            name:
-              type: string
-            sizeGB:
-              type: integer
-            mountPath:
-              type: string
-        env:
-          $ref: '#/components/schemas/serviceEnv'
-        envSpecificDetails:
-          $ref: '#/components/schemas/envSpecificDetails'
-        healthCheckPath:
+        buildCommand:
           type: string
         ipAllowList:
           type: array
           items:
             $ref: '#/components/schemas/cidrBlockAndDescription'
-        maintenanceMode:
-          $ref: '#/components/schemas/maintenanceMode'
-        numInstances:
-          type: integer
-          description: For a *manually* scaled service, this is the number of instances the service is scaled to. DOES NOT indicate the number of running instances for an *autoscaled* service.
-        openPorts:
-          type: array
-          items:
-            $ref: '#/components/schemas/serverPort'
         parentServer:
           $ref: '#/components/schemas/resource'
-        plan:
-          $ref: '#/components/schemas/plan'
-        pullRequestPreviewsEnabled:
-          $ref: '#/components/schemas/pullRequestPreviewsEnabled'
-        previews:
-          $ref: '#/components/schemas/previews'
-        region:
-          $ref: '#/components/schemas/region'
-        runtime:
-          $ref: '#/components/schemas/serviceRuntime'
-        sshAddress:
-          $ref: '#/components/schemas/sshAddress'
-        url:
-          type: string
-        buildPlan:
-          $ref: '#/components/schemas/buildPlan'
-        maxShutdownDelaySeconds:
-          $ref: '#/components/schemas/maxShutdownDelaySeconds'
-        renderSubdomainPolicy:
-          $ref: '#/components/schemas/renderSubdomainPolicy'
-    envVarKeyValue:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          type: string
-        value:
-          type: string
-    dockerDetailsPATCH:
-      type: object
-      properties:
-        dockerCommand:
-          type: string
-        dockerContext:
-          type: string
-        dockerfilePath:
-          type: string
-        registryCredentialId:
-          type: string
-    registryCredential:
-      type: object
-      required:
-      - id
-      - name
-      - username
-      - registry
-      - updatedAt
-      properties:
-        id:
-          type: string
-          description: Unique identifier for this credential
-        name:
-          type: string
-          description: Descriptive name for this credential
-        registry:
-          $ref: '#/components/schemas/registryCredentialRegistry'
-        username:
-          type: string
-          description: The username associated with the credential
-        updatedAt:
-          type: string
-          format: date-time
-          description: Last updated time for the credential
-    resource:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-    previewInput:
-      type: object
-      required:
-      - imagePath
-      properties:
-        imagePath:
-          type: string
-          example: docker.io/library/nginx:latest
-          description: 'Must be either a full URL or the relative path to an image. If a relative path, Render uses the base service''s image URL as its root. For example, if the base service''s image URL is `docker.io/library/nginx:latest`, then valid values are: `docker.io/library/nginx:<any tag or SHA>`, `library/nginx:<any tag or SHA>`, or `nginx:<any tag or SHA>`. Note that the path must match (only the tag or SHA can vary).'
-        name:
-          type: string
-          example: preview
-          description: A name for the service preview instance. If not specified, Render generates the name using the base service's name and the specified tag or SHA.
-        plan:
-          $ref: '#/components/schemas/plan'
-    envVarInput:
-      type: object
-      oneOf:
-      - $ref: '#/components/schemas/envVarKeyValue'
-      - $ref: '#/components/schemas/envVarKeyGenerateValue'
-    backgroundWorkerDetailsPATCH:
-      type: object
-      properties:
-        envSpecificDetails:
-          $ref: '#/components/schemas/envSpecificDetailsPATCH'
-        plan:
-          $ref: '#/components/schemas/paidPlan'
-        preDeployCommand:
-          type: string
-        pullRequestPreviewsEnabled:
-          $ref: '#/components/schemas/pullRequestPreviewsEnabled'
-        previews:
-          $ref: '#/components/schemas/previews'
-        runtime:
-          $ref: '#/components/schemas/serviceRuntime'
-        maxShutdownDelaySeconds:
-          $ref: '#/components/schemas/maxShutdownDelaySeconds'
-    staticSiteDetailsPATCH:
-      type: object
-      properties:
-        buildCommand:
-          type: string
         publishPath:
           type: string
         pullRequestPreviewsEnabled:
           $ref: '#/components/schemas/pullRequestPreviewsEnabled'
         previews:
           $ref: '#/components/schemas/previews'
+        url:
+          type: string
+        buildPlan:
+          $ref: '#/components/schemas/buildPlan'
         renderSubdomainPolicy:
           $ref: '#/components/schemas/renderSubdomainPolicy'
-        ipAllowList:
-          type: array
-          items:
-            $ref: '#/components/schemas/cidrBlockAndDescription'
+    sshAddress:
+      type: string
+      description: The SSH address for the service. Only present for services that have SSH enabled.
+    envVarInputArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/envVarInput'
     serviceRuntime:
       type: string
       enum:
@@ -1809,26 +2140,109 @@ components:
       - rust
       - image
       description: Runtime
-    envVarInputArray:
+    serviceList:
       type: array
       items:
-        $ref: '#/components/schemas/envVarInput'
-    envSpecificDetails:
-      oneOf:
-      - $ref: '#/components/schemas/dockerDetails'
-      - $ref: '#/components/schemas/nativeEnvironmentDetails'
-    cache:
+        $ref: '#/components/schemas/serviceWithCursor'
+    buildPlan:
+      type: string
+      enum:
+      - starter
+      - performance
+      default: starter
+    routePost:
       type: object
       required:
-      - profile
+      - type
+      - source
+      - destination
       properties:
-        profile:
+        type:
+          $ref: '#/components/schemas/routeType'
+        source:
           type: string
-          enum:
-          - no-cache
-          - origin-controlled
-          - origin-controlled-all
-          default: no-cache
+          example: /:bar/foo
+        destination:
+          type: string
+          example: /foo/:bar
+        priority:
+          type: integer
+          description: Redirect and Rewrite Rules are applied in priority order starting at 0. Defaults to last in the priority list.
+    nativeEnvironmentDetailsPATCH:
+      type: object
+      properties:
+        buildCommand:
+          type: string
+        startCommand:
+          type: string
+    pullRequestPreviewsEnabled:
+      type: string
+      enum:
+      - 'yes'
+      - 'no'
+      default: 'no'
+      deprecated: true
+      description: This field has been deprecated. previews.generation should be used in its place.
+    addUpdateEnvVarInput:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/envVarValue'
+      - $ref: '#/components/schemas/envVarGenerateValue'
+    nativeEnvironmentDetailsPOST:
+      type: object
+      required:
+      - buildCommand
+      - startCommand
+      properties:
+        buildCommand:
+          type: string
+        startCommand:
+          type: string
+      description: Fields for native environment (runtime) services
+    serviceWithCursor:
+      type: object
+      required:
+      - service
+      - cursor
+      properties:
+        service:
+          $ref: '#/components/schemas/service'
+        cursor:
+          $ref: '#/components/schemas/cursor'
+    secretFileInput:
+      type: object
+      required:
+      - name
+      - content
+      properties:
+        name:
+          type: string
+        content:
+          type: string
+    servicePATCH:
+      type: object
+      properties:
+        autoDeploy:
+          $ref: '#/components/schemas/autoDeploy'
+        repo:
+          type: string
+        branch:
+          type: string
+        image:
+          $ref: '#/components/schemas/image'
+        name:
+          type: string
+        buildFilter:
+          $ref: '#/components/schemas/buildFilter'
+        rootDir:
+          type: string
+        serviceDetails:
+          oneOf:
+          - $ref: '#/components/schemas/staticSiteDetailsPATCH'
+          - $ref: '#/components/schemas/webServiceDetailsPATCH'
+          - $ref: '#/components/schemas/privateServiceDetailsPATCH'
+          - $ref: '#/components/schemas/backgroundWorkerDetailsPATCH'
+          - $ref: '#/components/schemas/cronJobDetailsPATCH'
     privateServiceDetails:
       type: object
       required:
@@ -1877,413 +2291,88 @@ components:
           $ref: '#/components/schemas/buildPlan'
         maxShutdownDelaySeconds:
           $ref: '#/components/schemas/maxShutdownDelaySeconds'
-    envVarGenerateValue:
+    routeType:
+      type: string
+      enum:
+      - redirect
+      - rewrite
+    staticSiteDetailsPATCH:
       type: object
-      required:
-      - generateValue
-      properties:
-        generateValue:
-          type: boolean
-    staticSiteDetails:
-      type: object
-      required:
-      - buildCommand
-      - publishPath
-      - url
-      - buildPlan
       properties:
         buildCommand:
           type: string
-        ipAllowList:
-          type: array
-          items:
-            $ref: '#/components/schemas/cidrBlockAndDescription'
-        parentServer:
-          $ref: '#/components/schemas/resource'
         publishPath:
           type: string
         pullRequestPreviewsEnabled:
           $ref: '#/components/schemas/pullRequestPreviewsEnabled'
         previews:
           $ref: '#/components/schemas/previews'
-        url:
-          type: string
-        buildPlan:
-          $ref: '#/components/schemas/buildPlan'
         renderSubdomainPolicy:
           $ref: '#/components/schemas/renderSubdomainPolicy'
-    registryCredentialSummary:
+        ipAllowList:
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+    serverPort:
       type: object
+      required:
+      - port
+      - protocol
+      properties:
+        port:
+          type: integer
+          example: 10000
+        protocol:
+          type: string
+          enum:
+          - TCP
+          - UDP
+    resource:
       required:
       - id
       - name
+      type: object
       properties:
         id:
           type: string
         name:
           type: string
-    addUpdateEnvVarInput:
-      type: object
-      oneOf:
-      - $ref: '#/components/schemas/envVarValue'
-      - $ref: '#/components/schemas/envVarGenerateValue'
-    nativeEnvironmentDetails:
+    previewInput:
       type: object
       required:
-      - buildCommand
-      - startCommand
+      - imagePath
       properties:
-        buildCommand:
+        imagePath:
           type: string
-        startCommand:
-          type: string
-        preDeployCommand:
-          type: string
-    dockerDetails:
-      type: object
-      required:
-      - dockerCommand
-      - dockerContext
-      - dockerfilePath
-      properties:
-        dockerCommand:
-          type: string
-        dockerContext:
-          type: string
-        dockerfilePath:
-          type: string
-        preDeployCommand:
-          type: string
-        registryCredential:
-          $ref: '#/components/schemas/registryCredential'
-    webServiceDetailsPOST:
-      type: object
-      required:
-      - runtime
-      properties:
-        autoscaling:
-          $ref: '#/components/schemas/webServiceDetails/properties/autoscaling'
-        disk:
-          $ref: '#/components/schemas/serviceDisk'
-        env:
-          $ref: '#/components/schemas/serviceEnv'
-        runtime:
-          $ref: '#/components/schemas/serviceRuntime'
-        envSpecificDetails:
-          $ref: '#/components/schemas/envSpecificDetailsPOST'
-        healthCheckPath:
-          type: string
-        maintenanceMode:
-          $ref: '#/components/schemas/maintenanceMode'
-        numInstances:
-          type: integer
-          minimum: 1
-          description: Defaults to 1
-        plan:
-          $ref: '#/components/schemas/plan'
-          default: starter
-          description: The instance type to use. If omitted, defaults to `starter` when creating a new service.
-        preDeployCommand:
-          type: string
-        pullRequestPreviewsEnabled:
-          $ref: '#/components/schemas/pullRequestPreviewsEnabled'
-        previews:
-          $ref: '#/components/schemas/previews'
-        region:
-          $ref: '#/components/schemas/region'
-        maxShutdownDelaySeconds:
-          $ref: '#/components/schemas/maxShutdownDelaySeconds'
-        renderSubdomainPolicy:
-          $ref: '#/components/schemas/renderSubdomainPolicy'
-        ipAllowList:
-          type: array
-          items:
-            $ref: '#/components/schemas/cidrBlockAndDescription'
-    cronJobDetailsPATCH:
-      type: object
-      properties:
-        envSpecificDetails:
-          $ref: '#/components/schemas/envSpecificDetailsPATCH'
-        plan:
-          $ref: '#/components/schemas/paidPlan'
-        schedule:
-          type: string
-        runtime:
-          $ref: '#/components/schemas/serviceRuntime'
-    sshAddress:
-      type: string
-      description: The SSH address for the service. Only present for services that have SSH enabled.
-    webServiceDetailsPATCH:
-      type: object
-      properties:
-        envSpecificDetails:
-          $ref: '#/components/schemas/envSpecificDetailsPATCH'
-        healthCheckPath:
-          type: string
-        maintenanceMode:
-          $ref: '#/components/schemas/maintenanceMode'
-        plan:
-          $ref: '#/components/schemas/plan'
-        preDeployCommand:
-          type: string
-        pullRequestPreviewsEnabled:
-          $ref: '#/components/schemas/pullRequestPreviewsEnabled'
-        previews:
-          $ref: '#/components/schemas/previews'
-        runtime:
-          $ref: '#/components/schemas/serviceRuntime'
-        maxShutdownDelaySeconds:
-          $ref: '#/components/schemas/maxShutdownDelaySeconds'
-        renderSubdomainPolicy:
-          $ref: '#/components/schemas/renderSubdomainPolicy'
-        ipAllowList:
-          type: array
-          items:
-            $ref: '#/components/schemas/cidrBlockAndDescription'
-        cache:
-          $ref: '#/components/schemas/cache'
-    privateServiceDetailsPATCH:
-      type: object
-      properties:
-        envSpecificDetails:
-          $ref: '#/components/schemas/envSpecificDetailsPATCH'
-        plan:
-          $ref: '#/components/schemas/paidPlan'
-        preDeployCommand:
-          type: string
-        pullRequestPreviewsEnabled:
-          $ref: '#/components/schemas/pullRequestPreviewsEnabled'
-        previews:
-          $ref: '#/components/schemas/previews'
-        runtime:
-          $ref: '#/components/schemas/serviceRuntime'
-        maxShutdownDelaySeconds:
-          $ref: '#/components/schemas/maxShutdownDelaySeconds'
-    envVarWithCursor:
-      type: object
-      required:
-      - envVar
-      - cursor
-      properties:
-        envVar:
-          $ref: '#/components/schemas/envVar'
-        cursor:
-          $ref: '#/components/schemas/cursor'
-    headerInput:
-      type: object
-      required:
-      - path
-      - name
-      - value
-      properties:
-        path:
-          type: string
-          description: The request path to add the header to. Wildcards will cause headers to be applied to all matching paths.
-          example: /static/*
+          example: docker.io/library/nginx:latest
+          description: 'Must be either a full URL or the relative path to an image. If a relative path, Render uses the base service''s image URL as its root. For example, if the base service''s image URL is `docker.io/library/nginx:latest`, then valid values are: `docker.io/library/nginx:<any tag or SHA>`, `library/nginx:<any tag or SHA>`, or `nginx:<any tag or SHA>`. Note that the path must match (only the tag or SHA can vary).'
         name:
           type: string
-          description: Header name
-          example: Cache-Control
-        value:
-          type: string
-          description: Header value
-          example: public, max-age=604800
-    cursor:
-      type: string
-    buildPlan:
-      type: string
-      enum:
-      - starter
-      - performance
-      default: starter
-    dockerDetailsPOST:
+          example: preview
+          description: A name for the service preview instance. If not specified, Render generates the name using the base service's name and the specified tag or SHA.
+        plan:
+          $ref: '#/components/schemas/plan'
+    image:
       type: object
+      required:
+      - imagePath
+      - ownerId
       properties:
-        dockerCommand:
+        ownerId:
           type: string
-        dockerContext:
-          type: string
-        dockerfilePath:
-          type: string
-          description: Defaults to "./Dockerfile"
+          description: The ID of the owner for this image. This should match the owner of the service as well as the owner of any specified registry credential.
         registryCredentialId:
           type: string
-    backgroundWorkerDetails:
-      type: object
-      required:
-      - env
-      - runtime
-      - envSpecificDetails
-      - plan
-      - region
-      - numInstances
-      - buildPlan
-      properties:
-        autoscaling:
-          $ref: '#/components/schemas/webServiceDetails/properties/autoscaling'
-        disk:
-          $ref: '#/components/schemas/webServiceDetails/properties/disk'
-        env:
-          $ref: '#/components/schemas/serviceEnv'
-        envSpecificDetails:
-          $ref: '#/components/schemas/envSpecificDetails'
-        numInstances:
-          type: integer
-          description: For a *manually* scaled service, this is the number of instances the service is scaled to. DOES NOT indicate the number of running instances for an *autoscaled* service.
-        parentServer:
-          $ref: '#/components/schemas/resource'
-        plan:
-          $ref: '#/components/schemas/plan'
-        pullRequestPreviewsEnabled:
-          $ref: '#/components/schemas/pullRequestPreviewsEnabled'
-        previews:
-          $ref: '#/components/schemas/previews'
-        region:
-          $ref: '#/components/schemas/region'
-        runtime:
-          $ref: '#/components/schemas/serviceRuntime'
-        sshAddress:
-          $ref: '#/components/schemas/sshAddress'
-        buildPlan:
-          $ref: '#/components/schemas/buildPlan'
-        maxShutdownDelaySeconds:
-          $ref: '#/components/schemas/maxShutdownDelaySeconds'
-    region:
-      type: string
-      enum:
-      - frankfurt
-      - oregon
-      - ohio
-      - singapore
-      - virginia
-      default: oregon
-      description: Defaults to "oregon"
-    serviceAndDeploy:
-      type: object
-      properties:
-        service:
-          $ref: '#/components/schemas/service'
-        deployId:
+          description: Optional reference to the registry credential passed to the image repository to retrieve this image.
+        imagePath:
           type: string
-    nativeEnvironmentDetailsPOST:
-      type: object
-      required:
-      - buildCommand
-      - startCommand
-      properties:
-        buildCommand:
-          type: string
-        startCommand:
-          type: string
-      description: Fields for native environment (runtime) services
-    error:
-      type: object
-      properties:
-        id:
-          type: string
-        message:
-          type: string
-    servicePATCH:
-      type: object
-      properties:
-        autoDeploy:
-          $ref: '#/components/schemas/autoDeploy'
-        repo:
-          type: string
-        branch:
-          type: string
-        image:
-          $ref: '#/components/schemas/image'
-        name:
-          type: string
-        buildFilter:
-          $ref: '#/components/schemas/buildFilter'
-        rootDir:
-          type: string
-        serviceDetails:
-          oneOf:
-          - $ref: '#/components/schemas/staticSiteDetailsPATCH'
-          - $ref: '#/components/schemas/webServiceDetailsPATCH'
-          - $ref: '#/components/schemas/privateServiceDetailsPATCH'
-          - $ref: '#/components/schemas/backgroundWorkerDetailsPATCH'
-          - $ref: '#/components/schemas/cronJobDetailsPATCH'
-    registryCredentialRegistry:
-      type: string
-      enum:
-      - GITHUB
-      - GITLAB
-      - DOCKER
-      - GOOGLE_ARTIFACT
-      - AWS_ECR
-      description: The registry to use this credential with
-    paidPlan:
-      type: string
-      enum:
-      - starter
-      - standard
-      - pro
-      - pro_plus
-      - pro_max
-      - pro_ultra
-      default: starter
-      description: Defaults to `starter` when creating a new database.
-    suspenderType:
-      type: string
-      enum:
-      - admin
-      - billing
-      - user
-      - parent_service
-      - stuck_crashlooping
-      - hipaa_enablement
-      - unknown
-    maintenanceMode:
-      type: object
-      required:
-      - enabled
-      - uri
-      properties:
-        enabled:
-          type: boolean
-        uri:
-          type: string
-          description: The page to be served when [maintenance mode](https://render.com/docs/maintenance-mode) is enabled. When empty, the default maintenance mode page is served.
-    serviceDisk:
-      type: object
-      required:
-      - name
-      - mountPath
-      properties:
-        name:
-          type: string
-        mountPath:
-          type: string
-        sizeGB:
-          type: integer
-          minimum: 1
-          description: Defaults to 1
-    notifySetting:
-      type: string
-      enum:
-      - default
-      - notify
-      - ignore
-    autoDeploy:
-      type: string
-      enum:
-      - 'yes'
-      - 'no'
-      default: 'yes'
-    serviceWithCursor:
-      type: object
-      required:
-      - service
-      - cursor
-      properties:
-        service:
-          $ref: '#/components/schemas/service'
-        cursor:
-          $ref: '#/components/schemas/cursor'
+          description: Path to the image used for this server (e.g docker.io/library/nginx:latest).
+    maxShutdownDelaySeconds:
+      type: integer
+      description: The maximum amount of time (in seconds) that Render waits for your application process to exit gracefully after sending it a SIGTERM signal.
+      minimum: 1
+      maximum: 300
+      default: 30
     privateServiceDetailsPOST:
       type: object
       required:
@@ -2316,46 +2405,33 @@ components:
           $ref: '#/components/schemas/region'
         maxShutdownDelaySeconds:
           $ref: '#/components/schemas/maxShutdownDelaySeconds'
-    envVarKeyGenerateValue:
+    staticSiteDetailsPOST:
       type: object
-      required:
-      - key
-      - generateValue
       properties:
-        key:
+        buildCommand:
           type: string
-        generateValue:
-          type: boolean
-    previews:
-      type: object
-      properties:
-        generation:
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/headerInput'
+        publishPath:
           type: string
-          enum:
-          - 'off'
-          - manual
-          - automatic
-          default: 'off'
-          description: Defaults to "off"
-    secretFileWithCursor:
-      type: object
-      required:
-      - secretFile
-      - cursor
-      properties:
-        secretFile:
-          $ref: '#/components/schemas/secretFile'
-        cursor:
-          $ref: '#/components/schemas/cursor'
-    pullRequestPreviewsEnabled:
-      type: string
-      enum:
-      - 'yes'
-      - 'no'
-      default: 'no'
-      deprecated: true
-      description: This field has been deprecated. previews.generation should be used in its place.
-    secretFileInput:
+          description: Defaults to "public"
+        pullRequestPreviewsEnabled:
+          $ref: '#/components/schemas/pullRequestPreviewsEnabled'
+        previews:
+          $ref: '#/components/schemas/previews'
+        routes:
+          type: array
+          items:
+            $ref: '#/components/schemas/routePost'
+        renderSubdomainPolicy:
+          $ref: '#/components/schemas/renderSubdomainPolicy'
+        ipAllowList:
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+    secretFile:
       type: object
       required:
       - name
@@ -2365,41 +2441,6 @@ components:
           type: string
         content:
           type: string
-    cidrBlockAndDescription:
-      type: object
-      required:
-      - cidrBlock
-      - description
-      properties:
-        cidrBlock:
-          type: string
-        description:
-          description: User-provided description of the CIDR block
-          type: string
-    maxShutdownDelaySeconds:
-      type: integer
-      description: The maximum amount of time (in seconds) that Render waits for your application process to exit gracefully after sending it a SIGTERM signal.
-      minimum: 1
-      maximum: 300
-      default: 30
-    routePost:
-      type: object
-      required:
-      - type
-      - source
-      - destination
-      properties:
-        type:
-          $ref: '#/components/schemas/routeType'
-        source:
-          type: string
-          example: /:bar/foo
-        destination:
-          type: string
-          example: /foo/:bar
-        priority:
-          type: integer
-          description: Redirect and Rewrite Rules are applied in priority order starting at 0. Defaults to last in the priority list.
     servicePOST:
       type: object
       required:
@@ -2446,144 +2487,169 @@ components:
           - $ref: '#/components/schemas/privateServiceDetailsPOST'
           - $ref: '#/components/schemas/backgroundWorkerDetailsPOST'
           - $ref: '#/components/schemas/cronJobDetailsPOST'
-    serviceList:
-      type: array
-      items:
-        $ref: '#/components/schemas/serviceWithCursor'
+    autoDeploy:
+      type: string
+      enum:
+      - 'yes'
+      - 'no'
+      default: 'yes'
+    dockerDetailsPATCH:
+      type: object
+      properties:
+        dockerCommand:
+          type: string
+        dockerContext:
+          type: string
+        dockerfilePath:
+          type: string
+        registryCredentialId:
+          type: string
+    cronJobDetailsPOST:
+      type: object
+      required:
+      - runtime
+      - schedule
+      properties:
+        env:
+          $ref: '#/components/schemas/serviceEnv'
+        runtime:
+          $ref: '#/components/schemas/serviceRuntime'
+        envSpecificDetails:
+          $ref: '#/components/schemas/envSpecificDetails'
+        plan:
+          $ref: '#/components/schemas/paidPlan'
+        region:
+          $ref: '#/components/schemas/region'
+        schedule:
+          type: string
+    service:
+      type: object
+      required:
+      - id
+      - name
+      - ownerId
+      - type
+      - createdAt
+      - dashboardUrl
+      - updatedAt
+      - suspended
+      - suspenders
+      - autoDeploy
+      - notifyOnFail
+      - slug
+      - serviceDetails
+      - rootDir
+      properties:
+        id:
+          type: string
+        autoDeploy:
+          $ref: '#/components/schemas/autoDeploy'
+        branch:
+          type: string
+        buildFilter:
+          $ref: '#/components/schemas/buildFilter'
+        createdAt:
+          type: string
+          format: date-time
+        dashboardUrl:
+          type: string
+          description: The URL to view the service in the Render Dashboard
+        environmentId:
+          type: string
+        imagePath:
+          type: string
+        name:
+          type: string
+        notifyOnFail:
+          $ref: '#/components/schemas/notifySetting'
+        ownerId:
+          type: string
+        registryCredential:
+          $ref: '#/components/schemas/registryCredentialSummary'
+        repo:
+          type: string
+          example: https://github.com/render-examples/flask-hello-world
+        rootDir:
+          type: string
+        slug:
+          type: string
+        suspended:
+          type: string
+          enum:
+          - suspended
+          - not_suspended
+        suspenders:
+          type: array
+          items:
+            $ref: '#/components/schemas/suspenderType'
+        type:
+          $ref: '#/components/schemas/serviceType'
+        updatedAt:
+          type: string
+          format: date-time
+        serviceDetails:
+          oneOf:
+          - $ref: '#/components/schemas/staticSiteDetails'
+          - $ref: '#/components/schemas/webServiceDetails'
+          - $ref: '#/components/schemas/privateServiceDetails'
+          - $ref: '#/components/schemas/backgroundWorkerDetails'
+          - $ref: '#/components/schemas/cronJobDetails'
+    registryCredential:
+      type: object
+      required:
+      - id
+      - name
+      - username
+      - registry
+      - updatedAt
+      properties:
+        id:
+          type: string
+          description: Unique identifier for this credential
+        name:
+          type: string
+          description: Descriptive name for this credential
+        registry:
+          $ref: '#/components/schemas/registryCredentialRegistry'
+        username:
+          type: string
+          description: The username associated with the credential
+        updatedAt:
+          type: string
+          format: date-time
+          description: Last updated time for the credential
+    dockerDetails:
+      type: object
+      required:
+      - dockerCommand
+      - dockerContext
+      - dockerfilePath
+      properties:
+        dockerCommand:
+          type: string
+        dockerContext:
+          type: string
+        dockerfilePath:
+          type: string
+        preDeployCommand:
+          type: string
+        registryCredential:
+          $ref: '#/components/schemas/registryCredential'
+    envSpecificDetailsPATCH:
+      oneOf:
+      - $ref: '#/components/schemas/dockerDetailsPATCH'
+      - $ref: '#/components/schemas/nativeEnvironmentDetailsPATCH'
     renderSubdomainPolicy:
       type: string
       enum:
       - enabled
       - disabled
       description: Controls whether render.com subdomains are available for the service
-    staticSiteDetailsPOST:
+    backgroundWorkerDetailsPATCH:
       type: object
       properties:
-        buildCommand:
-          type: string
-        headers:
-          type: array
-          items:
-            $ref: '#/components/schemas/headerInput'
-        publishPath:
-          type: string
-          description: Defaults to "public"
-        pullRequestPreviewsEnabled:
-          $ref: '#/components/schemas/pullRequestPreviewsEnabled'
-        previews:
-          $ref: '#/components/schemas/previews'
-        routes:
-          type: array
-          items:
-            $ref: '#/components/schemas/routePost'
-        renderSubdomainPolicy:
-          $ref: '#/components/schemas/renderSubdomainPolicy'
-        ipAllowList:
-          type: array
-          items:
-            $ref: '#/components/schemas/cidrBlockAndDescription'
-    buildFilter:
-      type: object
-      required:
-      - paths
-      - ignoredPaths
-      properties:
-        paths:
-          type: array
-          items:
-            type: string
-        ignoredPaths:
-          type: array
-          items:
-            type: string
-    serverPort:
-      type: object
-      required:
-      - port
-      - protocol
-      properties:
-        port:
-          type: integer
-          example: 10000
-        protocol:
-          type: string
-          enum:
-          - TCP
-          - UDP
-    serviceEnv:
-      type: string
-      enum:
-      - docker
-      - elixir
-      - go
-      - node
-      - python
-      - ruby
-      - rust
-      - image
-      deprecated: true
-      description: This field has been deprecated, runtime should be used in its place.
-    plan:
-      type: string
-      enum:
-      - starter
-      - starter_plus
-      - standard
-      - standard_plus
-      - pro
-      - pro_plus
-      - pro_max
-      - pro_ultra
-      - free
-      - custom
-      example: starter
-      description: The instance type to use. Note that base services on any paid instance type can't create preview instances with the `free` instance type.
-    nativeEnvironmentDetailsPATCH:
-      type: object
-      properties:
-        buildCommand:
-          type: string
-        startCommand:
-          type: string
-    envSpecificDetailsPATCH:
-      oneOf:
-      - $ref: '#/components/schemas/dockerDetailsPATCH'
-      - $ref: '#/components/schemas/nativeEnvironmentDetailsPATCH'
-    image:
-      type: object
-      required:
-      - imagePath
-      - ownerId
-      properties:
-        ownerId:
-          type: string
-          description: The ID of the owner for this image. This should match the owner of the service as well as the owner of any specified registry credential.
-        registryCredentialId:
-          type: string
-          description: Optional reference to the registry credential passed to the image repository to retrieve this image.
-        imagePath:
-          type: string
-          description: Path to the image used for this server (e.g docker.io/library/nginx:latest).
-    backgroundWorkerDetailsPOST:
-      type: object
-      required:
-      - runtime
-      properties:
-        autoscaling:
-          $ref: '#/components/schemas/webServiceDetails/properties/autoscaling'
-        disk:
-          $ref: '#/components/schemas/serviceDisk'
-        env:
-          $ref: '#/components/schemas/serviceEnv'
-        runtime:
-          $ref: '#/components/schemas/serviceRuntime'
         envSpecificDetails:
-          $ref: '#/components/schemas/envSpecificDetailsPOST'
-        numInstances:
-          type: integer
-          minimum: 1
-          default: 1
-          description: Defaults to 1
+          $ref: '#/components/schemas/envSpecificDetailsPATCH'
         plan:
           $ref: '#/components/schemas/paidPlan'
         preDeployCommand:
@@ -2592,24 +2658,180 @@ components:
           $ref: '#/components/schemas/pullRequestPreviewsEnabled'
         previews:
           $ref: '#/components/schemas/previews'
-        region:
-          $ref: '#/components/schemas/region'
+        runtime:
+          $ref: '#/components/schemas/serviceRuntime'
         maxShutdownDelaySeconds:
           $ref: '#/components/schemas/maxShutdownDelaySeconds'
-    serviceInstance:
+    envVar:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    paidPlan:
+      type: string
+      enum:
+      - starter
+      - standard
+      - pro
+      - pro_plus
+      - pro_max
+      - pro_ultra
+      default: starter
+      description: Defaults to `starter` when creating a new database.
+    secretFileWithCursor:
+      type: object
+      required:
+      - secretFile
+      - cursor
+      properties:
+        secretFile:
+          $ref: '#/components/schemas/secretFile'
+        cursor:
+          $ref: '#/components/schemas/cursor'
+    backgroundWorkerDetails:
+      type: object
+      required:
+      - env
+      - runtime
+      - envSpecificDetails
+      - plan
+      - region
+      - numInstances
+      - buildPlan
+      properties:
+        autoscaling:
+          $ref: '#/components/schemas/webServiceDetails/properties/autoscaling'
+        disk:
+          $ref: '#/components/schemas/webServiceDetails/properties/disk'
+        env:
+          $ref: '#/components/schemas/serviceEnv'
+        envSpecificDetails:
+          $ref: '#/components/schemas/envSpecificDetails'
+        numInstances:
+          type: integer
+          description: For a *manually* scaled service, this is the number of instances the service is scaled to. DOES NOT indicate the number of running instances for an *autoscaled* service.
+        parentServer:
+          $ref: '#/components/schemas/resource'
+        plan:
+          $ref: '#/components/schemas/plan'
+        pullRequestPreviewsEnabled:
+          $ref: '#/components/schemas/pullRequestPreviewsEnabled'
+        previews:
+          $ref: '#/components/schemas/previews'
+        region:
+          $ref: '#/components/schemas/region'
+        runtime:
+          $ref: '#/components/schemas/serviceRuntime'
+        sshAddress:
+          $ref: '#/components/schemas/sshAddress'
+        buildPlan:
+          $ref: '#/components/schemas/buildPlan'
+        maxShutdownDelaySeconds:
+          $ref: '#/components/schemas/maxShutdownDelaySeconds'
+    envSpecificDetailsPOST:
+      oneOf:
+      - $ref: '#/components/schemas/dockerDetailsPOST'
+      - $ref: '#/components/schemas/nativeEnvironmentDetailsPOST'
+    serviceAndDeploy:
+      type: object
+      properties:
+        service:
+          $ref: '#/components/schemas/service'
+        deployId:
+          type: string
+    envVarInput:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/envVarKeyValue'
+      - $ref: '#/components/schemas/envVarKeyGenerateValue'
+    cache:
+      type: object
+      required:
+      - profile
+      properties:
+        profile:
+          type: string
+          enum:
+          - no-cache
+          - origin-controlled
+          - origin-controlled-all
+          default: no-cache
+    envVarValue:
+      type: object
+      required:
+      - value
+      properties:
+        value:
+          type: string
+    suspenderType:
+      type: string
+      enum:
+      - admin
+      - billing
+      - user
+      - parent_service
+      - stuck_crashlooping
+      - hipaa_enablement
+      - unknown
+    registryCredentialSummary:
       type: object
       required:
       - id
-      - createdAt
+      - name
       properties:
         id:
           type: string
-        createdAt:
+        name:
           type: string
-          format: date-time
+    webServiceDetailsPATCH:
+      type: object
+      properties:
+        envSpecificDetails:
+          $ref: '#/components/schemas/envSpecificDetailsPATCH'
+        healthCheckPath:
+          type: string
+        maintenanceMode:
+          $ref: '#/components/schemas/maintenanceMode'
+        plan:
+          $ref: '#/components/schemas/plan'
+        preDeployCommand:
+          type: string
+        pullRequestPreviewsEnabled:
+          $ref: '#/components/schemas/pullRequestPreviewsEnabled'
+        previews:
+          $ref: '#/components/schemas/previews'
+        runtime:
+          $ref: '#/components/schemas/serviceRuntime'
+        maxShutdownDelaySeconds:
+          $ref: '#/components/schemas/maxShutdownDelaySeconds'
+        renderSubdomainPolicy:
+          $ref: '#/components/schemas/renderSubdomainPolicy'
+        ipAllowList:
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+        cache:
+          $ref: '#/components/schemas/cache'
+    serviceType:
+      type: string
+      enum:
+      - static_site
+      - web_service
+      - private_service
+      - background_worker
+      - cron_job
+    envSpecificDetails:
+      oneOf:
+      - $ref: '#/components/schemas/dockerDetails'
+      - $ref: '#/components/schemas/nativeEnvironmentDetails'
   responses:
-    400BadRequest:
-      description: The request could not be understood by the server.
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
       content:
         application/json:
           schema:
@@ -2620,26 +2842,44 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    409Conflict:
-      description: The current state of the resource conflicts with this request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    406NotAcceptable:
-      description: Unable to generate preferred media types as specified by Accept request header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    402PaymentRequired:
-      description: You must enter payment information to perform this request.
+    410Gone:
+      description: The requested resource is no longer available.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
     429RateLimit:
       description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    409Conflict:
+      description: The current state of the resource conflicts with this request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    402PaymentRequired:
+      description: You must enter payment information to perform this request.
       content:
         application/json:
           schema:
@@ -2656,246 +2896,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    503ServiceUnavailable:
-      description: Server currently unavailable.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    403Forbidden:
-      description: You do not have permissions for the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    410Gone:
-      description: The requested resource is no longer available.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-  parameters:
-    eventTypeParam:
-      name: type
-      in: query
-      description: The type of event to filter to
-      required: false
-      schema:
-        anyOf:
-        - type: string
-          enum:
-          - autoscaling_config_changed
-          - autoscaling_ended
-          - autoscaling_started
-          - branch_deleted
-          - build_ended
-          - build_started
-          - commit_ignored
-          - cron_job_run_ended
-          - cron_job_run_started
-          - deploy_ended
-          - deploy_started
-          - disk_created
-          - disk_updated
-          - disk_deleted
-          - image_pull_failed
-          - initial_deploy_hook_ended
-          - initial_deploy_hook_started
-          - instance_count_changed
-          - job_run_ended
-          - maintenance_mode_enabled
-          - maintenance_mode_uri_updated
-          - maintenance_ended
-          - maintenance_started
-          - pipeline_minutes_exhausted
-          - plan_changed
-          - pre_deploy_ended
-          - pre_deploy_started
-          - server_available
-          - server_failed
-          - server_hardware_failure
-          - server_restarted
-          - service_resumed
-          - service_suspended
-          - suspender_added
-          - suspender_removed
-          - zero_downtime_redeploy_ended
-          - zero_downtime_redeploy_started
-    startTimeParam:
-      name: startTime
-      in: query
-      schema:
-        type: string
-        format: date-time
-        example: '2021-06-17T08:15:30Z'
-      required: false
-      description: Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`.
-    limitParam:
-      name: limit
-      in: query
-      required: false
-      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: integer
-        default: 20
-        minimum: 1
-        maximum: 100
-        description: Defaults to 20
-    ownerIdParam:
-      name: ownerId
-      in: query
-      description: The ID of the workspaces to return resources for
-      schema:
-        type: array
-        items:
-          type: string
-      style: form
-      explode: false
-      required: false
-    serviceIdParam:
-      name: serviceId
-      in: path
-      required: true
-      description: The ID of the service
-      schema:
-        type: string
-    updatedAfterParam:
-      name: updatedAfter
-      in: query
-      schema:
-        type: string
-        format: date-time
-      required: false
-      description: Filter for resources updated after a certain time (specified as an ISO 8601 timestamp)
-      example: '2021-06-17T08:15:30Z'
-    envParam:
-      name: env
-      in: query
-      schema:
-        type: array
-        items:
-          $ref: '#/components/schemas/serviceRuntime'
-      style: form
-      explode: false
-      required: false
-      deprecated: true
-      description: Filter for environments (runtimes) of services (deprecated; use `runtime` instead)
-    regionParam:
-      name: region
-      in: query
-      schema:
-        type: array
-        items:
-          $ref: '#/components/schemas/region'
-      style: form
-      explode: false
-      required: false
-      description: Filter by resource region
-    serviceTypeParam:
-      name: type
-      in: query
-      schema:
-        type: array
-        items:
-          $ref: '#/components/schemas/serviceType'
-      style: form
-      explode: false
-      required: false
-      description: Filter for types of services
-    createdAfterParam:
-      name: createdAfter
-      in: query
-      schema:
-        type: string
-        format: date-time
-      required: false
-      description: Filter for resources created after a certain time (specified as an ISO 8601 timestamp)
-      example: '2021-02-17T08:15:30Z'
-    cursorParam:
-      name: cursor
-      in: query
-      required: false
-      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: string
-    nameParam:
-      name: name
-      in: query
-      schema:
-        type: array
-        items:
-          type: string
-      style: form
-      explode: false
-      required: false
-      description: Filter by name
-    envVarKeyParam:
-      name: envVarKey
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The name of the environment variable
-    createdBeforeParam:
-      name: createdBefore
-      in: query
-      schema:
-        type: string
-        format: date-time
-      required: false
-      description: Filter for resources created before a certain time (specified as an ISO 8601 timestamp)
-      example: '2021-06-17T08:15:30Z'
-    endTimeParam:
-      name: endTime
-      in: query
-      schema:
-        type: string
-        format: date-time
-        example: '2021-06-17T08:30:30Z'
-      required: false
-      description: Epoch/Unix timestamp of end of time range to return. Defaults to `now()`.
-    environmentIdParam:
-      name: environmentId
-      in: query
-      schema:
-        type: array
-        items:
-          type: string
-      style: form
-      explode: false
-      required: false
-      description: Filter for resources that belong to an environment
-    updatedBeforeParam:
-      name: updatedBefore
-      in: query
-      schema:
-        type: string
-        format: date-time
-      required: false
-      description: Filter for resources updated before a certain time (specified as an ISO 8601 timestamp)
-      example: '2021-06-17T08:15:30Z'
-    includePreviewsParam:
-      name: includePreviews
-      in: query
-      schema:
-        type: boolean
-        default: true
-      required: false
-      description: Include previews in the response
-    suspendedParam:
-      name: suspended
-      in: query
-      schema:
-        type: array
-        items:
-          type: string
-          enum:
-          - suspended
-          - not_suspended
-      style: form
-      explode: false
-      required: false
-      description: Filter resources based on whether they're suspended or not suspended
   securitySchemes:
     BearerAuth:
       type: http
