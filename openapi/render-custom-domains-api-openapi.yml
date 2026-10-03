@@ -240,9 +240,54 @@ paths:
         '503':
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
+  parameters:
+    limitParam:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+        description: Defaults to 20
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
+    serviceIdParam:
+      name: serviceId
+      in: path
+      required: true
+      description: The ID of the service
+      schema:
+        type: string
+    customDomainIdOrNameParam:
+      name: customDomainIdOrName
+      in: path
+      required: true
+      description: The ID or name of the custom domain
+      schema:
+        type: string
   responses:
-    406NotAcceptable:
-      description: Unable to generate preferred media types as specified by Accept request header.
+    409Conflict:
+      description: The current state of the resource conflicts with this request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    410Gone:
+      description: The requested resource is no longer available.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    402PaymentRequired:
+      description: You must enter payment information to perform this request.
       content:
         application/json:
           schema:
@@ -253,32 +298,26 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    401Unauthorized:
-      description: Authorization information is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
     404NotFound:
       description: Unable to find the requested resource.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    409Conflict:
-      description: The current state of the resource conflicts with this request.
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    403Forbidden:
-      description: You do not have permissions for the requested resource.
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    410Gone:
-      description: The requested resource is no longer available.
+    500InternalServerError:
+      description: An unexpected server error has occurred.
       content:
         application/json:
           schema:
@@ -295,21 +334,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    500InternalServerError:
-      description: An unexpected server error has occurred.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    402PaymentRequired:
-      description: You must enter payment information to perform this request.
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
   schemas:
-    cursor:
-      type: string
     customDomain:
       type: object
       required:
@@ -349,6 +380,15 @@ components:
               type: string
             name:
               type: string
+    cursor:
+      type: string
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
     customDomainWithCursor:
       required:
       - customDomain
@@ -359,46 +399,6 @@ components:
           $ref: '#/components/schemas/customDomain'
         cursor:
           $ref: '#/components/schemas/cursor'
-    error:
-      type: object
-      properties:
-        id:
-          type: string
-        message:
-          type: string
-  parameters:
-    cursorParam:
-      name: cursor
-      in: query
-      required: false
-      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: string
-    customDomainIdOrNameParam:
-      name: customDomainIdOrName
-      in: path
-      required: true
-      description: The ID or name of the custom domain
-      schema:
-        type: string
-    serviceIdParam:
-      name: serviceId
-      in: path
-      required: true
-      description: The ID of the service
-      schema:
-        type: string
-    limitParam:
-      name: limit
-      in: query
-      required: false
-      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: integer
-        default: 20
-        minimum: 1
-        maximum: 100
-        description: Defaults to 20
   securitySchemes:
     BearerAuth:
       type: http

@@ -41,8 +41,8 @@ paths:
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
   responses:
-    503ServiceUnavailable:
-      description: Server currently unavailable.
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
       content:
         application/json:
           schema:
@@ -53,8 +53,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    406NotAcceptable:
-      description: Unable to generate preferred media types as specified by Accept request header.
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
       content:
         application/json:
           schema:
@@ -65,13 +71,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    429RateLimit:
-      description: Rate limit has been surpassed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
   schemas:
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
     user:
       type: object
       required:
@@ -81,13 +88,6 @@ components:
         email:
           type: string
         name:
-          type: string
-    error:
-      type: object
-      properties:
-        id:
-          type: string
-        message:
           type: string
   securitySchemes:
     BearerAuth:

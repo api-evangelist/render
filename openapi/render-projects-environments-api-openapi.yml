@@ -443,15 +443,6 @@ paths:
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
   parameters:
-    createdAfterParam:
-      name: createdAfter
-      in: query
-      schema:
-        type: string
-        format: date-time
-      required: false
-      description: Filter for resources created after a certain time (specified as an ISO 8601 timestamp)
-      example: '2021-02-17T08:15:30Z'
     createdBeforeParam:
       name: createdBefore
       in: query
@@ -461,6 +452,35 @@ components:
       required: false
       description: Filter for resources created before a certain time (specified as an ISO 8601 timestamp)
       example: '2021-06-17T08:15:30Z'
+    environmentIdParam:
+      name: environmentId
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+      description: Filter for resources that belong to an environment
+    limitParam:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+        description: Defaults to 20
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
     projectIdParam:
       name: projectId
       in: query
@@ -483,24 +503,6 @@ components:
       style: form
       explode: false
       required: false
-    cursorParam:
-      name: cursor
-      in: query
-      required: false
-      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: string
-    environmentIdParam:
-      name: environmentId
-      in: query
-      schema:
-        type: array
-        items:
-          type: string
-      style: form
-      explode: false
-      required: false
-      description: Filter for resources that belong to an environment
     updatedAfterParam:
       name: updatedAfter
       in: query
@@ -510,6 +512,15 @@ components:
       required: false
       description: Filter for resources updated after a certain time (specified as an ISO 8601 timestamp)
       example: '2021-06-17T08:15:30Z'
+    createdAfterParam:
+      name: createdAfter
+      in: query
+      schema:
+        type: string
+        format: date-time
+      required: false
+      description: Filter for resources created after a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-02-17T08:15:30Z'
     updatedBeforeParam:
       name: updatedBefore
       in: query
@@ -530,42 +541,86 @@ components:
       explode: false
       required: false
       description: Filter by name
-    limitParam:
-      name: limit
-      in: query
-      required: false
-      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: integer
-        default: 20
-        minimum: 1
-        maximum: 100
-        description: Defaults to 20
   schemas:
-    projectPATCHInput:
-      description: Input type for updating a project
+    environmentWithCursor:
+      type: object
+      description: An environment with a cursor
+      required:
+      - environment
+      - cursor
+      properties:
+        environment:
+          $ref: '#/components/schemas/environment'
+        cursor:
+          $ref: '#/components/schemas/cursor'
+    owner:
+      type: object
+      required:
+      - id
+      - name
+      - email
+      - type
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        ipAllowList:
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+        twoFactorAuthEnabled:
+          type: boolean
+          description: Whether two-factor authentication is enabled for the owner. Only present if `type` is `user`.
+        type:
+          type: string
+          enum:
+          - user
+          - team
+    cidrBlockAndDescription:
+      type: object
+      required:
+      - cidrBlock
+      - description
+      properties:
+        cidrBlock:
+          type: string
+        description:
+          description: User-provided description of the CIDR block
+          type: string
+    projectPOSTEnvironmentInput:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        protectedStatus:
+          $ref: '#/components/schemas/protectedStatus'
+        networkIsolationEnabled:
+          $ref: '#/components/schemas/networkIsolationEnabled'
+        ipAllowList:
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+    environmentPATCHInput:
       type: object
       properties:
         name:
           type: string
-    cursor:
-      type: string
-    protectedStatus:
-      type: string
-      description: Indicates whether an environment is `unprotected` or `protected`. Only admin users can perform destructive actions in `protected` environments.
-      enum:
-      - unprotected
-      - protected
-    environmentResourcesPOSTInput:
-      type: object
-      required:
-      - resourceIds
-      properties:
-        resourceIds:
+        networkIsolationEnabled:
+          $ref: '#/components/schemas/networkIsolationEnabled'
+        protectedStatus:
+          $ref: '#/components/schemas/protectedStatus'
+        ipAllowList:
           type: array
           items:
-            type: string
-            description: The ID of an env group, a service, a Postgres database, or a Redis instance
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+    networkIsolationEnabled:
+      type: boolean
+      description: Indicates whether network connections across environments are allowed.
     project:
       description: A project is a collection of environments
       type: object
@@ -597,51 +652,6 @@ components:
           items:
             type: string
             description: The ID of the environment
-    cidrBlockAndDescription:
-      type: object
-      required:
-      - cidrBlock
-      - description
-      properties:
-        cidrBlock:
-          type: string
-        description:
-          description: User-provided description of the CIDR block
-          type: string
-    environmentPATCHInput:
-      type: object
-      properties:
-        name:
-          type: string
-        networkIsolationEnabled:
-          $ref: '#/components/schemas/networkIsolationEnabled'
-        protectedStatus:
-          $ref: '#/components/schemas/protectedStatus'
-        ipAllowList:
-          type: array
-          items:
-            $ref: '#/components/schemas/cidrBlockAndDescription'
-    networkIsolationEnabled:
-      type: boolean
-      description: Indicates whether network connections across environments are allowed.
-    environmentPOSTInput:
-      type: object
-      required:
-      - name
-      - projectId
-      properties:
-        name:
-          type: string
-        projectId:
-          type: string
-        protectedStatus:
-          $ref: '#/components/schemas/protectedStatus'
-        networkIsolationEnabled:
-          $ref: '#/components/schemas/networkIsolationEnabled'
-        ipAllowList:
-          type: array
-          items:
-            $ref: '#/components/schemas/cidrBlockAndDescription'
     environment:
       type: object
       required:
@@ -685,32 +695,38 @@ components:
           $ref: '#/components/schemas/protectedStatus'
         networkIsolationEnabled:
           $ref: '#/components/schemas/networkIsolationEnabled'
-    owner:
+    cursor:
+      type: string
+    protectedStatus:
+      type: string
+      description: Indicates whether an environment is `unprotected` or `protected`. Only admin users can perform destructive actions in `protected` environments.
+      enum:
+      - unprotected
+      - protected
+    projectPATCHInput:
+      description: Input type for updating a project
       type: object
-      required:
-      - id
-      - name
-      - email
-      - type
       properties:
-        id:
-          type: string
         name:
           type: string
-        email:
+    environmentPOSTInput:
+      type: object
+      required:
+      - name
+      - projectId
+      properties:
+        name:
           type: string
+        projectId:
+          type: string
+        protectedStatus:
+          $ref: '#/components/schemas/protectedStatus'
+        networkIsolationEnabled:
+          $ref: '#/components/schemas/networkIsolationEnabled'
         ipAllowList:
           type: array
           items:
             $ref: '#/components/schemas/cidrBlockAndDescription'
-        twoFactorAuthEnabled:
-          type: boolean
-          description: Whether two-factor authentication is enabled for the owner. Only present if `type` is `user`.
-        type:
-          type: string
-          enum:
-          - user
-          - team
     projectWithCursor:
       type: object
       required:
@@ -721,6 +737,23 @@ components:
           $ref: '#/components/schemas/project'
         cursor:
           $ref: '#/components/schemas/cursor'
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+    environmentResourcesPOSTInput:
+      type: object
+      required:
+      - resourceIds
+      properties:
+        resourceIds:
+          type: array
+          items:
+            type: string
+            description: The ID of an env group, a service, a Postgres database, or a Redis instance
     projectPOSTInput:
       type: object
       required:
@@ -739,42 +772,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/projectPOSTEnvironmentInput'
-    projectPOSTEnvironmentInput:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-        protectedStatus:
-          $ref: '#/components/schemas/protectedStatus'
-        networkIsolationEnabled:
-          $ref: '#/components/schemas/networkIsolationEnabled'
-        ipAllowList:
-          type: array
-          items:
-            $ref: '#/components/schemas/cidrBlockAndDescription'
-    error:
-      type: object
-      properties:
-        id:
-          type: string
-        message:
-          type: string
-    environmentWithCursor:
-      type: object
-      description: An environment with a cursor
-      required:
-      - environment
-      - cursor
-      properties:
-        environment:
-          $ref: '#/components/schemas/environment'
-        cursor:
-          $ref: '#/components/schemas/cursor'
   responses:
     429RateLimit:
       description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
       content:
         application/json:
           schema:
@@ -785,8 +791,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    404NotFound:
-      description: Unable to find the requested resource.
+    500InternalServerError:
+      description: An unexpected server error has occurred.
       content:
         application/json:
           schema:
@@ -799,12 +805,6 @@ components:
             $ref: '#/components/schemas/error'
     503ServiceUnavailable:
       description: Server currently unavailable.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    500InternalServerError:
-      description: An unexpected server error has occurred.
       content:
         application/json:
           schema:

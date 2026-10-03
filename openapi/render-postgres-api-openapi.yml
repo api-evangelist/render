@@ -659,15 +659,14 @@ paths:
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
   parameters:
-    createdAfterParam:
-      name: createdAfter
+    includeReplicasParam:
+      name: includeReplicas
       in: query
       schema:
-        type: string
-        format: date-time
+        type: boolean
+        default: true
       required: false
-      description: Filter for resources created after a certain time (specified as an ISO 8601 timestamp)
-      example: '2021-02-17T08:15:30Z'
+      description: Include replicas in the response
     createdBeforeParam:
       name: createdBefore
       in: query
@@ -677,10 +676,9 @@ components:
       required: false
       description: Filter for resources created before a certain time (specified as an ISO 8601 timestamp)
       example: '2021-06-17T08:15:30Z'
-    ownerIdParam:
-      name: ownerId
+    environmentIdParam:
+      name: environmentId
       in: query
-      description: The ID of the workspaces to return resources for
       schema:
         type: array
         items:
@@ -688,32 +686,18 @@ components:
       style: form
       explode: false
       required: false
-    cursorParam:
-      name: cursor
+      description: Filter for resources that belong to an environment
+    limitParam:
+      name: limit
       in: query
       required: false
-      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
       schema:
-        type: string
-    includeReplicasParam:
-      name: includeReplicas
-      in: query
-      schema:
-        type: boolean
-        default: true
-      required: false
-      description: Include replicas in the response
-    regionParam:
-      name: region
-      in: query
-      schema:
-        type: array
-        items:
-          $ref: '#/components/schemas/region'
-      style: form
-      explode: false
-      required: false
-      description: Filter by resource region
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+        description: Defaults to 20
     suspendedParam:
       name: suspended
       in: query
@@ -728,9 +712,17 @@ components:
       explode: false
       required: false
       description: Filter resources based on whether they're suspended or not suspended
-    environmentIdParam:
-      name: environmentId
+    cursorParam:
+      name: cursor
       in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
+    ownerIdParam:
+      name: ownerId
+      in: query
+      description: The ID of the workspaces to return resources for
       schema:
         type: array
         items:
@@ -738,7 +730,6 @@ components:
       style: form
       explode: false
       required: false
-      description: Filter for resources that belong to an environment
     updatedAfterParam:
       name: updatedAfter
       in: query
@@ -757,6 +748,26 @@ components:
       required: false
       description: Filter for resources updated before a certain time (specified as an ISO 8601 timestamp)
       example: '2021-06-17T08:15:30Z'
+    createdAfterParam:
+      name: createdAfter
+      in: query
+      schema:
+        type: string
+        format: date-time
+      required: false
+      description: Filter for resources created after a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-02-17T08:15:30Z'
+    regionParam:
+      name: region
+      in: query
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/region'
+      style: form
+      explode: false
+      required: false
+      description: Filter by resource region
     nameParam:
       name: name
       in: query
@@ -768,146 +779,68 @@ components:
       explode: false
       required: false
       description: Filter by name
-    limitParam:
-      name: limit
-      in: query
-      required: false
-      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: integer
-        default: 20
-        minimum: 1
-        maximum: 100
-        description: Defaults to 20
-  responses:
-    406NotAcceptable:
-      description: Unable to generate preferred media types as specified by Accept request header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    429RateLimit:
-      description: Rate limit has been surpassed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    401Unauthorized:
-      description: Authorization information is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    404NotFound:
-      description: Unable to find the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    409Conflict:
-      description: The current state of the resource conflicts with this request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    403Forbidden:
-      description: You do not have permissions for the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    410Gone:
-      description: The requested resource is no longer available.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    400BadRequest:
-      description: The request could not be understood by the server.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    503ServiceUnavailable:
-      description: Server currently unavailable.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    500InternalServerError:
-      description: An unexpected server error has occurred.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
   schemas:
-    postgresVersion:
-      type: string
-      description: The PostgreSQL version
-      enum:
-      - '11'
-      - '12'
-      - '13'
-      - '14'
-      - '15'
-      - '16'
-      - '17'
-      - '18'
-    cursor:
-      type: string
-    postgresPOSTInput:
+    owner:
       type: object
       required:
+      - id
       - name
-      - plan
-      - ownerId
-      - version
+      - email
+      - type
       properties:
-        databaseName:
+        id:
           type: string
-          default: randomly generated
-        databaseUser:
-          type: string
-          default: randomly generated
-        datadogAPIKey:
-          type: string
-          description: The Datadog API key for the Datadog agent to monitor the new database.
-        datadogSite:
-          type: string
-          description: Datadog region to use for monitoring the new database. Defaults to 'US1'.
-          example: US1
         name:
           type: string
-          description: The name of the database as it will appear in the Render Dashboard
-        enableHighAvailability:
-          type: boolean
-          default: false
-        environmentId:
-          type: string
-        ownerId:
-          type: string
-          description: The ID of the workspace to create the database for
-        plan:
-          $ref: '#/components/schemas/postgres/properties/plan'
-        diskSizeGB:
-          type: integer
-          description: The number of gigabytes of disk space to allocate for the database
-        enableDiskAutoscaling:
-          type: boolean
-          default: false
-        region:
+        email:
           type: string
         ipAllowList:
           type: array
           items:
             $ref: '#/components/schemas/cidrBlockAndDescription'
+        twoFactorAuthEnabled:
+          type: boolean
+          description: Whether two-factor authentication is enabled for the owner. Only present if `type` is `user`.
+        type:
+          type: string
+          enum:
+          - user
+          - team
+    cidrBlockAndDescription:
+      type: object
+      required:
+      - cidrBlock
+      - description
+      properties:
+        cidrBlock:
+          type: string
+        description:
+          description: User-provided description of the CIDR block
+          type: string
+    readReplicaInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The display name of the replica instance.
         parameterOverrides:
           $ref: '#/components/schemas/postgresParameterOverrides'
-        readReplicas:
-          $ref: '#/components/schemas/readReplicasInput'
-        version:
-          $ref: '#/components/schemas/postgresVersion'
-      description: Input for creating a database
+      required:
+      - name
+    readReplica:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The replica instance identifier.
+        name:
+          type: string
+          description: The display name of the replica instance.
+        parameterOverrides:
+          $ref: '#/components/schemas/postgresParameterOverrides'
+      required:
+      - id
+      - name
     postgres:
       type: object
       required:
@@ -1018,6 +951,20 @@ components:
           description: The URL to view the Postgres instance in the Render Dashboard
         diskAutoscalingEnabled:
           type: boolean
+    databaseStatus:
+      type: string
+      enum:
+      - creating
+      - available
+      - unavailable
+      - config_restart
+      - suspended
+      - maintenance_scheduled
+      - maintenance_in_progress
+      - recovery_failed
+      - recovery_in_progress
+      - unknown
+      - updating_instance
     region:
       type: string
       enum:
@@ -1028,39 +975,111 @@ components:
       - virginia
       default: oregon
       description: Defaults to "oregon"
-    postgresParameterOverrides:
-      type: object
-      additionalProperties:
-        type: string
-    readReplica:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The replica instance identifier.
-        name:
-          type: string
-          description: The display name of the replica instance.
-        parameterOverrides:
-          $ref: '#/components/schemas/postgresParameterOverrides'
-      required:
-      - id
-      - name
-    cidrBlockAndDescription:
+    cursor:
+      type: string
+    postgresWithCursor:
       type: object
       required:
-      - cidrBlock
-      - description
+      - postgres
+      - cursor
       properties:
-        cidrBlock:
-          type: string
-        description:
-          description: User-provided description of the CIDR block
-          type: string
+        postgres:
+          $ref: '#/components/schemas/postgres'
+        cursor:
+          $ref: '#/components/schemas/cursor'
     readReplicasInput:
       type: array
       items:
         $ref: '#/components/schemas/readReplicaInput'
+    redisDetail:
+      type: object
+      description: A Redis instance
+      required:
+      - id
+      - createdAt
+      - updatedAt
+      - status
+      - region
+      - plan
+      - name
+      - owner
+      - options
+      - ipAllowList
+      - version
+      properties:
+        id:
+          description: The ID of the Redis instance
+          type: string
+        createdAt:
+          description: The creation time of the Redis instance
+          type: string
+          format: date-time
+        updatedAt:
+          description: The last updated time of the Redis instance
+          type: string
+          format: date-time
+        status:
+          $ref: '#/components/schemas/databaseStatus'
+        region:
+          $ref: '#/components/schemas/region'
+        plan:
+          $ref: '#/components/schemas/redisPlan'
+        name:
+          description: The name of the Redis instance
+          type: string
+        owner:
+          $ref: '#/components/schemas/owner'
+        options:
+          $ref: '#/components/schemas/redisOptions'
+        ipAllowList:
+          description: The IP allow list for the Redis instance
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+        environmentId:
+          description: The ID of the environment the Redis instance is associated with
+          type: string
+        version:
+          description: The version of Redis
+          type: string
+        maintenance:
+          type: object
+          required:
+          - id
+          - type
+          - scheduledAt
+          - state
+          properties:
+            id:
+              $ref: '#/paths/~1maintenance~1%7BmaintenanceRunParam%7D/get/parameters/0/schema'
+            type:
+              type: string
+            scheduledAt:
+              type: string
+              format: date-time
+            pendingMaintenanceBy:
+              type: string
+              format: date-time
+              description: If present, the maintenance run cannot be scheduled for later than this date-time.
+            state:
+              $ref: '#/paths/~1maintenance/get/parameters/2/schema/items'
+    postgresVersion:
+      type: string
+      description: The PostgreSQL version
+      enum:
+      - '11'
+      - '12'
+      - '13'
+      - '14'
+      - '15'
+      - '16'
+      - '17'
+      - '18'
+    databaseRole:
+      type: string
+      enum:
+      - primary
+      - replica
     postgresDetail:
       type: object
       required:
@@ -1147,34 +1166,104 @@ components:
             $ref: '#/components/schemas/suspenderType'
         diskAutoscalingEnabled:
           type: boolean
+    suspenderType:
+      type: string
+      enum:
+      - admin
+      - billing
+      - user
+      - parent_service
+      - stuck_crashlooping
+      - hipaa_enablement
+      - unknown
     readReplicas:
       type: array
       items:
         $ref: '#/components/schemas/readReplica'
-    databaseStatus:
-      type: string
-      enum:
-      - creating
-      - available
-      - unavailable
-      - config_restart
-      - suspended
-      - maintenance_scheduled
-      - maintenance_in_progress
-      - recovery_failed
-      - recovery_in_progress
-      - unknown
-      - updating_instance
-    readReplicaInput:
+    error:
       type: object
       properties:
-        name:
+        id:
           type: string
-          description: The display name of the replica instance.
-        parameterOverrides:
-          $ref: '#/components/schemas/postgresParameterOverrides'
+        message:
+          type: string
+    postgresPOSTInput:
+      type: object
       required:
       - name
+      - plan
+      - ownerId
+      - version
+      properties:
+        databaseName:
+          type: string
+          default: randomly generated
+        databaseUser:
+          type: string
+          default: randomly generated
+        datadogAPIKey:
+          type: string
+          description: The Datadog API key for the Datadog agent to monitor the new database.
+        datadogSite:
+          type: string
+          description: Datadog region to use for monitoring the new database. Defaults to 'US1'.
+          example: US1
+        name:
+          type: string
+          description: The name of the database as it will appear in the Render Dashboard
+        enableHighAvailability:
+          type: boolean
+          default: false
+        environmentId:
+          type: string
+        ownerId:
+          type: string
+          description: The ID of the workspace to create the database for
+        plan:
+          $ref: '#/components/schemas/postgres/properties/plan'
+        diskSizeGB:
+          type: integer
+          description: The number of gigabytes of disk space to allocate for the database
+        enableDiskAutoscaling:
+          type: boolean
+          default: false
+        region:
+          type: string
+        ipAllowList:
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+        parameterOverrides:
+          $ref: '#/components/schemas/postgresParameterOverrides'
+        readReplicas:
+          $ref: '#/components/schemas/readReplicasInput'
+        version:
+          $ref: '#/components/schemas/postgresVersion'
+      description: Input for creating a database
+    postgresConnectionInfo:
+      type: object
+      required:
+      - password
+      - internalConnectionString
+      - externalConnectionString
+      - psqlCommand
+      properties:
+        password:
+          type: string
+          format: password
+        internalConnectionString:
+          type: string
+          format: password
+        externalConnectionString:
+          type: string
+          format: password
+        psqlCommand:
+          type: string
+          format: password
+    postgresParameterOverrides:
+      type: object
+      additionalProperties:
+        type: string
     postgresPATCHInput:
       type: object
       properties:
@@ -1204,156 +1293,67 @@ components:
           $ref: '#/components/schemas/postgresParameterOverrides'
         readReplicas:
           $ref: '#/components/schemas/readReplicasInput'
-    owner:
-      type: object
-      required:
-      - id
-      - name
-      - email
-      - type
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        email:
-          type: string
-        ipAllowList:
-          type: array
-          items:
-            $ref: '#/components/schemas/cidrBlockAndDescription'
-        twoFactorAuthEnabled:
-          type: boolean
-          description: Whether two-factor authentication is enabled for the owner. Only present if `type` is `user`.
-        type:
-          type: string
-          enum:
-          - user
-          - team
-    postgresConnectionInfo:
-      type: object
-      required:
-      - password
-      - internalConnectionString
-      - externalConnectionString
-      - psqlCommand
-      properties:
-        password:
-          type: string
-          format: password
-        internalConnectionString:
-          type: string
-          format: password
-        externalConnectionString:
-          type: string
-          format: password
-        psqlCommand:
-          type: string
-          format: password
-    suspenderType:
-      type: string
-      enum:
-      - admin
-      - billing
-      - user
-      - parent_service
-      - stuck_crashlooping
-      - hipaa_enablement
-      - unknown
-    redisDetail:
-      type: object
-      description: A Redis instance
-      required:
-      - id
-      - createdAt
-      - updatedAt
-      - status
-      - region
-      - plan
-      - name
-      - owner
-      - options
-      - ipAllowList
-      - version
-      properties:
-        id:
-          description: The ID of the Redis instance
-          type: string
-        createdAt:
-          description: The creation time of the Redis instance
-          type: string
-          format: date-time
-        updatedAt:
-          description: The last updated time of the Redis instance
-          type: string
-          format: date-time
-        status:
-          $ref: '#/components/schemas/databaseStatus'
-        region:
-          $ref: '#/components/schemas/region'
-        plan:
-          $ref: '#/components/schemas/redisPlan'
-        name:
-          description: The name of the Redis instance
-          type: string
-        owner:
-          $ref: '#/components/schemas/owner'
-        options:
-          $ref: '#/components/schemas/redisOptions'
-        ipAllowList:
-          description: The IP allow list for the Redis instance
-          type: array
-          items:
-            $ref: '#/components/schemas/cidrBlockAndDescription'
-        environmentId:
-          description: The ID of the environment the Redis instance is associated with
-          type: string
-        version:
-          description: The version of Redis
-          type: string
-        maintenance:
-          type: object
-          required:
-          - id
-          - type
-          - scheduledAt
-          - state
-          properties:
-            id:
-              $ref: '#/paths/~1maintenance~1%7BmaintenanceRunParam%7D/get/parameters/0/schema'
-            type:
-              type: string
-            scheduledAt:
-              type: string
-              format: date-time
-            pendingMaintenanceBy:
-              type: string
-              format: date-time
-              description: If present, the maintenance run cannot be scheduled for later than this date-time.
-            state:
-              $ref: '#/paths/~1maintenance/get/parameters/2/schema/items'
-    databaseRole:
-      type: string
-      enum:
-      - primary
-      - replica
-    error:
-      type: object
-      properties:
-        id:
-          type: string
-        message:
-          type: string
-    postgresWithCursor:
-      type: object
-      required:
-      - postgres
-      - cursor
-      properties:
-        postgres:
-          $ref: '#/components/schemas/postgres'
-        cursor:
-          $ref: '#/components/schemas/cursor'
+  responses:
+    410Gone:
+      description: The requested resource is no longer available.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    409Conflict:
+      description: The current state of the resource conflicts with this request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   securitySchemes:
     BearerAuth:
       type: http

@@ -200,32 +200,20 @@ paths:
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
   responses:
-    503ServiceUnavailable:
-      description: Server currently unavailable.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    500InternalServerError:
-      description: An unexpected server error has occurred.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    403Forbidden:
-      description: You do not have permissions for the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
     406NotAcceptable:
       description: Unable to generate preferred media types as specified by Accept request header.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    401Unauthorized:
-      description: Authorization information is missing or invalid.
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
       content:
         application/json:
           schema:
@@ -242,8 +230,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    404NotFound:
-      description: Unable to find the requested resource.
+    503ServiceUnavailable:
+      description: Server currently unavailable.
       content:
         application/json:
           schema:
@@ -254,32 +242,25 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   schemas:
-    headerWithCursor:
+    error:
       type: object
-      required:
-      - header
-      - cursor
-      properties:
-        header:
-          $ref: '#/components/schemas/header'
-        cursor:
-          type: string
-    header:
-      type: object
-      required:
-      - id
-      - path
-      - name
-      - value
       properties:
         id:
           type: string
-        path:
-          type: string
-        name:
-          type: string
-        value:
+        message:
           type: string
     headerInput:
       type: object
@@ -300,14 +281,40 @@ components:
           type: string
           description: Header value
           example: public, max-age=604800
-    error:
+    header:
       type: object
+      required:
+      - id
+      - path
+      - name
+      - value
       properties:
         id:
           type: string
-        message:
+        path:
+          type: string
+        name:
+          type: string
+        value:
+          type: string
+    headerWithCursor:
+      type: object
+      required:
+      - header
+      - cursor
+      properties:
+        header:
+          $ref: '#/components/schemas/header'
+        cursor:
           type: string
   parameters:
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
     limitParam:
       name: limit
       in: query
@@ -324,13 +331,6 @@ components:
       in: path
       required: true
       description: The ID of the service
-      schema:
-        type: string
-    cursorParam:
-      name: cursor
-      in: query
-      required: false
-      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
       schema:
         type: string
   securitySchemes:

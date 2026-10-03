@@ -217,20 +217,14 @@ paths:
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
   responses:
-    503ServiceUnavailable:
-      description: Server currently unavailable.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
     500InternalServerError:
       description: An unexpected server error has occurred.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    401Unauthorized:
-      description: Authorization information is missing or invalid.
+    400BadRequest:
+      description: The request could not be understood by the server.
       content:
         application/json:
           schema:
@@ -241,8 +235,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    400BadRequest:
-      description: The request could not be understood by the server.
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
       content:
         application/json:
           schema:
@@ -254,6 +254,13 @@ components:
           schema:
             $ref: '#/components/schemas/error'
   schemas:
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
     jobWithCursor:
       type: object
       required:
@@ -298,14 +305,21 @@ components:
           $ref: '#/components/schemas/cursor'
     cursor:
       type: string
-    error:
-      type: object
-      properties:
-        id:
-          type: string
-        message:
-          type: string
   parameters:
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
+    serviceIdParam:
+      name: serviceId
+      in: path
+      required: true
+      description: The ID of the service
+      schema:
+        type: string
     limitParam:
       name: limit
       in: query
@@ -317,20 +331,6 @@ components:
         minimum: 1
         maximum: 100
         description: Defaults to 20
-    serviceIdParam:
-      name: serviceId
-      in: path
-      required: true
-      description: The ID of the service
-      schema:
-        type: string
-    cursorParam:
-      name: cursor
-      in: query
-      required: false
-      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: string
   securitySchemes:
     BearerAuth:
       type: http
