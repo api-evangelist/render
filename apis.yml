@@ -1017,6 +1017,9 @@ apis:
   - type: Vocabulary
     url: vocabulary/render-vocabulary.yml
 common:
+- type: CapabilityMap
+  url: capabilities/render-capability-edges.yml
+  name: Render Business Capability Map
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/render/overview
 - type: AgenticAccess
