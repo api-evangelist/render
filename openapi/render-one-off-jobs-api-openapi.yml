@@ -217,8 +217,8 @@ paths:
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
   responses:
-    500InternalServerError:
-      description: An unexpected server error has occurred.
+    429RateLimit:
+      description: Rate limit has been surpassed.
       content:
         application/json:
           schema:
@@ -229,8 +229,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    429RateLimit:
-      description: Rate limit has been surpassed.
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
       content:
         application/json:
           schema:
@@ -241,19 +247,41 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    401Unauthorized:
-      description: Authorization information is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
     404NotFound:
       description: Unable to find the requested resource.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
+  parameters:
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
+    serviceIdParam:
+      name: serviceId
+      in: path
+      required: true
+      description: The ID of the service
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+        description: Defaults to 20
   schemas:
+    cursor:
+      type: string
     error:
       type: object
       properties:
@@ -303,34 +331,6 @@ components:
               example: '2021-07-15T07:20:05.777035-07:00'
         cursor:
           $ref: '#/components/schemas/cursor'
-    cursor:
-      type: string
-  parameters:
-    cursorParam:
-      name: cursor
-      in: query
-      required: false
-      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: string
-    serviceIdParam:
-      name: serviceId
-      in: path
-      required: true
-      description: The ID of the service
-      schema:
-        type: string
-    limitParam:
-      name: limit
-      in: query
-      required: false
-      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: integer
-        default: 20
-        minimum: 1
-        maximum: 100
-        description: Defaults to 20
   securitySchemes:
     BearerAuth:
       type: http

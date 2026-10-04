@@ -311,33 +311,84 @@ paths:
         '503':
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
+  responses:
+    410Gone:
+      description: The requested resource is no longer available.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    409Conflict:
+      description: The current state of the resource conflicts with this request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   schemas:
-    deployWithCursor:
-      type: object
-      properties:
-        deploy:
-          $ref: '#/components/schemas/deploy'
-        cursor:
-          $ref: '#/components/schemas/cursor'
-    DeployMode:
+    cursor:
+      type: string
+    deployStatus:
       type: string
       enum:
-      - deploy_only
-      - build_and_deploy
-      description: 'Controls deployment behavior when triggering a deploy.
-
-
-        - `deploy_only`: Deploy the last successful build without rebuilding (minimizes downtime)
-
-        - `build_and_deploy`: Build new code and deploy it (default behavior when not specified)
-
-
-        **Note:** `deploy_only` cannot be combined with `commitId`, `imageUrl` or `clearCache` parameters,
-
-        as those are build related fields.
-
-        '
-      default: build_and_deploy
+      - created
+      - queued
+      - build_in_progress
+      - update_in_progress
+      - live
+      - deactivated
+      - build_failed
+      - update_failed
+      - canceled
+      - pre_deploy_in_progress
+      - pre_deploy_failed
     deploy:
       type: object
       required:
@@ -395,12 +446,6 @@ components:
         updatedAt:
           type: string
           format: date-time
-    cursor:
-      type: string
-    deployList:
-      type: array
-      items:
-        $ref: '#/components/schemas/deployWithCursor'
     error:
       type: object
       properties:
@@ -408,20 +453,36 @@ components:
           type: string
         message:
           type: string
-    deployStatus:
+    deployList:
+      type: array
+      items:
+        $ref: '#/components/schemas/deployWithCursor'
+    deployWithCursor:
+      type: object
+      properties:
+        deploy:
+          $ref: '#/components/schemas/deploy'
+        cursor:
+          $ref: '#/components/schemas/cursor'
+    DeployMode:
       type: string
       enum:
-      - created
-      - queued
-      - build_in_progress
-      - update_in_progress
-      - live
-      - deactivated
-      - build_failed
-      - update_failed
-      - canceled
-      - pre_deploy_in_progress
-      - pre_deploy_failed
+      - deploy_only
+      - build_and_deploy
+      description: 'Controls deployment behavior when triggering a deploy.
+
+
+        - `deploy_only`: Deploy the last successful build without rebuilding (minimizes downtime)
+
+        - `build_and_deploy`: Build new code and deploy it (default behavior when not specified)
+
+
+        **Note:** `deploy_only` cannot be combined with `commitId`, `imageUrl` or `clearCache` parameters,
+
+        as those are build related fields.
+
+        '
+      default: build_and_deploy
   parameters:
     limitParam:
       name: limit
@@ -434,13 +495,6 @@ components:
         minimum: 1
         maximum: 100
         description: Defaults to 20
-    cursorParam:
-      name: cursor
-      in: query
-      required: false
-      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: string
     serviceIdParam:
       name: serviceId
       in: path
@@ -455,67 +509,13 @@ components:
       description: The ID of the deploy
       schema:
         type: string
-  responses:
-    409Conflict:
-      description: The current state of the resource conflicts with this request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    410Gone:
-      description: The requested resource is no longer available.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    429RateLimit:
-      description: Rate limit has been surpassed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    404NotFound:
-      description: Unable to find the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    401Unauthorized:
-      description: Authorization information is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    406NotAcceptable:
-      description: Unable to generate preferred media types as specified by Accept request header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    500InternalServerError:
-      description: An unexpected server error has occurred.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    400BadRequest:
-      description: The request could not be understood by the server.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    503ServiceUnavailable:
-      description: Server currently unavailable.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    403Forbidden:
-      description: You do not have permissions for the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
   securitySchemes:
     BearerAuth:
       type: http

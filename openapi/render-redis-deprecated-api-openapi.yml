@@ -229,15 +229,6 @@ paths:
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
   parameters:
-    createdBeforeParam:
-      name: createdBefore
-      in: query
-      schema:
-        type: string
-        format: date-time
-      required: false
-      description: Filter for resources created before a certain time (specified as an ISO 8601 timestamp)
-      example: '2021-06-17T08:15:30Z'
     environmentIdParam:
       name: environmentId
       in: query
@@ -249,17 +240,6 @@ components:
       explode: false
       required: false
       description: Filter for resources that belong to an environment
-    limitParam:
-      name: limit
-      in: query
-      required: false
-      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: integer
-        default: 20
-        minimum: 1
-        maximum: 100
-        description: Defaults to 20
     nameParam:
       name: name
       in: query
@@ -271,13 +251,37 @@ components:
       explode: false
       required: false
       description: Filter by name
-    cursorParam:
-      name: cursor
+    limitParam:
+      name: limit
       in: query
       required: false
-      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+        description: Defaults to 20
+    createdBeforeParam:
+      name: createdBefore
+      in: query
       schema:
         type: string
+        format: date-time
+      required: false
+      description: Filter for resources created before a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-06-17T08:15:30Z'
+    regionParam:
+      name: region
+      in: query
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/region'
+      style: form
+      explode: false
+      required: false
+      description: Filter by resource region
     ownerIdParam:
       name: ownerId
       in: query
@@ -307,6 +311,13 @@ components:
       required: false
       description: Filter for resources created after a certain time (specified as an ISO 8601 timestamp)
       example: '2021-02-17T08:15:30Z'
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
     updatedBeforeParam:
       name: updatedBefore
       in: query
@@ -316,117 +327,15 @@ components:
       required: false
       description: Filter for resources updated before a certain time (specified as an ISO 8601 timestamp)
       example: '2021-06-17T08:15:30Z'
-    regionParam:
-      name: region
-      in: query
-      schema:
-        type: array
-        items:
-          $ref: '#/components/schemas/region'
-      style: form
-      explode: false
-      required: false
-      description: Filter by resource region
   schemas:
-    owner:
-      type: object
-      required:
-      - id
-      - name
-      - email
-      - type
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        email:
-          type: string
-        ipAllowList:
-          type: array
-          items:
-            $ref: '#/components/schemas/cidrBlockAndDescription'
-        twoFactorAuthEnabled:
-          type: boolean
-          description: Whether two-factor authentication is enabled for the owner. Only present if `type` is `user`.
-        type:
-          type: string
-          enum:
-          - user
-          - team
-    redisPOSTInput:
-      type: object
-      description: Input type for creating a Redis instance
-      required:
-      - name
-      - ownerId
-      - plan
-      properties:
-        name:
-          type: string
-          description: The name of the Redis instance
-        ownerId:
-          type: string
-          description: The ID of the owner of the Redis instance
-        plan:
-          $ref: '#/components/schemas/redisPlan'
-        region:
-          type: string
-          description: The region where the Redis instance is located
-        environmentId:
-          type: string
-        maxmemoryPolicy:
-          $ref: '#/components/schemas/maxmemoryPolicy'
-        ipAllowList:
-          type: array
-          items:
-            $ref: '#/components/schemas/cidrBlockAndDescription'
-    cidrBlockAndDescription:
-      type: object
-      required:
-      - cidrBlock
-      - description
-      properties:
-        cidrBlock:
-          type: string
-        description:
-          description: User-provided description of the CIDR block
-          type: string
-    redisPlan:
+    cursor:
       type: string
-      enum:
-      - free
-      - starter
-      - standard
-      - pro
-      - pro_plus
-      - custom
-      x-enum-varnames:
-      - RedisPlanFree
-      - RedisPlanStarter
-      - RedisPlanStandard
-      - RedisPlanPro
-      - RedisPlanPro_plus
-      - RedisPlanCustom
-    redisConnectionInfo:
+    redisOptions:
+      description: Options for a Redis instance
       type: object
-      description: A Redis instance
-      required:
-      - internalConnectionString
-      - externalConnectionString
-      - redisCLICommand
       properties:
-        internalConnectionString:
-          description: The connection string to use from within Render
+        maxmemoryPolicy:
           type: string
-        externalConnectionString:
-          description: The connection string to use from outside Render
-          type: string
-          format: password
-        redisCLICommand:
-          description: The Redis CLI command to connect to the Redis instance
-          type: string
-          format: password
     databaseStatus:
       type: string
       enum:
@@ -441,30 +350,6 @@ components:
       - recovery_in_progress
       - unknown
       - updating_instance
-    region:
-      type: string
-      enum:
-      - frankfurt
-      - oregon
-      - ohio
-      - singapore
-      - virginia
-      default: oregon
-      description: Defaults to "oregon"
-    cursor:
-      type: string
-    maxmemoryPolicy:
-      type: string
-      description: The eviction policy for the Key Value instance
-      enum:
-      - noeviction
-      - allkeys_lfu
-      - allkeys_lru
-      - allkeys_random
-      - volatile_lfu
-      - volatile_lru
-      - volatile_random
-      - volatile_ttl
     redis:
       type: object
       description: A Redis instance
@@ -520,44 +405,27 @@ components:
         dashboardUrl:
           type: string
           description: The URL to view the Redis instance in the Render Dashboard
-    redisPATCHInput:
-      type: object
-      description: Input type for updating a Redis instance
-      properties:
-        name:
-          type: string
-          description: The name of the Redis instance
-        plan:
-          $ref: '#/components/schemas/redisPlan'
-        maxmemoryPolicy:
-          $ref: '#/components/schemas/maxmemoryPolicy'
-        ipAllowList:
-          type: array
-          items:
-            $ref: '#/components/schemas/cidrBlockAndDescription'
-    redisWithCursor:
+    cidrBlockAndDescription:
       type: object
       required:
-      - redis
-      - cursor
+      - cidrBlock
+      - description
       properties:
-        redis:
-          $ref: '#/components/schemas/redis'
-        cursor:
-          $ref: '#/components/schemas/cursor'
-    redisOptions:
-      description: Options for a Redis instance
-      type: object
-      properties:
-        maxmemoryPolicy:
+        cidrBlock:
           type: string
-    error:
-      type: object
-      properties:
-        id:
+        description:
+          description: User-provided description of the CIDR block
           type: string
-        message:
-          type: string
+    region:
+      type: string
+      enum:
+      - frankfurt
+      - oregon
+      - ohio
+      - singapore
+      - virginia
+      default: oregon
+      description: Defaults to "oregon"
     redisDetail:
       type: object
       description: A Redis instance
@@ -630,21 +498,147 @@ components:
               description: If present, the maintenance run cannot be scheduled for later than this date-time.
             state:
               $ref: '#/paths/~1maintenance/get/parameters/2/schema/items'
+    redisPATCHInput:
+      type: object
+      description: Input type for updating a Redis instance
+      properties:
+        name:
+          type: string
+          description: The name of the Redis instance
+        plan:
+          $ref: '#/components/schemas/redisPlan'
+        maxmemoryPolicy:
+          $ref: '#/components/schemas/maxmemoryPolicy'
+        ipAllowList:
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+    redisWithCursor:
+      type: object
+      required:
+      - redis
+      - cursor
+      properties:
+        redis:
+          $ref: '#/components/schemas/redis'
+        cursor:
+          $ref: '#/components/schemas/cursor'
+    redisPlan:
+      type: string
+      enum:
+      - free
+      - starter
+      - standard
+      - pro
+      - pro_plus
+      - custom
+      x-enum-varnames:
+      - RedisPlanFree
+      - RedisPlanStarter
+      - RedisPlanStandard
+      - RedisPlanPro
+      - RedisPlanPro_plus
+      - RedisPlanCustom
+    redisPOSTInput:
+      type: object
+      description: Input type for creating a Redis instance
+      required:
+      - name
+      - ownerId
+      - plan
+      properties:
+        name:
+          type: string
+          description: The name of the Redis instance
+        ownerId:
+          type: string
+          description: The ID of the owner of the Redis instance
+        plan:
+          $ref: '#/components/schemas/redisPlan'
+        region:
+          type: string
+          description: The region where the Redis instance is located
+        environmentId:
+          type: string
+        maxmemoryPolicy:
+          $ref: '#/components/schemas/maxmemoryPolicy'
+        ipAllowList:
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+    maxmemoryPolicy:
+      type: string
+      description: The eviction policy for the Key Value instance
+      enum:
+      - noeviction
+      - allkeys_lfu
+      - allkeys_lru
+      - allkeys_random
+      - volatile_lfu
+      - volatile_lru
+      - volatile_random
+      - volatile_ttl
+    redisConnectionInfo:
+      type: object
+      description: A Redis instance
+      required:
+      - internalConnectionString
+      - externalConnectionString
+      - redisCLICommand
+      properties:
+        internalConnectionString:
+          description: The connection string to use from within Render
+          type: string
+        externalConnectionString:
+          description: The connection string to use from outside Render
+          type: string
+          format: password
+        redisCLICommand:
+          description: The Redis CLI command to connect to the Redis instance
+          type: string
+          format: password
+    owner:
+      type: object
+      required:
+      - id
+      - name
+      - email
+      - type
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        ipAllowList:
+          type: array
+          items:
+            $ref: '#/components/schemas/cidrBlockAndDescription'
+        twoFactorAuthEnabled:
+          type: boolean
+          description: Whether two-factor authentication is enabled for the owner. Only present if `type` is `user`.
+        type:
+          type: string
+          enum:
+          - user
+          - team
   responses:
-    409Conflict:
-      description: The current state of the resource conflicts with this request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    429RateLimit:
-      description: Rate limit has been surpassed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
     404NotFound:
       description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
       content:
         application/json:
           schema:
@@ -661,14 +655,20 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    400BadRequest:
-      description: The request could not be understood by the server.
+    503ServiceUnavailable:
+      description: Server currently unavailable.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    503ServiceUnavailable:
-      description: Server currently unavailable.
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    409Conflict:
+      description: The current state of the resource conflicts with this request.
       content:
         application/json:
           schema:

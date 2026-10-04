@@ -434,149 +434,6 @@ paths:
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
   schemas:
-    addUpdateEnvVarInput:
-      type: object
-      oneOf:
-      - $ref: '#/components/schemas/envVarValue'
-      - $ref: '#/components/schemas/envVarGenerateValue'
-    envGroupLink:
-      type: object
-      required:
-      - id
-      - name
-      - type
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          $ref: '#/components/schemas/serviceTypeShort'
-    envGroupPATCHInput:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-    envGroup:
-      allOf:
-      - $ref: '#/components/schemas/envGroupMeta'
-      - type: object
-        required:
-        - envVars
-        - secretFiles
-        properties:
-          envVars:
-            type: array
-            items:
-              $ref: '#/components/schemas/envVar'
-          secretFiles:
-            type: array
-            items:
-              $ref: '#/components/schemas/secretFile'
-    envVarKeyValue:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          type: string
-        value:
-          type: string
-    envGroupPOSTInput:
-      type: object
-      required:
-      - name
-      - ownerId
-      - envVars
-      properties:
-        name:
-          type: string
-        ownerId:
-          type: string
-        envVars:
-          $ref: '#/components/schemas/envVarInputArray'
-        secretFiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/secretFileInput'
-        serviceIds:
-          type: array
-          items:
-            description: List of serviceIds to link the envGroup to
-            type: string
-        environmentId:
-          type: string
-    secretFileInput:
-      type: object
-      required:
-      - name
-      - content
-      properties:
-        name:
-          type: string
-        content:
-          type: string
-    error:
-      type: object
-      properties:
-        id:
-          type: string
-        message:
-          type: string
-    serviceTypeShort:
-      type: string
-      enum:
-      - static
-      - web
-      - pserv
-      - worker
-      - cron
-    envVarInputArray:
-      type: array
-      items:
-        $ref: '#/components/schemas/envVarInput'
-    envVarValue:
-      type: object
-      required:
-      - value
-      properties:
-        value:
-          type: string
-    envVarKeyGenerateValue:
-      type: object
-      required:
-      - key
-      - generateValue
-      properties:
-        key:
-          type: string
-        generateValue:
-          type: boolean
-    envVarGenerateValue:
-      type: object
-      required:
-      - generateValue
-      properties:
-        generateValue:
-          type: boolean
-    envVar:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          type: string
-        value:
-          type: string
-    envVarInput:
-      type: object
-      oneOf:
-      - $ref: '#/components/schemas/envVarKeyValue'
-      - $ref: '#/components/schemas/envVarKeyGenerateValue'
     envGroupMeta:
       type: object
       required:
@@ -616,16 +473,150 @@ components:
           type: string
         content:
           type: string
+    envVarKeyValue:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    envGroupPOSTInput:
+      type: object
+      required:
+      - name
+      - ownerId
+      - envVars
+      properties:
+        name:
+          type: string
+        ownerId:
+          type: string
+        envVars:
+          $ref: '#/components/schemas/envVarInputArray'
+        secretFiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/secretFileInput'
+        serviceIds:
+          type: array
+          items:
+            description: List of serviceIds to link the envGroup to
+            type: string
+        environmentId:
+          type: string
+    envGroup:
+      allOf:
+      - $ref: '#/components/schemas/envGroupMeta'
+      - type: object
+        required:
+        - envVars
+        - secretFiles
+        properties:
+          envVars:
+            type: array
+            items:
+              $ref: '#/components/schemas/envVar'
+          secretFiles:
+            type: array
+            items:
+              $ref: '#/components/schemas/secretFile'
+    addUpdateEnvVarInput:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/envVarValue'
+      - $ref: '#/components/schemas/envVarGenerateValue'
+    envGroupLink:
+      type: object
+      required:
+      - id
+      - name
+      - type
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/serviceTypeShort'
+    envVarValue:
+      type: object
+      required:
+      - value
+      properties:
+        value:
+          type: string
+    envVarInputArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/envVarInput'
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+    envVarInput:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/envVarKeyValue'
+      - $ref: '#/components/schemas/envVarKeyGenerateValue'
+    envVarGenerateValue:
+      type: object
+      required:
+      - generateValue
+      properties:
+        generateValue:
+          type: boolean
+    envGroupPATCHInput:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+    secretFileInput:
+      type: object
+      required:
+      - name
+      - content
+      properties:
+        name:
+          type: string
+        content:
+          type: string
+    serviceTypeShort:
+      type: string
+      enum:
+      - static
+      - web
+      - pserv
+      - worker
+      - cron
+    envVar:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    envVarKeyGenerateValue:
+      type: object
+      required:
+      - key
+      - generateValue
+      properties:
+        key:
+          type: string
+        generateValue:
+          type: boolean
   parameters:
-    createdBeforeParam:
-      name: createdBefore
-      in: query
-      schema:
-        type: string
-        format: date-time
-      required: false
-      description: Filter for resources created before a certain time (specified as an ISO 8601 timestamp)
-      example: '2021-06-17T08:15:30Z'
     environmentIdParam:
       name: environmentId
       in: query
@@ -637,6 +628,31 @@ components:
       explode: false
       required: false
       description: Filter for resources that belong to an environment
+    nameParam:
+      name: name
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+      description: Filter by name
+    envVarKeyParam:
+      name: envVarKey
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The name of the environment variable
+    secretFileNameParam:
+      name: secretFileName
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The name of the secret file
     limitParam:
       name: limit
       in: query
@@ -648,41 +664,15 @@ components:
         minimum: 1
         maximum: 100
         description: Defaults to 20
-    envGroupIdParam:
-      name: envGroupId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Filter for resources that belong to an environment group
-    cursorParam:
-      name: cursor
+    createdBeforeParam:
+      name: createdBefore
       in: query
+      schema:
+        type: string
+        format: date-time
       required: false
-      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: string
-    serviceIdParam:
-      name: serviceId
-      in: path
-      required: true
-      description: The ID of the service
-      schema:
-        type: string
-    secretFileNameParam:
-      name: secretFileName
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The name of the secret file
-    envVarKeyParam:
-      name: envVarKey
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The name of the environment variable
+      description: Filter for resources created before a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-06-17T08:15:30Z'
     ownerIdParam:
       name: ownerId
       in: query
@@ -703,6 +693,13 @@ components:
       required: false
       description: Filter for resources updated after a certain time (specified as an ISO 8601 timestamp)
       example: '2021-06-17T08:15:30Z'
+    serviceIdParam:
+      name: serviceId
+      in: path
+      required: true
+      description: The ID of the service
+      schema:
+        type: string
     createdAfterParam:
       name: createdAfter
       in: query
@@ -712,6 +709,20 @@ components:
       required: false
       description: Filter for resources created after a certain time (specified as an ISO 8601 timestamp)
       example: '2021-02-17T08:15:30Z'
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
+    envGroupIdParam:
+      name: envGroupId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Filter for resources that belong to an environment group
     updatedBeforeParam:
       name: updatedBefore
       in: query
@@ -721,26 +732,15 @@ components:
       required: false
       description: Filter for resources updated before a certain time (specified as an ISO 8601 timestamp)
       example: '2021-06-17T08:15:30Z'
-    nameParam:
-      name: name
-      in: query
-      schema:
-        type: array
-        items:
-          type: string
-      style: form
-      explode: false
-      required: false
-      description: Filter by name
   responses:
-    429RateLimit:
-      description: Rate limit has been surpassed.
+    404NotFound:
+      description: Unable to find the requested resource.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    404NotFound:
-      description: Unable to find the requested resource.
+    400BadRequest:
+      description: The request could not be understood by the server.
       content:
         application/json:
           schema:
@@ -757,14 +757,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    400BadRequest:
-      description: The request could not be understood by the server.
+    503ServiceUnavailable:
+      description: Server currently unavailable.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-    503ServiceUnavailable:
-      description: Server currently unavailable.
+    429RateLimit:
+      description: Rate limit has been surpassed.
       content:
         application/json:
           schema:

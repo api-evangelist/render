@@ -237,40 +237,74 @@ paths:
         '503':
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
+  parameters:
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
+    ownerIdParam:
+      name: ownerId
+      in: query
+      description: The ID of the workspaces to return resources for
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+    limitParam:
+      name: limit
+      in: query
+      required: false
+      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+        description: Defaults to 20
+  responses:
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   schemas:
-    webhookWithCursor:
-      type: object
-      required:
-      - webhook
-      - cursor
-      properties:
-        webhook:
-          type: object
-          required:
-          - id
-          - name
-          - url
-          - secret
-          - enabled
-          - eventFilter
-          properties:
-            id:
-              $ref: '#/paths/~1webhooks~1%7BwebhookId%7D/parameters/0/schema'
-            url:
-              type: string
-            name:
-              type: string
-            secret:
-              type: string
-            enabled:
-              type: boolean
-            eventFilter:
-              type: array
-              description: The event types that will trigger the webhook. An empty list means all event types will trigger the webhook.
-              items:
-                $ref: '#/components/schemas/webhookEventWithCursor/properties/webhookEvent/properties/eventType'
-        cursor:
-          $ref: '#/components/schemas/cursor'
     webhookEventWithCursor:
       type: object
       required:
@@ -367,6 +401,8 @@ components:
               description: error is populated when an error occurs without a response such as a timeout
         cursor:
           $ref: '#/components/schemas/cursor'
+    cursor:
+      type: string
     error:
       type: object
       properties:
@@ -374,75 +410,39 @@ components:
           type: string
         message:
           type: string
-    cursor:
-      type: string
-  responses:
-    500InternalServerError:
-      description: An unexpected server error has occurred.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    400BadRequest:
-      description: The request could not be understood by the server.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    429RateLimit:
-      description: Rate limit has been surpassed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    503ServiceUnavailable:
-      description: Server currently unavailable.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    401Unauthorized:
-      description: Authorization information is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    404NotFound:
-      description: Unable to find the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-  parameters:
-    cursorParam:
-      name: cursor
-      in: query
-      required: false
-      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: string
-    limitParam:
-      name: limit
-      in: query
-      required: false
-      description: The maximum number of items to return. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
-      schema:
-        type: integer
-        default: 20
-        minimum: 1
-        maximum: 100
-        description: Defaults to 20
-    ownerIdParam:
-      name: ownerId
-      in: query
-      description: The ID of the workspaces to return resources for
-      schema:
-        type: array
-        items:
-          type: string
-      style: form
-      explode: false
-      required: false
+    webhookWithCursor:
+      type: object
+      required:
+      - webhook
+      - cursor
+      properties:
+        webhook:
+          type: object
+          required:
+          - id
+          - name
+          - url
+          - secret
+          - enabled
+          - eventFilter
+          properties:
+            id:
+              $ref: '#/paths/~1webhooks~1%7BwebhookId%7D/parameters/0/schema'
+            url:
+              type: string
+            name:
+              type: string
+            secret:
+              type: string
+            enabled:
+              type: boolean
+            eventFilter:
+              type: array
+              description: The event types that will trigger the webhook. An empty list means all event types will trigger the webhook.
+              items:
+                $ref: '#/components/schemas/webhookEventWithCursor/properties/webhookEvent/properties/eventType'
+        cursor:
+          $ref: '#/components/schemas/cursor'
   securitySchemes:
     BearerAuth:
       type: http

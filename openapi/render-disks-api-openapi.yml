@@ -328,15 +328,81 @@ paths:
         '503':
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
+  responses:
+    410Gone:
+      description: The requested resource is no longer available.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   parameters:
-    createdBeforeParam:
-      name: createdBefore
+    nameParam:
+      name: name
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      required: false
+      description: Filter by name
+    updatedBeforeParam:
+      name: updatedBefore
       in: query
       schema:
         type: string
         format: date-time
       required: false
-      description: Filter for resources created before a certain time (specified as an ISO 8601 timestamp)
+      description: Filter for resources updated before a certain time (specified as an ISO 8601 timestamp)
       example: '2021-06-17T08:15:30Z'
     limitParam:
       name: limit
@@ -349,23 +415,15 @@ components:
         minimum: 1
         maximum: 100
         description: Defaults to 20
-    serviceIdsParam:
-      name: serviceId
+    createdBeforeParam:
+      name: createdBefore
       in: query
-      description: Filter for resources by service ID
-      schema:
-        type: array
-        items:
-          type: string
-      style: form
-      required: false
-    cursorParam:
-      name: cursor
-      in: query
-      required: false
-      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
       schema:
         type: string
+        format: date-time
+      required: false
+      description: Filter for resources created before a certain time (specified as an ISO 8601 timestamp)
+      example: '2021-06-17T08:15:30Z'
     ownerIdParam:
       name: ownerId
       in: query
@@ -386,15 +444,6 @@ components:
       required: false
       description: Filter for resources updated after a certain time (specified as an ISO 8601 timestamp)
       example: '2021-06-17T08:15:30Z'
-    updatedBeforeParam:
-      name: updatedBefore
-      in: query
-      schema:
-        type: string
-        format: date-time
-      required: false
-      description: Filter for resources updated before a certain time (specified as an ISO 8601 timestamp)
-      example: '2021-06-17T08:15:30Z'
     createdAfterParam:
       name: createdAfter
       in: query
@@ -404,21 +453,38 @@ components:
       required: false
       description: Filter for resources created after a certain time (specified as an ISO 8601 timestamp)
       example: '2021-02-17T08:15:30Z'
-    nameParam:
-      name: name
+    serviceIdsParam:
+      name: serviceId
       in: query
+      description: Filter for resources by service ID
       schema:
         type: array
         items:
           type: string
       style: form
-      explode: false
       required: false
-      description: Filter by name
+    cursorParam:
+      name: cursor
+      in: query
+      required: false
+      description: The position in the result list to start from when fetching paginated results. For details, see [Pagination](https://api-docs.render.com/reference/pagination).
+      schema:
+        type: string
   schemas:
+    cursor:
+      type: string
     instanceId:
       description: When a service with a disk is scaled, the instanceId is used to identify the instance that the disk is attached to. Each instance's disks get their own snapshots, and can be restored separately.
       type: string
+    snapshotRestorePOST:
+      type: object
+      required:
+      - snapshotKey
+      properties:
+        snapshotKey:
+          type: string
+        instanceId:
+          $ref: '#/components/schemas/instanceId'
     diskWithCursor:
       required:
       - disk
@@ -453,17 +519,6 @@ components:
               format: date-time
         cursor:
           $ref: '#/components/schemas/cursor'
-    snapshotRestorePOST:
-      type: object
-      required:
-      - snapshotKey
-      properties:
-        snapshotKey:
-          type: string
-        instanceId:
-          $ref: '#/components/schemas/instanceId'
-    cursor:
-      type: string
     error:
       type: object
       properties:
@@ -481,61 +536,6 @@ components:
           type: string
         instanceId:
           $ref: '#/components/schemas/instanceId'
-  responses:
-    410Gone:
-      description: The requested resource is no longer available.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    429RateLimit:
-      description: Rate limit has been surpassed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    404NotFound:
-      description: Unable to find the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    401Unauthorized:
-      description: Authorization information is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    406NotAcceptable:
-      description: Unable to generate preferred media types as specified by Accept request header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    500InternalServerError:
-      description: An unexpected server error has occurred.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    400BadRequest:
-      description: The request could not be understood by the server.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    503ServiceUnavailable:
-      description: Server currently unavailable.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    403Forbidden:
-      description: You do not have permissions for the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
   securitySchemes:
     BearerAuth:
       type: http

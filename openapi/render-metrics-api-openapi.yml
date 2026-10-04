@@ -806,29 +806,7 @@ paths:
         '500':
           $ref: '#/components/responses/500InternalServerError'
 components:
-  responses:
-    500InternalServerError:
-      description: An unexpected server error has occurred.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    400BadRequest:
-      description: The request could not be understood by the server.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
   parameters:
-    endTimeParam:
-      name: endTime
-      in: query
-      schema:
-        type: string
-        format: date-time
-        example: '2021-06-17T08:30:30Z'
-      required: false
-      description: Epoch/Unix timestamp of end of time range to return. Defaults to `now()`.
     startTimeParam:
       name: startTime
       in: query
@@ -838,6 +816,28 @@ components:
         example: '2021-06-17T08:15:30Z'
       required: false
       description: Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`.
+    endTimeParam:
+      name: endTime
+      in: query
+      schema:
+        type: string
+        format: date-time
+        example: '2021-06-17T08:30:30Z'
+      required: false
+      description: Epoch/Unix timestamp of end of time range to return. Defaults to `now()`.
+  responses:
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   schemas:
     error:
       type: object
