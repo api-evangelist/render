@@ -1,0 +1,12 @@
+fetched: '2026-10-13'
+method: fetched
+source: https://render.com/docs/postgresql-creating-connecting
+page: https://render.com/docs/postgresql-creating-connecting
+file: render-postgres-wire-1.md
+bytes: 22328
+sha256: 43e52576d82d3ff76999b6b8d8727191744e8e7bdb60340245164630af5a4f7c
+anchor: postgresql
+shape: postgres-wire
+classification: no-compatibility-statement
+quote: null
+note: text extracted from the provider's own page (tags stripped), saved for evidence
