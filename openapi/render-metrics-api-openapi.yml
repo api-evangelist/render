@@ -807,15 +807,6 @@ paths:
           $ref: '#/components/responses/500InternalServerError'
 components:
   parameters:
-    startTimeParam:
-      name: startTime
-      in: query
-      schema:
-        type: string
-        format: date-time
-        example: '2021-06-17T08:15:30Z'
-      required: false
-      description: Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`.
     endTimeParam:
       name: endTime
       in: query
@@ -825,6 +816,15 @@ components:
         example: '2021-06-17T08:30:30Z'
       required: false
       description: Epoch/Unix timestamp of end of time range to return. Defaults to `now()`.
+    startTimeParam:
+      name: startTime
+      in: query
+      schema:
+        type: string
+        format: date-time
+        example: '2021-06-17T08:15:30Z'
+      required: false
+      description: Epoch/Unix timestamp of start of time range to return. Defaults to `now() - 1 hour`.
   responses:
     400BadRequest:
       description: The request could not be understood by the server.

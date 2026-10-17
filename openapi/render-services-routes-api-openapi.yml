@@ -248,100 +248,7 @@ paths:
         '503':
           $ref: '#/components/responses/503ServiceUnavailable'
 components:
-  responses:
-    410Gone:
-      description: The requested resource is no longer available.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    403Forbidden:
-      description: You do not have permissions for the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    404NotFound:
-      description: Unable to find the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    400BadRequest:
-      description: The request could not be understood by the server.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    401Unauthorized:
-      description: Authorization information is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    500InternalServerError:
-      description: An unexpected server error has occurred.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    503ServiceUnavailable:
-      description: Server currently unavailable.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    429RateLimit:
-      description: Rate limit has been surpassed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-    406NotAcceptable:
-      description: Unable to generate preferred media types as specified by Accept request header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
   schemas:
-    routePost:
-      type: object
-      required:
-      - type
-      - source
-      - destination
-      properties:
-        type:
-          $ref: '#/components/schemas/routeType'
-        source:
-          type: string
-          example: /:bar/foo
-        destination:
-          type: string
-          example: /foo/:bar
-        priority:
-          type: integer
-          description: Redirect and Rewrite Rules are applied in priority order starting at 0. Defaults to last in the priority list.
-    route:
-      type: object
-      required:
-      - id
-      - type
-      - source
-      - destination
-      - priority
-      properties:
-        id:
-          type: string
-        type:
-          $ref: '#/components/schemas/routeType'
-        source:
-          type: string
-        destination:
-          type: string
-        priority:
-          type: integer
-          description: Redirect and Rewrite Rules are applied in priority order starting at 0
     routeWithCursor:
       type: object
       required:
@@ -388,7 +295,107 @@ components:
           type: string
         message:
           type: string
+    routePost:
+      type: object
+      required:
+      - type
+      - source
+      - destination
+      properties:
+        type:
+          $ref: '#/components/schemas/routeType'
+        source:
+          type: string
+          example: /:bar/foo
+        destination:
+          type: string
+          example: /foo/:bar
+        priority:
+          type: integer
+          description: Redirect and Rewrite Rules are applied in priority order starting at 0. Defaults to last in the priority list.
+    route:
+      type: object
+      required:
+      - id
+      - type
+      - source
+      - destination
+      - priority
+      properties:
+        id:
+          type: string
+        type:
+          $ref: '#/components/schemas/routeType'
+        source:
+          type: string
+        destination:
+          type: string
+        priority:
+          type: integer
+          description: Redirect and Rewrite Rules are applied in priority order starting at 0
+  responses:
+    503ServiceUnavailable:
+      description: Server currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    401Unauthorized:
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    404NotFound:
+      description: Unable to find the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    500InternalServerError:
+      description: An unexpected server error has occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    400BadRequest:
+      description: The request could not be understood by the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    410Gone:
+      description: The requested resource is no longer available.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    429RateLimit:
+      description: Rate limit has been surpassed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    403Forbidden:
+      description: You do not have permissions for the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    406NotAcceptable:
+      description: Unable to generate preferred media types as specified by Accept request header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   parameters:
+    serviceIdParam:
+      name: serviceId
+      in: path
+      required: true
+      description: The ID of the service
+      schema:
+        type: string
     limitParam:
       name: limit
       in: query
@@ -400,13 +407,6 @@ components:
         minimum: 1
         maximum: 100
         description: Defaults to 20
-    serviceIdParam:
-      name: serviceId
-      in: path
-      required: true
-      description: The ID of the service
-      schema:
-        type: string
     cursorParam:
       name: cursor
       in: query
